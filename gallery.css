@@ -1034,13 +1034,70 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
+  /* ---- Zoom modal ---- */
   .zm-stage { flex-direction: column; gap: 20px; max-height: 88vh; }
-  .zm-frame { height: 60vh; }
+  .zm-frame { height: 55vh; }
   .zm-label { width: 90vw; text-align: center; align-items: center; }
   .zm-label-meta { justify-content: center; }
-  .hall-strip { padding: 0 60px; gap: 60px; }
-  .nav-arrow { width: 44px; height: 44px; }
+
+  /* ---- App bar ---- */
   .app-bar-brand { display: none; }
+  .app-bar-tab { padding: 8px 12px; font-size: 11px; }
+
+  /* ---- Hallway themes: scale frames down for portrait screens ---- */
+  .hall-strip { padding: 0 30px; gap: 36px; }
+  .nav-arrow  { width: 44px; height: 44px; font-size: 18px; }
+  /* Cap frame height so nothing overflows the viewport */
+  .wp-frame {
+    height: min(var(--h), 44vh) !important;
+    width:  min(var(--w), calc(44vh * var(--w) / var(--h))) !important;
+  }
+  .wall-piece {
+    width: min(var(--w), calc(44vh * var(--w) / var(--h))) !important;
+  }
+
+  /* ---- Wall (Parede de Galeria) theme: drop absolute layout → scrollable 2-col grid ---- */
+  .gallery-wall {
+    overflow-y: auto !important;
+    overflow-x: hidden;
+  }
+  .gw-room {
+    position: static !important;
+    height: auto !important;
+    container-type: normal; /* turn off cqh so grid works */
+  }
+  .gw-board {
+    position: static !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 12px;
+    padding: 72px 12px 32px; /* clear the fixed app-bar */
+    align-items: start;
+  }
+  /* Override the inline left/top/width that come from JS */
+  .gw-piece {
+    position: relative !important;
+    left:  auto !important;
+    top:   auto !important;
+    width: 100% !important;
+    animation: none; /* remove stagger delay on grid */
+  }
+  /* Show the label always (no hover on touch) */
+  .gw-tag {
+    position: static !important;
+    left:      auto !important;
+    transform: none !important;
+    margin-top: 6px;
+    color: rgba(40,40,40,0.7) !important;
+    white-space: normal;
+  }
+  .gw-tag-title { font-size: 13px; }
+  .gw-tag-meta  { font-size: 10px; }
+  /* Slightly simpler shadow on mobile */
+  .gw-piece:hover {
+    transform: none;
+    filter: none;
+  }
 }
 
 /* ============================================================
