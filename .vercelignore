@@ -1,0 +1,15 @@
+# Intake tray — never served publicly
+intake/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Local
+*.local
+.env
+.env.*
+!.env.example

@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Vercel
+.vercel/
+
+# Node (only if you ever add tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# Local
+*.local
+.env
+.env.*
+!.env.example
+
+# Project housekeeping (never deploy these)
+screenshots/
+uploads/
+.thumbnail
+
+# Intake tray — track the folder and forms, but not unprocessed originals
+# (photos move to assets/art/ on processing; nothing should sit here long-term)
+# Uncomment the line below if you want to fully exclude large raw photos:
+# intake/*.jpeg
+# intake/*.jpg
+# intake/*.png
