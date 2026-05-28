@@ -11,8 +11,8 @@ Tira (ou escolhe) a foto da obra e dá-lhe um nome lowercase e hifenizado:
 - Padrão: `<artista>-<substantivo-curto>.jpeg` (ou `.jpg`, `.png`)
 - Exemplos: `miguel-gato-cubista.jpeg`, `muna-borboleta.jpeg`
 
-Guarda o ficheiro nesta pasta (`intake/`). Não precisas de fazer mais nada com a foto —
-**o script de otimização trata do resto** (passo 2).
+Guarda o ficheiro nesta pasta (`intake/`). **Não precisas de fazer mais nada com a foto** —
+o Claude Code trata da otimização automaticamente quando processar a entrada.
 
 > **iPhone (HEIC)?** Exporta como JPEG antes de copiar:
 > nas Fotos do iPhone escolhe "Partilhar → ficheiro" e seleciona JPEG.
@@ -20,27 +20,7 @@ Guarda o ficheiro nesta pasta (`intake/`). Não precisas de fazer mais nada com 
 
 ---
 
-## Passo 2 — Otimizar a foto (substitui o Squoosh)
-
-No terminal, dentro da pasta do projeto:
-
-```powershell
-# Primeira vez — instala o Sharp (MozJPEG):
-npm install
-
-# Depois, para cada nova obra:
-node scripts/optimize.js miguel-gato-cubista.jpeg
-```
-
-O script:
-- Roda a foto para a posição certa (EXIF automático)
-- Redimensiona para que o lado longo fique ≤ 3000px
-- Comprime com MozJPEG a qualidade 78 — o mesmo codec do Squoosh
-- Guarda como `intake/miguel-gato-cubista.jpeg` e mostra dimensões + poupança em KB
-
----
-
-## Passo 3 — Preencher o formulário
+## Passo 2 — Preencher o formulário
 
 1. Duplica o ficheiro `TEMPLATE.md` e dá-lhe o mesmo nome base da foto:
    - Foto: `miguel-gato-cubista.jpeg` → Formulário: `miguel-gato-cubista.md`

@@ -19,15 +19,16 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 
 1. **Read the intake form** (`intake/<name>.md`). Extract: photo filename, artist, age, year, title suggestion, context, kid's description, animation hints.
 2. **Confirm the photo** is in `intake/` with the correct naming convention (ART_GUIDE §7). If not, ask.
-3. **Optimize the photo** — run the optimizer script (replaces the manual Squoosh step):
+3. **Optimize the photo** — run this automatically before doing anything else with the image.
+   The user never runs this; it is Claude's job:
    ```powershell
-   # First time only — installs Sharp (MozJPEG encoder):
-   npm install
-   # Then optimize:
+   # Install Sharp if node_modules is absent (first time only):
+   if (-not (Test-Path node_modules)) { npm install }
+   # Optimize:
    node scripts/optimize.js <filename>
    ```
    This auto-rotates (EXIF), resizes to ≤ 3000px, and compresses with MozJPEG q=78.
-   The output is `intake/<name>.jpeg` — use that file going forward.
+   The output is `intake/<name>.jpeg` — use that path for all subsequent steps.
 4. **Read image dimensions** using PowerShell:
    ```powershell
    Add-Type -AssemblyName System.Drawing
