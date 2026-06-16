@@ -114,17 +114,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .er-stage {
   position: relative;
   overflow: hidden;
-  /* aspect-ratio set inline from art.w / art.h */
-  /* modern CSS: width:100% + aspect-ratio + max-height:100%
-     correctly shrinks width when height would exceed container */
-  width: 100%;
-  max-height: 100%;
-  max-width: 100%;
+  /* width + height set as explicit px by ResizeObserver in JS (portrait/landscape safe) */
+  flex-shrink: 0;
   border-radius: 3px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
 }

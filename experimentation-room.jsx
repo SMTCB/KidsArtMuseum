@@ -10,7 +10,7 @@
 // Exports window.ExperimentationRoom for gallery-core.jsx.
 // ============================================================
 
-const { useState: erState, useEffect: erEffect } = React;
+const { useState: erState, useEffect: erEffect, useRef: erRef } = React;
 
 const ER_GROUP_LABELS = {
   gestos:  "Gestos",
@@ -43,6 +43,34 @@ function ExperimentationRoom({ art, onClose }) {
   const activeTpl  = library.find(t => t.id === activeId) || null;
   const Anim       = activeTpl && window.ANIMS && window.ANIMS[activeTpl.anim];
   const inGroup    = library.filter(t => t.group === activeGroup);
+
+  // Compute stage size so the artwork always fills without distortion.
+  // Pure-CSS aspect-ratio clamping is unreliable in this flex context (see
+  // bug: portrait artwork stage becomes landscape because max-height:100%
+  // doesn't trigger proportional width reduction in all browsers).
+  const wrapRef    = erRef(null);
+  const [stageSize, setStageSize] = erState(null);
+
+  erEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const ratio = art.w / art.h;
+    const compute = () => {
+      const { width, height } = wrap.getBoundingClientRect();
+      if (!width || !height) return;
+      let w, h;
+      if (width / height > ratio) {
+        h = height; w = Math.round(h * ratio);
+      } else {
+        w = width;  h = Math.round(w / ratio);
+      }
+      setStageSize({ width: w, height: h });
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(wrap);
+    return () => ro.disconnect();
+  }, [art.w, art.h]);
 
   // ESC closes the room
   erEffect(() => {
@@ -83,10 +111,13 @@ function ExperimentationRoom({ art, onClose }) {
 
         {/* Left — live preview */}
         <div className="er-preview-panel">
-          <div className="er-stage-wrap">
+          <div className="er-stage-wrap" ref={wrapRef}>
             <div
               className="er-stage"
-              style={{ aspectRatio: `${art.w} / ${art.h}` }}
+              style={stageSize
+                ? { width: stageSize.width + "px", height: stageSize.height + "px" }
+                : { aspectRatio: `${art.w} / ${art.h}`, width: "100%", maxHeight: "100%" }
+              }
             >
               {Anim
                 ? <Anim art={art} key={activeId} />
