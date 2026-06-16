@@ -1,0 +1,170 @@
+/* ============================================================
+   FMB / ART — Treatment Library (batch 3)
+   Styles for Holograma, Persiana, Mosaico, Carimbo, Cromático.
+   Reuses .tpl-layer / .tpl-img / .tpl-hint from art-templates.css.
+   ============================================================ */
+
+/* ============================================================
+   6 · HOLOGRAMA
+   ============================================================ */
+.tpl-holo {
+  perspective: 1000px;
+  cursor: crosshair;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+}
+.holo-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 120ms ease-out;
+  will-change: transform;
+}
+.holo-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+  background-image:
+    repeating-linear-gradient(115deg,
+      rgba(255, 0, 90, 0.35) 0%, rgba(255, 230, 0, 0.3) 8%,
+      rgba(0, 255, 160, 0.32) 16%, rgba(0, 170, 255, 0.34) 24%,
+      rgba(180, 0, 255, 0.3) 32%, rgba(255, 0, 90, 0.35) 40%);
+  background-size: 220% 220%;
+  transition: opacity 200ms ease;
+}
+.holo-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* ============================================================
+   7 · PERSIANA
+   ============================================================ */
+.tpl-blind {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  perspective: 1100px;
+}
+.blind-slat {
+  width: 100%;
+  background-repeat: no-repeat;
+  transform-style: preserve-3d;
+  transition: transform 520ms cubic-bezier(.6, 0, .2, 1);
+  backface-visibility: hidden;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+.blind-slat.is-open {
+  transform: rotateX(82deg);
+}
+
+/* ============================================================
+   8 · MOSAICO
+   ============================================================ */
+.tpl-mosaic { cursor: pointer; }
+.mosaic-src {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.mosaic-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================================================
+   9 · CARIMBO
+   ============================================================ */
+.tpl-stamp { cursor: pointer; }
+.stamp-mark {
+  position: absolute;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 3;
+  animation: stampIn 280ms cubic-bezier(.2, 1.4, .35, 1) both;
+}
+@keyframes stampIn {
+  0%   { transform: translate(-50%, -50%) rotate(var(--r, 0)) scale(1.5); opacity: 0; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+.stamp-ghost {
+  position: absolute;
+  inset: 18%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.14;
+  filter: grayscale(1);
+}
+
+/* ============================================================
+   10 · CROMÁTICO
+   ============================================================ */
+.tpl-chroma {
+  cursor: pointer;
+  background: #000;
+}
+.chroma-defs { position: absolute; width: 0; height: 0; }
+.chroma-ch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+}
+.chroma-r { animation: chrR 3.6s ease-in-out infinite; }
+.chroma-b { animation: chrB 3.6s ease-in-out infinite; }
+.chroma-g { animation: chrG 3.6s ease-in-out infinite; }
+@keyframes chrR { 0%, 100% { transform: translate(-2px, 0); } 50% { transform: translate(-5px, 1px); } }
+@keyframes chrB { 0%, 100% { transform: translate(2px, 0); } 50% { transform: translate(5px, -1px); } }
+@keyframes chrG { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(0, -1px); } }
+
+.tpl-chroma.is-glitch .chroma-r { animation: chrGlitchR 0.62s steps(2) both; }
+.tpl-chroma.is-glitch .chroma-b { animation: chrGlitchB 0.62s steps(2) both; }
+.tpl-chroma.is-glitch .chroma-g { animation: chrGlitchG 0.62s steps(3) both; }
+@keyframes chrGlitchR {
+  0% { transform: translate(-20px, -6px); clip-path: inset(0 0 62% 0); }
+  30% { transform: translate(16px, 4px); clip-path: inset(40% 0 18% 0); }
+  60% { transform: translate(-12px, 8px); clip-path: inset(72% 0 0 0); }
+  100% { transform: translate(-2px, 0); clip-path: inset(0 0 0 0); }
+}
+@keyframes chrGlitchB {
+  0% { transform: translate(20px, 6px); clip-path: inset(8% 0 70% 0); }
+  30% { transform: translate(-16px, -4px); clip-path: inset(48% 0 10% 0); }
+  60% { transform: translate(12px, -8px); clip-path: inset(80% 0 0 0); }
+  100% { transform: translate(2px, 0); clip-path: inset(0 0 0 0); }
+}
+@keyframes chrGlitchG {
+  0% { transform: translate(6px, -3px); }
+  50% { transform: translate(-6px, 3px); }
+  100% { transform: translate(0, 0); }
+}
+.chroma-scan {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 2px,
+    transparent 3px);
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}

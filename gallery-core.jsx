@@ -111,6 +111,7 @@ function PlainAnim({ art }) {
 function ZoomModal({ art, onClose, theme }) {
   const [showDots, setShowDots] = useState(false);
   const [game, setGame] = useState(false);
+  const [showRoom, setShowRoom] = useState(false);   // ← Experimentation Room
   const Anim = (window.ANIMS && window.ANIMS[art.anim]) || PlainAnim;
 
   useEffect(() => {
@@ -128,6 +129,12 @@ function ZoomModal({ art, onClose, theme }) {
     const t = setTimeout(() => setShowDots(true), 650);
     return () => clearTimeout(t);
   }, []);
+
+  // ── Open the Experimentation Room ──
+  if (showRoom) {
+    const ExperiRoom = window.ExperimentationRoom || PlainAnim;
+    return <ExperiRoom art={art} onClose={() => setShowRoom(false)} />;
+  }
 
   return (
     <div className={"zoom-modal theme-" + theme} onClick={onClose}>
@@ -155,6 +162,10 @@ function ZoomModal({ art, onClose, theme }) {
               🎨 Pinta o teu próprio
             </button>
           )}
+          {/* ── Experimentation Room button ── */}
+          <button className="zm-cta zm-cta-room" onClick={() => setShowRoom(true)}>
+            🔬 Sala de Experimentação
+          </button>
         </div>
       </div>
 

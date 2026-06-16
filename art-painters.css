@@ -1,0 +1,278 @@
+/* ============================================================
+   FMB / ART — "À maneira dos mestres"
+   Painter-identity treatment styles. Pairs with art-painters.jsx.
+   Reuses .tpl-layer / .tpl-img / .tpl-hint from art-templates.css.
+   ============================================================ */
+
+/* ============================================================
+   MONDRIAN
+   ============================================================ */
+.tpl-mondrian { cursor: default; }
+.mond-cell {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  transform-origin: center;
+  animation: mondPop 460ms cubic-bezier(.2, 1.3, .35, 1) both;
+  transition: background 240ms ease;
+}
+@keyframes mondPop { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.mond-line {
+  position: absolute;
+  z-index: 4;
+  background: #111;
+  pointer-events: none;
+  animation: mondDraw 520ms ease-out both;
+}
+.mond-v { top: 0; bottom: 0; width: 7px; transform: translateX(-50%); transform-origin: top; }
+.mond-h { left: 0; right: 0; height: 7px; transform: translateY(-50%); transform-origin: left; }
+@keyframes mondDraw { from { transform: scaleY(0) translateX(-50%); } to { transform: scaleY(1) translateX(-50%); } }
+
+/* ============================================================
+   PICASSO
+   ============================================================ */
+.tpl-picasso { cursor: pointer; }
+.cubi-plane {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 240ms cubic-bezier(.3, .8, .3, 1);
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.6));
+  will-change: transform;
+}
+
+/* ============================================================
+   POLLOCK
+   ============================================================ */
+.tpl-pollock { cursor: pointer; }
+.pollock-base { opacity: 0.82; }
+.pollock-blob {
+  position: absolute;
+  border-radius: 48% 52% 56% 44% / 50% 46% 54% 50%;
+  z-index: 3;
+  pointer-events: none;
+  animation: pollockIn 320ms ease-out both;
+}
+.pollock-blob::after {
+  content: "";
+  position: absolute;
+  left: 46%;
+  top: 70%;
+  width: 14%;
+  height: var(--drip, 30px);
+  background: inherit;
+  border-radius: 0 0 60% 60%;
+  transform: translateX(-50%);
+}
+@keyframes pollockIn { from { transform: translate(-50%, -50%) scale(0); } to { } }
+
+/* ============================================================
+   KUSAMA
+   ============================================================ */
+.tpl-kusama { cursor: pointer; }
+.kusama-base { mix-blend-mode: luminosity; opacity: 0.92; }
+.kusama-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, #18120a 22%, transparent 24%),
+    radial-gradient(circle, #f5d014 20%, transparent 22%);
+  background-size: 46px 46px, 46px 46px;
+  background-position: 0 0, 23px 23px;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  animation: kusamaBreathe 4.5s ease-in-out infinite;
+}
+@keyframes kusamaBreathe {
+  0%, 100% { background-size: 46px 46px, 46px 46px; }
+  50% { background-size: 52px 52px, 40px 40px; }
+}
+.kusama-dot {
+  position: absolute;
+  z-index: 3;
+  border-radius: 50%;
+  background: #18120a;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: kusamaPop 420ms cubic-bezier(.2, 1.4, .35, 1) both;
+}
+@keyframes kusamaPop { from { transform: translate(-50%, -50%) scale(0); } to { transform: translate(-50%, -50%) scale(1); } }
+
+/* ============================================================
+   VAN GOGH
+   ============================================================ */
+.tpl-vangogh { overflow: hidden; }
+.vg-img { transform: scale(1.16); }
+.vg-swirl {
+  position: absolute;
+  inset: -20%;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    conic-gradient(from 0deg at 32% 38%, transparent 0deg, rgba(245, 208, 60, 0.22) 60deg, transparent 130deg),
+    conic-gradient(from 180deg at 70% 64%, transparent 0deg, rgba(120, 180, 240, 0.2) 70deg, transparent 150deg);
+  mix-blend-mode: screen;
+  animation: vgSpin 22s linear infinite;
+}
+.vg-swirl-2 { animation: vgSpin 30s linear infinite reverse; opacity: 0.7; }
+@keyframes vgSpin { to { transform: rotate(360deg); } }
+.vg-star {
+  position: absolute;
+  z-index: 3;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff7d0 0%, #f5d014 40%, transparent 70%);
+  box-shadow: 0 0 14px rgba(245, 220, 120, 0.8);
+  pointer-events: none;
+  animation: vgTwinkle 3.4s ease-in-out infinite;
+}
+@keyframes vgTwinkle { 0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.7); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+
+/* ============================================================
+   KLIMT
+   ============================================================ */
+.tpl-klimt { cursor: pointer; overflow: hidden; }
+.klimt-img { filter: sepia(0.4) saturate(1.15) contrast(1.05) brightness(1.02); }
+.klimt-ornament {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle, rgba(212, 175, 55, 0.9) 16%, transparent 18%),
+    radial-gradient(circle, rgba(120, 86, 12, 0.7) 9%, transparent 11%);
+  background-size: 34px 34px, 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+.klimt-spirals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+  background-image: repeating-conic-gradient(from 0deg, rgba(212, 175, 55, 0.5) 0deg 10deg, transparent 10deg 20deg);
+  background-size: 90px 90px;
+  background-repeat: repeat;
+}
+.klimt-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border: 10px solid transparent;
+  border-image: linear-gradient(135deg, #f7e08a, #b8860b, #f7e08a, #8a6508) 1;
+}
+.klimt-sheen {
+  position: absolute;
+  inset: -50%;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 240, 180, 0.7) 50%, transparent 60%);
+  animation: klimtSweep 2.4s ease-in-out infinite;
+}
+@keyframes klimtSweep {
+  0% { transform: translateX(-60%) translateY(-30%); }
+  100% { transform: translateX(60%) translateY(30%); }
+}
+
+/* ============================================================
+   KEITH HARING
+   ============================================================ */
+.tpl-haring {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 260ms ease;
+}
+.haring-rays {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  z-index: 2;
+}
+.haring-dash {
+  position: absolute;
+  left: -7px; top: 0;
+  width: 14px;
+  height: 34px;
+  border-radius: 8px;
+  background: #111;
+  transform-origin: 50% 128px;
+  animation: haringPulse 1.4s ease-in-out infinite;
+}
+@keyframes haringPulse {
+  0%, 100% { opacity: 0.55; height: 28px; }
+  50% { opacity: 1; height: 40px; }
+}
+.haring-frame {
+  position: relative;
+  z-index: 3;
+  width: 62%;
+  height: 62%;
+  border: 7px solid #111;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: haringBounce 1.4s ease-in-out infinite;
+}
+@keyframes haringBounce {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg) scale(1); }
+  50% { transform: translateY(-8px) rotate(1.5deg) scale(1.03); }
+}
+
+/* ============================================================
+   LICHTENSTEIN
+   ============================================================ */
+.tpl-lich { cursor: pointer; overflow: hidden; }
+.lich-img { filter: contrast(1.3) saturate(1.5) brightness(1.05); }
+.lich-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(196, 24, 24, 0.55) 28%, transparent 30%);
+  background-size: 12px 12px;
+  background-position: 0 0;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+.lich-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border: 8px solid #111;
+}
+.lich-burst {
+  position: absolute;
+  right: 8%;
+  top: 12%;
+  z-index: 5;
+  width: 132px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  background: #f5d014;
+  clip-path: polygon(50% 0%, 61% 22%, 83% 12%, 78% 36%, 100% 42%, 80% 56%, 95% 78%, 68% 72%, 64% 97%, 50% 76%, 36% 97%, 32% 72%, 5% 78%, 20% 56%, 0% 42%, 22% 36%, 17% 12%, 39% 22%);
+  filter: drop-shadow(2px 3px 0 #111);
+  animation: lichBurst 420ms cubic-bezier(.2, 1.5, .35, 1) both;
+}
+@keyframes lichBurst { from { transform: scale(0.2) rotate(-20deg); } to { transform: scale(1) rotate(-8deg); } }
+.lich-word {
+  font-family: "Cooper Black", "Arial Black", sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: #c41818;
+  -webkit-text-stroke: 1.5px #111;
+  transform: rotate(8deg);
+  letter-spacing: 0.02em;
+}

@@ -1,0 +1,468 @@
+/* ============================================================
+   FMB / ART — Treatment Library (batch 2)
+   Styles for the five new templates + the showcase shell.
+   Pairs with art-templates.jsx. Self-contained: drop this
+   <link> next to gallery.css to use the templates live.
+   ============================================================ */
+
+/* ---------- Shared stage primitives ---------- */
+.tpl-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.tpl-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center;
+}
+.tpl-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 8;
+  padding: 7px 14px;
+  background: rgba(10, 8, 14, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tplHintIn 600ms ease-out both;
+}
+@keyframes tplHintIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ============================================================
+   1 · ESTILHAÇO (Explosion)
+   ============================================================ */
+.tpl-explode { cursor: pointer; }
+.exp-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  gap: 0;
+}
+.exp-shard {
+  display: block;
+  background-repeat: no-repeat;
+  backface-visibility: hidden;
+}
+.exp-shard.is-bursting {
+  animation: shatter 950ms cubic-bezier(.25, .9, .3, 1) var(--delay) both;
+  will-change: transform;
+  z-index: 2;
+}
+@keyframes shatter {
+  0%   { transform: none; }
+  32%  { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.82); }
+  100% { transform: none; }
+}
+
+/* ============================================================
+   2 · LANTERNA (Spotlight)
+   ============================================================ */
+.tpl-spotlight {
+  cursor: none;
+  background: #060409;
+  touch-action: none;
+}
+.spot-dark {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: background 60ms linear;
+}
+.spot-glow {
+  position: absolute;
+  width: 38%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 244, 214, 0.22) 0%, rgba(255, 244, 214, 0.06) 45%, transparent 70%);
+  mix-blend-mode: screen;
+  transition: opacity 200ms ease;
+}
+
+/* ============================================================
+   3 · CALEIDOSCÓPIO (Mirror)
+   ============================================================ */
+.tpl-kaleido {
+  cursor: grab;
+  touch-action: none;
+}
+.tpl-kaleido:active { cursor: grabbing; }
+.kal-rotor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 170%;
+  height: 170%;
+  translate: -50% -50%;
+  transform-origin: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  will-change: transform;
+}
+.kal-quad {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.kq-tr { transform: scaleX(-1); }
+.kq-bl { transform: scaleY(-1); }
+.kq-br { transform: scale(-1, -1); }
+.kal-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ============================================================
+   4 · PULSAR (Pulse)
+   ============================================================ */
+.tpl-pulse { cursor: pointer; }
+.tpl-heartbeat {
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%      { transform: scale(1.05); }
+  30%      { transform: scale(1); }
+  45%      { transform: scale(1.035); }
+  60%      { transform: scale(1); }
+}
+.pulse-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34%;
+  aspect-ratio: 1;
+  border: 3px solid;
+  border-radius: 50%;
+  translate: -50% -50%;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  animation: pulseRing 1.7s ease-out forwards;
+}
+.pulse-ring.is-big { width: 26%; border-width: 4px; animation-duration: 1.4s; }
+@keyframes pulseRing {
+  0%   { transform: scale(0.45); opacity: 0.85; }
+  100% { transform: scale(2.7); opacity: 0; }
+}
+
+/* ============================================================
+   5 · ONDAS (Ripple)
+   ============================================================ */
+.tpl-ripple {
+  cursor: pointer;
+  touch-action: none;
+}
+.ripple-defs { position: absolute; width: 0; height: 0; }
+.ripple-img {
+  transform: scale(1.12); /* hide displaced edges */
+}
+.ripple-ring {
+  position: absolute;
+  width: 7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: -50% -50%;
+  z-index: 4;
+  pointer-events: none;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 18px rgba(170, 214, 255, 0.55), inset 0 0 14px rgba(170, 214, 255, 0.4);
+  animation: rippleOut 1.5s ease-out forwards;
+}
+@keyframes rippleOut {
+  0%   { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(7); opacity: 0; }
+}
+.ripple-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  background: linear-gradient(120deg, transparent 30%, rgba(180, 220, 255, 0.4) 50%, transparent 70%);
+  background-size: 220% 220%;
+  animation: sheenDrift 9s ease-in-out infinite;
+}
+@keyframes sheenDrift {
+  0%, 100% { background-position: 0% 0%; }
+  50%      { background-position: 100% 100%; }
+}
+
+/* ============================================================
+   SHOWCASE SHELL
+   ============================================================ */
+.lib {
+  min-height: 100%;
+  padding: 96px 40px 80px;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(60, 50, 80, 0.35), transparent 70%),
+    #0c0b10;
+}
+
+/* top bar reuses the museum pill nav */
+.lib-bar {
+  position: fixed;
+  top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 60;
+  display: flex; align-items: center; gap: 14px;
+  padding: 8px 8px 8px 18px;
+  background: rgba(18, 18, 22, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+.lib-bar-brand {
+  font-family: "Cormorant Garamond", serif;
+  color: #f1ece1;
+  letter-spacing: 0.22em;
+  font-size: 13px; font-weight: 600;
+}
+.lib-bar-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.45);
+  padding: 6px 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.lib-back {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: #d9d3c4;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background 180ms ease, color 180ms ease;
+}
+.lib-back:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+
+.lib-head {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.lib-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.45);
+}
+.lib-title {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 46px;
+  line-height: 1.05;
+  color: #f4efe6;
+  margin: 14px 0 16px;
+  text-wrap: balance;
+}
+.lib-sub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(241, 236, 225, 0.6);
+  text-wrap: pretty;
+}
+
+/* artwork picker */
+.lib-picker {
+  max-width: 1180px;
+  margin: 0 auto 44px;
+}
+.lib-picker-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.4);
+  text-align: center;
+  margin-bottom: 14px;
+}
+.lib-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.lib-thumb {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid transparent;
+  opacity: 0.5;
+  transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+.lib-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lib-thumb:hover { opacity: 0.85; transform: translateY(-2px); }
+.lib-thumb.is-active {
+  opacity: 1;
+  border-color: #f4efe6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* grouped sections */
+.lib-section {
+  max-width: 1180px;
+  margin: 0 auto 64px;
+}
+.lib-section:last-child { margin-bottom: 0; }
+.lib-section-head {
+  max-width: 720px;
+  margin: 0 auto 30px;
+  text-align: center;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.lib-section-kicker {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.42);
+}
+.lib-section-title {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #f4efe6;
+  margin: 10px 0 10px;
+  text-wrap: balance;
+}
+.lib-section-blurb {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(241, 236, 225, 0.58);
+  text-wrap: pretty;
+}
+
+/* card grid */
+.lib-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 30px;
+}
+.lib-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 19, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+.lib-stage {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.lib-stage-mount {
+  position: absolute;
+  inset: 0;
+}
+.lib-meta {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lib-meta-top {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.lib-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: rgba(241, 236, 225, 0.38);
+  letter-spacing: 0.1em;
+}
+.lib-name {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 26px;
+  color: #f4efe6;
+  line-height: 1;
+}
+.lib-en {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.4);
+  align-self: center;
+  margin-left: auto;
+}
+.lib-concept {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(241, 236, 225, 0.66);
+  text-wrap: pretty;
+}
+.lib-chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 225, 0.78);
+}
+.lib-chip::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #7bd88f;
+  box-shadow: 0 0 8px #7bd88f;
+}
+
+@media (max-width: 720px) {
+  .lib { padding: 92px 18px 60px; }
+  .lib-title { font-size: 34px; }
+  .lib-section-title { font-size: 26px; }
+  .lib-grid { grid-template-columns: 1fr; gap: 22px; }
+  .lib-stage { height: 280px; }
+  .lib-bar-tag { display: none; }
+}
