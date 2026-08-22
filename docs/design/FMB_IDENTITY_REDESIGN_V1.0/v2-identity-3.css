@@ -1,0 +1,165 @@
+/* ============================================================
+   V2 IDENTITY — ROUND 2 (live + near-term screens not yet covered)
+   S-01/09 Wall (mobile), S-02 Theme Switcher, S-03 Exhibition
+   (mobile), S-04 Discovery Dot Tooltip, S-05 Explore (mobile),
+   S-06 Sala de Experimentação, S-10 Print View, S-31 Visitor View.
+   Shares tokens with v2-identity.css / v2-identity-2.css. dir-a / dir-c only.
+   ============================================================ */
+
+/* ---------- generic phone screen (standalone, not a dialog) ---------- */
+.phone-board { width: 390px; border-radius: 34px; display:flex; flex-direction:column; overflow:hidden; }
+.pb-head { display:flex; align-items:center; gap:12px; padding: 22px 20px 14px; flex-shrink:0; }
+.pb-brand { flex:1; font-size:13px; letter-spacing:.06em; }
+.pb-icon { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.pb-body { flex:1; overflow:hidden; padding: 0 20px 22px; display:flex; flex-direction:column; min-height:0; }
+
+.dir-a.phone-board { background:#faf8f2; color:#1a1a1a; }
+.dir-a .pb-brand { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; }
+.dir-a .pb-icon { background:#f1eee3; }
+.dir-c.phone-board { background:#fff; color:#161616; }
+.dir-c .pb-brand { font-family:'Inter',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; }
+.dir-c .pb-icon { background:#f2f2ef; }
+
+/* ---------- S-01/09 Wall — mobile 2-col grid ---------- */
+.pb-wallgrid { display:grid; grid-template-columns:1fr 1fr; gap:14px; overflow:hidden; }
+.pb-wallcard { display:flex; flex-direction:column; gap:8px; }
+.pb-wallcard .wc-frame { aspect-ratio: 3/4; overflow:hidden; }
+.pb-wallcard .wc-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.pb-wallcard .wc-title { font-size:11.5px; font-weight:600; }
+.pb-wallcard .wc-meta { font-size:9.5px; opacity:.55; }
+
+.dir-a .wc-frame { border:3px solid #1a1a1a; background:#faf8f2; }
+.dir-a .wc-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-c .wc-frame { border:1.5px solid #1a1a1a; background:#fff; }
+.dir-c .wc-title { font-family:'Inter',sans-serif; }
+
+/* ---------- S-02 Theme switcher ---------- */
+.theme-switch { display:flex; gap:8px; }
+.theme-pill { padding:9px 16px; border-radius:999px; font-size:11.5px; cursor:pointer; }
+.dir-a .theme-pill { font-family:'JetBrains Mono',monospace; letter-spacing:.06em; border:1px solid #cfc9b8; color:#8a8578; }
+.dir-a .theme-pill.is-active { background:#1a1a1a; border-color:#1a1a1a; color:#faf8f2; }
+.dir-c .theme-pill { font-family:'Inter',sans-serif; border:1px solid #dcdcd8; color:#9a9a94; }
+.dir-c .theme-pill.is-active { background:var(--c-accent); border-color:var(--c-accent); color:#fff; }
+
+.switcher-board { padding: 60px 60px 70px; display:flex; flex-direction:column; gap:34px; }
+.switcher-row { display:flex; align-items:center; justify-content:space-between; }
+.switcher-heading { font-size:20px; font-weight:600; }
+.dir-a .switcher-heading { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.switcher-sub { font-size:13px; opacity:.55; margin-top:4px; max-width:460px; line-height:1.5; }
+.switcher-preview { display:flex; gap:24px; }
+.switcher-thumb { flex:1; border-radius:10px; overflow:hidden; position:relative; height:220px; display:flex; align-items:center; justify-content:center; }
+.switcher-thumb.is-active { outline:2px solid; outline-offset:4px; }
+.dir-a .switcher-thumb.is-active { outline-color:#1a1a1a; }
+.dir-c .switcher-thumb.is-active { outline-color:var(--c-accent); }
+.switcher-thumb-label { position:absolute; bottom:12px; left:14px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#fff; }
+
+/* ---------- S-03/S-04 mobile exhibition + discovery dot ---------- */
+.pb-exh-frame { border-radius:14px; overflow:hidden; position:relative; margin-bottom:20px; flex-shrink:0; }
+.pb-exh-frame img { width:100%; display:block; }
+.pb-exh-title { font-size:19px; font-weight:600; }
+.pb-exh-meta { font-size:11px; opacity:.55; margin-top:3px; }
+.pb-exh-body { font-size:13px; line-height:1.55; opacity:.75; margin-top:12px; }
+.pb-exh-controls { display:flex; align-items:center; gap:12px; margin-top:18px; }
+.pb-exh-controls .track { flex:1; height:2px; position:relative; }
+.pb-cta { margin-top:20px; padding:14px; border-radius:999px; text-align:center; font-size:12px; }
+
+.dir-a .pb-exh-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-a .pb-exh-frame { border:4px solid #171614; }
+.dir-a .pb-cta { background:#1a1a1a; color:#faf8f2; font-family:'JetBrains Mono',monospace; letter-spacing:.14em; text-transform:uppercase; }
+.dir-a .pb-exh-controls .track { background:#d8d3c4; }
+.dir-a .pb-exh-controls .track::before { content:''; position:absolute; left:0; top:-2px; width:36%; height:6px; background:#1a1a1a; border-radius:3px; }
+
+.dir-c .pb-exh-frame { border:1.5px solid #1a1a1a; }
+.dir-c .pb-cta { background:var(--c-accent); color:#fff; font-family:'Inter',sans-serif; font-weight:600; }
+.dir-c .pb-exh-controls .track { background:#dcdcd8; }
+.dir-c .pb-exh-controls .track::before { content:''; position:absolute; left:0; top:0; width:36%; height:2px; background:var(--c-accent); }
+
+/* Discovery dot + tooltip (shared, works on desktop exh-board and mobile pb-exh-frame) */
+.disc-dot { position:absolute; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; transform:translate(-50%,-50%); cursor:pointer; }
+.disc-dot.is-open { z-index:5; }
+.dir-a .disc-dot { background:rgba(250,248,242,0.94); color:#1a1a1a; box-shadow:0 4px 14px rgba(0,0,0,0.3); }
+.dir-c .disc-dot { background:rgba(255,255,255,0.94); color:#161616; box-shadow:0 4px 14px rgba(0,0,0,0.25); }
+
+.disc-pop { position:absolute; width:230px; padding:14px 16px; border-radius:12px; display:flex; flex-direction:column; gap:8px; z-index:6; }
+.disc-pop .dp-label { font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; opacity:.5; }
+.disc-pop .dp-wave { display:flex; gap:3px; align-items:center; height:20px; }
+.disc-pop .dp-wave span { width:2.5px; border-radius:2px; }
+.disc-pop .dp-text { font-size:12.5px; line-height:1.5; }
+
+.dir-a .disc-pop { background:#faf8f2; box-shadow:0 20px 40px -18px rgba(0,0,0,0.4); }
+.dir-a .disc-pop .dp-text { font-family:'EB Garamond',serif; font-style:italic; }
+.dir-a .disc-pop .dp-wave span { background:#1a1a1a; }
+.dir-c .disc-pop { background:#fff; box-shadow:0 20px 40px -18px rgba(0,0,0,0.35); border:1px solid #ececec; }
+.dir-c .disc-pop .dp-wave span { background:var(--c-accent); }
+
+/* ---------- S-05 mobile explore ---------- */
+.pb-ex-tabs { display:flex; gap:16px; margin: 18px 0 16px; flex-shrink:0; }
+.pb-ex-tab { font-size:11.5px; padding-bottom:6px; border-bottom:2px solid transparent; }
+.dir-a .pb-ex-tab { font-family:'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; color:#8a8578; }
+.dir-a .pb-ex-tab.is-active { color:#1a1a1a; border-color:#1a1a1a; }
+.dir-c .pb-ex-tab { font-family:'Inter',sans-serif; letter-spacing:.04em; text-transform:uppercase; color:#9a9a94; }
+.dir-c .pb-ex-tab.is-active { color:#161616; border-color:var(--c-accent); }
+.pb-ex-chips { display:flex; flex-wrap:wrap; gap:8px; overflow:auto; }
+.pb-ex-chip { padding:8px 14px; font-size:12px; }
+.dir-a .pb-ex-chip { border:1px solid #cfc9b8; font-family:'Cormorant Garamond',serif; }
+.dir-a .pb-ex-chip.is-selected { background:#1a1a1a; border-color:#1a1a1a; color:#fff; }
+.dir-c .pb-ex-chip { border:1px solid #dcdcd8; font-family:'Inter',sans-serif; border-radius:2px; }
+.dir-c .pb-ex-chip.is-selected { color:#161616; font-weight:600; border-color:#161616; }
+
+/* ---------- S-06 Sala de Experimentação ---------- */
+.exp-board { padding: 60px 60px 70px; }
+.exp-heading { font-size:20px; font-weight:600; }
+.exp-sub { font-size:13px; opacity:.55; margin-top:6px; max-width:520px; line-height:1.5; }
+.exp-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:22px; margin-top:32px; }
+.exp-card { display:flex; flex-direction:column; gap:10px; }
+.exp-thumb { aspect-ratio:1; border-radius:10px; overflow:hidden; position:relative; }
+.exp-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.exp-thumb-tag { position:absolute; top:10px; left:10px; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding:4px 9px; border-radius:999px; }
+.exp-name { font-size:13px; font-weight:600; }
+
+.dir-a .exp-heading { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-a .exp-thumb-tag { background:rgba(250,248,242,0.9); color:#1a1a1a; }
+.dir-a .exp-name { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-c .exp-thumb-tag { background:rgba(255,255,255,0.9); color:var(--c-accent); }
+.dir-c .exp-name { font-family:'Inter',sans-serif; }
+
+.exp-grid-mobile { display:grid; grid-template-columns:1fr 1fr; gap:14px; overflow:hidden; }
+
+/* ---------- S-10 Print View ---------- */
+.print-board { padding: 56px 60px; display:flex; flex-direction:column; align-items:center; gap:26px; }
+.print-heading-row { width:100%; display:flex; align-items:center; justify-content:space-between; }
+.print-heading { font-size:19px; font-weight:600; }
+.dir-a .print-heading { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.print-page { width: 460px; aspect-ratio: 1/1.414; background:#fff; box-shadow:0 30px 60px -20px rgba(0,0,0,0.28); display:flex; flex-direction:column; padding:34px; }
+.print-page .pp-frame { flex:1; overflow:hidden; margin-bottom:22px; }
+.print-page .pp-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.print-page .pp-title { font-size:19px; font-weight:600; }
+.print-page .pp-meta { font-size:11px; opacity:.55; margin-top:4px; }
+.dir-a .print-page .pp-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-a .print-page .pp-frame { border:5px solid #171614; }
+.dir-c .print-page .pp-frame { border:1.5px solid #1a1a1a; }
+.print-actions { display:flex; gap:14px; }
+
+.pb-print-page { width:100%; aspect-ratio:1/1.3; background:#fff; box-shadow:0 16px 30px -14px rgba(0,0,0,0.3); display:flex; flex-direction:column; padding:18px; flex-shrink:0; }
+.pb-print-page .pp-frame { flex:1; overflow:hidden; margin-bottom:12px; }
+.pb-print-page .pp-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.pb-print-page .pp-title { font-size:14px; font-weight:600; }
+.pb-print-page .pp-meta { font-size:9.5px; opacity:.55; margin-top:3px; }
+.dir-a .pb-print-page .pp-frame { border:3px solid #171614; }
+.dir-c .pb-print-page .pp-frame { border:1.5px solid #1a1a1a; }
+
+/* ---------- S-31 Visitor View banner ---------- */
+.visitor-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 26px; border-radius:12px; }
+.visitor-banner .vb-text { font-size:13px; }
+.visitor-banner .vb-text b { font-weight:600; }
+.visitor-banner .vb-cta { padding:10px 22px; border-radius:999px; font-size:12px; white-space:nowrap; flex-shrink:0; }
+.dir-a .visitor-banner { background:#f1eee3; }
+.dir-a .visitor-banner .vb-cta { background:#1a1a1a; color:#faf8f2; font-family:'JetBrains Mono',monospace; letter-spacing:.1em; text-transform:uppercase; }
+.dir-c .visitor-banner { background:#f2f2ef; }
+.dir-c .visitor-banner .vb-cta { background:var(--c-accent); color:#fff; font-family:'Inter',sans-serif; font-weight:600; }
+
+.pb-visitor-banner { display:flex; flex-direction:column; gap:10px; padding:14px 16px; border-radius:12px; margin-bottom:16px; flex-shrink:0; }
+.pb-visitor-banner .vb-text { font-size:12px; }
+.pb-visitor-banner .vb-cta { padding:11px; border-radius:999px; font-size:11.5px; text-align:center; }
+.dir-a .pb-visitor-banner { background:#f1eee3; }
+.dir-c .pb-visitor-banner { background:#f2f2ef; }

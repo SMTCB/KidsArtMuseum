@@ -6,6 +6,7 @@ This is a static digital museum of kids' art. Deploys to Vercel from `main`.
 
 1. **Read [`ART_GUIDE.md`](./ART_GUIDE.md) in full.** It is the visual identity for the museum and the only spec for what an artwork entry looks like. Treat it as binding.
 2. **Read [`README.md`](./README.md)** for the file map and the deploy flow.
+3. **Check [`docs/README.md`](./docs/README.md)** — the documentation index. For anything beyond adding a single artwork, start there. In particular [`docs/decisions/README.md`](./docs/decisions/README.md) lists what is currently blocked on an undecided question.
 
 ---
 
@@ -36,12 +37,15 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
    "$($img.Width) x $($img.Height)"
    $img.Dispose()
    ```
-4. **Sample dominant colours** — inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
-5. **Draft the new entry** in `window.ART` (`art-data.js`) following the schema in ART_GUIDE §1. Every required field, no inventing new keys.
-6. **Pick an `anim` routine** from ART_GUIDE §5a. Invent a new one only if no existing routine fits (follow §5b exactly if you do).
-7. **Place 3–4 discovery dots** (ART_GUIDE §6). Coordinates are percentages of the image. Spread them; no two within 15% on either axis.
-8. **Explain your choices** to the user: which animation and why, what the palette is, what the dots point at. Ask for approval before committing.
-9. **On approval:**
+5. **Sample dominant colours** — inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
+6. **Draft the new entry** in `window.ART` (`art-data.js`) following the schema in ART_GUIDE §1. Every required field, no inventing new keys.
+7. **Pick an `anim` routine** from ART_GUIDE §5a. Invent a new one only if no existing routine fits (follow §5b exactly if you do).
+   > Note: `window.ANIMS` currently holds **44** keys — the 11 documented routines plus the 33
+   > Sala de Experimentação effects, which register into the same lookup. Whether those 33 are
+   > eligible as an artwork `anim` is unsettled (backlog FND-07); until it is, pick from §5a.
+8. **Place 3–4 discovery dots** (ART_GUIDE §6). Coordinates are percentages of the image. Spread them; no two within 15% on either axis.
+9. **Explain your choices** to the user: which animation and why, what the palette is, what the dots point at. Ask for approval before committing.
+10. **On approval:**
    - Move the photo: `intake/<filename>` → `assets/art/<filename>`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`
    - Archive the form: `intake/<name>.md` → `intake/processed/<name>.md`
@@ -91,3 +95,42 @@ Add: Gato Cubista (Miguel)
 Tweak: warmer bg on Era Uma Vez
 Fix: dot coords on Auto-Retrato
 ```
+
+When the work comes from the backlog, lead with the item ID:
+
+```
+QUA-01: thumbnails + srcset for hallway frames
+FND-06: fix art-data.js header comment
+```
+
+---
+
+## Documentation is part of the work
+
+The rules live in [`docs/DOCUMENTATION_GUIDE.md`](./docs/DOCUMENTATION_GUIDE.md). They exist
+because this project once had two contradictory roadmaps, two AI strategies 20× apart on
+cost, and 155 KB of untracked strategy work on a single laptop. Do not let that come back.
+
+**Before ending any task that changed behaviour or made a decision:**
+
+1. **Update the doc that owns the topic.** One canonical doc per topic — the table is in
+   `DOCUMENTATION_GUIDE.md` §2. Link to it rather than restating its facts elsewhere.
+2. **Record decisions as ADRs.** Anything expensive to reverse goes in `docs/decisions/`,
+   numbered and dated. To change a decided ADR, write a new one that supersedes it — never
+   edit the original.
+3. **Tick the item** in `docs/product/PLAN.md` — §6 for the catalogue entry, §7 for the sprint.
+4. **Run the linter:**
+   ```bash
+   node scripts/docs-lint.js
+   ```
+
+### Rules that are easy to break by accident
+
+- **Never delete a doc.** Move it to `docs/archive/` with a tombstone naming its successor.
+- **Never copy a cost, estimate, or phase plan between docs.** Link. Copied facts are exactly
+  how the 20× cost discrepancy happened.
+- **Never add a doc without adding it to `docs/README.md`.** Unindexed means invisible.
+- **`docs/engineering/ARCHITECTURE.md` describes what runs today**; `TARGET_ARCHITECTURE.md`
+  describes a proposal that is not built. Do not blur them.
+- **If asked to do work that an open ADR blocks, say so** rather than picking an answer
+  silently. `docs/decisions/README.md` lists what is open.

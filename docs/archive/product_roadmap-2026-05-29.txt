@@ -1,0 +1,101 @@
+ARCHIVED — SUPERSEDED. Do not plan from this file.
+Replaced by docs/product/ROADMAP.md on 2026-08-22.
+
+Written 2026-05-29 assuming a funded startup: Supabase migration in Q3 2026, Stripe in Q4,
+print-on-demand in Q1 2027. It contradicted docs/archive/ROADMAP-static-phase.md, written
+the day before, and neither was ever marked as winning.
+
+Its Q3 2026 window has now lapsed without the migration happening. Whether this plan should
+ever be revived is ADR-0004 (docs/decisions/0004-product-ambition.md), still open. If that
+decision lands on venture-scale SaaS, this file becomes the starting point again.
+
+Kept verbatim below for that reason.
+-------------------------------------------------------------------------------
+
+FMB · ART: Strategic Product Roadmap
+
+Timeline: Q3 2026 – Q2 2027
+
+This roadmap focuses on transitioning from a static MVP to a scalable SaaS platform, establishing viral growth loops, and unlocking high-margin physical product revenue.
+
+Phase 1: Foundation & The Growth Loop (Q3 2026)
+
+Goal: Move off the static architecture, enable self-serve onboarding, and establish the viral referral mechanic.
+
+Features
+
+Self-Serve Upload UI: Replace the GitHub/Claude Code workflow. Parents upload directly via a web interface.
+
+Audio "Discovery Dots": Allow parents to record 10-15 second audio clips of the child explaining the artwork, attached to specific hotspots on the painting. (This is the emotional "killer feature").
+
+The "Share to Grandparents" Loop: Optimized sharing flow. When visitors view a museum link, prominently feature a "Start your own child's museum" CTA.
+
+Watermarked Free Tier: Free tier exports (images/videos of the animated art) include a subtle FMB · ART watermark to drive organic social acquisition.
+
+Technical Architecture
+
+Database Migration: Implement Supabase (Postgres) to manage user accounts, family relationships, and artwork metadata.
+
+Backend Overhaul: Move to a Next.js App Router architecture deployed on Vercel.
+
+API Integration: Connect the frontend directly to Anthropic's Claude Vision API via secure serverless functions for real-time artwork analysis and JSON generation upon upload.
+
+Storage: Migrate image assets from the GitHub repo to Supabase Storage.
+
+Format Handling: Implement server-side HEIC-to-JPEG conversion (crucial for iPhone users).
+
+Physical Products
+
+No physical products in Phase 1. Focus entirely on digital retention and platform stability.
+
+Phase 2: Monetization & B2B Pilot (Q4 2026)
+
+Goal: Launch the paid subscription tiers, introduce physical gifting ahead of the holidays, and pilot the "Escola" tier.
+
+Features
+
+Subscription Management: Integrate Stripe for handling the "Família" ($49/yr) and "Escola" ($149/yr) subscriptions.
+
+Expanded Themes: Release 3-5 new premium "Wall Themes" exclusive to the paid tiers.
+
+Escola Pilot (Classroom Mode): Roll out features for teachers: bulk uploads, student tagging, and a public "Classroom Gallery" view. Pilot this with 5-10 early childhood educators.
+
+"Year in Review" Digital Export: An automated, highly shareable video summarizing the child's artistic progress over the year.
+
+Technical Architecture
+
+Payment Gateway: Stripe webhook integration and customer portal implementation.
+
+Role-Based Access Control (RBAC): Implement strict permissions in Supabase to handle complex relationships in the Escola tier (Teacher > Class > Student > Parent).
+
+Video Generation (R&D): Begin experimenting with lightweight server-side video generation (e.g., using Remotion) for the "Year in Review" feature.
+
+Physical Products
+
+The "Museum Pass" Gift Card: A beautifully designed digital (and potentially printable) gift code that grandparents can purchase to gift a 1-year Família subscription.
+
+NFC "Smart Frame" Prototype: Begin sourcing partnerships for a premium physical frame that includes an NFC chip. Tapping a phone to the frame instantly opens the child's digital museum.
+
+Phase 3: Physical Revenue & Expansion (Q1 - Q2 2027)
+
+Goal: Launch high-margin physical products to maximize LTV and scale B2B acquisition through schools.
+
+Features
+
+One-Click Print Store: Native integration within the app allowing parents to order physical items directly from their digital gallery.
+
+Escola Tier General Release: Launch the classroom product publicly, using the resulting parent invitations as a B2B2C acquisition channel.
+
+Collaborative Museums: Allow multiple families (e.g., cousins) to contribute to a shared "Grandparents Museum."
+
+Technical Architecture
+
+Print-on-Demand (POD) API: Integrate with a global POD partner (e.g., Printful, Gelato) to automate physical order fulfillment and shipping directly from the app.
+
+Advanced Analytics: Implement product analytics (e.g., PostHog) to deeply understand user drop-off during the upload flow and conversion rates from shared links.
+
+Physical Products
+
+The Annual "Museum Book": A high-quality, hardcover, automated photobook containing the year's artwork alongside the AI-generated titles and descriptions. ($80-$120 price point).
+
+"Masterpiece Prints": Individual, museum-quality giclée prints of specific artworks, shipped with an NFC-enabled title card linking to the digital animation.

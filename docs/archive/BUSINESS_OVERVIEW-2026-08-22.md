@@ -1,3 +1,29 @@
+---
+title: "Business Overview (archived 2026-08-22)"
+status: superseded
+owner: SMTCB
+last_reviewed: 2026-08-22
+review_cycle: none
+superseded_by: docs/product/PLATFORM_DEFINITION.md
+---
+
+> **⛔ ARCHIVED 2026-08-22. Superseded by [`docs/product/PLATFORM_DEFINITION.md`](../product/PLATFORM_DEFINITION.md).**
+>
+> The commercial case written while [ADR-0004](../decisions/0004-product-ambition.md) was still
+> open. ADR-0004 was decided on 2026-08-22 and the product model changed with it — museum,
+> rooms, galleries — so the tiers and surfaces described here no longer match what is being
+> built. Its per-artwork cost figure is one half of the 20× discrepancy closed by
+> [ADR-0012](../decisions/0012-ai-cost-floor.md).
+>
+> **Kept as a record of the pre-decision thinking. Not a source of numbers.**
+
+---
+
+> **Status: reference.** The commercial case *if* FMB · ART becomes a product. Whether it
+> should is [ADR-0004](../decisions/0004-product-ambition.md), which is undecided. Pricing,
+> tiers, and unit economics here are proposals, not commitments. The per-artwork cost figure
+> ($0.02) conflicts with `docs/design/TEMPLATE_COMPOSITION_STRATEGY.md` ($0.40) — BACKLOG STR-02.
+
 # FMB · ART — Business Overview
 
 > Prepared: May 2026  

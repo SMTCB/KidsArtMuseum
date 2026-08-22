@@ -57,52 +57,61 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── gallery-core.jsx        ← React components: Hallway, Frame, Modal
 ├── art-animations.jsx      ← per-artwork animations + interactive overlays
 ├── art-data.js             ← THE catalogue. Add new pieces here.
+├── art-templates*.jsx      ← Sala de Experimentação effects (register into window.ANIMS)
+├── art-painters*.jsx       ← "À Maneira dos Mestres" effects (same)
+├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
+├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
+├── scripts/                ← optimize.js (photos) · docs-lint.js (documentation)
+├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
 └── assets/
     └── art/                ← original photos of the artworks
 ```
+
+> **Script load order in `index.html` matters.** Each JSX file appends to shared globals
+> (`window.ANIMS`, `window.TEMPLATE_LIBRARY`) and `gallery-core.jsx` must load last.
+> There is no build step, so a bad order fails silently at runtime. See
+> [`docs/engineering/ARCHITECTURE.md`](./docs/engineering/ARCHITECTURE.md) §2.
 
 ---
 
 ## 3. Adding new art (with Claude Code)
 
-This is the workflow that keeps the museum consistent every time you add a piece.
+Photos go in **`intake/`**, not `assets/art/` — Claude Code moves them once processed.
+The full procedure is in [`CLAUDE.md`](./CLAUDE.md); the parent-facing version (PT-PT) is in
+[`intake/README.md`](./intake/README.md).
 
-### A. Drop the photo
+### A. Drop the photo in `intake/`
 
-Put the original photo in `assets/art/`. Use a stable, lowercase, hyphenated filename:
+Lowercase, hyphenated, `<artist>-<short-noun>`:
 
 ```
-assets/art/miguel-cubist-cat.jpeg
+intake/miguel-gato-cubista.jpeg
 ```
 
-### B. Ask Claude Code
+No need to resize or compress it — `scripts/optimize.js` runs automatically during intake.
 
-Open the repo in Claude Code and say something like:
+### B. Fill the form
 
-> Add a new artwork. Photo: `assets/art/miguel-cubist-cat.jpeg`. Artist: Miguel, age 6, year 2026. Title: "Gato Cubista". Style notes: bold black outlines, mostly blues and oranges. Make me 3–4 discovery dots and pick the animation routine that fits best.
+Copy `intake/TEMPLATE.md` to `intake/miguel-gato-cubista.md` (same base name as the photo)
+and fill it in: artist, age, title hint, context, the child's own words.
 
-Claude Code should then:
+### C. Ask Claude Code
 
-1. Read `ART_GUIDE.md` (the single source of truth for the creative layer).
-2. Sample the photo's palette and dimensions.
-3. Append a new entry to `window.ART` in `art-data.js`.
-4. Add the new `id` to `window.HALLWAY_ORDER` (or insert it at a chosen position).
-5. If a brand-new animation routine is needed, add a function in `art-animations.jsx` and register it in the `ANIMATIONS` map.
+> Processa a entrada `miguel-gato-cubista`
 
-### C. Verify, commit, push
+It optimizes the photo, reads its dimensions, samples the palette, drafts the entry in
+`art-data.js`, picks an animation, places the discovery dots, and **shows you the diff for
+approval** before committing.
+
+### D. Verify
 
 ```bash
-# preview locally
-python3 -m http.server 8000
-
-# when happy
-git add .
-git commit -m "Add: Gato Cubista"
-git push
+python -m http.server 8000
 ```
 
-Vercel rebuilds the live site in ~30 seconds.
+Open <http://localhost:8000>, click into the new frame, tap each dot, and watch the animation
+through one full loop before approving.
 
 ---
 
@@ -128,5 +137,28 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 ## 6. Caveats
 
 - **In-browser Babel.** First load transpiles JSX (~200ms). If the site ever feels slow, add a build step with Vite + React; the components are already plain React.
-- **Image weight.** Photos can be 3–5 MB. Run them through [Squoosh](https://squoosh.app) (MozJPEG, q=78) before committing to keep the repo lean and the gallery snappy.
+- **Image weight.** `scripts/optimize.js` (MozJPEG q=78, auto-rotate, resize ≤3000 px) runs automatically during intake — you do not run Squoosh by hand. Note that this still yields ~2.5 MB files, and the hallway currently ships **25 MB** of images; the platform's image pipeline is **PLT-10** (the prototype-only version, QUA-01, is retired — see `docs/product/PLAN.md` §6).
 - **Case-sensitive paths.** Vercel is case-sensitive. Keep filenames lowercase to avoid surprises that only show up in production.
+
+---
+
+## 7. Planning & documentation
+
+The plan, the product definition, and the decision log live in
+**[`docs/`](./docs/README.md)**.
+
+| Question | Doc |
+|---|---|
+| Where are we, what's next, and what's the full backlog? | [`docs/product/PLAN.md`](./docs/product/PLAN.md) |
+| What is the product, and for whom? | [`docs/product/PLATFORM_DEFINITION.md`](./docs/product/PLATFORM_DEFINITION.md) |
+| What does it look like? | [`docs/design/IDENTITY.md`](./docs/design/IDENTITY.md) |
+| What's blocked on a decision? | [`docs/decisions/README.md`](./docs/decisions/README.md) |
+| How does it actually work today? | [`docs/engineering/ARCHITECTURE.md`](./docs/engineering/ARCHITECTURE.md) |
+| How do I keep docs from rotting? | [`docs/DOCUMENTATION_GUIDE.md`](./docs/DOCUMENTATION_GUIDE.md) |
+
+```bash
+node scripts/docs-lint.js
+```
+
+Checks front-matter, statuses, cross-references, index coverage, and review dates. Run it
+before committing documentation changes.

@@ -1,7 +1,8 @@
-// Artwork data — drop in new entries to extend the museum.
-// `aspect` is height/width (used to size frames on the wall).
-// `dots` are tap-to-discover details (x,y are % of image).
-// `anim` picks an animation routine in gallery-core.jsx.
+// Artwork data — THE catalogue. Schema is fixed and binding: see ART_GUIDE.md §1.
+// `w`/`h` are the original pixel dimensions (frames are sized from their ratio).
+// `dots` are tap-to-discover details (x,y are % of the image).
+// `anim` is a key into window.ANIMS, defined at the bottom of art-animations.jsx.
+// Append new ids to window.HALLWAY_ORDER at the bottom of this file.
 window.ART = [
   {
     id: "miro",

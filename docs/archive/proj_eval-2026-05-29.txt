@@ -1,0 +1,94 @@
+ARCHIVED — REFERENCE ONLY. External opinion, not a plan.
+
+A simulated VC investment memo (2026-05-29). Useful pressure-testing, but it is one
+analyst's view under venture assumptions this project has never committed to.
+
+Its central condition — migrate to Supabase "within 60 days" — expired in July 2026 without
+being acted on. That is not a failure; it was contingent on funding that was never sought.
+
+Two observations here have outlived the framing and are now tracked as work:
+  - Audio in the child's voice as the strongest feature  -> ADR-0007
+  - B2C distribution as the real risk, not technology    -> ADR-0004
+
+Kept verbatim below.
+-------------------------------------------------------------------------------
+
+Investment Memo: FMB · ART
+
+Stage: Pre-Seed / Seed
+
+Sector: Consumer SaaS / EdTech / FamilyTech
+
+Date: May 2026
+
+Executive Summary
+
+FMB · ART proposes a novel solution to a universal parenting problem: the physical and digital hoarding of children's artwork. By reframing the solution from "storage" to "celebration" using AI-driven curation and animation, the product creates a high-emotion, highly shareable artifact.
+
+While the unit economics (94% gross margin) and emotional hook are exceptionally strong, the venture scale of this business hinges entirely on mastering a zero-CAC (Customer Acquisition Cost) viral growth loop and expanding LTV (Life-Time Value) through physical product upsells or B2B expansion.
+
+1. Problem & Market Assessment
+
+Is the problem real or a niche anxiety? The problem is very real. Parental guilt regarding discarding children's creations is a well-documented psychological friction point. However, in VC terms, this is traditionally a "vitamin" (nice to have) rather than a "painkiller" (must have).
+
+FMB · ART ingeniously upgrades this from a vitamin to a status/pride product. The emotional job-to-be-done isn't organization; it's validation of the child and the parent. This dramatically increases the willingness to pay.
+
+2. Go-to-Market & Economics
+
+Pricing ($49/year): $49/year is the correct entry point. It falls perfectly within the "impulse buy" or "gifting" threshold for grandparents and parents. However, to build a venture-scale business ($100M+ ARR), you would need ~2 million paying families.
+
+The CAC / LTV Conundrum:
+For a $49/year product, paid acquisition (Meta/Google ads) will destroy your margins. If your CAC is $30, it takes over half a year to break even. Therefore, Product-Led Growth (PLG) is not just a strategy; it is the only way this company survives.
+
+The Flaw in the Referral Assumption: You assume grandparents seeing the URL will convert. But grandparents don't usually have a backlog of 6-year-old art to digitize. The viral loop needs to hit other parents.
+
+The Fix: Watermark free-tier exports. Add a prominent "Build your child's museum" button on the visitor view. Leverage school art shows (B2B2C)—when a teacher shares a class museum, 30 parents see the platform instantly.
+
+3. Target Segments & Sales Cycles
+
+Parents (Primary): Shortest sales cycle (minutes), highest churn risk as kids age out of the "prolific art" phase. Best for initial cash flow and brand building.
+
+Educators / Schools (Secondary): Longest sales cycle (3-6 months, reliant on PTA or Principal budgets), but incredibly sticky. A teacher using this for a class portfolio guarantees 30 pairs of eyeballs per year. Recommendation: Use the consumer product to build the brand, but aggressively build the "Escola" tier to capture sustainable B2B revenue and B2B2C acquisition.
+
+Therapists (Tertiary): Too niche for venture scale. Treat as an organic bonus, do not allocate marketing spend here yet.
+
+4. Product & Technical Architecture
+
+Is the "no database" architecture a strength or liability?
+It is a brilliant strength for an MVP, demonstrating capital efficiency. However, it is an absolute liability for a funded company. Phase 3 (Supabase + Next.js) is mandatory. Without a database, you cannot easily implement multi-user permissions, class walls, or the crucial social features required for your viral loop.
+
+Defensibility & The Moat:
+Your moat is not the AI wrapper (Claude Vision API). Any developer can replicate the JSON extraction. Your moat must be:
+
+The Network Effect of the Archive: Once 50 pieces are uploaded, parents will not churn.
+
+The UI/UX Execution: The specific combination of color extraction, custom animation, and audio hotspots. (Note: Capturing the child's actual voice talking about the art is your killer feature. Voice/audio memory creates an un-cancellable subscription).
+
+5. Expansion & Revenue Opportunities
+
+Physical Products:
+This is the missing piece for venture scale. A digital subscription caps out, but a physical upsell transforms your LTV. You must offer a one-click "Print Annual Museum Book" for $80-$120 before Christmas. Grandparents will buy this instantly. A framed, high-quality physical print with an embedded NFC tag or QR code that opens the animated digital version on a phone bridges the physical/digital divide beautifully.
+
+6. Landing Page Strategy (V1)
+
+To convert cold traffic, the V1 landing page must operate on the principle of "Show, Don't Tell."
+
+The Hero Section: A split screen or immediate video. Left side: A crumpled, messy crayon drawing on a fridge. Right side: That exact drawing beautifully framed, color-graded, and animated in a digital gallery.
+
+The Copy: "Don't let their masterpieces fade in a drawer. Turn their everyday art into a world-class digital museum."
+
+The Proof: An interactive demo where the user can click a "discovery dot" and hear a child's voice explaining the drawing.
+
+VC Verdict: Pre-Seed Recommendation
+
+Decision: Strong Interest / Conditional Commit.
+
+FMB · ART possesses an exceptional emotional hook and near-perfect unit economics. The primary risk is the B2C distribution trap.
+
+We would invest in the Seed round contingent upon:
+
+Transitioning off the static Vercel/GitHub workflow to the Phase 3 (Supabase) architecture within 60 days to enable user scaling.
+
+Demonstrating a K-factor (virality coefficient) > 0.4 from shared museum links within the first 100 beta families.
+
+A clear roadmap for the Q4 launch of physical "Museum Book" exports to drive high-margin holiday revenue and boost year-one LTV.

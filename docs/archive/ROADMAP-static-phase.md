@@ -1,3 +1,27 @@
+---
+title: "ARCHIVED: Roadmap (static phase, May 2026)"
+status: superseded
+owner: SMTCB
+last_reviewed: 2026-08-22
+review_cycle: none
+superseded_by: docs/product/PLAN.md
+---
+
+> # ⚰️ SUPERSEDED — do not plan from this file
+>
+> **Replaced by [`docs/product/PLAN.md`](../product/PLAN.md) on 2026-08-22.**
+>
+> Written 2026-05-28 as the committed roadmap. One day later,
+> `product_roadmap-2026-05-29.txt` proposed an incompatible plan, and neither was marked as
+> winning. That unresolved conflict is the reason the documentation system now exists.
+>
+> **What survived:** the Phase 1 polish items (now BACKLOG P1-01…06) and the five closing
+> principles (now `ROADMAP.md` §Principles).
+>
+> **What did not:** the phase numbering, the 4-day Phase 2 estimate (it under-counts approval,
+> editing, and error states), and the assumption that the Phase 2/3 split was already settled —
+> it is [ADR-0004](../decisions/0004-product-ambition.md), still open.
+
 # FMB · ART — Product Roadmap
 
 > Last updated: May 2026  

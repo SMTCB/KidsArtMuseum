@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<title>FMB · ART — Catálogo de Ecrãs — Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v2-identity.css">
+<link rel="stylesheet" href="v2-identity-2.css">
+<link rel="stylesheet" href="v2-identity-desktop.css">
+<link rel="stylesheet" href="v2-identity-3.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#f4f4f2; font-family:'Inter',sans-serif; color:#1a1a1a; }
+  .page { max-width: 1400px; margin: 0 auto; padding: 56px 40px 120px; }
+  .page-head { margin-bottom: 48px; }
+  .page-head h1 { font-size: 26px; margin: 0 0 6px; letter-spacing:-0.01em; }
+  .page-head .subtitle { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a8a86; margin-bottom: 18px; }
+  .page-head p { font-size: 14px; line-height:1.6; color:#4a4a46; max-width: 760px; margin: 0 0 8px; }
+  .toc { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+  .toc a { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.04em; text-decoration:none; color:#4a4a46; background:#fff; border:1px solid #e2e2dd; border-radius:999px; padding:6px 12px; }
+  .toc a:hover { border-color:#1a1a1a; color:#1a1a1a; }
+
+  .screen-row { background:#fff; border-radius:16px; padding: 32px 36px 40px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(20,20,15,0.05); scroll-margin-top: 20px; }
+  .row-codeline { display:flex; align-items:center; gap:12px; margin-bottom: 8px; }
+  .row-code { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.04em; background:#1a1a1a; color:#fff; padding: 4px 10px; border-radius: 5px; }
+  .row-status { font-size: 11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+  .row-title { font-size: 19px; font-weight:600; margin-bottom: 6px; }
+  .row-desc { font-size: 13.5px; line-height:1.6; color:#5a5a56; max-width: 900px; margin-bottom: 26px; }
+
+  .row-frames { display:flex; gap: 40px; flex-wrap: wrap; align-items:flex-start; }
+  .frame-slot { display:flex; flex-direction:column; gap:14px; }
+  .slot-label { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a86; }
+  .thumb-frame { position:relative; overflow:visible; }
+  .frame-missing { width:260px; height:120px; display:flex; align-items:center; justify-content:center; border:1.5px dashed #d8d8d2; border-radius:12px; font-size:12px; color:#b0b0aa; text-align:center; padding:16px; }
+</style>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#eef0ea"/><rect x="30" y="30" width="40" height="40" fill="none" stroke="#1a1a1a" stroke-width="3"/><text x="50" y="55" font-size="14" text-anchor="middle" fill="#1a1a1a" font-family="serif">FMB</text></svg></template></head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <h1>FMB · ART — Catálogo de Ecrãs — Mobile</h1>
+      <div class="subtitle">Todas as versões de telemóvel · Direções A / C lado a lado</div>
+      <p>Catálogo de todos os ecrãs 🟢 Live e 🟡 Near-term desenhados até agora, nas Direções <b>A — Cubo Branco</b> e <b>C — Corredor</b>, lado a lado para comparação direta. Miniaturas fiéis (mesmo HTML/CSS do sistema), escaladas para caber na página — a fidelidade visual e o texto real estão preservados no ficheiro fonte de cada ecrã.</p>
+      <div class="toc">
+        <a href="#S-01-09">S-01/09</a><a href="#S-02">S-02</a><a href="#S-03">S-03</a><a href="#S-04">S-04</a><a href="#S-05">S-05</a><a href="#S-06">S-06</a><a href="#S-10">S-10</a><a href="#S-15">S-15</a><a href="#S-16">S-16</a><a href="#S-17">S-17</a><a href="#S-19">S-19</a><a href="#S-20">S-20</a><a href="#S-21">S-21</a><a href="#S-22">S-22</a><a href="#S-29">S-29</a><a href="#S-30">S-30</a><a href="#S-31">S-31</a><a href="#S-38">S-38</a><a href="#S-55">S-55</a><a href="#S-56">S-56</a>
+      </div>
+    </div>
+    
+  <section class="screen-row" id="S-01-09">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-01/09</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Mobile Gallery (responsive)</div>
+      <div class="row-desc">Estado responsivo do S-01 em telemóvel — os temas de parede colapsam numa grelha de 2 colunas com scroll.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:780px;">
+      <div class="pb-head">
+        <span class="pb-brand">FMB · ART</span>
+        <span class="pb-icon">+</span>
+      </div>
+      <div class="pb-body">
+        <div class="pb-wallgrid">
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/luna.jpeg"></div><div class="wc-title">LUNA</div><div class="wc-meta">Manuel · 7 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/matisse.jpeg"></div><div class="wc-title">Forma Azul</div><div class="wc-meta">Miguel · 6 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/miguel-warhol.jpeg"></div><div class="wc-title">Auto-Retrato Pop</div><div class="wc-meta">Miguel · 6 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/era-uma-vez.jpeg"></div><div class="wc-title">Era Uma Vez…</div><div class="wc-meta">Miguel · 6 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/dia-da-mae.jpeg"></div><div class="wc-title">Dia da Mãe 2026</div><div class="wc-meta">Muna · 4 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/clay-sculpture.jpeg"></div><div class="wc-title">Gato de Barro</div><div class="wc-meta">Miguel · 6 anos</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:780px;">
+      <div class="pb-head">
+        <span class="pb-brand">FMB · ART</span>
+        <span class="pb-icon">+</span>
+      </div>
+      <div class="pb-body">
+        <div class="pb-wallgrid">
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/luna.jpeg"></div><div class="wc-title">LUNA</div><div class="wc-meta">Manuel · 7</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/matisse.jpeg"></div><div class="wc-title">Forma Azul</div><div class="wc-meta">Miguel · 6</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/miguel-warhol.jpeg"></div><div class="wc-title">Auto-Retrato Pop</div><div class="wc-meta">Miguel · 6</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/era-uma-vez.jpeg"></div><div class="wc-title">Era Uma Vez…</div><div class="wc-meta">Miguel · 6</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/dia-da-mae.jpeg"></div><div class="wc-title">Dia da Mãe 2026</div><div class="wc-meta">Muna · 4</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/clay-sculpture.jpeg"></div><div class="wc-title">Gato de Barro</div><div class="wc-meta">Miguel · 6</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-02">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-02</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Wall Theme Switcher</div>
+      <div class="row-desc">Controlo na barra superior para alternar entre temas de parede ("Cubo Branco" / "Parede de Galeria"). Afeta o chrome de toda a galeria, não uma obra isolada.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:462px;">
+    <div style="width:390px;height:600px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:600px;">
+      <div class="pb-head"><span class="pb-brand">FMB · ART</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body" style="gap:22px;">
+        <div>
+          <div class="switcher-heading" style="font-size:17px;">Estilo da Parede</div>
+          <div class="switcher-sub" style="font-size:12px;">Afeta toda a galeria.</div>
+        </div>
+        <div class="theme-switch" style="flex-direction:column;">
+          <div class="theme-pill is-active" style="text-align:center;">Cubo Branco</div>
+          <div class="theme-pill" style="text-align:center;">Parede de Galeria</div>
+        </div>
+        <div class="switcher-thumb is-active" style="background:#eef0ea; height:200px;">
+          <img src="assets/art/matisse.jpeg" style="width:60%; height:70%; object-fit:cover; border:3px solid #171614;">
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:462px;">
+    <div style="width:390px;height:600px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:600px;">
+      <div class="pb-head"><span class="pb-brand">FMB · ART</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body" style="gap:22px;">
+        <div>
+          <div class="switcher-heading" style="font-size:15px; font-family:'Inter',sans-serif; font-weight:600;">Estilo da Parede</div>
+          <div class="switcher-sub" style="font-size:12px;">Afeta toda a galeria.</div>
+        </div>
+        <div class="theme-switch" style="flex-direction:column;">
+          <div class="theme-pill is-active" style="text-align:center;">Cubo Branco</div>
+          <div class="theme-pill" style="text-align:center;">Parede de Galeria</div>
+        </div>
+        <div class="switcher-thumb is-active" style="background:#f1f2ef; height:200px;">
+          <img src="assets/art/matisse.jpeg" style="width:60%; height:70%; object-fit:cover; border:1.5px solid #1a1a1a;">
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-03">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-03</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Exhibition View (Single Artwork Focus)</div>
+      <div class="row-desc">Ao clicar numa moldura abre-se a vista focada de uma obra: imagem emoldurada, ficha/legenda de curador (título, artista, idade, ano, descrição gerada por IA), pontos de descoberta.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:615px;">
+    <div style="width:390px;height:800px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:800px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">O Senhor Vermelho</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame"><img src="assets/art/miguel-miro.jpeg"></div>
+        <div class="pb-exh-title">O Senhor Vermelho</div>
+        <div class="pb-exh-meta">Miguel · 6 anos · 2026 · Guache sobre papel</div>
+        <div class="pb-exh-body">Uma figura em pé, vermelho contra azul profundo. Dois olhos bem abertos observam quem entra na sala.</div>
+        <div class="pb-exh-controls"><div class="play-btn" style="width:32px;height:32px;border-radius:50%;border:1px solid #1a1a1a;flex-shrink:0;"></div><div class="track"></div><div class="dur" style="font-family:'JetBrains Mono',monospace;font-size:10px;">0:12</div></div>
+        <div class="pb-cta">EXPLORAR</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:615px;">
+    <div style="width:390px;height:800px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:800px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">O Senhor Vermelho</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame"><img src="assets/art/miguel-miro.jpeg"></div>
+        <div class="pb-exh-title" style="font-family:'Inter',sans-serif;">O Senhor Vermelho</div>
+        <div class="pb-exh-meta">Miguel · 6 anos · 2026</div>
+        <div class="pb-exh-body">Uma figura em pé, vermelho contra azul profundo. Dois olhos bem abertos observam quem entra na sala.</div>
+        <div class="pb-exh-controls"><div class="play-tri" style="width:0;height:0;border-style:solid;border-width:6px 0 6px 9px;border-color:transparent transparent transparent #161616;"></div><div class="track"></div><div class="dur" style="font-size:10px;">0:12</div></div>
+        <div class="pb-cta">Explorar</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-04">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-04</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Discovery Dot Tooltip / Audio Playback</div>
+      <div class="row-desc">Pequeno overlay acionado ao tocar num ponto da obra — mostra o texto/áudio narrado pela criança sobre esse detalhe.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:760px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">O Senhor Vermelho</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame" style="position:relative;">
+          <img src="assets/art/miguel-miro.jpeg">
+          <div class="disc-dot is-open" style="left:36%; top:26%;">1</div>
+          <div class="disc-pop" style="left:14px; top:44%; width:auto; right:14px;">
+            <div class="dp-label">Ponto 1 · a tocar</div>
+            <div class="dp-wave"><span style="height:6px"></span><span style="height:14px"></span><span style="height:9px"></span><span style="height:17px"></span><span style="height:7px"></span></div>
+            <div class="dp-text">"Este é o olho amarelo — fica sempre acordado à noite."</div>
+          </div>
+          <div class="disc-dot" style="left:64%; top:72%;">2</div>
+        </div>
+        <div class="pb-exh-title">O Senhor Vermelho</div>
+        <div class="pb-exh-meta">Miguel · 6 anos · 2026</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:760px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">O Senhor Vermelho</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame" style="position:relative;">
+          <img src="assets/art/miguel-miro.jpeg">
+          <div class="disc-dot is-open" style="left:36%; top:26%;">1</div>
+          <div class="disc-pop" style="left:14px; top:44%; width:auto; right:14px;">
+            <div class="dp-label">Ponto 1 · a tocar</div>
+            <div class="dp-wave"><span style="height:6px"></span><span style="height:14px"></span><span style="height:9px"></span><span style="height:17px"></span><span style="height:7px"></span></div>
+            <div class="dp-text">"Este é o olho amarelo — fica sempre acordado à noite."</div>
+          </div>
+          <div class="disc-dot" style="left:64%; top:72%;">2</div>
+        </div>
+        <div class="pb-exh-title" style="font-family:'Inter',sans-serif;">O Senhor Vermelho</div>
+        <div class="pb-exh-meta">Miguel · 6 anos · 2026</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-05">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-05</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Explore / "Bring to Life" Modal</div>
+      <div class="row-desc">Overlay de ecrã inteiro a partir da Vista de Exposição. Reproduz a animação da obra (uma das 11+ rotinas: miró, warhol, retrato, matisse, história, etc.).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:631px;">
+    <div style="width:390px;height:820px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:820px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">Explorar</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame" style="margin-bottom:14px;"><img src="assets/art/miguel-miro.jpeg"></div>
+        <div class="pb-ex-tabs">
+          <div class="pb-ex-tab is-active">Dar Vida</div>
+          <div class="pb-ex-tab">Modo História</div>
+          <div class="pb-ex-tab">Colorir</div>
+        </div>
+        <div class="pb-ex-chips">
+          <div class="pb-ex-chip is-selected">Matisse</div>
+          <div class="pb-ex-chip">Caleidoscópio</div>
+          <div class="pb-ex-chip">Estilhaço</div>
+          <div class="pb-ex-chip">Néon</div>
+          <div class="pb-ex-chip">Confeti</div>
+          <div class="pb-ex-chip">Warhol</div>
+          <div class="pb-ex-chip">Van Gogh</div>
+        </div>
+        <button class="btn-a-primary" style="margin-top:20px;">▶ REPRODUZIR ANIMAÇÃO</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:631px;">
+    <div style="width:390px;height:820px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:820px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand" style="text-align:center;">Explorar</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-exh-frame" style="margin-bottom:14px;"><img src="assets/art/miguel-miro.jpeg"></div>
+        <div class="pb-ex-tabs">
+          <div class="pb-ex-tab is-active">Dar Vida</div>
+          <div class="pb-ex-tab">Modo História</div>
+          <div class="pb-ex-tab">Colorir</div>
+        </div>
+        <div class="pb-ex-chips">
+          <div class="pb-ex-chip is-selected">Matisse</div>
+          <div class="pb-ex-chip">Caleidoscópio</div>
+          <div class="pb-ex-chip">Estilhaço</div>
+          <div class="pb-ex-chip">Néon</div>
+          <div class="pb-ex-chip">Confeti</div>
+          <div class="pb-ex-chip">Warhol</div>
+          <div class="pb-ex-chip">Van Gogh</div>
+        </div>
+        <button class="btn-c-primary" style="margin-top:20px;">Reproduzir animação</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-06">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-06</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Sala de Experimentação (Experimentation Room)</div>
+      <div class="row-desc">Galeria de efeitos visuais autónomos, separada do corredor principal — um sandbox/showcase de ideias de animação ainda não associadas a obras específicas.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:780px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand">Experimentação</span></div>
+      <div class="pb-body">
+        <div class="exp-grid-mobile">
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/matisse.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Matisse</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-miro.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Caleidoscópio</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/luna.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Confeti</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-warhol.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Warhol</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:780px;">
+      <div class="pb-head"><span class="pb-icon">←</span><span class="pb-brand">Experimentação</span></div>
+      <div class="pb-body">
+        <div class="exp-grid-mobile">
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/matisse.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Matisse</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-miro.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Caleidoscópio</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/luna.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Confeti</div></div>
+          <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-warhol.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Warhol</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-10">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-10</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Print View (single artwork)</div>
+      <div class="row-desc">Layout limpo, a sangue total, de uma obra + ficha de título, otimizado para impressão doméstica em A4/A3.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:760px;">
+      <div class="pb-head"><span class="pb-brand">Vista de Impressão</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-print-page">
+          <div class="pp-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div class="pp-title">Golo!</div>
+          <div class="pp-meta">Miguel · 6 anos · 2026</div>
+        </div>
+        <button class="btn-a-primary" style="margin-top:18px;">IMPRIMIR EM CASA</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:760px;">
+      <div class="pb-head"><span class="pb-brand">Vista de Impressão</span><span class="pb-icon">✕</span></div>
+      <div class="pb-body">
+        <div class="pb-print-page">
+          <div class="pp-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div class="pp-title" style="font-family:'Inter',sans-serif;">Golo!</div>
+          <div class="pp-meta">Miguel · 6 anos · 2026</div>
+        </div>
+        <button class="btn-c-primary" style="margin-top:18px;">Imprimir em casa</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-15">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-15</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Upload Screen (drag-drop / photo picker)</div>
+      <div class="row-desc">Alvo de arrastar-largar ou tocar-para-escolher para uma foto (JPEG, PNG, HEIC). Validação client-side (tamanho/tipo), progresso de upload.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:760px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Nova Obra</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="dropzone">
+          <div class="dz-icon">📷</div>
+          <div class="dz-title">Arrasta uma foto para aqui</div>
+          <div class="dz-sub">ou toca para escolher da galeria do telemóvel</div>
+          <div class="dz-or">— ou —</div>
+          <button class="btn-a-ghost" style="width:auto; padding:12px 28px;">TIRAR FOTOGRAFIA</button>
+          <div class="dz-formats">JPEG · PNG · HEIC · até 20MB</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:760px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Nova Obra</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="dropzone">
+          <div class="dz-icon">📷</div>
+          <div class="dz-title">Arrasta uma foto para aqui</div>
+          <div class="dz-sub">ou toca para escolher da galeria do telemóvel</div>
+          <div class="dz-or">— ou —</div>
+          <button class="btn-c-ghost" style="width:auto; padding:12px 28px;">Tirar fotografia</button>
+          <div class="dz-formats">JPEG · PNG · HEIC · até 20MB</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-16">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-16</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">In-Browser Photo Editor</div>
+      <div class="row-desc">Cortar, rodar, melhorar luz aplicado à fotografia carregada antes de ser submetida (nunca à obra em si).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:760px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Ajustar Fotografia</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="editor-canvas">
+          <img src="assets/art/miguel-mbappe.jpeg">
+          <div class="crop-corner tl"></div><div class="crop-corner tr"></div>
+          <div class="crop-corner bl"></div><div class="crop-corner br"></div>
+        </div>
+        <div class="editor-note">Ajusta apenas a fotografia — o desenho do Miguel não é alterado.</div>
+        <div class="editor-tools">
+          <div class="editor-tool is-active"><div class="ic">⤢</div>Cortar</div>
+          <div class="editor-tool"><div class="ic">⟳</div>Rodar</div>
+          <div class="editor-tool"><div class="ic">☀︎</div>Luz</div>
+        </div>
+        <button class="btn-a-primary">CONTINUAR</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:585px;">
+    <div style="width:390px;height:760px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:760px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Ajustar Fotografia</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="editor-canvas">
+          <img src="assets/art/miguel-mbappe.jpeg">
+          <div class="crop-corner tl"></div><div class="crop-corner tr"></div>
+          <div class="crop-corner bl"></div><div class="crop-corner br"></div>
+        </div>
+        <div class="editor-note">Ajusta apenas a fotografia — o desenho do Miguel não é alterado.</div>
+        <div class="editor-tools">
+          <div class="editor-tool is-active"><div class="ic">⤢</div>Cortar</div>
+          <div class="editor-tool"><div class="ic">⟳</div>Rodar</div>
+          <div class="editor-tool"><div class="ic">☀︎</div>Luz</div>
+        </div>
+        <button class="btn-c-primary">Continuar</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-17">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-17</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Artwork Context Form</div>
+      <div class="row-desc">Campos: nome do artista, idade, sugestão de título, contexto, palavras da criança, sugestões de animação. Substitui o formulário markdown de intake.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Conta-nos sobre esta obra</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="ctx-form">
+          <div class="ctx-row">
+            <div class="ctx-field"><label>Artista</label><input value="Miguel"></div>
+            <div class="ctx-field" style="max-width:80px;"><label>Idade</label><input value="6"></div>
+          </div>
+          <div class="ctx-field"><label>Título (sugestão)</label><input value="Golo!"></div>
+          <div class="ctx-field"><label>Contexto</label><textarea>Desenhou depois de ver o jogo do Mundial com o pai.</textarea></div>
+          <div class="ctx-field"><label>Palavras do artista</label><textarea>"É o Ronaldo a marcar!"</textarea></div>
+          <div class="ctx-field"><label>Estilo de animação</label><select><option>Sugerir automaticamente</option></select></div>
+        </div>
+        <button class="btn-a-primary" style="margin-top:16px;">CONTINUAR</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Conta-nos sobre esta obra</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="ctx-form">
+          <div class="ctx-row">
+            <div class="ctx-field"><label>Artista</label><input value="Miguel"></div>
+            <div class="ctx-field" style="max-width:80px;"><label>Idade</label><input value="6"></div>
+          </div>
+          <div class="ctx-field"><label>Título (sugestão)</label><input value="Golo!"></div>
+          <div class="ctx-field"><label>Contexto</label><textarea>Desenhou depois de ver o jogo do Mundial com o pai.</textarea></div>
+          <div class="ctx-field"><label>Palavras do artista</label><textarea>"É o Ronaldo a marcar!"</textarea></div>
+          <div class="ctx-field"><label>Estilo de animação</label><select><option>Sugerir automaticamente</option></select></div>
+        </div>
+        <button class="btn-c-primary" style="margin-top:16px;">Continuar</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-19">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-19</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Audio Recording Interface (Discovery Dots)</div>
+      <div class="row-desc">Pai/criança coloca um ponto na imagem e grava um clip de 10–15s a explicar esse detalhe. Mostra estado de gravação, temporizador, pré-visualização de forma de onda.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Pontos de Descoberta</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="recorder">
+          <div class="rec-image">
+            <img src="assets/art/miguel-mbappe.jpeg">
+            <div class="rec-dot-existing" style="left:30%; top:40%;">1</div>
+            <div class="rec-dot-new" style="left:62%; top:64%;">+</div>
+          </div>
+          <div class="rec-hint">Toca na imagem para marcar um novo ponto, depois grava</div>
+          <div class="rec-controls">
+            <div class="rec-timer">0:07</div>
+            <div class="rec-waveform">
+              <span style="height:8px"></span><span style="height:18px"></span><span style="height:12px"></span>
+              <span style="height:22px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:9px"></span>
+            </div>
+            <div class="rec-btn"></div>
+          </div>
+        </div>
+        <button class="btn-a-primary" style="margin-top:18px;">GUARDAR E CONTINUAR</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Pontos de Descoberta</span><span class="flow-x">✕</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div></div>
+      <div class="flow-body">
+        <div class="recorder">
+          <div class="rec-image">
+            <img src="assets/art/miguel-mbappe.jpeg">
+            <div class="rec-dot-existing" style="left:30%; top:40%;">1</div>
+            <div class="rec-dot-new" style="left:62%; top:64%;">+</div>
+          </div>
+          <div class="rec-hint">Toca na imagem para marcar um novo ponto, depois grava</div>
+          <div class="rec-controls">
+            <div class="rec-timer">0:07</div>
+            <div class="rec-waveform">
+              <span style="height:8px"></span><span style="height:18px"></span><span style="height:12px"></span>
+              <span style="height:22px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:9px"></span>
+            </div>
+            <div class="rec-btn"></div>
+          </div>
+        </div>
+        <button class="btn-c-primary" style="margin-top:18px;">Guardar e continuar</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-20">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-20</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">AI Analysis / Processing State</div>
+      <div class="row-desc">Ecrã de carregamento/progresso enquanto o modelo de visão analisa a obra e gera título, paleta, animação e pontos de descoberta.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:492px;">
+    <div style="width:390px;height:640px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:640px;">
+      <div class="flow-head"><span class="flow-title" style="text-align:center; flex:1;">A Obra Está a Caminho…</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div></div>
+      <div class="flow-body">
+        <div class="processing">
+          <div class="proc-frame"><img src="assets/art/miguel-mbappe.jpeg"><div class="proc-shimmer"></div></div>
+          <div class="proc-steps">
+            <div class="proc-step done"><span class="proc-check">✓</span>A ler cores e formas</div>
+            <div class="proc-step done"><span class="proc-check">✓</span>A escrever o título</div>
+            <div class="proc-step"><span class="proc-check"></span>A escolher a animação</div>
+            <div class="proc-step"><span class="proc-check"></span>A preparar pontos de descoberta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:492px;">
+    <div style="width:390px;height:640px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:640px;">
+      <div class="flow-head"><span class="flow-title" style="text-align:center; flex:1;">A Obra Está a Caminho…</span></div>
+      <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div></div>
+      <div class="flow-body">
+        <div class="processing">
+          <div class="proc-frame"><img src="assets/art/miguel-mbappe.jpeg"><div class="proc-shimmer"></div></div>
+          <div class="proc-steps">
+            <div class="proc-step done"><span class="proc-check">✓</span>A ler cores e formas</div>
+            <div class="proc-step done"><span class="proc-check">✓</span>A escrever o título</div>
+            <div class="proc-step"><span class="proc-check"></span>A escolher a animação</div>
+            <div class="proc-step"><span class="proc-check"></span>A preparar pontos de descoberta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-21">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-21</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Pending Approval Review</div>
+      <div class="row-desc">Passo de revisão opcional mostrando a entrada rascunhada pela IA antes de ir ao ar — espelha o passo de aprovação atual via Claude Code.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Rever Rascunho</span><span class="flow-x">✕</span></div>
+      <div class="flow-body" style="padding-top:20px;">
+        <div class="review">
+          <div class="review-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div>
+            <div class="review-title">Golo!</div>
+            <div class="review-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Paleta</div>
+            <div class="review-palette">
+              <div class="review-swatch" style="background:#2a6fd8"></div>
+              <div class="review-swatch" style="background:#1a9c4a"></div>
+              <div class="review-swatch" style="background:#e8c33a"></div>
+            </div>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Pontos de descoberta (2)</div>
+            <ul class="review-dots-list">
+              <li>1 · "É o Ronaldo a marcar!"</li>
+              <li>2 · A bola a voar para a baliza</li>
+            </ul>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Animação sugerida</div>
+            <div style="font-size:13px;">Confeti</div>
+          </div>
+          <div class="review-actions">
+            <button class="btn-a-ghost">EDITAR</button>
+            <button class="btn-a-primary">APROVAR E PUBLICAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:600px;">
+    <div style="width:390px;height:780px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:780px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Rever Rascunho</span><span class="flow-x">✕</span></div>
+      <div class="flow-body" style="padding-top:20px;">
+        <div class="review">
+          <div class="review-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div>
+            <div class="review-title">Golo!</div>
+            <div class="review-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Paleta</div>
+            <div class="review-palette">
+              <div class="review-swatch" style="background:#2a6fd8"></div>
+              <div class="review-swatch" style="background:#1a9c4a"></div>
+              <div class="review-swatch" style="background:#e8c33a"></div>
+            </div>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Pontos de descoberta (2)</div>
+            <ul class="review-dots-list">
+              <li>1 · "É o Ronaldo a marcar!"</li>
+              <li>2 · A bola a voar para a baliza</li>
+            </ul>
+          </div>
+          <div class="review-block">
+            <div class="review-label">Animação sugerida</div>
+            <div style="font-size:13px;">Confeti</div>
+          </div>
+          <div class="review-actions">
+            <button class="btn-c-ghost">Editar</button>
+            <button class="btn-c-primary">Aprovar e publicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-22">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-22</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Upload Success / "It's on the wall" Confirmation</div>
+      <div class="row-desc">Ecrã de confirmação após a publicação de uma nova peça, com link/pré-visualização da obra já ao vivo.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:538px;">
+    <div style="width:390px;height:700px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:700px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="success">
+          <div class="success-check">✓</div>
+          <div class="success-title">Está na parede!</div>
+          <div class="success-sub">"Golo!" já está pendurado na Galeria do Miguel.</div>
+          <div class="success-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div class="success-actions">
+            <button class="btn-a-primary">VER NA PAREDE</button>
+            <button class="btn-a-ghost">PARTILHAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:538px;">
+    <div style="width:390px;height:700px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:700px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="success">
+          <div class="success-check">✓</div>
+          <div class="success-title">Está na parede!</div>
+          <div class="success-sub">"Golo!" já está pendurado na Galeria do Miguel.</div>
+          <div class="success-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+          <div class="success-actions">
+            <button class="btn-c-primary">Ver na parede</button>
+            <button class="btn-c-ghost">Partilhar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-29">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-29</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">PIN-Protected Upload Gate</div>
+      <div class="row-desc">Ecrã leve de PIN familiar de 4 dígitos que protege o fluxo de carregamento na fase pré-contas (antes de existir autenticação completa).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:523px;">
+    <div style="width:390px;height:680px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:680px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title" style="flex:1; text-align:center;"></span><span style="width:17px;"></span></div>
+      <div class="flow-body">
+        <div class="pinpad">
+          <div>
+            <div class="pin-title">Introduz o PIN da família</div>
+            <div class="pin-sub">4 dígitos, partilhado por quem cuida do Miguel</div>
+          </div>
+          <div class="pin-dots">
+            <div class="pin-dot filled"></div><div class="pin-dot filled"></div>
+            <div class="pin-dot filled"></div><div class="pin-dot"></div>
+          </div>
+          <div class="pin-keys">
+            <div class="pin-key">1</div><div class="pin-key">2</div><div class="pin-key">3</div>
+            <div class="pin-key">4</div><div class="pin-key">5</div><div class="pin-key">6</div>
+            <div class="pin-key">7</div><div class="pin-key">8</div><div class="pin-key">9</div>
+            <div class="pin-key"></div><div class="pin-key">0</div><div class="pin-key">⌫</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:523px;">
+    <div style="width:390px;height:680px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:680px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title" style="flex:1; text-align:center;"></span><span style="width:17px;"></span></div>
+      <div class="flow-body">
+        <div class="pinpad">
+          <div>
+            <div class="pin-title">Introduz o PIN da família</div>
+            <div class="pin-sub">4 dígitos, partilhado por quem cuida do Miguel</div>
+          </div>
+          <div class="pin-dots">
+            <div class="pin-dot filled"></div><div class="pin-dot filled"></div>
+            <div class="pin-dot filled"></div><div class="pin-dot"></div>
+          </div>
+          <div class="pin-keys">
+            <div class="pin-key">1</div><div class="pin-key">2</div><div class="pin-key">3</div>
+            <div class="pin-key">4</div><div class="pin-key">5</div><div class="pin-key">6</div>
+            <div class="pin-key">7</div><div class="pin-key">8</div><div class="pin-key">9</div>
+            <div class="pin-key"></div><div class="pin-key">0</div><div class="pin-key">⌫</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-30">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-30</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">"Share to Grandparents" / Share Sheet</div>
+      <div class="row-desc">Fluxo de partilha a partir da galeria — gera a ligação do museu, mostra opções de partilha (copiar, mensagem, email).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:538px;">
+    <div style="width:390px;height:700px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:700px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1; text-align:center;">Partilhar Museu</span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="sharesheet">
+          <div class="share-linkcard">
+            <div class="lbl">Ligação do museu</div>
+            <div class="url">fmb.art/miguel-museu</div>
+          </div>
+          <div class="share-qr"></div>
+          <div class="share-options">
+            <div class="share-opt"><div class="share-icon">🔗</div>Copiar</div>
+            <div class="share-opt"><div class="share-icon">✉︎</div>Email</div>
+            <div class="share-opt"><div class="share-icon">💬</div>Mensagem</div>
+          </div>
+          <div class="share-note">Quem recebe vê a galeria — sem poder editar ou carregar.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:538px;">
+    <div style="width:390px;height:700px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:700px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1; text-align:center;">Partilhar Museu</span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="sharesheet">
+          <div class="share-linkcard">
+            <div class="lbl">Ligação do museu</div>
+            <div class="url">fmb.art/miguel-museu</div>
+          </div>
+          <div class="share-qr"></div>
+          <div class="share-options">
+            <div class="share-opt"><div class="share-icon">🔗</div>Copiar</div>
+            <div class="share-opt"><div class="share-icon">✉︎</div>Email</div>
+            <div class="share-opt"><div class="share-icon">💬</div>Mensagem</div>
+          </div>
+          <div class="share-note">Quem recebe vê a galeria — sem poder editar ou carregar.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-31">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-31</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Visitor View (Read-Only Shared Museum)</div>
+      <div class="row-desc">A vista que um avô/familiar vê ao abrir uma ligação de museu partilhada — igual ao S-01/S-03 mas sem controlos de edição/upload, com CTA de "cria o teu museu".</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:615px;">
+    <div style="width:390px;height:800px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-a" style="height:800px;">
+      <div class="pb-head"><span class="pb-brand">Museu do Miguel</span></div>
+      <div class="pb-body">
+        <div class="pb-visitor-banner">
+          <div class="vb-text">Estás a ver este museu em modo só de leitura.</div>
+          <div class="vb-cta">CRIA O TEU MUSEU</div>
+        </div>
+        <div class="pb-wallgrid">
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/luna.jpeg"></div><div class="wc-title">LUNA</div><div class="wc-meta">Manuel · 7 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/matisse.jpeg"></div><div class="wc-title">Forma Azul</div><div class="wc-meta">Miguel · 6 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/miguel-warhol.jpeg"></div><div class="wc-title">Auto-Retrato Pop</div><div class="wc-meta">Miguel · 6 anos</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/dia-da-mae.jpeg"></div><div class="wc-title">Dia da Mãe 2026</div><div class="wc-meta">Muna · 4 anos</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:615px;">
+    <div style="width:390px;height:800px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="phone-board dir-c" style="height:800px;">
+      <div class="pb-head"><span class="pb-brand">Museu do Miguel</span></div>
+      <div class="pb-body">
+        <div class="pb-visitor-banner">
+          <div class="vb-text">Estás a ver este museu em modo só de leitura.</div>
+          <div class="vb-cta">Cria o teu museu</div>
+        </div>
+        <div class="pb-wallgrid">
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/luna.jpeg"></div><div class="wc-title">LUNA</div><div class="wc-meta">Manuel · 7</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/matisse.jpeg"></div><div class="wc-title">Forma Azul</div><div class="wc-meta">Miguel · 6</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/miguel-warhol.jpeg"></div><div class="wc-title">Auto-Retrato Pop</div><div class="wc-meta">Miguel · 6</div></div>
+          <div class="pb-wallcard"><div class="wc-frame"><img src="assets/art/dia-da-mae.jpeg"></div><div class="wc-title">Dia da Mãe 2026</div><div class="wc-meta">Muna · 4</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-38">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-38</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Watermarked Export Preview</div>
+      <div class="row-desc">Pré-visualização de uma imagem/vídeo exportado mostrando a marca de água do plano gratuito, com upsell para a remover via subscrição.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:554px;">
+    <div style="width:390px;height:720px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:720px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Exportar Imagem</span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="watermark-preview">
+          <div class="wm-frame">
+            <img src="assets/art/miguel-miro.jpeg">
+            <div class="wm-tile">
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+            </div>
+          </div>
+          <div class="wm-upsell">
+            <div class="t">Remove a marca de água</div>
+            <div class="d">Disponível com o plano Família — exporta em alta resolução, sem marca.</div>
+            <button class="btn-a-primary" style="margin-top:2px;">VER PLANOS</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:554px;">
+    <div style="width:390px;height:720px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:720px;">
+      <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Exportar Imagem</span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="watermark-preview">
+          <div class="wm-frame">
+            <img src="assets/art/miguel-miro.jpeg">
+            <div class="wm-tile">
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+            </div>
+          </div>
+          <div class="wm-upsell">
+            <div class="t">Remove a marca de água</div>
+            <div class="d">Disponível com o plano Família — exporta em alta resolução, sem marca.</div>
+            <button class="btn-c-primary" style="margin-top:2px;">Ver planos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-55">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-55</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Error / Analysis-Failed State</div>
+      <div class="row-desc">Mostrado quando a análise de IA falha (timeout, resposta inválida) — pedido de nova tentativa, tom simpático.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:477px;">
+    <div style="width:390px;height:620px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:620px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="errorstate">
+          <div class="err-icon">!</div>
+          <div class="err-title">Algo correu mal</div>
+          <div class="err-sub">Não conseguimos analisar esta obra. A foto pode estar desfocada ou a ligação instável.</div>
+          <div class="err-actions">
+            <button class="btn-a-primary">TENTAR NOVAMENTE</button>
+            <button class="btn-a-ghost">CARREGAR OUTRA FOTO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:477px;">
+    <div style="width:390px;height:620px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:620px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="errorstate">
+          <div class="err-icon">!</div>
+          <div class="err-title">Algo correu mal</div>
+          <div class="err-sub">Não conseguimos analisar esta obra. A foto pode estar desfocada ou a ligação instável.</div>
+          <div class="err-actions">
+            <button class="btn-c-primary">Tentar novamente</button>
+            <button class="btn-c-ghost">Carregar outra foto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-56">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-56</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">HEIC Conversion Notice</div>
+      <div class="row-desc">Interstitial que explica/trata o carregamento de fotos HEIC do iPhone durante a conversão.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:300px;height:462px;">
+    <div style="width:390px;height:600px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-a" style="height:600px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="heicnotice">
+          <div class="heic-spin"></div>
+          <div class="heic-title">A converter a tua foto…</div>
+          <div class="heic-sub">Fotos do iPhone (HEIC) são convertidas automaticamente antes da análise.</div>
+          <div class="heic-tag">.HEIC → .JPEG</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:300px;height:462px;">
+    <div style="width:390px;height:600px;transform:scale(0.7692);transform-origin:top left;">
+      <div class="board flow-board dir-c" style="height:600px;">
+      <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+      <div class="flow-body">
+        <div class="heicnotice">
+          <div class="heic-spin"></div>
+          <div class="heic-title">A converter a tua foto…</div>
+          <div class="heic-sub">Fotos do iPhone (HEIC) são convertidas automaticamente antes da análise.</div>
+          <div class="heic-tag">.HEIC → .JPEG</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  </div>
+</body>
+</html>

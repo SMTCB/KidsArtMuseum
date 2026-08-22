@@ -1,0 +1,115 @@
+/* ============================================================
+   V2 IDENTITY — DESKTOP VERSIONS of the intake/system-state flow
+   Reuses component classes from v2-identity.css / v2-identity-2.css.
+   The phone .flow-board becomes a centered .dweb-modal sitting over
+   a dimmed, blurred wall backdrop — the flow behaves as a dialog
+   opened on top of the desktop gallery app.
+   ============================================================ */
+
+.dweb-frame {
+  position: relative;
+  width: 1440px;
+  height: 900px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+/* ---------- backdrop: blurred wall + top bar, dimmed ---------- */
+.dweb-bg {
+  position: absolute; inset: 0;
+  filter: blur(7px) saturate(0.9);
+  transform: scale(1.03);
+}
+.dweb-bg .art { position: absolute; }
+.dweb-topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 64px;
+  display: flex; align-items: center; gap: 28px;
+  padding: 0 40px;
+  z-index: 1;
+}
+.dweb-topbar .brand { font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; }
+.dweb-topbar .navdot { width: 62px; height: 8px; border-radius: 4px; opacity: 0.35; }
+.dir-a.dweb-frame { background: #eef0ea; }
+.dir-c.dweb-frame { background: #f1f2ef; }
+.dir-a .dweb-topbar { background: rgba(250,248,242,0.7); color: #1a1a1a; border-bottom: 1px solid rgba(20,20,15,0.06); }
+.dir-a .dweb-topbar .navdot { background: #1a1a1a; }
+.dir-c .dweb-topbar { background: rgba(255,255,255,0.7); color: #161616; border-bottom: 1px solid rgba(20,20,15,0.06); }
+.dir-c .dweb-topbar .navdot { background: var(--c-accent); }
+
+.dweb-scrim {
+  position: absolute; inset: 0;
+  z-index: 2;
+}
+.dir-a .dweb-scrim { background: rgba(24,20,14,0.4); }
+.dir-c .dweb-scrim { background: rgba(16,20,28,0.36); }
+
+/* ---------- the modal / dialog ---------- */
+.dweb-modal {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 640px;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 50px 100px -30px rgba(10,10,5,0.5), 0 4px 16px rgba(0,0,0,0.15);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.dweb-modal.dweb-wide { width: 900px; }
+.dweb-modal.dweb-narrow { width: 460px; }
+
+.dweb-modal .flow-head { padding: 30px 40px 18px; gap: 16px; }
+.dweb-modal .flow-back, .dweb-modal .flow-x { font-size: 19px; cursor: pointer; }
+.dweb-modal .flow-title { font-size: 17px; }
+.dweb-modal .flow-steps { padding: 0 40px 26px; gap: 8px; }
+.dweb-modal .flow-step { height: 4px; }
+.dweb-modal .flow-body { padding: 0 40px 40px; }
+
+/* ---------- desktop split-layout helper ---------- */
+.dweb-flexrow { display: flex; gap: 36px; align-items: flex-start; }
+.dweb-col-fixed { flex-shrink: 0; }
+.dweb-col-flex { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+/* ---------- per-screen desktop sizing tweaks ---------- */
+.dweb-modal .dropzone { padding: 46px; min-height: 320px; }
+.dweb-modal .dz-icon { width: 68px; height: 68px; font-size: 26px; }
+.dweb-modal .dz-title { font-size: 17px; }
+.dweb-modal .dz-sub { font-size: 13px; max-width: 300px; }
+
+.dweb-modal .editor-canvas { flex: none; margin-bottom: 0; }
+.dweb-modal .editor-tools { padding: 4px 0; }
+.dweb-modal .editor-note { text-align: left; margin-bottom: 20px; }
+
+.dweb-modal .ctx-field input,
+.dweb-modal .ctx-field textarea,
+.dweb-modal .ctx-field select { font-size: 14.5px; padding: 12px 14px; }
+
+.dweb-modal .rec-image { height: 340px; }
+.dweb-modal .rec-controls { flex-direction: row; gap: 22px; }
+.dweb-modal .rec-waveform { height: 36px; }
+
+.dweb-modal .proc-frame { width: 220px; height: 220px; flex-shrink: 0; }
+.dweb-modal .proc-steps { gap: 14px; }
+.dweb-modal .proc-step { font-size: 13.5px; }
+
+.dweb-modal .review-frame { width: 300px; height: 380px; flex-shrink: 0; margin: 0; }
+.dweb-modal .review-title { font-size: 19px; }
+.dweb-modal .review-actions { margin-top: 30px; }
+.dweb-modal .review-actions > * { flex: 0 0 auto; padding-left: 34px; padding-right: 34px; }
+
+.dweb-modal .success-frame { width: 220px; }
+.dweb-modal .success-actions { flex-direction: row; }
+.dweb-modal .success-actions > * { flex: 0 0 auto; padding-left: 30px; padding-right: 30px; }
+
+.dweb-modal .share-qr { width: 120px; height: 120px; margin: 0; flex-shrink: 0; }
+.dweb-modal .share-linkcard { flex: 1; }
+
+.dweb-modal .wm-frame { width: 520px; height: 420px; flex-shrink: 0; }
+.dweb-modal .wm-upsell { width: 260px; flex-shrink: 0; }
+
+.dweb-modal .pin-keys { grid-template-columns: repeat(3, 58px); gap: 14px; }
+.dweb-modal .pin-key { width: 58px; height: 58px; }
+
+.dweb-modal .err-actions, .dweb-modal .heicnotice { max-width: 340px; margin: 0 auto; }

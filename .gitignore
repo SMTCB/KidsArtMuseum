@@ -32,3 +32,6 @@ uploads/
 # intake/*.jpeg
 # intake/*.jpg
 # intake/*.png
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json

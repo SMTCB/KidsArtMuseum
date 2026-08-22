@@ -1,0 +1,276 @@
+/* ============================================================
+   V2 IDENTITY — NEW SCREENS (near-term roadmap)
+   Shares tokens/typography with v2-identity.css. Adds a phone-shell
+   system (.flow-board) plus per-screen components, skinned only for
+   dir-a (Cubo Branco) and dir-c (Corredor) — Direction B is dropped.
+   Static/high-fidelity: no JS interaction required.
+   ============================================================ */
+
+:root {
+  --c-accent: #2a6fd8; /* Direction C system accent (dashboards/forms/system states) */
+}
+
+/* ---------- phone shell shared by the intake flow + standalone screens ---------- */
+.flow-board {
+  width: 390px;
+  border-radius: 34px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.flow-head { display:flex; align-items:center; gap:12px; padding: 24px 22px 12px; flex-shrink:0; }
+.flow-back { font-size: 17px; line-height:1; opacity:.7; }
+.flow-title { flex:1; font-size: 13px; }
+.flow-x { font-size: 15px; opacity:.6; }
+.flow-steps { display:flex; gap:5px; padding: 0 22px 20px; flex-shrink:0; }
+.flow-step { flex:1; height:3px; border-radius:2px; background:#e4e4e0; }
+.flow-body { flex:1; padding: 0 24px 28px; display:flex; flex-direction:column; min-height:0; }
+
+/* dir-a shell skin */
+.dir-a.flow-board { background:#faf8f2; color:#1a1a1a; }
+.dir-a .flow-title { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; }
+.dir-a .flow-step.done, .dir-a .flow-step.active { background:#1a1a1a; }
+.dir-a .flow-back, .dir-a .flow-x { font-family:'JetBrains Mono',monospace; }
+
+/* dir-c shell skin */
+.dir-c.flow-board { background:#fff; color:#161616; }
+.dir-c .flow-title { font-family:'Inter',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; }
+.dir-c .flow-step.done, .dir-c .flow-step.active { background:var(--c-accent); }
+
+/* ---------- shared buttons (per direction) ---------- */
+.btn-a-primary { padding:14px; border-radius:999px; background:#1a1a1a; color:#faf8f2; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; text-align:center; border:0; }
+.btn-a-ghost { padding:13px; border-radius:999px; background:none; border:1px solid #1a1a1a; color:#1a1a1a; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-align:center; }
+.btn-c-primary { padding:14px; background:#161616; color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:12.5px; text-align:center; border:0; }
+.btn-c-ghost { padding:13px; background:none; border:1px solid #161616; color:#161616; font-family:'Inter',sans-serif; font-size:12.5px; text-align:center; }
+
+/* ============================================================
+   S-15 · Upload screen — drag-drop / photo picker
+   ============================================================ */
+.dropzone { flex:1; border-radius:18px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; padding: 30px; }
+.dz-icon { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; }
+.dz-title { font-size:15px; font-weight:600; }
+.dz-sub { font-size:12px; opacity:.6; max-width:220px; line-height:1.5; }
+.dz-formats { font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.45; margin-top:4px; }
+.dz-or { font-size:11px; opacity:.45; margin: 6px 0; }
+
+.dir-a .dropzone { border: 2px dashed #cfc9b8; background:#fff; }
+.dir-a .dz-icon { background:#f1eee3; }
+.dir-c .dropzone { border: 1.5px dashed #cfcfc9; background:#fafafa; }
+.dir-c .dz-icon { background:#eef2fb; color:var(--c-accent); }
+
+/* ============================================================
+   S-16 · In-browser photo editor (crop/rotate)
+   ============================================================ */
+.editor-canvas { position:relative; border-radius:16px; overflow:hidden; flex:1; margin-bottom:20px; background:#1c1a17; min-height: 300px; }
+.editor-canvas img { width:100%; height:100%; object-fit:cover; opacity:.94; }
+.crop-corner { position:absolute; width:22px; height:22px; border-color:#fff; }
+.crop-corner.tl { top:14px; left:14px; border-top:2.5px solid; border-left:2.5px solid; }
+.crop-corner.tr { top:14px; right:14px; border-top:2.5px solid; border-right:2.5px solid; }
+.crop-corner.bl { bottom:14px; left:14px; border-bottom:2.5px solid; border-left:2.5px solid; }
+.crop-corner.br { bottom:14px; right:14px; border-bottom:2.5px solid; border-right:2.5px solid; }
+.editor-tools { display:flex; justify-content:space-around; padding: 4px 0 20px; flex-shrink:0; }
+.editor-tool { display:flex; flex-direction:column; align-items:center; gap:7px; font-size:9.5px; letter-spacing:.04em; }
+.editor-tool .ic { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.editor-note { font-size:10.5px; opacity:.5; text-align:center; margin-bottom:16px; }
+
+.dir-a .editor-tool .ic { background:#f1eee3; }
+.dir-a .editor-tool.is-active .ic { background:#1a1a1a; color:#fff; }
+.dir-c .editor-tool .ic { background:#f2f2ef; }
+.dir-c .editor-tool.is-active .ic { background:var(--c-accent); color:#fff; }
+
+/* ============================================================
+   S-17 · Artwork context form
+   ============================================================ */
+.ctx-form { display:flex; flex-direction:column; gap:16px; flex:1; overflow:hidden; }
+.ctx-field { display:flex; flex-direction:column; gap:6px; }
+.ctx-field label { font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.55; }
+.ctx-field input, .ctx-field textarea, .ctx-field select {
+  border-radius:10px; padding:11px 13px; font-size:13.5px; font-family:'Inter',sans-serif;
+  border: 1px solid #dedad0; background:#fff; color:#1a1a1a; width:100%; box-sizing:border-box;
+}
+.ctx-field textarea { resize:none; height:52px; font-family:inherit; }
+.ctx-row { display:flex; gap:12px; }
+.ctx-row .ctx-field { flex:1; }
+
+.dir-a .ctx-field label { font-family:'JetBrains Mono',monospace; }
+.dir-a .ctx-field input, .dir-a .ctx-field textarea, .dir-a .ctx-field select { font-family:'EB Garamond',serif; font-size:15px; border-color:#d8d3c4; }
+.dir-c .ctx-field input, .dir-c .ctx-field textarea, .dir-c .ctx-field select { border-color:#dcdcd8; border-radius:2px; }
+.dir-c .ctx-field label { font-family:'Inter',sans-serif; }
+
+/* ============================================================
+   S-19 · Audio recording interface (discovery dots)
+   ============================================================ */
+.recorder { flex:1; display:flex; flex-direction:column; min-height:0; }
+.rec-image { position:relative; border-radius:16px; overflow:hidden; height:280px; margin-bottom:18px; flex-shrink:0; }
+.rec-image img { width:100%; height:100%; object-fit:cover; }
+.rec-dot-existing, .rec-dot-new { position:absolute; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; transform:translate(-50%,-50%); }
+.rec-dot-existing { background:rgba(255,255,255,.92); color:#1a1a1a; }
+.rec-dot-new { border:2px dashed #fff; color:#fff; }
+.rec-hint { font-size:11px; text-align:center; opacity:.55; margin-bottom:auto; padding-bottom: 10px; }
+.rec-controls { display:flex; flex-direction:column; align-items:center; gap:14px; flex-shrink:0; }
+.rec-timer { font-family:'JetBrains Mono',monospace; font-size:26px; }
+.rec-waveform { display:flex; gap:3px; align-items:center; height:32px; }
+.rec-waveform span { width:3px; border-radius:2px; }
+.rec-btn { width:62px; height:62px; border-radius:50%; }
+
+.dir-a .rec-waveform span { background:#1a1a1a; opacity:.75; }
+.dir-a .rec-btn { background:#b9261c; }
+.dir-c .rec-waveform span { background:var(--c-accent); opacity:.8; }
+.dir-c .rec-btn { background:#b9261c; }
+
+/* ============================================================
+   S-20 · AI analysis / processing state
+   ============================================================ */
+.processing { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; text-align:center; }
+.proc-frame { width:170px; height:170px; border-radius:16px; overflow:hidden; position:relative; }
+.proc-frame img { width:100%; height:100%; object-fit:cover; filter:blur(0.5px) saturate(1.1); opacity:.88; }
+.proc-shimmer { position:absolute; inset:0; background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); animation: proc-sweep 2.2s ease-in-out infinite; }
+@keyframes proc-sweep { 0% { transform:translateX(-100%);} 100% { transform:translateX(100%);} }
+.proc-title { font-size:15px; font-weight:600; }
+.proc-steps { display:flex; flex-direction:column; gap:9px; width:100%; text-align:left; }
+.proc-step { display:flex; align-items:center; gap:10px; font-size:12px; opacity:.4; }
+.proc-step.done { opacity:1; }
+.proc-check { width:16px; height:16px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; color:#fff; }
+
+.dir-a .proc-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-a .proc-check { background:#cfc9b8; }
+.dir-a .proc-step.done .proc-check { background:#1a1a1a; }
+.dir-c .proc-check { background:#dcdcd8; }
+.dir-c .proc-step.done .proc-check { background:var(--c-accent); }
+
+/* ============================================================
+   S-21 · Pending approval review
+   ============================================================ */
+.review { flex:1; display:flex; flex-direction:column; gap:16px; min-height:0; overflow:hidden; }
+.review-frame { border-radius:14px; overflow:hidden; height:190px; flex-shrink:0; }
+.review-frame img { width:100%; height:100%; object-fit:cover; }
+.review-title { font-size:16px; font-weight:600; }
+.review-meta { font-size:11px; opacity:.55; margin-top:2px; }
+.review-block { display:flex; flex-direction:column; gap:6px; }
+.review-label { font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.5; }
+.review-palette { display:flex; gap:7px; }
+.review-swatch { width:20px; height:20px; border-radius:50%; }
+.review-dots-list { display:flex; flex-direction:column; gap:6px; font-size:11.5px; }
+.review-dots-list li { list-style:none; opacity:.8; }
+.review-actions { margin-top:auto; display:flex; gap:10px; flex-shrink:0; }
+.review-actions > * { flex:1; }
+
+.dir-a .review-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-a .review-label { font-family:'JetBrains Mono',monospace; }
+.dir-c .review-title { font-family:'Inter',sans-serif; }
+
+/* ============================================================
+   S-22 · Upload success / confirmation
+   ============================================================ */
+.success { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; }
+.success-check { width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; }
+.success-title { font-size:18px; font-weight:600; }
+.success-sub { font-size:12.5px; opacity:.6; max-width:240px; line-height:1.5; }
+.success-frame { width:170px; border-radius:12px; overflow:hidden; margin: 6px 0; }
+.success-frame img { width:100%; display:block; }
+.success-actions { display:flex; flex-direction:column; gap:10px; width:100%; margin-top:8px; }
+
+.dir-a .success-check { background:#1a1a1a; }
+.dir-a .success-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-c .success-check { background:var(--c-accent); }
+
+/* ============================================================
+   S-29 · PIN-protected upload gate
+   ============================================================ */
+.pinpad { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; }
+.pin-title { font-size:15px; font-weight:600; text-align:center; }
+.pin-sub { font-size:11.5px; opacity:.55; text-align:center; margin-top:8px; }
+.pin-dots { display:flex; gap:16px; }
+.pin-dot { width:14px; height:14px; border-radius:50%; border:1.5px solid; }
+.pin-keys { display:grid; grid-template-columns: repeat(3, 62px); gap:16px; }
+.pin-key { width:62px; height:62px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; }
+
+.dir-a .pin-title { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19px; }
+.dir-a .pin-dot { border-color:#cfc9b8; }
+.dir-a .pin-dot.filled { background:#1a1a1a; border-color:#1a1a1a; }
+.dir-a .pin-key { background:#f1eee3; }
+.dir-c .pin-dot { border-color:#dcdcd8; }
+.dir-c .pin-dot.filled { background:var(--c-accent); border-color:var(--c-accent); }
+.dir-c .pin-key { background:#f2f2ef; }
+
+/* ============================================================
+   S-30 · Share to grandparents / share sheet
+   ============================================================ */
+.sharesheet { flex:1; display:flex; flex-direction:column; gap:22px; }
+.share-linkcard { border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; }
+.share-linkcard .lbl { font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.5; }
+.share-linkcard .url { font-family:'JetBrains Mono',monospace; font-size:12px; }
+.share-qr { width:96px; height:96px; margin: 4px auto 0; border-radius:8px; background-image: repeating-linear-gradient(45deg, currentColor 0 3px, transparent 3px 8px); opacity:.5; }
+.share-options { display:flex; justify-content:space-around; }
+.share-opt { display:flex; flex-direction:column; align-items:center; gap:8px; font-size:10.5px; }
+.share-icon { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.share-note { font-size:11px; opacity:.5; text-align:center; }
+
+.dir-a .share-linkcard { background:#f1eee3; }
+.dir-a .share-icon { background:#fff; border:1px solid #cfc9b8; }
+.dir-c .share-linkcard { background:#f2f2ef; }
+.dir-c .share-icon { background:#fff; border:1px solid #dcdcd8; }
+
+/* ============================================================
+   S-38 · Watermarked export preview
+   ============================================================ */
+.watermark-preview { flex:1; display:flex; flex-direction:column; gap:16px; min-height:0; }
+.wm-frame { position:relative; border-radius:14px; overflow:hidden; flex:1; min-height: 280px; }
+.wm-frame img { width:100%; height:100%; object-fit:cover; }
+.wm-tile { position:absolute; inset:-20%; display:flex; flex-wrap:wrap; align-content:space-around; justify-content:space-around; transform:rotate(-24deg); pointer-events:none; }
+.wm-tile span { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em; white-space:nowrap; color:#fff; opacity:.55; }
+.wm-upsell { border-radius:14px; padding:15px 16px; display:flex; flex-direction:column; gap:9px; flex-shrink:0; }
+.wm-upsell .t { font-size:13px; font-weight:600; }
+.wm-upsell .d { font-size:11.5px; opacity:.6; line-height:1.4; }
+
+.dir-a .wm-upsell { background:#f1eee3; }
+.dir-c .wm-upsell { background:#f2f2ef; }
+
+/* ============================================================
+   S-54 · Empty state — wide wall board
+   ============================================================ */
+.emptystate-board { padding: 70px 60px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; }
+.es-frame { width: 130px; height:170px; border-radius:4px; opacity:.5; display:flex; align-items:center; justify-content:center; margin-bottom:6px; }
+.es-title { font-size:22px; font-weight:600; }
+.es-sub { font-size:14px; opacity:.55; max-width: 420px; line-height:1.55; }
+
+.dir-a .es-frame { border: 2px dashed #cfc9b8; }
+.dir-a .es-title { font-family:'Cormorant Garamond',serif; font-style:italic; }
+.dir-c .es-frame { border: 1.5px dashed #cfcfc9; }
+
+/* ============================================================
+   S-55 · Error / analysis-failed state
+   ============================================================ */
+.errorstate { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; }
+.err-icon { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; }
+.err-title { font-size:16px; font-weight:600; }
+.err-sub { font-size:12px; opacity:.6; max-width:230px; line-height:1.5; }
+.err-actions { display:flex; flex-direction:column; gap:10px; width:100%; margin-top:8px; }
+
+.dir-a .err-icon { background:#f1eee3; color:#b9261c; }
+.dir-c .err-icon { background:#fbeceb; color:#b9261c; }
+
+/* ============================================================
+   S-56 · HEIC conversion notice
+   ============================================================ */
+.heicnotice { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; }
+.heic-spin { width:52px; height:52px; border-radius:50%; border: 3px solid; border-top-color: transparent; animation: heic-rotate 1s linear infinite; }
+@keyframes heic-rotate { to { transform: rotate(360deg); } }
+.heic-title { font-size:15px; font-weight:600; }
+.heic-sub { font-size:12px; opacity:.6; max-width:230px; line-height:1.5; }
+.heic-tag { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; opacity:.45; }
+
+.dir-a .heic-spin { border-color:#1a1a1a; border-top-color:transparent; }
+.dir-c .heic-spin { border-color: var(--c-accent); border-top-color:transparent; }
+
+/* ============================================================
+   S-14 · Entry point — wide wall board with add-piece affordance
+   ============================================================ */
+.entry-board { padding: 70px 60px; }
+.entry-wallpreview { position:relative; height: 420px; border-radius:8px; overflow:hidden; margin-bottom: 34px; }
+.entry-slot { position:absolute; border-radius:2px; display:flex; align-items:center; justify-content:center; }
+.entry-cta-row { display:flex; align-items:center; gap:18px; justify-content:center; }
+.entry-cta-copy { font-size:13.5px; opacity:.6; max-width:280px; }
+
+.dir-a .entry-slot { border: 2px dashed #cfc9b8; color:#8a8578; font-size:26px; }
+.dir-c .entry-slot { border: 1.5px dashed #cfcfc9; color:var(--c-accent); font-size:24px; }

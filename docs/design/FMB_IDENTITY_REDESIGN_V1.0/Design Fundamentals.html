@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<title>FMB · ART — Fundamentos de Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v2-identity.css">
+<link rel="stylesheet" href="v2-identity-2.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#f4f4f2; font-family:'Inter',sans-serif; color:#1a1a1a; }
+  .page { max-width: 1280px; margin:0 auto; padding: 56px 40px 120px; }
+  .page-head h1 { font-size:26px; margin:0 0 6px; }
+  .page-head .subtitle { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a8a86; margin-bottom:18px; }
+  .page-head p { font-size:14px; line-height:1.6; color:#4a4a46; max-width:820px; }
+
+  .dir-section { background:#fff; border-radius:18px; padding:44px 48px 52px; margin-top:36px; box-shadow:0 2px 10px rgba(20,20,15,0.05); }
+  .dir-head { display:flex; align-items:baseline; gap:16px; margin-bottom:8px; }
+  .dir-head h2 { font-size:22px; margin:0; }
+  .dir-head .dir-tag { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a86; }
+  .dir-desc { font-size:13.5px; color:#5a5a56; line-height:1.6; max-width:760px; margin-bottom:36px; }
+
+  .fund-block { margin-bottom:40px; }
+  .fund-label { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#8a8a86; margin-bottom:16px; }
+
+  /* palette swatches */
+  .swatch-row { display:flex; gap:16px; flex-wrap:wrap; }
+  .swatch { width:140px; }
+  .swatch-color { height:88px; border-radius:10px; margin-bottom:8px; border:1px solid rgba(0,0,0,0.06); }
+  .swatch-name { font-size:12px; font-weight:600; }
+  .swatch-hex { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#8a8a86; }
+
+  /* type specimens */
+  .type-row { display:flex; flex-direction:column; gap:22px; }
+  .type-spec .t-sample { margin-bottom:4px; }
+  .type-spec .t-meta { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#8a8a86; }
+
+  /* frame samples */
+  .frame-row { display:flex; gap:28px; flex-wrap:wrap; }
+  .frame-sample { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .frame-sample .fs-label { font-size:11.5px; font-weight:600; }
+  .fs-box { width:120px; height:120px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+
+  /* buttons */
+  .btn-row { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn-row button { width:auto !important; padding-left:28px; padding-right:28px; }
+
+  /* spacing scale */
+  .space-row { display:flex; align-items:flex-end; gap:18px; }
+  .space-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .space-bar { background:#1a1a1a; width:22px; }
+  .space-label { font-family:'JetBrains Mono',monospace; font-size:9.5px; color:#8a8a86; }
+
+  .principles { display:grid; grid-template-columns: repeat(2, 1fr); gap:16px 32px; }
+  .principle { font-size:13px; line-height:1.6; color:#3a3a36; padding-left:14px; border-left:2px solid #e2e2dd; }
+  .principle b { display:block; font-size:13.5px; margin-bottom:3px; color:#1a1a1a; }
+</style>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#eef0ea"/><rect x="30" y="30" width="40" height="40" fill="none" stroke="#1a1a1a" stroke-width="3"/><text x="50" y="55" font-size="14" text-anchor="middle" fill="#1a1a1a" font-family="serif">FMB</text></svg></template></head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <h1>FMB · ART — Fundamentos de Design</h1>
+      <div class="subtitle">Direção A · Cubo Branco  —  Direção C · Corredor</div>
+      <p>Referência rápida dos tokens visuais de cada direção: paleta, tipografia, sistema de molduras, botões e espaçamento. Ambas partilham a mesma estrutura de layout e o mesmo sistema de molduras por meio (carvalho / preto / latão / caixa funda) — o que muda é a voz tipográfica, o uso de cor de destaque e a densidade da legenda.</p>
+    </div>
+
+    <!-- ============================================================ DIRECTION A ============================================================ -->
+    <div class="dir-section dir-a">
+      <div class="dir-head">
+        <h2>Direção A — Cubo Branco</h2>
+        <span class="dir-tag">Clássico · Neutro · Sem cor de destaque</span>
+      </div>
+      <div class="dir-desc">Galeria de museu tradicional: paredes neutras, tipografia serifada com itálico, mono para metadados. Nenhuma cor de destaque — o contraste vem da tipografia e das molduras, nunca de um acento cromático.</div>
+
+      <div class="fund-block">
+        <div class="fund-label">Paleta</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#eef0ea;"></div><div class="swatch-name">Parede</div><div class="swatch-hex">#EEF0EA</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#faf8f2;"></div><div class="swatch-name">Fundo / passe-partout</div><div class="swatch-hex">#FAF8F2</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1a1a1a;"></div><div class="swatch-name">Tinta / texto principal</div><div class="swatch-hex">#1A1A1A</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#8a8578;"></div><div class="swatch-name">Metadados</div><div class="swatch-hex">#8A8578</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b98a55;"></div><div class="swatch-name">Moldura carvalho</div><div class="swatch-hex">#B98A55</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b3924f;"></div><div class="swatch-name">Moldura latão</div><div class="swatch-hex">#B3924F</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Tipografia</div>
+        <div class="type-row">
+          <div class="type-spec"><div class="t-sample" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:32px;">O Senhor Vermelho</div><div class="t-meta">Cormorant Garamond · Itálico 600 · Títulos</div></div>
+          <div class="type-spec"><div class="t-sample" style="font-family:'EB Garamond',serif; font-size:17px; color:#3a3730;">Uma figura em pé, vermelho contra azul profundo — texto corrido de descrição e legendas longas.</div><div class="t-meta">EB Garamond · Corpo de texto</div></div>
+          <div class="type-spec"><div class="t-sample" style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#8a8578;">MIGUEL · 6 ANOS · 2026</div><div class="t-meta">JetBrains Mono · Metadados / botões / labels</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Sistema de Molduras (por meio)</div>
+        <div class="frame-row">
+          <div class="frame-sample"><div class="fs-box" style="border:7px solid #b98a55; background:#faf8f2;"><img src="assets/art/luna.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Carvalho</div><div class="t-meta">Pintura / desenho</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:4px solid #171614; background:#faf8f2;"><img src="assets/art/matisse.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Preto</div><div class="t-meta">Peças gráficas / pop</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:5px solid #b3924f; box-shadow: inset 0 0 0 1px #e8d9ad; background:#faf8f2;"><img src="assets/art/dia-da-mae.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Latão</div><div class="t-meta">Peças de ocasião</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:16px solid #3b2c22; background:#211812;"><img src="assets/art/clay-sculpture.jpeg" style="width:60%;height:60%;object-fit:cover;"></div><div class="fs-label">Caixa funda</div><div class="t-meta">Escultura / 3D</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Botões</div>
+        <div class="btn-row">
+          <button class="btn-a-primary">APROVAR E PUBLICAR</button>
+          <button class="btn-a-ghost">EDITAR</button>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Princípios</div>
+        <div class="principles">
+          <div class="principle"><b>Sem cor de destaque</b>Contraste vem da tipografia e da moldura, nunca de um acento cromático.</div>
+          <div class="principle"><b>Itálico como assinatura</b>Cormorant Garamond em itálico marca todos os títulos — recorrente em toda a direção.</div>
+          <div class="principle"><b>Mono para o sistema</b>JetBrains Mono reservado a metadados, botões e estados — nunca para texto longo.</div>
+          <div class="principle"><b>Molduras físicas</b>Bordas espessas e sombra suave simulam objetos reais pendurados numa parede.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ DIRECTION C ============================================================ -->
+    <div class="dir-section dir-c">
+      <div class="dir-head">
+        <h2>Direção C — Corredor</h2>
+        <span class="dir-tag">Minimal · Espaço negativo · Acento dinâmico por obra</span>
+      </div>
+      <div class="dir-desc">Corredor de galeria contemporânea: sans-serif, espaço em branco generoso, molduras finas quase invisíveis. Cada obra recebe uma cor de acento própria (barra de cor junto ao título) — o único lugar onde a cor aparece deliberadamente.</div>
+
+      <div class="fund-block">
+        <div class="fund-label">Paleta</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#f1f2ef;"></div><div class="swatch-name">Parede</div><div class="swatch-hex">#F1F2EF</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#ffffff; border:1px solid #ececec;"></div><div class="swatch-name">Fundo</div><div class="swatch-hex">#FFFFFF</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#161616;"></div><div class="swatch-name">Texto principal</div><div class="swatch-hex">#161616</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#9a9a94;"></div><div class="swatch-name">Metadados</div><div class="swatch-hex">#9A9A94</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#2a6fd8;"></div><div class="swatch-name">Acento sistema</div><div class="swatch-hex">#2A6FD8</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b9261c;"></div><div class="swatch-name">Acento por obra (ex.)</div><div class="swatch-hex">#B9261C</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Tipografia</div>
+        <div class="type-row">
+          <div class="type-spec"><div class="t-sample" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:.1em; text-transform:uppercase;">O Senhor Vermelho</div><div class="t-meta">Inter 600 · Maiúsculas com tracking · Títulos</div></div>
+          <div class="type-spec"><div class="t-sample" style="font-family:'Inter',sans-serif; font-size:15px; color:#4a4a46;">Vermelho contra azul profundo. Dois olhos bem abertos observam quem entra na sala — texto corrido, sem serifa.</div><div class="t-meta">Inter · Corpo de texto</div></div>
+          <div class="type-spec"><div class="t-sample" style="font-family:'Inter',sans-serif; font-size:12px; color:#9a9a94;">MIGUEL · 6 ANOS · 2026</div><div class="t-meta">Inter · Metadados</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Sistema de Molduras (por meio)</div>
+        <div class="frame-row">
+          <div class="frame-sample"><div class="fs-box" style="border:1.5px solid #1a1a1a; background:#fff;"><img src="assets/art/luna.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Carvalho</div><div class="t-meta">Pintura / desenho</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:1.5px solid #1a1a1a; background:#fff;"><img src="assets/art/matisse.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Preto</div><div class="t-meta">Peças gráficas / pop</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:1.5px solid #1a1a1a; background:#fff;"><img src="assets/art/dia-da-mae.jpeg" style="width:100%;height:100%;object-fit:cover;"></div><div class="fs-label">Latão</div><div class="t-meta">Peças de ocasião</div></div>
+          <div class="frame-sample"><div class="fs-box" style="border:10px solid #26221e; background:#1c1a17;"><img src="assets/art/clay-sculpture.jpeg" style="width:65%;height:65%;object-fit:cover;"></div><div class="fs-label">Caixa funda</div><div class="t-meta">Escultura / 3D</div></div>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Botões</div>
+        <div class="btn-row">
+          <button class="btn-c-primary">Aprovar e publicar</button>
+          <button class="btn-c-ghost">Editar</button>
+        </div>
+      </div>
+
+      <div class="fund-block">
+        <div class="fund-label">Princípios</div>
+        <div class="principles">
+          <div class="principle"><b>Acento por obra</b>Uma barra de cor curta junto ao título muda por peça — a única cor deliberada do sistema.</div>
+          <div class="principle"><b>Molduras quase invisíveis</b>1.5px pretos finos — a moldura desaparece, a obra domina.</div>
+          <div class="principle"><b>Tudo em Inter</b>Uma só família tipográfica, variando peso e tracking em vez de trocar de fonte.</div>
+          <div class="principle"><b>Espaço negativo generoso</b>Menos elementos por ecrã, mais respiração — cabe bem em densidade de dashboard/admin.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

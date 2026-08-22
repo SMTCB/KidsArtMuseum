@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<title>FMB · ART — Catálogo de Ecrãs — Desktop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v2-identity.css">
+<link rel="stylesheet" href="v2-identity-2.css">
+<link rel="stylesheet" href="v2-identity-desktop.css">
+<link rel="stylesheet" href="v2-identity-3.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#f4f4f2; font-family:'Inter',sans-serif; color:#1a1a1a; }
+  .page { max-width: 1400px; margin: 0 auto; padding: 56px 40px 120px; }
+  .page-head { margin-bottom: 48px; }
+  .page-head h1 { font-size: 26px; margin: 0 0 6px; letter-spacing:-0.01em; }
+  .page-head .subtitle { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a8a86; margin-bottom: 18px; }
+  .page-head p { font-size: 14px; line-height:1.6; color:#4a4a46; max-width: 760px; margin: 0 0 8px; }
+  .toc { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+  .toc a { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.04em; text-decoration:none; color:#4a4a46; background:#fff; border:1px solid #e2e2dd; border-radius:999px; padding:6px 12px; }
+  .toc a:hover { border-color:#1a1a1a; color:#1a1a1a; }
+
+  .screen-row { background:#fff; border-radius:16px; padding: 32px 36px 40px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(20,20,15,0.05); scroll-margin-top: 20px; }
+  .row-codeline { display:flex; align-items:center; gap:12px; margin-bottom: 8px; }
+  .row-code { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.04em; background:#1a1a1a; color:#fff; padding: 4px 10px; border-radius: 5px; }
+  .row-status { font-size: 11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+  .row-title { font-size: 19px; font-weight:600; margin-bottom: 6px; }
+  .row-desc { font-size: 13.5px; line-height:1.6; color:#5a5a56; max-width: 900px; margin-bottom: 26px; }
+
+  .row-frames { display:flex; gap: 40px; flex-wrap: wrap; align-items:flex-start; }
+  .frame-slot { display:flex; flex-direction:column; gap:14px; }
+  .slot-label { font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a86; }
+  .thumb-frame { position:relative; overflow:visible; }
+  .frame-missing { width:260px; height:120px; display:flex; align-items:center; justify-content:center; border:1.5px dashed #d8d8d2; border-radius:12px; font-size:12px; color:#b0b0aa; text-align:center; padding:16px; }
+</style>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#eef0ea"/><rect x="30" y="30" width="40" height="40" fill="none" stroke="#1a1a1a" stroke-width="3"/><text x="50" y="55" font-size="14" text-anchor="middle" fill="#1a1a1a" font-family="serif">FMB</text></svg></template></head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <h1>FMB · ART — Catálogo de Ecrãs — Desktop</h1>
+      <div class="subtitle">Todas as versões de desktop · Direções A / C lado a lado</div>
+      <p>Catálogo de todos os ecrãs 🟢 Live e 🟡 Near-term desenhados até agora, nas Direções <b>A — Cubo Branco</b> e <b>C — Corredor</b>, lado a lado para comparação direta. Miniaturas fiéis (mesmo HTML/CSS do sistema), escaladas para caber na página — a fidelidade visual e o texto real estão preservados no ficheiro fonte de cada ecrã.</p>
+      <div class="toc">
+        <a href="#S-01">S-01</a><a href="#S-02">S-02</a><a href="#S-03">S-03</a><a href="#S-04">S-04</a><a href="#S-05">S-05</a><a href="#S-06">S-06</a><a href="#S-10">S-10</a><a href="#S-14">S-14</a><a href="#S-15">S-15</a><a href="#S-16">S-16</a><a href="#S-17">S-17</a><a href="#S-19">S-19</a><a href="#S-20">S-20</a><a href="#S-21">S-21</a><a href="#S-22">S-22</a><a href="#S-29">S-29</a><a href="#S-30">S-30</a><a href="#S-31">S-31</a><a href="#S-38">S-38</a><a href="#S-54">S-54</a><a href="#S-55">S-55</a><a href="#S-56">S-56</a>
+      </div>
+    </div>
+    
+  <section class="screen-row" id="S-01">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-01</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Hallway / Wall View (Main Gallery)</div>
+      <div class="row-desc">O feed principal. Obras penduradas numa parede com layout temático — grelha/mosaico de peças emolduradas, categorização subtil (artista, ano, coleção). Ponto de entrada para tudo o resto.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:482px;">
+    <div style="width:1340px;height:1010px;transform:scale(0.4776);transform-origin:top left;">
+      <div class="board wall-board dir-a" style="width:1340px; height:1010px;">
+      <div class="board-heading"><div class="name">Parede da Galeria</div><div class="tag">Cormorant Garamond · Mono · sem acento</div></div>
+      <div class="wall-inner">
+        <figure class="art" data-frame="oak" style="left:20px; top:20px; width:110px;">
+          <div class="frame-inner" style="width:110px; height:460px;"><img src="assets/art/luna.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">LUNA</span><span class="p-meta">Manuel · 7 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:170px; top:20px; width:190px;">
+          <div class="frame-inner" style="width:190px; height:190px;"><img src="assets/art/matisse.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Forma Azul</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:170px; top:282px; width:190px;">
+          <div class="frame-inner" style="width:190px; height:230px;"><img src="assets/art/manuel-figure.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">O Maestro</span><span class="p-meta">Manuel · 7 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:400px; top:20px; width:300px;">
+          <div class="frame-inner" style="width:300px; height:430px;"><img src="assets/art/miguel-warhol.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Auto-Retrato Pop</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:400px; top:522px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:300px;"><img src="assets/art/era-uma-vez.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Era Uma Vez…</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="brass" style="left:740px; top:20px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:350px;"><img src="assets/art/dia-da-mae.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Dia da Mãe 2026</span><span class="p-meta">Muna · 4 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="box" style="left:740px; top:442px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:300px;"><img src="assets/art/clay-sculpture.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Gato de Barro</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:1010px; top:20px; width:210px;">
+          <div class="frame-inner" style="width:210px; height:300px;"><img src="assets/art/miguel-van-gogh.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Os Girassóis</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:1010px; top:392px; width:210px;">
+          <div class="frame-inner" style="width:210px; height:384px;"><img src="assets/art/self-portrait.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Auto-Retrato</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:482px;">
+    <div style="width:1340px;height:1010px;transform:scale(0.4776);transform-origin:top left;">
+      <div class="board wall-board dir-c" style="width:1340px; height:1010px;">
+      <div class="board-heading"><div class="name">Parede da Galeria</div><div class="tag">Inter · acento pontual por obra</div></div>
+      <div class="wall-inner">
+        <figure class="art" data-frame="oak" style="left:20px; top:20px; width:110px;">
+          <div class="frame-inner" style="width:110px; height:460px;"><img src="assets/art/luna.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#2a6fd8"></span><span class="p-title">LUNA</span><span class="p-meta">Manuel · 7</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:170px; top:20px; width:190px;">
+          <div class="frame-inner" style="width:190px; height:190px;"><img src="assets/art/matisse.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#1f8fd4"></span><span class="p-title">Forma Azul</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:170px; top:282px; width:190px;">
+          <div class="frame-inner" style="width:190px; height:230px;"><img src="assets/art/manuel-figure.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#1f8a4a"></span><span class="p-title">O Maestro</span><span class="p-meta">Manuel · 7</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:400px; top:20px; width:300px;">
+          <div class="frame-inner" style="width:300px; height:430px;"><img src="assets/art/miguel-warhol.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#ec3a8a"></span><span class="p-title">Auto-Retrato Pop</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:400px; top:522px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:300px;"><img src="assets/art/era-uma-vez.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#ec6aa3"></span><span class="p-title">Era Uma Vez…</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="brass" style="left:740px; top:20px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:350px;"><img src="assets/art/dia-da-mae.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#e9a0bd"></span><span class="p-title">Dia da Mãe 2026</span><span class="p-meta">Muna · 4</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="box" style="left:740px; top:442px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:300px;"><img src="assets/art/clay-sculpture.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#c87b66"></span><span class="p-title">Gato de Barro</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:1010px; top:20px; width:210px;">
+          <div class="frame-inner" style="width:210px; height:300px;"><img src="assets/art/miguel-van-gogh.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#d6a93a"></span><span class="p-title">Os Girassóis</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:1010px; top:392px; width:210px;">
+          <div class="frame-inner" style="width:210px; height:384px;"><img src="assets/art/self-portrait.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#7a3a1f"></span><span class="p-title">Auto-Retrato</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-02">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-02</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Wall Theme Switcher</div>
+      <div class="row-desc">Controlo na barra superior para alternar entre temas de parede ("Cubo Branco" / "Parede de Galeria"). Afeta o chrome de toda a galeria, não uma obra isolada.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:307px;">
+    <div style="width:1000px;height:480px;transform:scale(0.6400);transform-origin:top left;">
+      <div class="board switcher-board dir-a" style="width:1000px; height:480px;">
+      <div class="switcher-row">
+        <div>
+          <div class="switcher-heading">Estilo da Parede</div>
+          <div class="switcher-sub">Escolhe como a coleção do Miguel é apresentada — afeta toda a galeria, não uma obra isolada.</div>
+        </div>
+        <div class="theme-switch">
+          <div class="theme-pill is-active">Cubo Branco</div>
+          <div class="theme-pill">Parede de Galeria</div>
+        </div>
+      </div>
+      <div class="switcher-preview">
+        <div class="switcher-thumb is-active" style="background:#eef0ea;">
+          <img src="assets/art/matisse.jpeg" style="width:60%; height:70%; object-fit:cover; border:4px solid #171614;">
+          <div class="switcher-thumb-label" style="color:#1a1a1a;">Cubo Branco</div>
+        </div>
+        <div class="switcher-thumb" style="background:#3a2f22;">
+          <img src="assets/art/matisse.jpeg" style="width:55%; height:65%; object-fit:cover;">
+          <div class="switcher-thumb-label">Parede de Galeria</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:307px;">
+    <div style="width:1000px;height:480px;transform:scale(0.6400);transform-origin:top left;">
+      <div class="board switcher-board dir-c" style="width:1000px; height:480px;">
+      <div class="switcher-row">
+        <div>
+          <div class="switcher-heading">Estilo da Parede</div>
+          <div class="switcher-sub">Escolhe como a coleção do Miguel é apresentada — afeta toda a galeria, não uma obra isolada.</div>
+        </div>
+        <div class="theme-switch">
+          <div class="theme-pill is-active">Cubo Branco</div>
+          <div class="theme-pill">Parede de Galeria</div>
+        </div>
+      </div>
+      <div class="switcher-preview">
+        <div class="switcher-thumb is-active" style="background:#f1f2ef;">
+          <img src="assets/art/matisse.jpeg" style="width:60%; height:70%; object-fit:cover; border:1.5px solid #1a1a1a;">
+          <div class="switcher-thumb-label" style="color:#1a1a1a;">Cubo Branco</div>
+        </div>
+        <div class="switcher-thumb" style="background:#3a2f22;">
+          <img src="assets/art/matisse.jpeg" style="width:55%; height:65%; object-fit:cover;">
+          <div class="switcher-thumb-label">Parede de Galeria</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-03">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-03</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Exhibition View (Single Artwork Focus)</div>
+      <div class="row-desc">Ao clicar numa moldura abre-se a vista focada de uma obra: imagem emoldurada, ficha/legenda de curador (título, artista, idade, ano, descrição gerada por IA), pontos de descoberta.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:752px;">
+    <div style="width:860px;height:1010px;transform:scale(0.7442);transform-origin:top left;">
+      <div class="board exh-board dir-a" style="width:860px; height:1010px;">
+      <div class="board-heading"><div class="name">Vista de Exposição</div><div class="tag">O Senhor Vermelho</div></div>
+      <div class="exh-inner">
+        <figure class="art exh-art" data-frame="black" style="position:static; width:320px; height:421px;">
+          <div class="frame-inner" style="width:320px; height:421px;"><img src="assets/art/miguel-miro.jpeg"></div>
+        </figure>
+        <div class="exh-plaque">
+          <div class="exh-rule"></div>
+          <div class="exh-title">O Senhor Vermelho</div>
+          <div class="exh-meta">Miguel · 6 anos · 2026 · Guache sobre papel</div>
+          <div class="exh-body">Uma figura em pé, vermelho contra azul profundo. Dois olhos bem abertos observam quem entra na sala — Miguel pintou depressa, sem medo da tinta a escorrer.</div>
+          <div class="exh-controls">
+            <div class="play-btn"></div>
+            <div class="track"></div>
+            <div class="dur">0:12</div>
+          </div>
+          <button class="cta">EXPLORAR</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:752px;">
+    <div style="width:860px;height:1010px;transform:scale(0.7442);transform-origin:top left;">
+      <div class="board exh-board dir-c" style="width:860px; height:1010px;">
+      <div class="board-heading"><div class="name">Vista de Exposição</div><div class="tag">O Senhor Vermelho</div></div>
+      <div class="exh-inner">
+        <figure class="art exh-art" data-frame="black" style="position:static;">
+          <div class="frame-inner" style="width:480px; height:900px;"><img src="assets/art/miguel-miro.jpeg"></div>
+        </figure>
+        <div class="exh-side">
+          <div class="exh-bar" style="background:#b9261c"></div>
+          <div class="exh-title">O Senhor Vermelho</div>
+          <div class="exh-meta">Miguel · 6 anos · 2026</div>
+          <div class="exh-body" style="margin-top:16px;">Vermelho contra azul profundo. Dois olhos bem abertos observam quem entra na sala.</div>
+          <div class="exh-controls">
+            <div class="play-tri"></div>
+            <div class="track"></div>
+            <div class="dur">0:12</div>
+          </div>
+          <button class="cta">[ EXPLORAR ]</button>
+          <div class="mini-tl">
+            <div class="lbl">Linha do Tempo</div>
+            <div class="line" style="width:100%;">
+              <div class="dot" style="left:8%;"></div>
+              <div class="dot" style="left:34%;"></div>
+              <div class="dot active" style="left:78%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-04">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-04</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Discovery Dot Tooltip / Audio Playback</div>
+      <div class="row-desc">Pequeno overlay acionado ao tocar num ponto da obra — mostra o texto/áudio narrado pela criança sobre esse detalhe.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:752px;">
+    <div style="width:860px;height:1010px;transform:scale(0.7442);transform-origin:top left;">
+      <div class="board exh-board dir-a" style="width:860px; height:1010px;">
+      <div class="board-heading"><div class="name">Vista de Exposição</div><div class="tag">O Senhor Vermelho</div></div>
+      <div class="exh-inner">
+        <figure class="art exh-art" data-frame="black" style="position:relative; width:320px; height:421px;">
+          <div class="frame-inner" style="width:320px; height:421px;"><img src="assets/art/miguel-miro.jpeg"></div>
+          <div class="disc-dot is-open" style="left:36%; top:28%;">1</div>
+          <div class="disc-pop" style="left:56%; top:10%;">
+            <div class="dp-label">Ponto 1 · a tocar</div>
+            <div class="dp-wave"><span style="height:6px"></span><span style="height:14px"></span><span style="height:9px"></span><span style="height:17px"></span><span style="height:7px"></span><span style="height:12px"></span></div>
+            <div class="dp-text">"Este é o olho amarelo — fica sempre acordado à noite."</div>
+          </div>
+          <div class="disc-dot" style="left:64%; top:70%;">2</div>
+        </figure>
+        <div class="exh-plaque">
+          <div class="exh-rule"></div>
+          <div class="exh-title">O Senhor Vermelho</div>
+          <div class="exh-meta">Miguel · 6 anos · 2026 · Guache sobre papel</div>
+          <div class="exh-body">Toca num ponto na obra para ouvir o Miguel a explicar esse detalhe.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:752px;">
+    <div style="width:860px;height:1010px;transform:scale(0.7442);transform-origin:top left;">
+      <div class="board exh-board dir-c" style="width:860px; height:1010px;">
+      <div class="board-heading"><div class="name">Vista de Exposição</div><div class="tag">O Senhor Vermelho</div></div>
+      <div class="exh-inner">
+        <figure class="art exh-art" data-frame="black" style="position:relative;">
+          <div class="frame-inner" style="width:480px; height:900px;"><img src="assets/art/miguel-miro.jpeg"></div>
+          <div class="disc-dot is-open" style="left:36%; top:24%;">1</div>
+          <div class="disc-pop" style="left:52%; top:8%;">
+            <div class="dp-label">Ponto 1 · a tocar</div>
+            <div class="dp-wave"><span style="height:6px"></span><span style="height:14px"></span><span style="height:9px"></span><span style="height:17px"></span><span style="height:7px"></span><span style="height:12px"></span></div>
+            <div class="dp-text">"Este é o olho amarelo — fica sempre acordado à noite."</div>
+          </div>
+          <div class="disc-dot" style="left:60%; top:64%;">2</div>
+        </figure>
+        <div class="exh-side">
+          <div class="exh-bar" style="background:#b9261c"></div>
+          <div class="exh-title">O Senhor Vermelho</div>
+          <div class="exh-meta">Miguel · 6 anos · 2026</div>
+          <div class="exh-body" style="margin-top:16px;">Toca num ponto na obra para ouvir o Miguel a explicar esse detalhe.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-05">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-05</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Explore / "Bring to Life" Modal</div>
+      <div class="row-desc">Overlay de ecrã inteiro a partir da Vista de Exposição. Reproduz a animação da obra (uma das 11+ rotinas: miró, warhol, retrato, matisse, história, etc.).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:280px;">
+    <div style="width:2240px;height:980px;transform:scale(0.2857);transform-origin:top left;">
+      <div class="board explore-board dir-a" style="width:2240px; height:980px;">
+      <div class="ex-head">
+        <button class="ex-back">←</button>
+        <div class="ex-headtitle">O Senhor Vermelho — Explorar</div>
+        <button class="ex-close">✕</button>
+      </div>
+      <div class="ex-body">
+        <div class="ex-preview">
+          <div class="ex-preview-frame"><img src="assets/art/miguel-miro.jpeg"></div>
+          <button class="ex-playanim">▶ REPRODUZIR ANIMAÇÃO</button>
+        </div>
+        <div class="ex-panel">
+          <div class="ex-tabs">
+            <button class="ex-tab is-active" data-tab="anim">Dar Vida</button>
+            <button class="ex-tab" data-tab="story">Modo História</button>
+            <button class="ex-tab" data-tab="color">Livro para Colorir</button>
+          </div>
+          <div class="ex-tabpanel" data-panel="anim">
+            <div class="ex-group">
+              <div class="ex-groupname">Gestos</div>
+              <div class="ex-chips">
+                <button class="ex-chip is-selected" data-effect="matisse">Matisse</button>
+                <button class="ex-chip" data-effect="caleidoscopio">Caleidoscópio</button>
+                <button class="ex-chip" data-effect="estilhaco">Estilhaço</button>
+                <button class="ex-chip" data-effect="lanterna">Lanterna</button>
+              </div>
+            </div>
+            <div class="ex-group">
+              <div class="ex-groupname">Magia</div>
+              <div class="ex-chips">
+                <button class="ex-chip" data-effect="neon">Néon</button>
+                <button class="ex-chip" data-effect="confeti">Confeti</button>
+                <button class="ex-chip" data-effect="vitral">Vitral</button>
+              </div>
+            </div>
+            <div class="ex-group">
+              <div class="ex-groupname">À Maneira dos Mestres</div>
+              <div class="ex-chips">
+                <button class="ex-chip" data-effect="picasso">Picasso</button>
+                <button class="ex-chip" data-effect="warhol">Warhol</button>
+                <button class="ex-chip" data-effect="vangogh">Van Gogh</button>
+                <button class="ex-chip" data-effect="kusama">Kusama</button>
+              </div>
+            </div>
+          </div>
+          <div class="ex-tabpanel" data-panel="story" hidden>
+            <p class="ex-story">Era uma vez um Senhor Vermelho que vivia dentro de um mar azul profundo. Todas as noites, os seus dois olhos grandes ficavam de vigia — um amarelo, um vermelho — a proteger quem dormia por perto. Ninguém sabia de onde vinha, só que gostava de ficar quieto e sorrir.</p>
+          </div>
+          <div class="ex-tabpanel" data-panel="color" hidden>
+            <p class="ex-colornote">Versão da obra convertida a linhas a preto e branco — perfeita para colorir outra vez.</p>
+            <button class="ex-printbtn">IMPRIMIR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:280px;">
+    <div style="width:2240px;height:980px;transform:scale(0.2857);transform-origin:top left;">
+      <div class="board explore-board dir-c" style="width:2240px; height:980px;">
+      <div class="ex-head">
+        <button class="ex-back">←</button>
+        <div class="ex-headtitle">O Senhor Vermelho</div>
+        <button class="ex-close">✕</button>
+      </div>
+      <div class="ex-body">
+        <div class="ex-preview">
+          <div class="ex-preview-frame"><img src="assets/art/miguel-miro.jpeg"></div>
+          <button class="ex-playanim">reproduzir animação →</button>
+        </div>
+        <div class="ex-panel">
+          <div class="ex-tabs">
+            <button class="ex-tab is-active" data-tab="anim">Dar Vida</button>
+            <button class="ex-tab" data-tab="story">Modo História</button>
+            <button class="ex-tab" data-tab="color">Livro para Colorir</button>
+          </div>
+          <div class="ex-tabpanel" data-panel="anim">
+            <div class="ex-group">
+              <div class="ex-groupname">Gestos</div>
+              <div class="ex-chips">
+                <button class="ex-chip is-selected" data-effect="matisse">Matisse</button>
+                <button class="ex-chip" data-effect="caleidoscopio">Caleidoscópio</button>
+                <button class="ex-chip" data-effect="estilhaco">Estilhaço</button>
+                <button class="ex-chip" data-effect="lanterna">Lanterna</button>
+              </div>
+            </div>
+            <div class="ex-group">
+              <div class="ex-groupname">Magia</div>
+              <div class="ex-chips">
+                <button class="ex-chip" data-effect="neon">Néon</button>
+                <button class="ex-chip" data-effect="confeti">Confeti</button>
+                <button class="ex-chip" data-effect="vitral">Vitral</button>
+              </div>
+            </div>
+            <div class="ex-group">
+              <div class="ex-groupname">À Maneira dos Mestres</div>
+              <div class="ex-chips">
+                <button class="ex-chip" data-effect="picasso">Picasso</button>
+                <button class="ex-chip" data-effect="warhol">Warhol</button>
+                <button class="ex-chip" data-effect="vangogh">Van Gogh</button>
+                <button class="ex-chip" data-effect="kusama">Kusama</button>
+              </div>
+            </div>
+          </div>
+          <div class="ex-tabpanel" data-panel="story" hidden>
+            <p class="ex-story">Era uma vez um Senhor Vermelho que vivia dentro de um mar azul profundo. Todas as noites, os seus dois olhos grandes ficavam de vigia — um amarelo, um vermelho — a proteger quem dormia por perto. Ninguém sabia de onde vinha, só que gostava de ficar quieto e sorrir.</p>
+          </div>
+          <div class="ex-tabpanel" data-panel="color" hidden>
+            <p class="ex-colornote">Versão da obra convertida a linhas a preto e branco — perfeita para colorir outra vez.</p>
+            <button class="ex-printbtn">imprimir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-06">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-06</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Sala de Experimentação (Experimentation Room)</div>
+      <div class="row-desc">Galeria de efeitos visuais autónomos, separada do corredor principal — um sandbox/showcase de ideias de animação ainda não associadas a obras específicas.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:341px;">
+    <div style="width:1200px;height:640px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board exp-board dir-a" style="width:1200px; height:640px;">
+      <div class="exp-heading">Sala de Experimentação</div>
+      <div class="exp-sub">Efeitos e tratamentos ainda não associados a uma obra — um showcase para explorar o que a IA sabe fazer.</div>
+      <div class="exp-grid">
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/matisse.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Matisse</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-miro.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Caleidoscópio</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/luna.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Confeti</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/dia-da-mae.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Vitral</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-warhol.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Warhol</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-van-gogh.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Van Gogh</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/self-portrait.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Kusama</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/era-uma-vez.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Picasso</div></div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:341px;">
+    <div style="width:1200px;height:640px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board exp-board dir-c" style="width:1200px; height:640px;">
+      <div class="exp-heading">Sala de Experimentação</div>
+      <div class="exp-sub">Efeitos e tratamentos ainda não associados a uma obra — um showcase para explorar o que a IA sabe fazer.</div>
+      <div class="exp-grid">
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/matisse.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Matisse</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-miro.jpeg"><div class="exp-thumb-tag">Gestos</div></div><div class="exp-name">Caleidoscópio</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/luna.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Confeti</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/dia-da-mae.jpeg"><div class="exp-thumb-tag">Magia</div></div><div class="exp-name">Vitral</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-warhol.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Warhol</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/miguel-van-gogh.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Van Gogh</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/self-portrait.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Kusama</div></div>
+        <div class="exp-card"><div class="exp-thumb"><img src="assets/art/era-uma-vez.jpeg"><div class="exp-thumb-tag">Mestres</div></div><div class="exp-name">Picasso</div></div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-10">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-10</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Print View (single artwork)</div>
+      <div class="row-desc">Layout limpo, a sangue total, de uma obra + ficha de título, otimizado para impressão doméstica em A4/A3.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:800px;">
+    <div style="width:640px;height:800px;transform:scale(1.0000);transform-origin:top left;">
+      <div class="board print-board dir-a" style="width:640px; height:800px;">
+      <div class="print-heading-row">
+        <div class="print-heading">Vista de Impressão</div>
+        <span style="font-size:18px; opacity:.5; cursor:pointer;">✕</span>
+      </div>
+      <div class="print-page">
+        <div class="pp-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+        <div class="pp-title">Golo!</div>
+        <div class="pp-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+      </div>
+      <div class="print-actions">
+        <button class="btn-a-ghost" style="width:auto; padding:13px 28px;">A4</button>
+        <button class="btn-a-primary" style="width:auto; padding:13px 32px;">IMPRIMIR</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:800px;">
+    <div style="width:640px;height:800px;transform:scale(1.0000);transform-origin:top left;">
+      <div class="board print-board dir-c" style="width:640px; height:800px;">
+      <div class="print-heading-row">
+        <div class="print-heading">Vista de Impressão</div>
+        <span style="font-size:18px; opacity:.5; cursor:pointer;">✕</span>
+      </div>
+      <div class="print-page">
+        <div class="pp-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+        <div class="pp-title" style="font-family:'Inter',sans-serif;">Golo!</div>
+        <div class="pp-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+      </div>
+      <div class="print-actions">
+        <button class="btn-c-ghost" style="width:auto; padding:13px 28px;">A4</button>
+        <button class="btn-c-primary" style="width:auto; padding:13px 32px;">Imprimir</button>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-14">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-14</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">"Pendurar Nova Peça" (Add New Piece) Entry Point</div>
+      <div class="row-desc">Botão dentro do museu que abre o fluxo de carregamento self-serve — substitui por completo o workflow via Claude Code/GitHub.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:341px;">
+    <div style="width:1200px;height:640px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board entry-board dir-a" style="width:1200px; height:640px;">
+      <div class="entry-wallpreview" style="background:#eef0ea;">
+        <figure class="art" data-frame="oak" style="left:60px; top:70px; width:150px;">
+          <div class="frame-inner" style="width:150px; height:280px;"><img src="assets/art/luna.jpeg"></div>
+        </figure>
+        <figure class="art" data-frame="black" style="left:260px; top:110px; width:200px;">
+          <div class="frame-inner" style="width:200px; height:200px;"><img src="assets/art/matisse.jpeg"></div>
+        </figure>
+        <div class="entry-slot" style="left:520px; top:70px; width:220px; height:340px;">+</div>
+      </div>
+      <div class="entry-cta-row">
+        <button class="btn-a-primary" style="width:auto; padding:16px 40px;">+ Pendurar Nova Peça</button>
+        <div class="entry-cta-copy">Botão fixo no fim da parede — abre o carregamento de uma nova obra em 3 passos.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:341px;">
+    <div style="width:1200px;height:640px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board entry-board dir-c" style="width:1200px; height:640px;">
+      <div class="entry-wallpreview" style="background:#f1f2ef;">
+        <figure class="art" data-frame="black" style="left:60px; top:60px; width:180px;">
+          <div class="frame-inner" style="width:180px; height:180px;"><img src="assets/art/matisse.jpeg"></div>
+        </figure>
+        <figure class="art" data-frame="oak" style="left:280px; top:100px; width:150px;">
+          <div class="frame-inner" style="width:150px; height:280px;"><img src="assets/art/luna.jpeg"></div>
+        </figure>
+        <div class="entry-slot" style="left:490px; top:70px; width:220px; height:340px;">+</div>
+      </div>
+      <div class="entry-cta-row">
+        <button class="btn-c-primary" style="width:auto; padding:15px 36px;">+ Pendurar Nova Peça</button>
+        <div class="entry-cta-copy">Botão fixo no fim da parede — abre o carregamento de uma nova obra em 3 passos.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-15">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-15</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Upload Screen (drag-drop / photo picker)</div>
+      <div class="row-desc">Alvo de arrastar-largar ou tocar-para-escolher para uma foto (JPEG, PNG, HEIC). Validação client-side (tamanho/tipo), progresso de upload.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:70px; top:90px; width:170px;"><div class="frame-inner" style="width:170px;height:230px;"><img src="assets/art/luna.jpeg"></div></figure>
+        <figure class="art" data-frame="black" style="left:1120px; top:520px; width:210px;"><div class="frame-inner" style="width:210px;height:210px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Nova Obra</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="dropzone">
+            <div class="dz-icon">📷</div>
+            <div class="dz-title">Arrasta uma foto para aqui</div>
+            <div class="dz-sub">ou clica para escolher um ficheiro do computador</div>
+            <div class="dz-or">— ou —</div>
+            <button class="btn-a-ghost" style="width:auto; padding:14px 32px;">ESCOLHER FICHEIRO</button>
+            <div class="dz-formats">JPEG · PNG · HEIC · até 20MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:80px; top:100px; width:190px;"><div class="frame-inner" style="width:190px;height:190px;"><img src="assets/art/matisse.jpeg"></div></figure>
+        <figure class="art" data-frame="oak" style="left:1130px; top:500px; width:170px;"><div class="frame-inner" style="width:170px;height:230px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Nova Obra</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="dropzone">
+            <div class="dz-icon">📷</div>
+            <div class="dz-title">Arrasta uma foto para aqui</div>
+            <div class="dz-sub">ou clica para escolher um ficheiro do computador</div>
+            <div class="dz-or">— ou —</div>
+            <button class="btn-c-ghost" style="width:auto; padding:14px 32px;">Escolher ficheiro</button>
+            <div class="dz-formats">JPEG · PNG · HEIC · até 20MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-16">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-16</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">In-Browser Photo Editor</div>
+      <div class="row-desc">Cortar, rodar, melhorar luz aplicado à fotografia carregada antes de ser submetida (nunca à obra em si).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="brass" style="left:1140px; top:110px; width:180px;"><div class="frame-inner" style="width:180px;height:180px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Ajustar Fotografia</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body dweb-flexrow">
+          <div class="editor-canvas dweb-col-fixed" style="width:460px; height:460px;">
+            <img src="assets/art/miguel-mbappe.jpeg">
+            <div class="crop-corner tl"></div><div class="crop-corner tr"></div>
+            <div class="crop-corner bl"></div><div class="crop-corner br"></div>
+          </div>
+          <div class="dweb-col-flex" style="height:460px; justify-content:space-between;">
+            <div>
+              <div class="editor-note">Ajusta apenas a fotografia — o desenho do Miguel não é alterado.</div>
+              <div class="editor-tools" style="justify-content:flex-start; gap:26px;">
+                <div class="editor-tool is-active"><div class="ic">⤢</div>Cortar</div>
+                <div class="editor-tool"><div class="ic">⟳</div>Rodar</div>
+                <div class="editor-tool"><div class="ic">☀︎</div>Luz</div>
+              </div>
+            </div>
+            <button class="btn-a-primary" style="width:auto; padding:15px 40px; align-self:flex-start;">CONTINUAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1150px; top:120px; width:170px;"><div class="frame-inner" style="width:170px;height:170px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Ajustar Fotografia</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body dweb-flexrow">
+          <div class="editor-canvas dweb-col-fixed" style="width:460px; height:460px;">
+            <img src="assets/art/miguel-mbappe.jpeg">
+            <div class="crop-corner tl"></div><div class="crop-corner tr"></div>
+            <div class="crop-corner bl"></div><div class="crop-corner br"></div>
+          </div>
+          <div class="dweb-col-flex" style="height:460px; justify-content:space-between;">
+            <div>
+              <div class="editor-note">Ajusta apenas a fotografia — o desenho do Miguel não é alterado.</div>
+              <div class="editor-tools" style="justify-content:flex-start; gap:26px;">
+                <div class="editor-tool is-active"><div class="ic">⤢</div>Cortar</div>
+                <div class="editor-tool"><div class="ic">⟳</div>Rodar</div>
+                <div class="editor-tool"><div class="ic">☀︎</div>Luz</div>
+              </div>
+            </div>
+            <button class="btn-c-primary" style="width:auto; padding:15px 40px; align-self:flex-start;">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-17">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-17</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Artwork Context Form</div>
+      <div class="row-desc">Campos: nome do artista, idade, sugestão de título, contexto, palavras da criança, sugestões de animação. Substitui o formulário markdown de intake.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:80px; top:520px; width:160px;"><div class="frame-inner" style="width:160px;height:260px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Conta-nos sobre esta obra</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="ctx-form">
+            <div class="ctx-row">
+              <div class="ctx-field"><label>Artista</label><input value="Miguel"></div>
+              <div class="ctx-field" style="max-width:100px;"><label>Idade</label><input value="6"></div>
+            </div>
+            <div class="ctx-field"><label>Título (sugestão)</label><input value="Golo!"></div>
+            <div class="ctx-row">
+              <div class="ctx-field"><label>Contexto</label><textarea>Desenhou depois de ver o jogo do Mundial com o pai.</textarea></div>
+              <div class="ctx-field"><label>Palavras do artista</label><textarea>"É o Ronaldo a marcar!"</textarea></div>
+            </div>
+            <div class="ctx-field"><label>Estilo de animação</label><select><option>Sugerir automaticamente</option></select></div>
+          </div>
+          <button class="btn-a-primary" style="margin-top:20px; width:auto; padding:15px 40px; align-self:flex-end;">CONTINUAR</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:1150px; top:500px; width:150px;"><div class="frame-inner" style="width:150px;height:250px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Conta-nos sobre esta obra</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="ctx-form">
+            <div class="ctx-row">
+              <div class="ctx-field"><label>Artista</label><input value="Miguel"></div>
+              <div class="ctx-field" style="max-width:100px;"><label>Idade</label><input value="6"></div>
+            </div>
+            <div class="ctx-field"><label>Título (sugestão)</label><input value="Golo!"></div>
+            <div class="ctx-row">
+              <div class="ctx-field"><label>Contexto</label><textarea>Desenhou depois de ver o jogo do Mundial com o pai.</textarea></div>
+              <div class="ctx-field"><label>Palavras do artista</label><textarea>"É o Ronaldo a marcar!"</textarea></div>
+            </div>
+            <div class="ctx-field"><label>Estilo de animação</label><select><option>Sugerir automaticamente</option></select></div>
+          </div>
+          <button class="btn-c-primary" style="margin-top:20px; width:auto; padding:15px 40px; align-self:flex-end;">Continuar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-19">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-19</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Audio Recording Interface (Discovery Dots)</div>
+      <div class="row-desc">Pai/criança coloca um ponto na imagem e grava um clip de 10–15s a explicar esse detalhe. Mostra estado de gravação, temporizador, pré-visualização de forma de onda.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1160px; top:130px; width:180px;"><div class="frame-inner" style="width:180px;height:180px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Pontos de Descoberta</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="recorder">
+            <div class="rec-image">
+              <img src="assets/art/miguel-mbappe.jpeg">
+              <div class="rec-dot-existing" style="left:30%; top:40%;">1</div>
+              <div class="rec-dot-new" style="left:62%; top:64%;">+</div>
+            </div>
+            <div class="rec-hint">Clica na imagem para marcar um novo ponto, depois grava</div>
+            <div class="rec-controls">
+              <div class="rec-timer">0:07</div>
+              <div class="rec-waveform">
+                <span style="height:10px"></span><span style="height:22px"></span><span style="height:15px"></span>
+                <span style="height:27px"></span><span style="height:12px"></span><span style="height:20px"></span><span style="height:11px"></span>
+              </div>
+              <div class="rec-btn"></div>
+            </div>
+          </div>
+          <button class="btn-a-primary" style="margin-top:22px;">GUARDAR E CONTINUAR</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1150px; top:140px; width:170px;"><div class="frame-inner" style="width:170px;height:170px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Pontos de Descoberta</span><span class="flow-x">✕</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div><div class="flow-step"></div></div>
+        <div class="flow-body">
+          <div class="recorder">
+            <div class="rec-image">
+              <img src="assets/art/miguel-mbappe.jpeg">
+              <div class="rec-dot-existing" style="left:30%; top:40%;">1</div>
+              <div class="rec-dot-new" style="left:62%; top:64%;">+</div>
+            </div>
+            <div class="rec-hint">Clica na imagem para marcar um novo ponto, depois grava</div>
+            <div class="rec-controls">
+              <div class="rec-timer">0:07</div>
+              <div class="rec-waveform">
+                <span style="height:10px"></span><span style="height:22px"></span><span style="height:15px"></span>
+                <span style="height:27px"></span><span style="height:12px"></span><span style="height:20px"></span><span style="height:11px"></span>
+              </div>
+              <div class="rec-btn"></div>
+            </div>
+          </div>
+          <button class="btn-c-primary" style="margin-top:22px;">Guardar e continuar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-20">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-20</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">AI Analysis / Processing State</div>
+      <div class="row-desc">Ecrã de carregamento/progresso enquanto o modelo de visão analisa a obra e gera título, paleta, animação e pontos de descoberta.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:90px; top:130px; width:150px;"><div class="frame-inner" style="width:150px;height:250px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="text-align:center; flex:1;">A Obra Está a Caminho…</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div></div>
+        <div class="flow-body dweb-flexrow" style="align-items:center;">
+          <div class="proc-frame dweb-col-fixed"><img src="assets/art/miguel-mbappe.jpeg"><div class="proc-shimmer"></div></div>
+          <div class="dweb-col-flex proc-steps">
+            <div class="proc-step done"><span class="proc-check">✓</span>A ler cores e formas</div>
+            <div class="proc-step done"><span class="proc-check">✓</span>A escrever o título</div>
+            <div class="proc-step"><span class="proc-check"></span>A escolher a animação</div>
+            <div class="proc-step"><span class="proc-check"></span>A preparar pontos de descoberta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:100px; top:140px; width:170px;"><div class="frame-inner" style="width:170px;height:170px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="text-align:center; flex:1;">A Obra Está a Caminho…</span></div>
+        <div class="flow-steps"><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step done"></div><div class="flow-step active"></div></div>
+        <div class="flow-body dweb-flexrow" style="align-items:center;">
+          <div class="proc-frame dweb-col-fixed"><img src="assets/art/miguel-mbappe.jpeg"><div class="proc-shimmer"></div></div>
+          <div class="dweb-col-flex proc-steps">
+            <div class="proc-step done"><span class="proc-check">✓</span>A ler cores e formas</div>
+            <div class="proc-step done"><span class="proc-check">✓</span>A escrever o título</div>
+            <div class="proc-step"><span class="proc-check"></span>A escolher a animação</div>
+            <div class="proc-step"><span class="proc-check"></span>A preparar pontos de descoberta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-21">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-21</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Pending Approval Review</div>
+      <div class="row-desc">Passo de revisão opcional mostrando a entrada rascunhada pela IA antes de ir ao ar — espelha o passo de aprovação atual via Claude Code.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="brass" style="left:1140px; top:560px; width:170px;"><div class="frame-inner" style="width:170px;height:170px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Rever Rascunho</span><span class="flow-x">✕</span></div>
+        <div class="flow-body" style="padding-top:20px;">
+          <div class="dweb-flexrow">
+            <div class="review-frame dweb-col-fixed"><img src="assets/art/miguel-mbappe.jpeg"></div>
+            <div class="dweb-col-flex" style="gap:18px;">
+              <div>
+                <div class="review-title">Golo!</div>
+                <div class="review-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Paleta</div>
+                <div class="review-palette">
+                  <div class="review-swatch" style="background:#2a6fd8"></div>
+                  <div class="review-swatch" style="background:#1a9c4a"></div>
+                  <div class="review-swatch" style="background:#e8c33a"></div>
+                </div>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Pontos de descoberta (2)</div>
+                <ul class="review-dots-list">
+                  <li>1 · "É o Ronaldo a marcar!"</li>
+                  <li>2 · A bola a voar para a baliza</li>
+                </ul>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Animação sugerida</div>
+                <div style="font-size:13px;">Confeti</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-actions">
+            <button class="btn-a-ghost">EDITAR</button>
+            <button class="btn-a-primary">APROVAR E PUBLICAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1150px; top:560px; width:160px;"><div class="frame-inner" style="width:160px;height:160px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Rever Rascunho</span><span class="flow-x">✕</span></div>
+        <div class="flow-body" style="padding-top:20px;">
+          <div class="dweb-flexrow">
+            <div class="review-frame dweb-col-fixed"><img src="assets/art/miguel-mbappe.jpeg"></div>
+            <div class="dweb-col-flex" style="gap:18px;">
+              <div>
+                <div class="review-title">Golo!</div>
+                <div class="review-meta">Miguel · 6 anos · 2026 · Feltro sobre papel</div>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Paleta</div>
+                <div class="review-palette">
+                  <div class="review-swatch" style="background:#2a6fd8"></div>
+                  <div class="review-swatch" style="background:#1a9c4a"></div>
+                  <div class="review-swatch" style="background:#e8c33a"></div>
+                </div>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Pontos de descoberta (2)</div>
+                <ul class="review-dots-list">
+                  <li>1 · "É o Ronaldo a marcar!"</li>
+                  <li>2 · A bola a voar para a baliza</li>
+                </ul>
+              </div>
+              <div class="review-block">
+                <div class="review-label">Animação sugerida</div>
+                <div style="font-size:13px;">Confeti</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-actions">
+            <button class="btn-c-ghost">Editar</button>
+            <button class="btn-c-primary">Aprovar e publicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-22">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-22</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Upload Success / "It's on the wall" Confirmation</div>
+      <div class="row-desc">Ecrã de confirmação após a publicação de uma nova peça, com link/pré-visualização da obra já ao vivo.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:1130px; top:120px; width:150px;"><div class="frame-inner" style="width:150px;height:250px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="success">
+            <div class="success-check">✓</div>
+            <div class="success-title">Está na parede!</div>
+            <div class="success-sub">"Golo!" já está pendurado na Galeria do Miguel.</div>
+            <div class="success-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+            <div class="success-actions">
+              <button class="btn-a-primary">VER NA PAREDE</button>
+              <button class="btn-a-ghost">PARTILHAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:1140px; top:130px; width:140px;"><div class="frame-inner" style="width:140px;height:230px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="success">
+            <div class="success-check">✓</div>
+            <div class="success-title">Está na parede!</div>
+            <div class="success-sub">"Golo!" já está pendurado na Galeria do Miguel.</div>
+            <div class="success-frame"><img src="assets/art/miguel-mbappe.jpeg"></div>
+            <div class="success-actions">
+              <button class="btn-c-primary">Ver na parede</button>
+              <button class="btn-c-ghost">Partilhar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-29">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-29</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">PIN-Protected Upload Gate</div>
+      <div class="row-desc">Ecrã leve de PIN familiar de 4 dígitos que protege o fluxo de carregamento na fase pré-contas (antes de existir autenticação completa).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1150px; top:610px; width:160px;"><div class="frame-inner" style="width:160px;height:160px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title" style="flex:1; text-align:center;"></span><span style="width:17px;"></span></div>
+        <div class="flow-body">
+          <div class="pinpad">
+            <div>
+              <div class="pin-title">Introduz o PIN da família</div>
+              <div class="pin-sub">4 dígitos, partilhado por quem cuida do Miguel</div>
+            </div>
+            <div class="pin-dots">
+              <div class="pin-dot filled"></div><div class="pin-dot filled"></div>
+              <div class="pin-dot filled"></div><div class="pin-dot"></div>
+            </div>
+            <div class="pin-keys">
+              <div class="pin-key">1</div><div class="pin-key">2</div><div class="pin-key">3</div>
+              <div class="pin-key">4</div><div class="pin-key">5</div><div class="pin-key">6</div>
+              <div class="pin-key">7</div><div class="pin-key">8</div><div class="pin-key">9</div>
+              <div class="pin-key"></div><div class="pin-key">0</div><div class="pin-key">⌫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:1160px; top:600px; width:150px;"><div class="frame-inner" style="width:150px;height:150px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title" style="flex:1; text-align:center;"></span><span style="width:17px;"></span></div>
+        <div class="flow-body">
+          <div class="pinpad">
+            <div>
+              <div class="pin-title">Introduz o PIN da família</div>
+              <div class="pin-sub">4 dígitos, partilhado por quem cuida do Miguel</div>
+            </div>
+            <div class="pin-dots">
+              <div class="pin-dot filled"></div><div class="pin-dot filled"></div>
+              <div class="pin-dot filled"></div><div class="pin-dot"></div>
+            </div>
+            <div class="pin-keys">
+              <div class="pin-key">1</div><div class="pin-key">2</div><div class="pin-key">3</div>
+              <div class="pin-key">4</div><div class="pin-key">5</div><div class="pin-key">6</div>
+              <div class="pin-key">7</div><div class="pin-key">8</div><div class="pin-key">9</div>
+              <div class="pin-key"></div><div class="pin-key">0</div><div class="pin-key">⌫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-30">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-30</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">"Share to Grandparents" / Share Sheet</div>
+      <div class="row-desc">Fluxo de partilha a partir da galeria — gera a ligação do museu, mostra opções de partilha (copiar, mensagem, email).</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:90px; top:600px; width:140px;"><div class="frame-inner" style="width:140px;height:230px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1; text-align:center;">Partilhar Museu</span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="sharesheet">
+            <div class="dweb-flexrow" style="align-items:center;">
+              <div class="share-linkcard dweb-col-flex">
+                <div class="lbl">Ligação do museu</div>
+                <div class="url">fmb.art/miguel-museu</div>
+              </div>
+              <div class="share-qr dweb-col-fixed"></div>
+            </div>
+            <div class="share-options">
+              <div class="share-opt"><div class="share-icon">🔗</div>Copiar</div>
+              <div class="share-opt"><div class="share-icon">✉︎</div>Email</div>
+              <div class="share-opt"><div class="share-icon">💬</div>Mensagem</div>
+            </div>
+            <div class="share-note">Quem recebe vê a galeria — sem poder editar ou carregar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:100px; top:590px; width:130px;"><div class="frame-inner" style="width:130px;height:220px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1; text-align:center;">Partilhar Museu</span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="sharesheet">
+            <div class="dweb-flexrow" style="align-items:center;">
+              <div class="share-linkcard dweb-col-flex">
+                <div class="lbl">Ligação do museu</div>
+                <div class="url">fmb.art/miguel-museu</div>
+              </div>
+              <div class="share-qr dweb-col-fixed"></div>
+            </div>
+            <div class="share-options">
+              <div class="share-opt"><div class="share-icon">🔗</div>Copiar</div>
+              <div class="share-opt"><div class="share-icon">✉︎</div>Email</div>
+              <div class="share-opt"><div class="share-icon">💬</div>Mensagem</div>
+            </div>
+            <div class="share-note">Quem recebe vê a galeria — sem poder editar ou carregar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-31">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-31</span><span class="row-status status-live">🟢 Live</span></div>
+      <div class="row-title">Visitor View (Read-Only Shared Museum)</div>
+      <div class="row-desc">A vista que um avô/familiar vê ao abrir uma ligação de museu partilhada — igual ao S-01/S-03 mas sem controlos de edição/upload, com CTA de "cria o teu museu".</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:480px;">
+    <div style="width:1200px;height:900px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board wall-board dir-a" style="width:1200px; height:900px; padding-top:0;">
+      <div style="padding:26px 40px 0;">
+        <div class="visitor-banner">
+          <div class="vb-text">Estás a ver o <b>Museu do Miguel</b> — modo só de leitura.</div>
+          <div class="vb-cta">CRIA O TEU MUSEU</div>
+        </div>
+      </div>
+      <div class="wall-inner" style="width:1120px; height:680px; padding-top:20px;">
+        <figure class="art" data-frame="oak" style="left:0px; top:0px; width:150px;">
+          <div class="frame-inner" style="width:150px; height:280px;"><img src="assets/art/luna.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">LUNA</span><span class="p-meta">Manuel · 7 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:200px; top:20px; width:220px;">
+          <div class="frame-inner" style="width:220px; height:220px;"><img src="assets/art/matisse.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Forma Azul</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:480px; top:0px; width:280px;">
+          <div class="frame-inner" style="width:280px; height:400px;"><img src="assets/art/miguel-warhol.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Auto-Retrato Pop</span><span class="p-meta">Miguel · 6 anos</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="brass" style="left:820px; top:20px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:330px;"><img src="assets/art/dia-da-mae.jpeg"></div>
+          <figcaption class="plaque"><span class="p-title">Dia da Mãe 2026</span><span class="p-meta">Muna · 4 anos</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:480px;">
+    <div style="width:1200px;height:900px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board wall-board dir-c" style="width:1200px; height:900px; padding-top:0;">
+      <div style="padding:26px 40px 0;">
+        <div class="visitor-banner">
+          <div class="vb-text">Estás a ver o <b>Museu do Miguel</b> — modo só de leitura.</div>
+          <div class="vb-cta">Cria o teu museu</div>
+        </div>
+      </div>
+      <div class="wall-inner" style="width:1120px; height:680px; padding-top:20px;">
+        <figure class="art" data-frame="oak" style="left:0px; top:0px; width:150px;">
+          <div class="frame-inner" style="width:150px; height:280px;"><img src="assets/art/luna.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#2a6fd8"></span><span class="p-title">LUNA</span><span class="p-meta">Manuel · 7</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:200px; top:20px; width:220px;">
+          <div class="frame-inner" style="width:220px; height:220px;"><img src="assets/art/matisse.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#1f8fd4"></span><span class="p-title">Forma Azul</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="black" style="left:480px; top:0px; width:280px;">
+          <div class="frame-inner" style="width:280px; height:400px;"><img src="assets/art/miguel-warhol.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#ec3a8a"></span><span class="p-title">Auto-Retrato Pop</span><span class="p-meta">Miguel · 6</span></figcaption>
+        </figure>
+        <figure class="art" data-frame="brass" style="left:820px; top:20px; width:230px;">
+          <div class="frame-inner" style="width:230px; height:330px;"><img src="assets/art/dia-da-mae.jpeg"></div>
+          <figcaption class="plaque"><span class="p-bar" style="background:#e9a0bd"></span><span class="p-title">Dia da Mãe 2026</span><span class="p-meta">Muna · 4</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-38">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-38</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Watermarked Export Preview</div>
+      <div class="row-desc">Pré-visualização de uma imagem/vídeo exportado mostrando a marca de água do plano gratuito, com upsell para a remover via subscrição.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:453px;">
+    <div style="width:1440px;height:1020px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a" style="height:1020px;">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:90px; top:110px; width:160px;"><div class="frame-inner" style="width:160px;height:160px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Exportar Imagem</span><span class="flow-x">✕</span></div>
+        <div class="flow-body dweb-flexrow">
+          <div class="wm-frame dweb-col-fixed">
+            <img src="assets/art/miguel-miro.jpeg">
+            <div class="wm-tile">
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+            </div>
+          </div>
+          <div class="wm-upsell dweb-col-fixed">
+            <div class="t">Remove a marca de água</div>
+            <div class="d">Disponível com o plano Família — exporta em alta resolução, sem marca.</div>
+            <button class="btn-a-primary" style="margin-top:2px;">VER PLANOS</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:453px;">
+    <div style="width:1440px;height:1020px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c" style="height:1020px;">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:100px; top:120px; width:150px;"><div class="frame-inner" style="width:150px;height:150px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-wide dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-back">←</span><span class="flow-title">Exportar Imagem</span><span class="flow-x">✕</span></div>
+        <div class="flow-body dweb-flexrow">
+          <div class="wm-frame dweb-col-fixed">
+            <img src="assets/art/miguel-miro.jpeg">
+            <div class="wm-tile">
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+              <span>FMB · ART</span><span>FMB · ART</span><span>FMB · ART</span>
+            </div>
+          </div>
+          <div class="wm-upsell dweb-col-fixed">
+            <div class="t">Remove a marca de água</div>
+            <div class="d">Disponível com o plano Família — exporta em alta resolução, sem marca.</div>
+            <button class="btn-c-primary" style="margin-top:2px;">Ver planos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-54">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-54</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Empty State (No Artworks Yet)</div>
+      <div class="row-desc">Primeiro estado do corredor antes de qualquer obra ser adicionada — incentivo de onboarding em direção ao S-14.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:277px;">
+    <div style="width:1200px;height:520px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board emptystate-board dir-a" style="width:1200px; height:520px;">
+      <div class="es-frame">+</div>
+      <div class="es-title">A tua galeria está vazia</div>
+      <div class="es-sub">Carrega a primeira obra do Miguel e vê-a ganhar vida na parede em poucos minutos.</div>
+      <button class="btn-a-primary" style="width:auto; padding:16px 40px;">+ PENDURAR PRIMEIRA PEÇA</button>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:277px;">
+    <div style="width:1200px;height:520px;transform:scale(0.5333);transform-origin:top left;">
+      <div class="board emptystate-board dir-c" style="width:1200px; height:520px;">
+      <div class="es-frame">+</div>
+      <div class="es-title">A tua galeria está vazia</div>
+      <div class="es-sub">Carrega a primeira obra do Miguel e vê-a ganhar vida na parede em poucos minutos.</div>
+      <button class="btn-c-primary" style="width:auto; padding:15px 36px;">+ Pendurar primeira peça</button>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-55">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-55</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">Error / Analysis-Failed State</div>
+      <div class="row-desc">Mostrado quando a análise de IA falha (timeout, resposta inválida) — pedido de nova tentativa, tom simpático.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:1140px; top:600px; width:130px;"><div class="frame-inner" style="width:130px;height:210px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="errorstate">
+            <div class="err-icon">!</div>
+            <div class="err-title">Algo correu mal</div>
+            <div class="err-sub">Não conseguimos analisar esta obra. A foto pode estar desfocada ou a ligação instável.</div>
+            <div class="err-actions">
+              <button class="btn-a-primary">TENTAR NOVAMENTE</button>
+              <button class="btn-a-ghost">CARREGAR OUTRA FOTO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="oak" style="left:1150px; top:610px; width:120px;"><div class="frame-inner" style="width:120px;height:200px;"><img src="assets/art/luna.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="errorstate">
+            <div class="err-icon">!</div>
+            <div class="err-title">Algo correu mal</div>
+            <div class="err-sub">Não conseguimos analisar esta obra. A foto pode estar desfocada ou a ligação instável.</div>
+            <div class="err-actions">
+              <button class="btn-c-primary">Tentar novamente</button>
+              <button class="btn-c-ghost">Carregar outra foto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  <section class="screen-row" id="S-56">
+    <div class="row-meta">
+      <div class="row-codeline"><span class="row-code">S-56</span><span class="row-status status-near">🟡 Near-term</span></div>
+      <div class="row-title">HEIC Conversion Notice</div>
+      <div class="row-desc">Interstitial que explica/trata o carregamento de fotos HEIC do iPhone durante a conversão.</div>
+    </div>
+    <div class="row-frames">
+      <div class="frame-slot">
+        <div class="slot-label">Direção A — Cubo Branco</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-a">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:100px; top:600px; width:150px;"><div class="frame-inner" style="width:150px;height:150px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-a flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="heicnotice">
+            <div class="heic-spin"></div>
+            <div class="heic-title">A converter a tua foto…</div>
+            <div class="heic-sub">Fotos do iPhone (HEIC) são convertidas automaticamente antes da análise.</div>
+            <div class="heic-tag">.HEIC → .JPEG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+      <div class="frame-slot">
+        <div class="slot-label">Direção C — Corredor</div>
+        <div class="thumb-frame" style="width:640px;height:400px;">
+    <div style="width:1440px;height:900px;transform:scale(0.4444);transform-origin:top left;">
+      <div class="dweb-frame dir-c">
+      <div class="dweb-bg">
+        <figure class="art" data-frame="black" style="left:110px; top:610px; width:140px;"><div class="frame-inner" style="width:140px;height:140px;"><img src="assets/art/matisse.jpeg"></div></figure>
+      </div>
+      <div class="dweb-topbar"><span class="brand">FMB · ART</span><span class="navdot"></span><span class="navdot"></span></div>
+      <div class="dweb-scrim"></div>
+      <div class="dweb-modal dweb-narrow dir-c flow-board" style="border-radius:22px;">
+        <div class="flow-head"><span class="flow-title" style="flex:1;"></span><span class="flow-x">✕</span></div>
+        <div class="flow-body">
+          <div class="heicnotice">
+            <div class="heic-spin"></div>
+            <div class="heic-title">A converter a tua foto…</div>
+            <div class="heic-sub">Fotos do iPhone (HEIC) são convertidas automaticamente antes da análise.</div>
+            <div class="heic-tag">.HEIC → .JPEG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </section>
+  </div>
+</body>
+</html>

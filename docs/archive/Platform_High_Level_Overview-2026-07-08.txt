@@ -1,0 +1,95 @@
+ARCHIVED — REFERENCE ONLY. Superseded as a screen spec.
+
+A design-vibe and concept brief (2026-07-08). Its screen list was absorbed into
+docs/product/SCREENS.md on 2026-07-11, which is more complete and better structured.
+
+It describes features that appear in no roadmap: child voiceover, AI "Curator's Plaque",
+Story Mode, Coloring Book Mode, Remix Persona, and an e-commerce catalog. Those are now
+either open decisions (ADR-0007, audio) or explicitly in the BACKLOG icebox. They are not
+lost, but they were never committed either.
+
+Its lasting contribution is the aesthetic direction: keep the shell restrained so the
+children's art is the only loud thing on screen. That constraint is now recorded in
+SCREENS.md and ART_GUIDE.md.
+
+Kept verbatim below.
+-------------------------------------------------------------------------------
+
+The Concept
+FMB/ART is a premium digital archiving and interactive platform for children’s artwork. It transforms messy, physical stacks of kids' drawings into a prestigious, private "Virtual Museum." Using open-source AI and animation tools, the platform preserves the child's original art, captures the child's voice explaining the piece, and auto-generates a high-end "Curator's Plaque" to accompany it.
+
+The Design Vibe & Aesthetic
+The Look: High-end, clean, and gallery-like. Think of a modern art museum (white walls, soft drop shadows, elegant typography, minimalist interface).
+
+The Contrast: The UI must remain strictly sophisticated and minimal so that the colorful, chaotic, and messy nature of the children's art stands out as the true focal point. It should feel like a premium service for parents, not a cartoonish toy for kids.
+
+The Magic: While the base layer is clean and prestigious, the interactive elements (animations, story generation) should feel magical, delightful, and fluid when activated.
+
+Target Audience
+Parents (Primary Users/Buyers): Seeking a beautiful, clutter-free way to organize memories and purchase premium physical keepsakes.
+
+Grandparents/Family (Viewers): Seeking an emotional connection, easy viewing, and gift purchasing.
+
+Children (The Artists): Engaging with the magical interactive elements of their own creations.
+
+Core Screens & Layouts Needed for Mockups
+1. The "Virtual Museum" Gallery (The Main Feed)
+Purpose: A private, shareable digital exhibition room for a specific child.
+
+Key Elements:
+
+Clean masonry or gallery-style grid of the artwork.
+
+Subtle categorization (e.g., "Leo's 2026 Collection," "Sculptures," "Kindergarten").
+
+When an artwork is clicked, it opens in a clean, focused "Exhibition View."
+
+2. The Exhibition View (Single Artwork Focus)
+Purpose: The core viewing experience for a single piece of art.
+
+Key Elements:
+
+The Art: Displayed prominently, perhaps with a subtle, auto-generated digital frame.
+
+The Audio Player: A clean, intuitive play button to hear the child’s 10–15 second voiceover.
+
+The Curator's Plaque: Elegant text block featuring the AI-generated artistic critique (e.g., formatted like a real museum placard with title, medium, and description).
+
+The "Explore" / "Bring to Life" Button: A distinctly styled button that hints at the interactive magic hidden within the art.
+
+Social & Engagement: Comment section for family members, and an "Export to Instagram" button.
+
+3. The "Explore" Modal (The Interactive Magic)
+Purpose: An overlay or full-screen modal that activates when the user clicks "Explore" on an artwork.
+
+Key Elements:
+
+Animation Player: A video player displaying the artwork either dancing (character animation) or swaying in 3D (parallax landscape).
+
+Story Mode: A beautifully formatted text block displaying the AI-generated "Bedtime Story" based on the art.
+
+Coloring Book Mode: The artwork converted to black-and-white outlines with a "Print" button.
+
+4. The Upload & Edit Flow
+Purpose: A seamless, frictionless flow for parents to digitize art.
+
+Key Elements:
+
+Image upload target.
+
+In-browser photo editor (crop, rotate, auto-enhance lighting).
+
+A simple "Record Audio" interface for the child.
+
+An optional "Remix Persona" dropdown for the AI Curator (e.g., "Fairy Tale," "Pretentious Critic").
+
+5. The E-Commerce Storefront (The Auction Catalog)
+Purpose: Upselling the digital gallery into premium physical products.
+
+Key Elements:
+
+Mockups of premium, hardcover exhibition catalogs (photo books).
+
+Clear calls to action to "Print this Gallery."
+
+Visual indicators of the "QR Voiceover" feature (showing how the physical book links back to the digital audio).
