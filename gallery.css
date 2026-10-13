@@ -1868,3 +1868,114 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .app-bar { flex-wrap: wrap; justify-content: center; border-radius: 26px; }
 }
 .app-bar { width: max-content; }
+
+/* ============================================================
+   AUDIO DESCRIPTION + COMMENTS (zoom view)
+   ============================================================ */
+.zm-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+  color: #f1ece1;
+  font: 600 13px/1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.03em;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.zm-btn:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
+.zm-btn:focus-visible, .zm-link:focus-visible, .zm-comments-x:focus-visible,
+.zm-field input:focus-visible, .zm-field textarea:focus-visible, .zm-send:focus-visible {
+  outline: 2px solid #f7d54a; outline-offset: 2px;
+}
+
+.zm-audio { display: flex; flex-direction: column; gap: 8px; align-self: stretch; }
+.zm-audio .zm-btn { align-self: flex-start; }
+.zm-audio-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.18); overflow: hidden; }
+.zm-audio-bar span { display: block; height: 100%; background: #f7d54a; }
+.zm-audio-meta {
+  display: flex; align-items: center; gap: 14px;
+  font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em;
+  color: rgba(241,236,225,0.7);
+}
+.zm-link {
+  background: none; border: 0; padding: 6px 0; cursor: pointer;
+  color: #f7d54a; font: 600 12px/1 "Inter", system-ui, sans-serif;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.zm-audio-text {
+  margin: 0; font: 400 14px/1.5 "Inter", system-ui, sans-serif;
+  color: #f1ece1; text-align: left; text-wrap: pretty;
+}
+
+/* ---- comments panel: right drawer (desktop) / bottom sheet (mobile) ---- */
+.zm-comments {
+  position: fixed; z-index: 120;
+  top: 0; right: 0; bottom: 0;
+  width: min(360px, 100vw);
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 22px 20px;
+  overflow-y: auto;
+  background: rgba(24,19,14,0.985);
+  border-left: 1px solid rgba(255,255,255,0.14);
+  box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+  color: #f1ece1;
+  font-family: "Inter", system-ui, sans-serif;
+  animation: zmDrawer 260ms cubic-bezier(.2,.7,.2,1);
+}
+@keyframes zmDrawer { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+.zm-comments-head { display: flex; justify-content: space-between; gap: 12px; padding-right: 52px; }
+.zm-comments-title { margin: 0; font: italic 400 28px/1.1 "Cormorant Garamond", serif; }
+.zm-comments-ask { margin: 6px 0 0; font-size: 13px; color: rgba(241,236,225,0.7); }
+.zm-comments-x {
+  position: absolute; top: 14px; right: 14px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 24px; line-height: 1;
+}
+.zm-comments-note { margin: 0; font-size: 14px; color: rgba(241,236,225,0.7); }
+
+.zm-form { display: flex; flex-direction: column; gap: 12px; }
+.zm-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; position: relative; }
+.zm-field input, .zm-field textarea {
+  width: 100%; box-sizing: border-box;
+  min-height: 44px; padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff; font: 400 16px/1.4 "Inter", system-ui, sans-serif;
+  resize: vertical;
+}
+.zm-field [aria-invalid="true"] { border-color: #ff8a7a; }
+.zm-count { align-self: flex-end; font: 400 11px "JetBrains Mono", monospace; color: rgba(241,236,225,0.55); }
+.zm-err { font-style: normal; font-size: 13px; font-weight: 500; color: #ffb4a8; }
+.zm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.zm-send { align-self: flex-start; margin-top: 0; min-height: 44px; border: 0; cursor: pointer; }
+.zm-send:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+.zm-comments-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.zm-comment { padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); animation: zmFade 380ms ease-out; }
+.zm-comment-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.zm-comment-head strong { font-size: 14px; }
+.zm-comment-head time { font: 11px "JetBrains Mono", monospace; color: rgba(241,236,225,0.55); }
+.zm-comment p { margin: 6px 0 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+
+@media (max-width: 768px) {
+  .zm-audio { align-items: center; }
+  .zm-audio .zm-btn, .zm-label > .zm-btn, .zm-label > .zm-cta { align-self: center; }
+  .zm-audio-meta { justify-content: center; }
+  .zm-comments {
+    top: auto; left: 0; width: 100%;
+    max-height: 78dvh;
+    border-left: 0; border-top: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+    animation-name: zmSheet;
+  }
+}
+@keyframes zmSheet { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .zm-comments, .zm-comment { animation: none; }
+}

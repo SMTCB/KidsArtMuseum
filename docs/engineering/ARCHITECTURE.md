@@ -28,6 +28,7 @@ GitHub (SMTCB/KidsArtMuseum, branch: main)
   │  source of truth for code, artwork metadata, and photos   [ADR-0003]
   ▼
 Vercel  ── serves the repo root as static files, auto-deploys on push
+          (one exception: `api/comments.js`, a Function backed by Upstash Redis — ADR-0015)
   ▼
 Browser ── React 18 via unpkg CDN
            @babel/standalone transpiles 9 JSX files at runtime

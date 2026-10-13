@@ -306,6 +306,7 @@ reuse a retired one.
 | AUD-02 | Audio upload and storage | M | `blocked` | On UPL-05, ADR-0014. |
 | AUD-03 | In-browser recording UI | L | `blocked` | On AUD-02. S-19. 15-second cap, waveform, re-record. |
 | AUD-04 | Transcription through the port | M | `blocked` | On AIS-03. Whisper-class, inside the budget. Transcript is an accessibility feature, not a replacement for the voice. |
+| AUD-06 | Artwork description audio on the prototype | S | `done` | No upload; owner drops files in `assets/audio/` and lists them in `audio-data.js`. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Consistent with ADR-0007 Option A; does not close it. |
 | AUD-05 | Audio retention and deletion policy in code | M | `blocked` | On ADR-0014. The most sensitive object in the system. |
 
 > **AUD has a clock.** The children are 4, 7, and 7. This is the only item in the plan whose
@@ -323,6 +324,7 @@ reuse a retired one.
 | SHR-05 | Link previews and OG cards | M | `blocked` | On SHR-03. A shared museum link that unfurls as a framed artwork is the cheapest growth mechanism available. |
 | SHR-06 | Print view — A4/A3, artwork plus title card | M | `blocked` | On DES-05. S-10. Absorbs P1-03. |
 | SHR-07 | Watermarked export and upsell | M | `blocked` | On BIL-02. S-38 — the only monetization surface the redesign actually drew. |
+| SHR-09 | Visitor comments (name + text) on the prototype | M | `now` | Built 2026-10-13, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); goes live once Upstash is connected in Vercel (set-up in the design doc). Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. |
 | SHR-08 | "Start your own museum" CTA on the visitor view | S | `blocked` | On SHR-03. |
 
 ### BIL — Billing and entitlements

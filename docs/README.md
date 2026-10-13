@@ -54,7 +54,7 @@ down anywhere (**STR-05**).
 
 | Doc | Status | Purpose |
 |---|---|---|
-| [decisions/README.md](decisions/README.md) | `canonical` | The decision log. **6 open, 6 accepted, 2 superseded.** |
+| [decisions/README.md](decisions/README.md) | `canonical` | The decision log. **6 open, 7 accepted, 2 superseded.** |
 | [ADR-TEMPLATE.md](decisions/ADR-TEMPLATE.md) | — | Copy this to start a new one. |
 
 ## Design
@@ -63,6 +63,7 @@ down anywhere (**STR-05**).
 |---|---|---|
 | [IDENTITY.md](design/IDENTITY.md) | `canonical` | **The design language.** Direção A for the museum, Direção C for the product, and where they meet. |
 | [TEMPLATE_COMPOSITION_STRATEGY.md](design/TEMPLATE_COMPOSITION_STRATEGY.md) | `reference` | Scaling animation variety without a templated feel. |
+| [AUDIO_AND_COMMENTS.md](design/AUDIO_AND_COMMENTS.md) | `draft` | Design and plan for the prototype's audio description and visitor comments (AUD-06, SHR-09). |
 
 The raw redesign delivery lives in `design/FMB_IDENTITY_REDESIGN_V1.0/` — HTML comps and CSS,
 not a system. `IDENTITY.md` is what it means; **DES-01** is what turns it into tokens.

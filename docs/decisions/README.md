@@ -39,6 +39,7 @@ is Sprint 1 work, not paperwork.
 | [0004](0004-product-ambition.md) | **Venture-scale SaaS** (Option B). fmb.art is reclassified as a validated prototype, not v1. | 2026-08-22 |
 | [0010](0010-visual-identity-direction.md) | **Direção A for the museum, Direção C for the product.** Artwork is always framed in A, inside C chrome. | 2026-08-22 |
 | [0012](0012-ai-cost-floor.md) | **Nothing ships that we could not afford at 10,000 subscribers.** Deterministic first; all inference behind one port; Claude API for internal tooling only. | 2026-08-22 |
+| [0015](0015-prototype-comments-backend.md) | **A minimal comments backend for the prototype** (Vercel Function + Upstash). Exception to 0001, scoped to the prototype. | 2026-10-13 |
 
 ## Superseded
 
