@@ -547,25 +547,46 @@ function MaestroAnimation({ art }) {
 }
 
 // ============================================================
-// Export to window
+// PORTAL — tap the drawn door and it swings open on a swirl of ideas
 // ============================================================
-// ============================================================
-// PORTAL — the door glows and ideas float out of it
-// ============================================================
+// Door box, as % of the image (matches Miguel's drawing).
+const PORTAL_BOX = { l: 34, t: 30, w: 27, h: 54 };
+
 function PortalAnimation({ art }) {
   const cols = art.palette;
+  const [open, setOpen] = useS(false);
+
+  // Opens by itself after a beat, then breathes open/shut so it never stops.
+  useE(() => {
+    let on = false;
+    const first = setTimeout(() => { on = true; setOpen(true); }, 1200);
+    const loop = setInterval(() => { on = !on; setOpen(on); }, 6500);
+    return () => { clearTimeout(first); clearInterval(loop); };
+  }, []);
+
+  const B = PORTAL_BOX;
   return (
     <div className="anim-layer portal-stage" aria-hidden>
       <img src={art.src} alt="" className="anim-img" />
-      <div className="portal-door">
-        <div className="portal-glow" style={{
-          background: `radial-gradient(ellipse at center, ${cols[1]} 0%, ${cols[3]} 45%, transparent 75%)`
+      <div className={"portal-door" + (open ? " is-open" : "")}
+        style={{ left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%" }}
+        onClick={() => setOpen((o) => !o)}>
+        <div className="portal-inside">
+          <div className="portal-swirl" style={{
+            background: `conic-gradient(${cols.join(", ")}, ${cols[0]})`
+          }} />
+          <div className="portal-inside-light" />
+        </div>
+        <div className="portal-leaf" style={{
+          backgroundImage: `url(${art.src})`,
+          backgroundSize: `${10000 / B.w}% ${10000 / B.h}%`,
+          backgroundPosition: `${B.l / (100 - B.w) * 100}% ${B.t / (100 - B.h) * 100}%`
         }} />
       </div>
       {Array.from({ length: 9 }).map((_, i) => (
-        <span key={i} className="portal-idea" style={{
-          left: `${38 + (i * 7) % 22}%`,
-          animationDelay: `${(i * 0.9) % 8}s`,
+        <span key={i} className={"portal-idea" + (open ? " is-on" : "")} style={{
+          left: `${B.l + 2 + (i * 7) % (B.w - 4)}%`,
+          animationDelay: `${(i * 0.7) % 6}s`,
           background: cols[i % cols.length]
         }} />
       ))}
@@ -601,6 +622,9 @@ function TeiaAnimation({ art }) {
   );
 }
 
+// ============================================================
+// Export to window
+// ============================================================
 window.ANIMS = {
   miro: MiroAnimation,
   sunflowers: SunflowersAnimation,

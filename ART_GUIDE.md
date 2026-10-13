@@ -101,7 +101,7 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `rainbow` | Scratch-to-reveal canvas overlay | Drawings where colour itself is the subject |
 | `mbappe` | Collage pieces drift; gentle sparkles | Magazine cut-outs / collages |
 | `maestro` | Figure's arms pulse like conducting | Standing figure portraits |
-| `portal` | Door area glows; coloured "ideas" float up out of it | A door, window or opening drawn as the subject (landscape; glow box is positioned for `portal`) |
+| `portal` | The drawn door swings open (tap to toggle, also loops by itself) on a swirl of palette colours; "ideas" float out | A door or opening as the subject. Door box is `PORTAL_BOX` in `art-animations.jsx` — re-measure for a new drawing |
 | `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
 
 **Default to reuse.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first.

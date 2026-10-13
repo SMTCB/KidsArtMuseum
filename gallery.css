@@ -1720,33 +1720,49 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    ============================================================ */
 .portal-door {
   position: absolute;
-  left: 34%; top: 30%; width: 27%; height: 54%;
-  pointer-events: none;
+  cursor: pointer;
+  /* the layer is aria-hidden decoration, but it must take taps */
+  pointer-events: auto;
 }
-.portal-glow {
+.portal-inside {
   position: absolute; inset: 0;
-  mix-blend-mode: screen;
-  opacity: 0.15;
-  animation: portalPulse 5s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  overflow: hidden;
 }
-@keyframes portalPulse {
-  0%, 100% { opacity: 0.1; transform: scale(0.96); }
-  50%      { opacity: 0.55; transform: scale(1.04); }
+.portal-swirl {
+  position: absolute; inset: -60%;
+  animation: portalSpin 14s linear infinite;
 }
+.portal-door.is-open .portal-inside { opacity: 1; }
+.portal-inside-light {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.15) 55%, rgba(0,0,0,0.35) 100%);
+}
+@keyframes portalSpin { to { transform: rotate(360deg); } }
+.portal-leaf {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  transform-origin: left center;
+  transform: perspective(900px) rotateY(0deg);
+  transition: transform 2s cubic-bezier(.5, 0, .25, 1);
+  box-shadow: 4px 0 14px rgba(0,0,0,0.35);
+}
+.portal-door.is-open .portal-leaf { transform: perspective(900px) rotateY(-112deg); }
 .portal-idea {
   position: absolute;
   top: 60%;
-  width: 10px; height: 10px;
+  width: 12px; height: 12px;
   border-radius: 50%;
   opacity: 0;
-  box-shadow: 0 0 12px currentColor;
+  box-shadow: 0 0 14px #fff;
   pointer-events: none;
-  animation: portalIdea 8s ease-in-out infinite;
 }
+.portal-idea.is-on { animation: portalIdea 6s ease-in-out infinite; }
 @keyframes portalIdea {
   0%   { transform: translateY(0) scale(0.4); opacity: 0; }
-  15%  { opacity: 0.9; }
-  100% { transform: translateY(-55vh) scale(1.2); opacity: 0; }
+  15%  { opacity: 0.95; }
+  100% { transform: translateY(-50vh) scale(1.3); opacity: 0; }
 }
 
 /* ============================================================
@@ -1776,7 +1792,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   50%      { height: var(--len); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .portal-glow, .portal-idea, .teia-thread { animation: none; }
-  .portal-glow { opacity: 0.3; }
+  .portal-swirl, .portal-idea, .teia-thread { animation: none; }
+  .portal-leaf, .portal-inside { transition: none; }
   .teia-thread { height: 12%; }
 }
