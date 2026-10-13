@@ -220,13 +220,15 @@ const WALL_LAYOUT = {
   vangogh:      { l: 37, t: 8,  w: 12 },
   eraumavez:    { l: 54, t: 10, w: 12 },
   mbappe:       { l: 70, t: 9,  w: 12 },
+  portal:       { l: 85, t: 11, w: 12 },
   // Row 2 (top edge ~50–58%)
   matisse:      { l: 4,  t: 58, w: 10 },
   portrait:     { l: 19, t: 50, w: 9 },
   luna:         { l: 32, t: 50, w: 4 },
   diadamae:     { l: 40, t: 52, w: 12 },
   clay:         { l: 57, t: 53, w: 11 },
-  manuelfigure: { l: 73, t: 56, w: 11 }
+  manuelfigure: { l: 73, t: 56, w: 11 },
+  casaaranhas:  { l: 87, t: 58, w: 10 }
 };
 
 function WallPiecePin({ art, layout, onOpen, i }) {

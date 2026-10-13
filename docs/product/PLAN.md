@@ -34,7 +34,7 @@ Verified against the running site, not against documents.
 |---|---|
 | **Live** | `fmb.art` — static React, no build step, deployed from `main` |
 | **Artworks** | 11, by 3 children |
-| **Effects** | 36 in `window.TEMPLATE_LIBRARY`, plus 11 bespoke routines — 44 keys in `window.ANIMS` |
+| **Effects** | 36 in `window.TEMPLATE_LIBRARY`, plus 13 bespoke routines — 46 keys in `window.ANIMS` |
 | **Accounts** | None. One family, hand-edited catalogue in `art-data.js` |
 | **Health** | No console errors. Every `anim` resolves, every asset present |
 | **Cost** | ~€0/month on Vercel |

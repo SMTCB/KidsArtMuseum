@@ -31,7 +31,7 @@ Every piece is one entry in `window.ART` (inside `art-data.js`). The schema is f
 }
 ```
 
-Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file.
+Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, **and** give it a slot in `WALL_LAYOUT` in `gallery-core.jsx` (the Parede de Galeria skips any piece without one). Optionally add a `.gw-piece-<id> .gw-frame` rule in `gallery.css`.
 
 ---
 
@@ -101,6 +101,8 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `rainbow` | Scratch-to-reveal canvas overlay | Drawings where colour itself is the subject |
 | `mbappe` | Collage pieces drift; gentle sparkles | Magazine cut-outs / collages |
 | `maestro` | Figure's arms pulse like conducting | Standing figure portraits |
+| `portal` | Door area glows; coloured "ideas" float up out of it | A door, window or opening drawn as the subject (landscape; glow box is positioned for `portal`) |
+| `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
 
 **Default to reuse.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first.
 

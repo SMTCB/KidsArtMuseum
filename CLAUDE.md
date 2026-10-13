@@ -40,7 +40,7 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 5. **Sample dominant colours** — inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
 6. **Draft the new entry** in `window.ART` (`art-data.js`) following the schema in ART_GUIDE §1. Every required field, no inventing new keys.
 7. **Pick an `anim` routine** from ART_GUIDE §5a. Invent a new one only if no existing routine fits (follow §5b exactly if you do).
-   > Note: `window.ANIMS` currently holds **44** keys — the 11 documented routines plus the 33
+   > Note: `window.ANIMS` currently holds **46** keys — the 13 documented routines plus the 33
    > Sala de Experimentação effects, which register into the same lookup. Whether those 33 are
    > eligible as an artwork `anim` is unsettled (backlog FND-07); until it is, pick from §5a.
 8. **Place 3–4 discovery dots** (ART_GUIDE §6). Coordinates are percentages of the image. Spread them; no two within 15% on either axis.
@@ -48,6 +48,7 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 10. **On approval:**
    - Move the photo: `intake/<filename>` → `assets/art/<filename>`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`
+   - Add a slot for it in `WALL_LAYOUT` in `gallery-core.jsx` (otherwise the wall theme hides it)
    - Archive the form: `intake/<name>.md` → `intake/processed/<name>.md`
    - Commit with a short message, e.g. `Add: Gato Cubista (Miguel)`
    - Push to `main` (Vercel auto-deploys)

@@ -620,6 +620,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .gw-piece-manuelfigure .gw-frame{ padding: 5%; background: #fff; }
 .gw-piece-diadamae .gw-frame    { padding: 5%; background: linear-gradient(135deg, #8a9d7a 0%, #6a7d5a 100%); }
 .gw-piece-clay .gw-frame        { padding: 5%; background: linear-gradient(135deg, #4a2e1a 0%, #2a1808 100%); }
+.gw-piece-portal .gw-frame       { padding: 4%; background: #4a2e1a; }
+.gw-piece-casaaranhas .gw-frame { padding: 5%; background: #f4ede0; }
 
 /* Soft hung-on-wall shadow under each frame */
 .gw-frame::after {
@@ -1711,4 +1713,70 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   0%   { transform: translateY(0) rotate(-10deg) scale(0.6); opacity: 0; }
   15%  { opacity: 1; }
   100% { transform: translateY(-60%) rotate(20deg) scale(1.2); opacity: 0; }
+}
+
+/* ============================================================
+   === portal animation === (Um Portal Para a Minha Cabeça)
+   ============================================================ */
+.portal-door {
+  position: absolute;
+  left: 34%; top: 30%; width: 27%; height: 54%;
+  pointer-events: none;
+}
+.portal-glow {
+  position: absolute; inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.15;
+  animation: portalPulse 5s ease-in-out infinite;
+}
+@keyframes portalPulse {
+  0%, 100% { opacity: 0.1; transform: scale(0.96); }
+  50%      { opacity: 0.55; transform: scale(1.04); }
+}
+.portal-idea {
+  position: absolute;
+  top: 60%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 12px currentColor;
+  pointer-events: none;
+  animation: portalIdea 8s ease-in-out infinite;
+}
+@keyframes portalIdea {
+  0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+  15%  { opacity: 0.9; }
+  100% { transform: translateY(-55vh) scale(1.2); opacity: 0; }
+}
+
+/* ============================================================
+   === teia animation === (Uma Casa das Aranhas)
+   ============================================================ */
+.teia-thread {
+  position: absolute; top: 0; height: 0;
+  width: 0;
+  pointer-events: none;
+  animation: teiaDrop 9s ease-in-out infinite;
+}
+.teia-line {
+  position: absolute; left: 0; top: 0;
+  width: 1.5px; height: 100%;
+  opacity: 0.7;
+}
+.teia-spider {
+  position: absolute; left: -6px; bottom: -12px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  box-shadow:
+    -7px -3px 0 -4px currentColor, 7px -3px 0 -4px currentColor,
+    -8px 3px 0 -4px currentColor, 8px 3px 0 -4px currentColor;
+}
+@keyframes teiaDrop {
+  0%, 100% { height: 4%; }
+  50%      { height: var(--len); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-glow, .portal-idea, .teia-thread { animation: none; }
+  .portal-glow { opacity: 0.3; }
+  .teia-thread { height: 12%; }
 }

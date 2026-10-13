@@ -208,11 +208,50 @@ window.ART = [
       { x: 30, y: 70, label: "O artista", detail: "A pintar o c\u00e9u" },
       { x: 50, y: 35, label: "Arco-\u00edris", detail: "Toca para pintar!" }
     ]
+  },
+  {
+    id: "portal",
+    title: "Um Portal Para a Minha Cabeça",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/miguel-portal.jpeg",
+    w: 1500, h: 1110,
+    bg: "#3a9a55",
+    palette: ["#3a9a55", "#e0701e", "#1f4f9a", "#c8321e", "#7a4510"],
+    anim: "portal",
+    dots: [
+      { x: 48, y: 52, label: "O portal", detail: "Cor de chocolate" },
+      { x: 13, y: 38, label: "Risco azul", detail: "Forte, forte, forte" },
+      { x: 88, y: 30, label: "Rabisco vermelho", detail: "Cor de fogo" },
+      { x: 50, y: 95, label: "O carimbo", detail: "Inventarte 26/27" }
+    ]
+  },
+  {
+    id: "casaaranhas",
+    title: "Uma Casa das Aranhas",
+    artist: "Muna",
+    age: 4,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/muna-casa-aranhas.jpeg",
+    w: 1500, h: 1119,
+    bg: "#8fd43a",
+    palette: ["#8fd43a", "#d8281e", "#f08a1e", "#5aa8d8", "#5a3a28"],
+    anim: "teia",
+    dots: [
+      { x: 30, y: 65, label: "A casa", detail: "Onde moram as aranhas" },
+      { x: 62, y: 60, label: "Teia vermelha", detail: "Voltas e mais voltas" },
+      { x: 70, y: 27, label: "Teia laranja", detail: "Cor de sol" },
+      { x: 36, y: 8, label: "O carimbo", detail: "Inventarte 26/27" }
+    ]
   }
 ];
 
 // Hallway sequence — order pieces appear on the wall.
 window.HALLWAY_ORDER = [
   "miro", "vangogh", "warhol", "portrait", "matisse",
-  "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay"
+  "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
+  "portal", "casaaranhas"
 ];

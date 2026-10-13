@@ -549,6 +549,58 @@ function MaestroAnimation({ art }) {
 // ============================================================
 // Export to window
 // ============================================================
+// ============================================================
+// PORTAL — the door glows and ideas float out of it
+// ============================================================
+function PortalAnimation({ art }) {
+  const cols = art.palette;
+  return (
+    <div className="anim-layer portal-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="portal-door">
+        <div className="portal-glow" style={{
+          background: `radial-gradient(ellipse at center, ${cols[1]} 0%, ${cols[3]} 45%, transparent 75%)`
+        }} />
+      </div>
+      {Array.from({ length: 9 }).map((_, i) => (
+        <span key={i} className="portal-idea" style={{
+          left: `${38 + (i * 7) % 22}%`,
+          animationDelay: `${(i * 0.9) % 8}s`,
+          background: cols[i % cols.length]
+        }} />
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
+// TEIA — spiders slowly climb up and down on silk threads
+// ============================================================
+function TeiaAnimation({ art }) {
+  const cols = art.palette;
+  const threads = [
+    { x: 16, len: 34, delay: 0 },
+    { x: 46, len: 22, delay: 1.8 },
+    { x: 74, len: 40, delay: 3.2 },
+    { x: 90, len: 28, delay: 0.9 }
+  ];
+  return (
+    <div className="anim-layer teia-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      {threads.map((t, i) => (
+        <div key={i} className="teia-thread" style={{
+          left: `${t.x}%`,
+          "--len": `${t.len}%`,
+          animationDelay: `${t.delay}s`
+        }}>
+          <span className="teia-line" style={{ background: cols[4] }} />
+          <span className="teia-spider" style={{ background: cols[4] }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 window.ANIMS = {
   miro: MiroAnimation,
   sunflowers: SunflowersAnimation,
@@ -560,11 +612,14 @@ window.ANIMS = {
   story: StoryAnimation,
   sculpture: SculptureAnimation,
   luna: LunaAnimation,
-  rainbow: RainbowAnimation
+  rainbow: RainbowAnimation,
+  portal: PortalAnimation,
+  teia: TeiaAnimation
 };
 
 Object.assign(window, {
   MiroAnimation, SunflowersAnimation, WarholAnimation, PortraitAnimation,
   MatisseAnimation, MbappeAnimation, MaestroAnimation,
-  StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation
+  StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
+  PortalAnimation, TeiaAnimation
 });
