@@ -49,30 +49,78 @@ const THEMES = [
   { id: "wall",      label: "Parede de Galeria" }
 ];
 
+// Artists come from the artwork data (first appearance order); slug = lowercase name.
+const ARTISTS = [...new Set(ART.map(a => a.artist))];
+const slugOf = (name) => name.toLowerCase();
+
+// Routes: #/todos · #/<artista> · #/<artista>/<obra>
+function parseHash() {
+  const [, who, piece] = location.hash.split("/");
+  const artist = ARTISTS.find(a => slugOf(a) === who) || null;
+  const art = piece && ART.find(a => a.id === piece && (!artist || a.artist === artist));
+  return { artist, openId: art ? art.id : null };
+}
+const hashOf = (artist, openId) =>
+  "#/" + (artist ? slugOf(artist) : "todos") + (openId ? "/" + openId : "");
+
 function App() {
   const [theme, setTheme] = React.useState(() => {
     const stored = localStorage.getItem("fmb-theme");
     return (stored === "whitecube" || stored === "wall") ? stored : "wall";
   });
+  const [route, setRoute] = React.useState(parseHash);
 
   React.useEffect(() => {
     localStorage.setItem("fmb-theme", theme);
   }, [theme]);
 
+  React.useEffect(() => {
+    const on = () => setRoute(parseHash());
+    window.addEventListener("popstate", on);
+    return () => window.removeEventListener("popstate", on);
+  }, []);
+
+  const go = (artist, openId, mode) => {
+    const url = hashOf(artist, openId);
+    if (mode === "push") history.pushState({ fmbOpen: 1 }, "", url);
+    else history.replaceState(openId ? history.state : null, "", url);
+    setRoute({ artist, openId });
+  };
+  const onOpen = (id) => go(route.artist, id, "push");
+  const onStep = (id) => go(route.artist, id, "replace");
+  const onClose = () => {
+    if (history.state && history.state.fmbOpen) history.back();
+    else go(route.artist, null, "replace");
+  };
+
   return (
     <div className="app" data-screen-label="Museum Hall">
-      <nav className="app-bar" aria-label="Estilo da galeria">
+      <nav className="app-bar" aria-label="Galeria">
         <span className="app-bar-brand">FMB &middot; ART</span>
-        {THEMES.map(t => (
-          <button
-            key={t.id}
-            className={"app-bar-tab " + (theme === t.id ? "is-active" : "")}
-            onClick={() => setTheme(t.id)}
-          >{t.label}</button>
-        ))}
+        <div className="app-bar-group" role="group" aria-label="Artista">
+          {[null, ...ARTISTS].map(a => (
+            <button
+              key={a || "todos"}
+              className={"app-bar-tab " + (route.artist === a ? "is-active" : "")}
+              aria-pressed={route.artist === a}
+              onClick={() => go(a, null, "replace")}
+            >{a || "Todos"}</button>
+          ))}
+        </div>
+        <div className="app-bar-group" role="group" aria-label="Estilo da galeria">
+          {THEMES.map(t => (
+            <button
+              key={t.id}
+              className={"app-bar-tab app-bar-style " + (theme === t.id ? "is-active" : "")}
+              aria-pressed={theme === t.id}
+              onClick={() => setTheme(t.id)}
+            >{t.label}</button>
+          ))}
+        </div>
       </nav>
 
-      <Hallway theme={theme} key={theme} />
+      <Hallway theme={theme} artist={route.artist} key={theme + (route.artist || "")}
+        openId={route.openId} onOpen={onOpen} onClose={onClose} onStep={onStep} />
 
       <div className="app-hint">
         {theme === "wall"

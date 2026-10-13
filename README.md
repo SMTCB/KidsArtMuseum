@@ -129,6 +129,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 |---|---|
 | Change wall colour / lighting | `gallery.css` → `:root` and `[data-theme="…"]` blocks |
 | Reorder the hallway | `art-data.js` → `window.HALLWAY_ORDER` |
+| Add an artist gallery | Nothing — a new `artist` value in `art-data.js` gets its own chip and `#/<artist>` route (`index.html`) |
 | Add a theme tab | `index.html` → `THEMES` array + a new theme block in `gallery.css` |
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |
 

@@ -108,27 +108,33 @@ function PlainAnim({ art }) {
 }
 
 // ---------- Zoom modal (the "frame view") ----------
-function ZoomModal({ art, onClose, theme }) {
+function ZoomModal({ art, onClose, onStep, theme }) {
   const [showDots, setShowDots] = useState(false);
   const [game, setGame] = useState(false);
   const [showRoom, setShowRoom] = useState(false);   // ← Experimentation Room
   const Anim = (window.ANIMS && window.ANIMS[art.anim]) || PlainAnim;
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (!onStep || showRoom || game) return;
+      if (e.key === "ArrowRight") onStep(1);
+      if (e.key === "ArrowLeft") onStep(-1);
+    };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, [onClose, onStep, showRoom, game]);
 
   // Reveal dots after a beat so the zoom animation finishes first
   useEffect(() => {
+    setShowDots(false);
     const t = setTimeout(() => setShowDots(true), 650);
     return () => clearTimeout(t);
-  }, []);
+  }, [art.id]);
 
   // ── Open the Experimentation Room ──
   if (showRoom) {
@@ -138,9 +144,17 @@ function ZoomModal({ art, onClose, theme }) {
 
   return (
     <div className={"zoom-modal theme-" + theme} onClick={onClose}>
-      <button className="zm-close" onClick={onClose} aria-label="Fechar">×</button>
+      <button className="zm-close" onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Fechar">×</button>
+      {onStep && (
+        <>
+          <button className="zm-nav zm-nav-prev" aria-label="Obra anterior"
+            onClick={(e) => { e.stopPropagation(); onStep(-1); }}>←</button>
+          <button className="zm-nav zm-nav-next" aria-label="Obra seguinte"
+            onClick={(e) => { e.stopPropagation(); onStep(1); }}>→</button>
+        </>
+      )}
 
-      <div className="zm-stage" onClick={(e) => e.stopPropagation()}>
+      <div className="zm-stage" key={art.id} onClick={(e) => e.stopPropagation()}>
         <div className={"zm-frame zm-frame-" + art.anim} style={{ aspectRatio: `${art.w} / ${art.h}` }}>
           <Anim art={art} />
           {showDots && art.dots.map((d, i) => (
@@ -215,20 +229,20 @@ const WALL_LAYOUT = {
   // top-left positioning. l: % of board width; t: % of board height;
   // w: % of board width. Height is derived via CSS aspect-ratio on the frame.
   // Row 1 (top edge ~8–12%)
-  warhol:       { l: 4,  t: 8,  w: 13 },
-  miro:         { l: 22, t: 12, w: 11 },
-  vangogh:      { l: 37, t: 8,  w: 12 },
-  eraumavez:    { l: 54, t: 10, w: 12 },
-  mbappe:       { l: 70, t: 9,  w: 12 },
-  portal:       { l: 85, t: 11, w: 12 },
+  warhol:       { l: 3,  t: 8,  w: 13 },
+  miro:         { l: 19, t: 12, w: 11 },
+  vangogh:      { l: 34, t: 8,  w: 12 },
+  eraumavez:    { l: 50, t: 10, w: 12 },
+  mbappe:       { l: 66, t: 9,  w: 12 },
+  portal:       { l: 82, t: 11, w: 15 },
   // Row 2 (top edge ~50–58%)
   matisse:      { l: 4,  t: 58, w: 10 },
   portrait:     { l: 19, t: 50, w: 9 },
   luna:         { l: 32, t: 50, w: 4 },
   diadamae:     { l: 40, t: 52, w: 12 },
-  clay:         { l: 57, t: 53, w: 11 },
-  manuelfigure: { l: 73, t: 56, w: 11 },
-  casaaranhas:  { l: 87, t: 58, w: 10 }
+  clay:         { l: 56, t: 53, w: 11 },
+  manuelfigure: { l: 71, t: 56, w: 11 },
+  casaaranhas:  { l: 84, t: 58, w: 13 }
 };
 
 function WallPiecePin({ art, layout, onOpen, i }) {
@@ -258,13 +272,77 @@ function WallPiecePin({ art, layout, onOpen, i }) {
   );
 }
 
-function GalleryWall({ theme, pieces, zoomed, setZoomed }) {
+// Artist galleries have few, varying pieces, so they are laid out automatically:
+// pieces in a row share a height, rows are centred, and the largest fit wins.
+function autoWallLayout(pieces, vw, vh) {
+  const n = pieces.length;
+  if (!n) return {};
+  const ratios = pieces.map((a) => a.w / a.h);
+  const availW = vw * 0.8, availH = vh * 0.56;
+  const gx = vw * 0.035, gy = vh * 0.08;
+  let best = null;
+  for (let k = 1; k <= Math.min(n, 5); k++) {
+    const target = ratios.reduce((x, y) => x + y, 0) / k;
+    const rows = [[]];
+    let sum = 0;
+    ratios.forEach((r, i) => {
+      if (sum >= target && rows.length < k) { rows.push([]); sum = 0; }
+      rows[rows.length - 1].push(i);
+      sum += r;
+    });
+    let h = (availH - (rows.length - 1) * gy) / rows.length;
+    rows.forEach((row) => {
+      const rs = row.reduce((x, i) => x + ratios[i], 0);
+      h = Math.min(h, (availW - (row.length - 1) * gx) / rs);
+    });
+    h = Math.min(h, vh * 0.42);
+    if (!best || h > best.h) best = { h, rows };
+  }
+  const { h, rows } = best;
+  const top0 = vh * 0.26 + (availH - (rows.length * h + (rows.length - 1) * gy)) / 2;
+  const out = {};
+  rows.forEach((row, ri) => {
+    const rw = row.reduce((x, i) => x + h * ratios[i], 0) + (row.length - 1) * gx;
+    let x = (vw - rw) / 2;
+    row.forEach((i) => {
+      const w = h * ratios[i];
+      out[pieces[i].id] = {
+        l: (x / vw) * 100,
+        t: ((top0 + ri * (h + gy)) / vh) * 100,
+        w: (w / vw) * 100
+      };
+      x += w + gx;
+    });
+  });
+  return out;
+}
+
+function useViewport() {
+  const [vp, setVp] = useState({ w: window.innerWidth, h: window.innerHeight });
+  useEffect(() => {
+    const on = () => setVp({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener("resize", on);
+    return () => window.removeEventListener("resize", on);
+  }, []);
+  return vp;
+}
+
+function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
+  const vp = useViewport();
+  // "Todos" keeps the hand-hung salon layout; artist galleries are automatic.
+  const layouts = heading ? autoWallLayout(pieces, vp.w, vp.h) : WALL_LAYOUT;
   return (
     <div className={"gallery-wall theme-" + theme}>
+      {heading && (
+        <div className="gw-heading">
+          <h1 className="gw-heading-name">{heading.name}</h1>
+          <p className="gw-heading-meta">{heading.meta}</p>
+        </div>
+      )}
       <div className="gw-room">
         <div className="gw-board">
           {pieces.map((art, i) => {
-            const layout = WALL_LAYOUT[art.id];
+            const layout = layouts[art.id];
             if (!layout) return null;
             return (
               <WallPiecePin
@@ -279,20 +357,39 @@ function GalleryWall({ theme, pieces, zoomed, setZoomed }) {
         </div>
       </div>
 
-      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} theme={theme} />}
+      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={onStep} theme={theme} />}
     </div>
   );
 }
 
 // ---------- Long horizontal hallway ----------
-function Hallway({ theme }) {
-  const [zoomed, setZoomed] = useState(null);
+// `artist` filters the gallery (null = everyone). Which artwork is open is owned
+// by the router in index.html: openId / onOpen(id) / onClose() / onStep(id).
+function Hallway({ theme, artist, openId, onOpen, onClose, onStep }) {
   const scrollerRef = useRef(null);
-  const pieces = HALLWAY_ORDER.map((id) => ART.find((a) => a.id === id)).filter(Boolean);
+  const all = HALLWAY_ORDER.map((id) => ART.find((a) => a.id === id)).filter(Boolean);
+  const pieces = artist ? all.filter((a) => a.artist === artist) : all;
+
+  const zoomed = openId ? pieces.find((a) => a.id === openId) || null : null;
+  const setZoomed = (art) => (art ? onOpen(art.id) : onClose());
+  const step = pieces.length > 1 && onStep ? (dir) => {
+    const i = pieces.findIndex((a) => a.id === openId);
+    onStep(pieces[(i + dir + pieces.length) % pieces.length].id);
+  } : undefined;
+
+  const ages = pieces.map((a) => a.age);
+  const heading = artist ? {
+    name: artist,
+    meta: pieces.length + (pieces.length === 1 ? " obra" : " obras") +
+      (ages.length ? " · " + (Math.min(...ages) === Math.max(...ages)
+        ? Math.min(...ages) + " anos"
+        : Math.min(...ages) + "–" + Math.max(...ages) + " anos") : "")
+  } : null;
 
   // The salon-style wall is its own layout — bypass the scrolling hallway.
   if (theme === "wall") {
-    return <GalleryWall theme={theme} pieces={pieces} zoomed={zoomed} setZoomed={setZoomed} />;
+    return <GalleryWall theme={theme} pieces={pieces} heading={heading}
+      zoomed={zoomed} setZoomed={setZoomed} onStep={step} />;
   }
 
   // Horizontal scroll via mouse wheel
@@ -343,8 +440,8 @@ function Hallway({ theme }) {
         <div className="hall-strip">
           <div className="hall-end hall-end-left" aria-hidden>
             <div className="hall-end-title">
-              <span className="hall-end-mono">FMB / ART</span>
-              <span className="hall-end-sub">Galeria de Arte · Coleção 2026</span>
+              <span className="hall-end-mono">{artist ? "FMB / ART · " + artist : "FMB / ART"}</span>
+              <span className="hall-end-sub">{artist ? heading.meta : "Galeria de Arte · Coleção 2026"}</span>
             </div>
           </div>
           {pieces.map((art, i) => (
@@ -362,7 +459,7 @@ function Hallway({ theme }) {
       <button className="nav-arrow nav-arrow-left" onClick={() => scrollBy(-700)} aria-label="Anterior">←</button>
       <button className="nav-arrow nav-arrow-right" onClick={() => scrollBy(700)} aria-label="Seguinte">→</button>
 
-      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} theme={theme} />}
+      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={step} theme={theme} />}
     </div>
   );
 }

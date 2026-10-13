@@ -1796,3 +1796,75 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .portal-leaf, .portal-inside { transition: none; }
   .teia-thread { height: 12%; }
 }
+
+/* ============================================================
+   ARTIST GALLERIES — chips, heading, zoom prev/next
+   ============================================================ */
+.app-bar-group { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+.app-bar-group + .app-bar-group {
+  margin-left: 4px; padding-left: 6px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+.app-bar-style { font-size: 11px; opacity: 0.85; }
+.app-bar-tab:focus-visible { outline: 2px solid #f1ece1; outline-offset: 2px; }
+
+.gw-heading {
+  position: absolute; z-index: 4;
+  top: 84px; left: 0; right: 0;
+  text-align: center; pointer-events: none;
+}
+.gw-heading-name {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 500;
+  font-size: clamp(30px, 4.2vw, 52px); line-height: 1;
+  color: rgba(40,36,30,0.88);
+}
+.gw-heading-meta {
+  margin: 8px 0 0;
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(40,36,30,0.5);
+}
+.theme-whitecube .gw-heading-name { color: rgba(40,36,30,0.88); }
+
+.zm-nav {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  z-index: 110;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 20px; line-height: 1; color: #fff;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: background 180ms ease;
+}
+.zm-nav:hover { background: rgba(255,255,255,0.2); }
+.zm-nav-prev { left: 22px; }
+.zm-nav-next { right: 22px; }
+
+@media (max-width: 768px) {
+  .app-bar {
+    width: calc(100vw - 24px); max-width: 520px;
+    flex-direction: column; align-items: stretch; gap: 4px;
+    border-radius: 22px; padding: 6px;
+  }
+  .app-bar-group { justify-content: center; }
+  .app-bar-group + .app-bar-group {
+    margin-left: 0; padding-left: 0; border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4px;
+  }
+  .app-bar-tab { padding: 9px 13px; min-height: 36px; }
+  .gw-heading { position: static; padding: 118px 12px 0; }
+  .gw-heading-name { font-size: 34px; }
+  .gw-heading + .gw-room .gw-board { padding-top: 20px; }
+  .gw-board { padding-top: 124px; }
+  .zm-nav { top: auto; bottom: 18px; transform: none; }
+  .zm-nav-prev { left: 18px; }
+  .zm-nav-next { right: 18px; }
+}
+
+.app-bar { max-width: calc(100vw - 24px); }
+.app-bar-brand, .app-bar-tab { white-space: nowrap; }
+@media (max-width: 1000px) {
+  .app-bar-brand { display: none; }
+  .app-bar { flex-wrap: wrap; justify-content: center; border-radius: 26px; }
+}
+.app-bar { width: max-content; }
