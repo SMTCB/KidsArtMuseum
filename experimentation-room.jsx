@@ -32,23 +32,23 @@ const ER_GROUP_ORDER = ["gestos", "materia", "magia", "mestres"];
 function ExperimentationRoom({ art, onClose }) {
   const library = window.TEMPLATE_LIBRARY || [];
 
-  // Only show groups that have entries in the library
-  const groups = ER_GROUP_ORDER.filter(g => library.some(t => t.group === g));
+  // One flat list in a fixed group order; the group shows as a colour dot.
+  const effects = ER_GROUP_ORDER.flatMap(g => library.filter(t => t.group === g));
 
-  const [activeGroup, setActiveGroup] = erState(groups[0] || "");
-  const [activeId, setActiveId] = erState(
-    (library.find(t => t.group === (groups[0] || "")) || library[0] || {}).id || null
-  );
-
-  const activeTpl  = library.find(t => t.id === activeId) || null;
-  const Anim       = activeTpl && window.ANIMS && window.ANIMS[activeTpl.anim];
-  const inGroup    = library.filter(t => t.group === activeGroup);
+  const [activeId, setActiveId] = erState((effects[0] || {}).id || null);
+  const activeIdx = Math.max(0, effects.findIndex(t => t.id === activeId));
+  const activeTpl = effects[activeIdx] || null;
+  const Anim      = activeTpl && window.ANIMS && window.ANIMS[activeTpl.anim];
+  const step = (d) => {
+    if (effects.length) setActiveId(effects[(activeIdx + d + effects.length) % effects.length].id);
+  };
 
   // Compute stage size so the artwork always fills without distortion.
   // Pure-CSS aspect-ratio clamping is unreliable in this flex context (see
   // bug: portrait artwork stage becomes landscape because max-height:100%
   // doesn't trigger proportional width reduction in all browsers).
-  const wrapRef    = erRef(null);
+  const wrapRef = erRef(null);
+  const listRef = erRef(null);
   const [stageSize, setStageSize] = erState(null);
 
   erEffect(() => {
@@ -72,22 +72,26 @@ function ExperimentationRoom({ art, onClose }) {
     return () => ro.disconnect();
   }, [art.w, art.h]);
 
-  // ESC closes the room
+  // ESC closes the room; arrows step through the effects
   erEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, [onClose, activeIdx]);
 
-  const selectGroup = (g) => {
-    setActiveGroup(g);
-    const first = library.find(t => t.group === g);
-    if (first) setActiveId(first.id);
-  };
+  // Keep the active effect visible in the list
+  erEffect(() => {
+    const el = listRef.current && listRef.current.querySelector(".is-active");
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [activeId]);
 
   return (
     <div className="er-overlay" role="dialog" aria-modal="true" aria-label="Sala de Experimentação">
@@ -97,19 +101,13 @@ function ExperimentationRoom({ art, onClose }) {
         <button className="er-back" onClick={onClose} aria-label="Voltar ao museu">
           ← Voltar
         </button>
-        <div className="er-bar-center">
-          <span className="er-bar-mono">SALA DE EXPERIMENTAÇÃO</span>
-          <span className="er-bar-title">{art.title}</span>
-        </div>
-        <div className="er-bar-right">
-          <span className="er-bar-meta">{art.signature || art.artist}&ensp;·&ensp;{art.age} anos</span>
-        </div>
+        <span className="er-bar-title">{art.title}</span>
       </div>
 
       {/* ── Main body ── */}
       <div className="er-body">
 
-        {/* Left — live preview */}
+        {/* Preview + caption */}
         <div className="er-preview-panel">
           <div className="er-stage-wrap" ref={wrapRef}>
             <div
@@ -127,65 +125,53 @@ function ExperimentationRoom({ art, onClose }) {
           </div>
 
           {activeTpl && (
-            <div className="er-preview-label">
-              <div className="er-preview-label-top">
-                <span
-                  className="er-preview-name"
-                  style={{ color: ER_GROUP_ACCENTS[activeTpl.group] || "#f4efe6" }}
-                >
-                  {activeTpl.name}
-                </span>
-                <span className="er-preview-en">{activeTpl.en}</span>
-                <span className="er-preview-chip">{activeTpl.interaction}</span>
-              </div>
+            <div className="er-preview-label" aria-live="polite">
+              <span
+                className="er-preview-name"
+                style={{ color: ER_GROUP_ACCENTS[activeTpl.group] || "#f4efe6" }}
+              >
+                {activeTpl.name}
+              </span>
               <p className="er-preview-concept">{activeTpl.concept}</p>
+              <p className="er-preview-how">{activeTpl.interaction}</p>
             </div>
           )}
         </div>
 
-        {/* Right — effect picker */}
+        {/* Effect picker */}
         <div className="er-picker-panel">
-
-          {/* Group tabs */}
-          <div className="er-groups" role="tablist">
-            {groups.map(g => (
-              <button
-                key={g}
-                role="tab"
-                aria-selected={activeGroup === g}
-                className={"er-group-tab" + (activeGroup === g ? " is-active" : "")}
-                style={{ "--accent": ER_GROUP_ACCENTS[g] }}
-                onClick={() => selectGroup(g)}
-              >
-                {ER_GROUP_LABELS[g] || g}
-              </button>
-            ))}
+          <div className="er-picker-head">
+            <button className="er-step" onClick={() => step(-1)} aria-label="Efeito anterior">←</button>
+            <span className="er-picker-count">
+              {String(activeIdx + 1).padStart(2, "0")} / {effects.length}
+            </span>
+            <button className="er-step" onClick={() => step(1)} aria-label="Efeito seguinte">→</button>
           </div>
 
-          {/* Effect cards */}
-          <div className="er-cards">
-            {inGroup.map((tpl, i) => (
+          <div className="er-list" ref={listRef} role="listbox" aria-label="Efeitos">
+            {effects.map(tpl => (
               <button
                 key={tpl.id}
-                className={"er-card" + (activeId === tpl.id ? " is-active" : "")}
+                role="option"
+                aria-selected={activeId === tpl.id}
+                className={"er-item" + (activeId === tpl.id ? " is-active" : "")}
                 style={{ "--accent": ER_GROUP_ACCENTS[tpl.group] || "#f4efe6" }}
                 onClick={() => setActiveId(tpl.id)}
-                aria-pressed={activeId === tpl.id}
-                title={tpl.concept}
+                title={ER_GROUP_LABELS[tpl.group]}
               >
-                <div className="er-card-thumb">
-                  <img src={art.src} alt="" className="er-card-img" />
-                  <div className="er-card-num">{String(i + 1).padStart(2, "0")}</div>
-                  {activeId === tpl.id && <div className="er-card-active-badge">✓</div>}
-                </div>
-                <div className="er-card-body">
-                  <span className="er-card-name">{tpl.name}</span>
-                  <span className="er-card-hint">{tpl.interaction}</span>
-                </div>
+                <span className="er-item-dot" aria-hidden />
+                <span className="er-item-name">{tpl.name}</span>
               </button>
             ))}
           </div>
 
+          <div className="er-legend" aria-hidden>
+            {ER_GROUP_ORDER.filter(g => effects.some(t => t.group === g)).map(g => (
+              <span key={g} className="er-legend-item" style={{ "--accent": ER_GROUP_ACCENTS[g] }}>
+                <span className="er-item-dot" />{ER_GROUP_LABELS[g]}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

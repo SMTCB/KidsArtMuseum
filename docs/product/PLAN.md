@@ -363,7 +363,7 @@ reuse a retired one.
 | QUA-02 | Ship production React builds on the prototype | S | `todo` | Two-line fix, still worth doing while the prototype is live. |
 | QUA-03 | Remove in-browser Babel | L | `retired` | Closed by PLT-01 — a property of the new app, not a task. |
 | QUA-04 | Smoke test and CI | M | `retired` | Absorbed into PLT-04. |
-| QUA-05 | Verify prototype mobile layout | S | `todo` | Untested since the Sala de Experimentação landed. |
+| QUA-05 | Verify prototype mobile layout | S | `done` | Gallery wall, artist galleries and Sala checked at 375px on 2026-10-13 (Sala redesigned: bottom effect strip, caption below the stage). |
 | QUA-06 | End-to-end test of the critical path | L | `blocked` | On BIL-03. Sign up → create room → upload → publish → share → subscribe. |
 | QUA-07 | Accessibility pass, WCAG AA, both registers | L | `blocked` | On DES-03. Direção A's `#8A8578` metadata on `#FAF8F2` needs checking — it may fail contrast. |
 | QUA-08 | Font subsetting and loading budget | M | `blocked` | On DES-01. Four families across two registers. Not optional. |
