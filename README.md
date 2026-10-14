@@ -62,10 +62,10 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
 ├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
-├── scripts/                ← optimize.js (photos) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation)
+├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation)
 ├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
 └── assets/
-    └── art/<id>/           ← one folder per artwork: photo.jpeg, audio.mp3, parts/ (ADR-0016)
+    └── art/<id>/           ← one folder per artwork: photo.jpeg, thumb-480/960.jpeg, audio.mp3, parts/ (ADR-0016)
 ```
 
 > **Script load order in `index.html` matters.** Each JSX file appends to shared globals
@@ -146,7 +146,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 ## 6. Caveats
 
 - **Two ways to run it.** The source (`index.html`) loads React development and Babel in the browser, so `python -m http.server` works with no build. Production runs `npm run build` (`scripts/build.js`, esbuild): it compiles every JSX file ahead of time, switches to production React, drops Babel, and Vercel serves `dist/`. Same files, same globals, same load order. QUA-11, ADR-0017.
-- **Image weight.** `scripts/optimize.js` (MozJPEG q=78, auto-rotate, resize ≤3000 px) runs automatically during intake — you do not run Squoosh by hand. Note that this still yields ~2.5 MB files, and the hallway currently ships **25 MB** of images; the platform's image pipeline is **PLT-10** (the prototype-only version, QUA-01, is retired — see `docs/product/PLAN.md` §6).
+- **Image weight.** `scripts/optimize.js` (MozJPEG q=78, auto-rotate, resize ≤3000 px) runs automatically during intake — you do not run Squoosh by hand. The full photo is still ~2.5 MB, but the wall and hallway load `thumb-480.jpeg` / `thumb-960.jpeg` through `srcset` (`npm run thumbs`, `scripts/thumbs.js`; QUA-12), about 0.5 MB for the whole Parede de Galeria instead of ~25 MB. Only the close-up loads the full photo. The platform-wide image pipeline remains **PLT-10**.
 - **Case-sensitive paths.** Vercel is case-sensitive. Keep filenames lowercase to avoid surprises that only show up in production.
 
 ---

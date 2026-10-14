@@ -4,6 +4,24 @@
 
 const { useState, useEffect, useRef } = React;
 
+// Small versions of the photo for the wall and hallway (QUA-12). Convention, no schema field:
+// assets/art/<id>/photo.jpeg has thumb-480.jpeg and thumb-960.jpeg beside it (npm run thumbs).
+// If they are missing, the image falls back to the full photo.
+function thumbProps(art, sizes) {
+  const base = art.src.replace(/photo\.jpeg$/, "");
+  if (base === art.src) return { src: art.src };
+  return {
+    src: base + "thumb-960.jpeg",
+    srcSet: base + "thumb-480.jpeg 480w, " + base + "thumb-960.jpeg 960w",
+    sizes,
+    onError: (e) => {
+      e.currentTarget.onerror = null;
+      e.currentTarget.removeAttribute("srcset");
+      e.currentTarget.src = art.src;
+    }
+  };
+}
+
 // ---------- Rainbow paint-your-own mini-game ----------
 function RainbowGame({ onClose }) {
   const canvasRef = useRef(null);
@@ -424,7 +442,7 @@ function WallPiece({ art, theme, onOpen, index }) {
       <span className="wp-spotlight" aria-hidden />
       <span className="wp-frame">
         <span className="wp-mat">
-          <img src={art.src} alt={art.title} className="wp-img" loading="lazy" />
+          <img {...thumbProps(art, "(max-width: 700px) 70vw, 360px")} alt={art.title} className="wp-img" loading="lazy" />
         </span>
       </span>
       <span className="wp-plaque">
@@ -477,7 +495,7 @@ function WallPiecePin({ art, layout, onOpen, i }) {
     >
       <span className="gw-frame">
         <span className="gw-mat">
-          <img src={art.src} alt={art.title} className="gw-img" loading="lazy" />
+          <img {...thumbProps(art, "(max-width: 700px) 30vw, 16vw")} alt={art.title} className="gw-img" loading="lazy" />
         </span>
       </span>
       <span className="gw-tag">

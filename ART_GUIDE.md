@@ -172,6 +172,8 @@ Every artwork has one folder, named by its `id` ([ADR-0016](docs/decisions/0016-
 ```
 assets/art/<id>/
 ├── photo.jpeg     ← the photo (required); `src` in art-data.js points here
+├── thumb-480.jpeg ← wall-sized copies (480 / 960 px wide), made by `npm run thumbs` (QUA-12);
+├── thumb-960.jpeg ←   no schema field: `gallery-core.jsx` derives the `srcset` from `src`
 ├── audio.mp3      ← the audio description (optional); listed in audio-data.js
 ├── reference.jpg  ← a reference image some routines need (e.g. sunflowers); optional
 └── parts/         ← transparent PNGs cut for an animation (optional, see §5b)
@@ -207,6 +209,7 @@ Before you commit, walk this list:
 
 - [ ] Photo lives at `assets/art/<id>/photo.jpeg`, ≤ 600 KB, long edge ≤ 3000px; audio (if any) at `assets/art/<id>/audio.mp3`.
 - [ ] New `ART` entry with **all** required fields filled.
+- [ ] `npm run thumbs` has been run and `thumb-480.jpeg` / `thumb-960.jpeg` sit beside the photo (they are committed).
 - [ ] `w` and `h` match the final image.
 - [ ] `bg` is dominant, non-white, non-black, and appears in `palette`.
 - [ ] `palette` has 3–6 hexes, all sampled from the painting.

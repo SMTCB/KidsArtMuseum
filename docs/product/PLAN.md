@@ -381,7 +381,7 @@ reuse a retired one.
 | QUA-09 | Cross-device QA matrix | M | `blocked` | On MUS-06. |
 | QUA-10 | Performance budget on the wall view | M | `blocked` | On PLT-10. Set the LCP target before optimising, so the result is a number. |
 | QUA-11 | Light build step on the prototype: no in-browser Babel, production React | M | `done` | [ADR-0017](../decisions/0017-stay-static-for-now.md) layer 2, 2026-10-14. Built with esbuild in `scripts/build.js` (what Vite uses underneath), not Vite itself: the files share globals and load order, which a bundler would have changed. Source page unchanged for local work; Vercel serves `dist/`. Supersedes the retirement of QUA-03 for the prototype. |
-| QUA-12 | Thumbnails and `srcset` for the wall | M | `todo` | ADR-0017 layer 4. Revives QUA-01 for the prototype; likely done in the QUA-11 build. |
+| QUA-12 | Thumbnails and `srcset` for the wall | M | `done` | ADR-0017 layer 4, 2026-10-14. `scripts/thumbs.js` (`npm run thumbs`) writes `thumb-480.jpeg` / `thumb-960.jpeg` beside each `photo.jpeg`; `thumbProps()` in `gallery-core.jsx` builds the `srcset` with fallback to the full photo; no schema change. Parede de Galeria went from ~25 MB to ~0.5 MB. Revives QUA-01 for the prototype. Not automated into intake yet: Claude runs `npm run thumbs` when filing a piece (CLAUDE.md). |
 | UPL-11 | Add a piece without a terminal (owner-run intake) | L | `done` | ADR-0017 layer 3, 2026-10-14. `Nova obra.cmd` / `npm run intake` opens a local form (`scripts/intake-server.js`, 127.0.0.1 only) that optimizes the photo and writes `intake/<name>.jpeg/.md/.mp3`. Claude still does palette, dots, `anim` and the commit (`animar-obra` stays the quality path). |
 
 ### POD — Physical products
@@ -537,3 +537,4 @@ gets rewritten against what they actually say, and Horizon 5 gets sequenced from
 | Sprint | Goal | Outcome |
 |---|---|---|
 | 0 | Ground control | *in progress* |
+| ADR-0017 detour (2026-10-14) | Improve the static prototype in layers instead of the rebuild | QUA-11 build (esbuild, `dist/`), UPL-11 owner-run intake form, QUA-12 thumbnails and `srcset`, all done. Sprints 2-9 stay paused; ADR-0011 reopens on a second real family or a public launch. |

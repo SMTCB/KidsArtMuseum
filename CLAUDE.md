@@ -47,6 +47,7 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 9. **Explain your choices** to the user: which animation and why, what the palette is, what the dots point at. Ask for approval before committing.
 10. **On approval:**
    - File the photo: `intake/<filename>` → `assets/art/<id>/photo.jpeg` (ADR-0016)
+   - Make the wall thumbnails: `npm run thumbs` (writes `thumb-480.jpeg` and `thumb-960.jpeg` beside the photo, QUA-12); commit them with the piece
    - If the intake has an audio description: `intake/<name>.mp3` → `assets/art/<id>/audio.mp3`, plus one entry in `audio-data.js`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`
    - Add a slot for it in `WALL_LAYOUT` in `gallery-core.jsx` (otherwise the wall theme hides it)
@@ -62,7 +63,7 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 
 If the user hands you a photo directly (already in `assets/art/<id>/photo.jpeg`) and gives context inline:
 
-1. Confirm the photo is at `assets/art/<id>/photo.jpeg`.
+1. Confirm the photo is at `assets/art/<id>/photo.jpeg`, then run `npm run thumbs`.
 2. Read dimensions and sample palette.
 3. Draft the entry in `art-data.js`.
 4. Pick `anim`, place dots.
