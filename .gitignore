@@ -37,3 +37,6 @@ uploads/
 .claude/settings.local.json
 
 .vercel
+
+# Build output (scripts/build.js)
+dist/

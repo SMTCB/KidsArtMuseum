@@ -3,9 +3,13 @@
   "private": true,
   "description": "FMB · ART — Museu virtual de arte infantil",
   "scripts": {
+    "build": "node scripts/build.js",
     "optimize": "node scripts/optimize.js"
   },
   "dependencies": {
     "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
   }
 }

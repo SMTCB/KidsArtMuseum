@@ -380,7 +380,7 @@ reuse a retired one.
 | QUA-08 | Font subsetting and loading budget | M | `blocked` | On DES-01. Four families across two registers. Not optional. |
 | QUA-09 | Cross-device QA matrix | M | `blocked` | On MUS-06. |
 | QUA-10 | Performance budget on the wall view | M | `blocked` | On PLT-10. Set the LCP target before optimising, so the result is a number. |
-| QUA-11 | Light build step on the prototype (Vite): no in-browser Babel, production React | M | `todo` | [ADR-0017](../decisions/0017-stay-static-for-now.md) layer 2. Keeps React and the JSX files; deploy stays on Vercel from `main`. Supersedes the retirement of QUA-03 for the prototype. |
+| QUA-11 | Light build step on the prototype: no in-browser Babel, production React | M | `done` | [ADR-0017](../decisions/0017-stay-static-for-now.md) layer 2, 2026-10-14. Built with esbuild in `scripts/build.js` (what Vite uses underneath), not Vite itself: the files share globals and load order, which a bundler would have changed. Source page unchanged for local work; Vercel serves `dist/`. Supersedes the retirement of QUA-03 for the prototype. |
 | QUA-12 | Thumbnails and `srcset` for the wall | M | `todo` | ADR-0017 layer 4. Revives QUA-01 for the prototype; likely done in the QUA-11 build. |
 | UPL-11 | Add a piece without a terminal (owner-run intake) | L | `todo` | ADR-0017 layer 3. Design first; keep the intake form and `animar-obra` as the quality path. |
 

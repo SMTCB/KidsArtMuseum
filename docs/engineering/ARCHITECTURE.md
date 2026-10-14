@@ -2,7 +2,7 @@
 title: Architecture (current state)
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-08-22
+last_reviewed: 2026-10-14
 review_cycle: 90d
 related:
   - docs/engineering/TARGET_ARCHITECTURE.md
@@ -27,15 +27,17 @@ true.
 GitHub (SMTCB/KidsArtMuseum, branch: main)
   │  source of truth for code, artwork metadata, and photos   [ADR-0003]
   ▼
-Vercel  ── serves the repo root as static files, auto-deploys on push
+Vercel  ── runs `npm run build` (scripts/build.js, esbuild), serves dist/, auto-deploys on push
           (one exception: `api/comments.js`, a Function backed by Upstash Redis — ADR-0015)
   ▼
-Browser ── React 18 via unpkg CDN
-           @babel/standalone transpiles 9 JSX files at runtime
-           no server, no database, no API, no auth           [ADR-0001]
+Browser ── React 18 production build via unpkg CDN
+           9 JSX files compiled ahead of time, no Babel in production      [QUA-11, ADR-0017]
+           no database, no auth                                            [ADR-0001]
 ```
 
-No build step. No backend. Running cost ≈ $0/month.
+Locally the source page still works with no build (`python -m http.server`): it loads React
+development and Babel in the browser. `scripts/build.js` rewrites that page for production and
+changes nothing else: same globals, same load order. Running cost ≈ $0/month.
 
 ## 2. Load order — and why it is fragile
 
@@ -56,8 +58,8 @@ Two consequences worth knowing before editing:
   artwork's animation with `window.ANIMS[art.anim]`, so the 33 experimentation effects are
   technically valid values. They are **not** eligible (`ART_GUIDE.md` §5c, FND-07), and
   `scripts/docs-lint.js` fails if an `anim` is outside the §5a table.
-- **Reordering the script tags breaks the site**, with no error at build time because there is
-  no build time. The failure is a blank frame at runtime.
+- **Reordering the script tags breaks the site**, with no error at build time because the
+  build only compiles each file on its own. The failure is a blank frame at runtime.
 
 ## 3. Data model
 

@@ -42,8 +42,8 @@ Then on Vercel:
 
 1. **Add New… → Project** → import the GitHub repo.
 2. Framework preset: **Other** (it's a static site).
-3. Build command: *(leave empty)*.
-4. Output directory: *(leave empty — Vercel serves the repo root)*.
+3. Build command and output directory come from `vercel.json` (`npm run build`, `dist`).
+4. Nothing else to set.
 5. Deploy.
 
 Every `git push` to `main` triggers a new deploy. PRs get a preview URL automatically.
@@ -70,7 +70,8 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 
 > **Script load order in `index.html` matters.** Each JSX file appends to shared globals
 > (`window.ANIMS`, `window.TEMPLATE_LIBRARY`) and `gallery-core.jsx` must load last.
-> There is no build step, so a bad order fails silently at runtime. See
+> The source has no build step, so a bad order fails silently at runtime (production
+> compiles the same files in the same order, see `scripts/build.js`). See
 > [`docs/engineering/ARCHITECTURE.md`](./docs/engineering/ARCHITECTURE.md) §2.
 
 ---
@@ -139,7 +140,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 
 ## 6. Caveats
 
-- **In-browser Babel.** First load transpiles JSX (~200ms). If the site ever feels slow, add a build step with Vite + React; the components are already plain React.
+- **Two ways to run it.** The source (`index.html`) loads React development and Babel in the browser, so `python -m http.server` works with no build. Production runs `npm run build` (`scripts/build.js`, esbuild): it compiles every JSX file ahead of time, switches to production React, drops Babel, and Vercel serves `dist/`. Same files, same globals, same load order. QUA-11, ADR-0017.
 - **Image weight.** `scripts/optimize.js` (MozJPEG q=78, auto-rotate, resize ≤3000 px) runs automatically during intake — you do not run Squoosh by hand. Note that this still yields ~2.5 MB files, and the hallway currently ships **25 MB** of images; the platform's image pipeline is **PLT-10** (the prototype-only version, QUA-01, is retired — see `docs/product/PLAN.md` §6).
 - **Case-sensitive paths.** Vercel is case-sensitive. Keep filenames lowercase to avoid surprises that only show up in production.
 

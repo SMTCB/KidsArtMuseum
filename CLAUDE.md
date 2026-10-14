@@ -84,7 +84,7 @@ If the user hands you a photo directly (already in `assets/art/<id>/photo.jpeg`)
 
 ## Verifying changes
 
-There is no build step. Serve locally with `python -m http.server 8000` and open <http://localhost:8000>. Click into the new frame, tap each dot, watch the animation through one full loop. If anything looks wrong, fix it before committing — Vercel auto-deploys from `main`.
+The source has no build step. Serve locally with `python -m http.server 8000` and open <http://localhost:8000>. Click into the new frame, tap each dot, watch the animation through one full loop. If anything looks wrong, fix it before committing — Vercel auto-deploys from `main`. Vercel runs `npm run build`; if you changed how scripts load in `index.html`, run it and open `dist/` too (`python -m http.server 8100 -d dist`).
 
 ---
 
