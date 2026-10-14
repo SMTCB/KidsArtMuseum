@@ -105,6 +105,7 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `maestro` | Figure's arms pulse like conducting | Standing figure portraits |
 | `portal` | The drawn door swings open (tap to toggle, also loops by itself) on a swirl of palette colours; "ideas" float out | A door or opening as the subject. Door box is `PORTAL_BOX` in `art-animations.jsx` — re-measure for a new drawing |
 | `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
+| `relogio` | A second hand sweeps the dial of a cut-out watch (30 s a turn); the collage stays still | A collage with a watch or clock someone pointed at. Dial centre and hand are `RELOGIO` in `art-animations.jsx` — re-measure for a new drawing |
 | `palitos` | Two stick arms, cut from the photo, sway out of step around the shoulder (±1.5°) | A figure with sticks or limbs that read as arms. Boxes are `PALITOS` in `art-animations.jsx` — re-measure for a new drawing |
 
 **Default to reuse, but only when it is a genuine fit.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first. If the only match is a generic routine (a spotlight, sparkles, notes), the piece deserves its own: see §5b.

@@ -650,6 +650,25 @@ function PalitosAnimation({ art }) {
 }
 
 // ============================================================
+// RELOGIO — the cut-out watch gets a second hand sweeping its dial
+// ============================================================
+// Dial centre and hand length, as % of the image width (measured on Miguel's collage).
+const RELOGIO = { cx: 36, cy: 23.2, len: 4.8 };
+
+function RelogioAnimation({ art }) {
+  const R = RELOGIO;
+  return (
+    <div className="anim-layer relogio-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="relogio-hand" style={{
+        left: R.cx + "%", top: R.cy + "%", width: R.len + "%",
+        background: art.palette[2]
+      }} />
+    </div>
+  );
+}
+
+// ============================================================
 // Export to window
 // ============================================================
 window.ANIMS = {
@@ -666,12 +685,13 @@ window.ANIMS = {
   rainbow: RainbowAnimation,
   portal: PortalAnimation,
   teia: TeiaAnimation,
-  palitos: PalitosAnimation
+  palitos: PalitosAnimation,
+  relogio: RelogioAnimation
 };
 
 Object.assign(window, {
   MiroAnimation, SunflowersAnimation, WarholAnimation, PortraitAnimation,
   MatisseAnimation, MbappeAnimation, MaestroAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
-  PortalAnimation, TeiaAnimation, PalitosAnimation
+  PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation
 });

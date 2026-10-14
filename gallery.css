@@ -1784,6 +1784,28 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @keyframes palitoBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
 
 /* ============================================================
+   === relogio animation === (Composição Livre / Mbappé)
+   ============================================================ */
+.relogio-hand {
+  position: absolute;
+  aspect-ratio: 40 / 1;
+  border-radius: 999px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  transform-origin: 0 50%;
+  transform: translateY(-50%) rotate(0deg);
+  animation: relogioSweep 30s linear infinite;
+}
+@keyframes relogioSweep {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .relogio-hand { animation-name: relogioBreathe; transform: translateY(-50%) rotate(-50deg); }
+}
+@keyframes relogioBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* ============================================================
    === teia animation === (Uma Casa das Aranhas)
    ============================================================ */
 .teia-thread {

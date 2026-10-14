@@ -143,7 +143,7 @@ window.ART = [
     w: 3737, h: 4961,
     bg: "#c8211c",
     palette: ["#c8211c", "#1f7a3a", "#f1ece1", "#1a2a5a", "#d68a6a"],
-    anim: "mbappe",
+    anim: "relogio",
     medium: "Recorte e colagem",
     dots: [
       { x: 32, y: 30, label: "Audemars Piguet", detail: "O rel\u00f3gio que o Mbap\u00e9 usa" },
