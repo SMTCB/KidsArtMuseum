@@ -2,6 +2,16 @@
 
 Esta pasta é a **bandeja de entrada** do museu. Para adicionar uma nova obra:
 
+## O caminho curto: o formulário
+
+Faz duplo clique em **`Nova obra.cmd`** (ou corre `npm run intake`). Abre um formulário no
+browser: escolhes a foto, preenches os campos em português e carregas em **Guardar**. O
+formulário dá o nome aos ficheiros, otimiza a foto e escreve a ficha na bandeja, e no fim mostra
+a frase a dizer ao Claude Code (**Processa a entrada `...`**). Só corre no teu computador e não
+publica nada. Os passos 1 a 3 abaixo são o caminho manual, para quando preferires.
+
+---
+
 ---
 
 ## Passo 1 — Preparar a foto

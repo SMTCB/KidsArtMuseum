@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova obra — FMB / ART</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f2; --ink: #1d1b17; --muted: #6b665b; --line: #d9d4c7;
+    --card: #fff; --accent: #8a5a2b; --err: #a3261c; --ok: #2d6a3e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161412; --ink: #efe9dc; --muted: #a39d90; --line: #3a362f; --card: #1f1c19; --accent: #d9a96b; --err: #ff8a7d; --ok: #7fcf92; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 Inter, system-ui, sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font: 600 34px/1.1 "Cormorant Garamond", serif; margin: 0 0 4px; }
+  .lead { color: var(--muted); margin: 0 0 28px; }
+  label { display: block; font-weight: 500; margin: 20px 0 6px; }
+  .hint { color: var(--muted); font-weight: 400; font-size: 14px; }
+  input, select, textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--card); color: var(--ink); font: inherit;
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .photo { margin-top: 12px; max-width: 100%; max-height: 280px; border-radius: 6px; display: none; }
+  button.primary {
+    margin-top: 28px; width: 100%; padding: 14px; border: 0; border-radius: 999px;
+    background: var(--accent); color: #fff; font: 600 16px Inter, sans-serif; cursor: pointer;
+  }
+  button.primary:disabled { opacity: .55; cursor: progress; }
+  .msg { margin-top: 18px; padding: 12px 14px; border-radius: 8px; display: none; border: 1px solid var(--line); background: var(--card); }
+  .msg.err { display: block; color: var(--err); border-color: var(--err); }
+  .msg.ok { display: block; border-color: var(--ok); }
+  code { font: 500 14px ui-monospace, Consolas, monospace; background: var(--bg); padding: 2px 6px; border-radius: 4px; user-select: all; }
+  .copy { margin-left: 8px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font: inherit; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Nova obra</h1>
+  <p class="lead">Preenche, envia, e depois diz ao Claude para processar a entrada. A foto é otimizada aqui.</p>
+
+  <form id="f" novalidate>
+    <label for="photo">Foto da obra</label>
+    <input id="photo" type="file" accept="image/jpeg,image/png,image/webp" required />
+    <span class="hint">JPEG, PNG ou WebP. Fotos do iPhone em HEIC: exporta primeiro como JPEG.</span>
+    <img id="preview" class="photo" alt="Pré-visualização da foto" />
+
+    <div class="row">
+      <div>
+        <label for="artist">Artista</label>
+        <select id="artist"></select>
+      </div>
+      <div id="newWrap" style="display:none">
+        <label for="newArtist">Primeiro nome</label>
+        <input id="newArtist" type="text" maxlength="40" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="age">Idade <span class="hint">quando a fez</span></label>
+        <input id="age" type="number" min="1" max="99" inputmode="numeric" />
+      </div>
+      <div>
+        <label for="year">Ano</label>
+        <input id="year" type="number" min="2000" max="2100" inputmode="numeric" />
+      </div>
+    </div>
+
+    <label for="title">Título <span class="hint">uma sugestão; o Claude afina</span></label>
+    <input id="title" type="text" maxlength="80" />
+
+    <label for="shortName">Nome curto <span class="hint">para o ficheiro, ex. gato-cubista (opcional)</span></label>
+    <input id="shortName" type="text" maxlength="40" />
+
+    <label for="context">Contexto <span class="hint">o que se passava quando foi feita, materiais</span></label>
+    <textarea id="context"></textarea>
+
+    <label for="words">O que o artista disse <span class="hint">nas palavras dele ou dela</span></label>
+    <textarea id="words"></textarea>
+
+    <label for="anim">Ideias para a animação <span class="hint">opcional</span></label>
+    <textarea id="anim"></textarea>
+
+    <label for="notes">Outras notas <span class="hint">opcional</span></label>
+    <textarea id="notes"></textarea>
+
+    <label for="audio">Descrição em áudio <span class="hint">opcional, MP3</span></label>
+    <input id="audio" type="file" accept="audio/mpeg,.mp3" />
+
+    <button class="primary" id="go" type="submit">Guardar na bandeja de entrada</button>
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+  </form>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+$("year").value = new Date().getFullYear();
+
+fetch("/artists").then(r => r.json()).then(list => {
+  $("artist").innerHTML = list.map(a => `<option>${a}</option>`).join("") + '<option value="__new">Outro artista…</option>';
+});
+$("artist").addEventListener("change", () => {
+  $("newWrap").style.display = $("artist").value === "__new" ? "" : "none";
+});
+
+$("photo").addEventListener("change", () => {
+  const f = $("photo").files[0], img = $("preview");
+  if (!f) { img.style.display = "none"; return; }
+  img.src = URL.createObjectURL(f); img.style.display = "block";
+});
+
+const b64 = (file) => new Promise((ok, no) => {
+  const r = new FileReader();
+  r.onload = () => ok({ name: file.name, data: String(r.result).split(",")[1] });
+  r.onerror = () => no(new Error("Não consegui ler o ficheiro."));
+  r.readAsDataURL(file);
+});
+
+function show(kind, html) { const m = $("msg"); m.className = "msg " + kind; m.innerHTML = html; }
+
+$("f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const artist = $("artist").value === "__new" ? $("newArtist").value.trim() : $("artist").value;
+  if (!$("photo").files[0]) return show("err", "Escolhe a foto da obra.");
+  if (!artist) return show("err", "Escreve o nome do artista.");
+  if (!$("title").value.trim()) return show("err", "Escreve um título (pode ser só uma sugestão).");
+
+  $("go").disabled = true; $("go").textContent = "A guardar…"; show("", "");
+  try {
+    const body = {
+      artist, age: $("age").value, year: $("year").value,
+      title: $("title").value, shortName: $("shortName").value,
+      context: $("context").value, words: $("words").value,
+      anim: $("anim").value, notes: $("notes").value,
+      photo: await b64($("photo").files[0]),
+      audio: $("audio").files[0] ? await b64($("audio").files[0]) : null
+    };
+    const r = await fetch("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "Erro ao guardar.");
+    const cmd = "Processa a entrada " + j.name;
+    show("ok",
+      `Guardado em <code>intake/${j.name}</code> (${j.width} × ${j.height} px, ${j.kb} KB${j.audio ? ", com áudio" : ""}).<br><br>` +
+      `Agora diz ao Claude Code: <code id="cmd">${cmd}</code> <button class="copy" type="button" id="copy">Copiar</button>`);
+    $("copy").onclick = () => navigator.clipboard.writeText(cmd).then(() => { $("copy").textContent = "Copiado"; });
+    $("f").reset(); $("year").value = new Date().getFullYear(); $("preview").style.display = "none";
+    $("newWrap").style.display = "none";
+  } catch (err) {
+    show("err", err.message);
+  } finally {
+    $("go").disabled = false; $("go").textContent = "Guardar na bandeja de entrada";
+  }
+});
+</script>
+</body>
+</html>

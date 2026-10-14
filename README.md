@@ -62,7 +62,7 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
 ├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
-├── scripts/                ← optimize.js (photos) · docs-lint.js (documentation)
+├── scripts/                ← optimize.js (photos) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation)
 ├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
 └── assets/
     └── art/<id>/           ← one folder per artwork: photo.jpeg, audio.mp3, parts/ (ADR-0016)
@@ -82,6 +82,11 @@ Photos (and the audio description, if you have one) go in **`intake/`**, not `as
 Claude Code files them into `assets/art/<id>/` once processed (see [ADR-0016](./docs/decisions/0016-asset-layout.md)).
 The full procedure is in [`CLAUDE.md`](./CLAUDE.md); the parent-facing version (PT-PT) is in
 [`intake/README.md`](./intake/README.md).
+
+**Shortcut (UPL-11):** double-click `Nova obra.cmd` (or `npm run intake`). A local form
+(`scripts/intake-server.js`, 127.0.0.1 only) takes the photo and the fields, optimizes the photo,
+and writes `intake/<name>.jpeg` + `.md` (+ `.mp3`) for you. Then say "Processa a entrada <name>".
+Steps A and B below are the manual route.
 
 ### A. Drop the photo in `intake/`
 
