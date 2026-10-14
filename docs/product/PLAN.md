@@ -2,7 +2,7 @@
 title: Plan
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-08-22
+last_reviewed: 2026-10-14
 review_cycle: 30d
 supersedes:
   - docs/archive/ROADMAP-2026-08-22.md
@@ -69,6 +69,13 @@ attributes of the account, never users — see
 ---
 
 ## 3. What this plan assumes
+
+> **Re-routed 2026-10-14 by [ADR-0017](../decisions/0017-stay-static-for-now.md).** The rebuild
+> (ADR-0011) is deferred until a second real family asks or the museum goes public. Sprints 2-9
+> below are **paused**, kept as the platform reference. The active work is three layers on the
+> static prototype: **QUA-11** (light Vite build), **UPL-11** (add pieces without a terminal),
+> **QUA-12** (thumbnails and `srcset`). Everything below that assumes ADR-0011 applies only if it
+> is reopened.
 
 Five decisions shape everything below. Two are made; three are recommended and unconfirmed.
 **If one of the three lands differently, the sprints marked against it change.**
@@ -373,6 +380,9 @@ reuse a retired one.
 | QUA-08 | Font subsetting and loading budget | M | `blocked` | On DES-01. Four families across two registers. Not optional. |
 | QUA-09 | Cross-device QA matrix | M | `blocked` | On MUS-06. |
 | QUA-10 | Performance budget on the wall view | M | `blocked` | On PLT-10. Set the LCP target before optimising, so the result is a number. |
+| QUA-11 | Light build step on the prototype (Vite): no in-browser Babel, production React | M | `todo` | [ADR-0017](../decisions/0017-stay-static-for-now.md) layer 2. Keeps React and the JSX files; deploy stays on Vercel from `main`. Supersedes the retirement of QUA-03 for the prototype. |
+| QUA-12 | Thumbnails and `srcset` for the wall | M | `todo` | ADR-0017 layer 4. Revives QUA-01 for the prototype; likely done in the QUA-11 build. |
+| UPL-11 | Add a piece without a terminal (owner-run intake) | L | `todo` | ADR-0017 layer 3. Design first; keep the intake form and `animar-obra` as the quality path. |
 
 ### POD — Physical products
 

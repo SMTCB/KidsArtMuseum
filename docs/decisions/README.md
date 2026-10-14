@@ -2,7 +2,7 @@
 title: Decision Log (ADR Index)
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-08-22
+last_reviewed: 2026-10-14
 review_cycle: 90d
 related: [docs/DOCUMENTATION_GUIDE.md, docs/product/PLAN.md]
 ---
@@ -21,7 +21,7 @@ is Sprint 1 work, not paperwork.
 
 | # | Decision | Blocks | Note |
 |---|---|---|---|
-| [0011](0011-platform-rebuild.md) | Rebuild on Next.js + Supabase, or extend the prototype? | **All of Sprints 2–4** | Recommends Option B: rebuild, and port the 36-effect library across. The plan assumes it. |
+| [0011](0011-platform-rebuild.md) | Rebuild on Next.js + Supabase, or extend the prototype? | **All of Sprints 2–4** | **Deferred by [0017](0017-stay-static-for-now.md) on 2026-10-14**: reopen when a second real family asks, or the museum goes public. Until then no Sprint 2-4 work. (Original: recommends Option B, rebuild and port the 36-effect library.) |
 | [0014](0014-childrens-data.md) | What may the platform store about a child? | **The schema (MUS-01)** | **The one that matters most.** A schema is a privacy decision whether or not you make it deliberately. Recommends Option B: children are attributes of the family account. |
 | [0013](0013-language-strategy.md) | PT-PT only, or multilingual architecture? | The schema, and every UI string | Must be settled before the schema is fixed. Recommends Option B: build multilingual, launch Portuguese. |
 | [0006](0006-when-to-introduce-a-database.md) | When does GitHub stop being the catalogue? | Multi-family | **Effectively answered by 0011** — a rebuild brings Postgres with it. Close this formally when 0011 is decided. |
@@ -39,6 +39,7 @@ is Sprint 1 work, not paperwork.
 | [0004](0004-product-ambition.md) | **Venture-scale SaaS** (Option B). fmb.art is reclassified as a validated prototype, not v1. | 2026-08-22 |
 | [0010](0010-visual-identity-direction.md) | **Direção A for the museum, Direção C for the product.** Artwork is always framed in A, inside C chrome. | 2026-08-22 |
 | [0012](0012-ai-cost-floor.md) | **Nothing ships that we could not afford at 10,000 subscribers.** Deterministic first; all inference behind one port; Claude API for internal tooling only. | 2026-08-22 |
+| [0017](0017-stay-static-for-now.md) | **Stay static for now; improve in layers; defer the rebuild.** ADR-0011 stays proposed, reopened on a trigger (second real family, or public launch). | 2026-10-14 |
 | [0016](0016-asset-layout.md) | **One folder per artwork** (`assets/art/<id>/`: photo, audio, reference, parts). | 2026-10-14 |
 | [0015](0015-prototype-comments-backend.md) | **A minimal comments backend for the prototype** (Vercel Function + Upstash). Exception to 0001, scoped to the prototype. | 2026-10-13 |
 
