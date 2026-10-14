@@ -52,10 +52,10 @@ shared globals:
 
 Two consequences worth knowing before editing:
 
-- **`window.ANIMS` holds 44 keys, not 11.** `gallery-core.jsx:115` resolves an artwork's
-  animation with `window.ANIMS[art.anim]`, so all 33 experimentation effects are silently
-  valid values for an artwork's `anim` field. `ART_GUIDE.md` §5a documents only the original
-  11 and does not mention this — see PLAN **FND-07**.
+- **`window.ANIMS` holds more keys than an artwork may use.** `gallery-core.jsx` resolves an
+  artwork's animation with `window.ANIMS[art.anim]`, so the 33 experimentation effects are
+  technically valid values. They are **not** eligible (`ART_GUIDE.md` §5c, FND-07), and
+  `scripts/docs-lint.js` fails if an `anim` is outside the §5a table.
 - **Reordering the script tags breaks the site**, with no error at build time because there is
   no build time. The failure is a blank frame at runtime.
 
@@ -75,7 +75,7 @@ Two consequences worth knowing before editing:
 
 ## 4. Assets
 
-`assets/art/` — 12 JPEGs, **25 MB total**, committed to git.
+`assets/art/<id>/` — 13 photos, one folder per artwork (ADR-0016), **25 MB total**, committed to git.
 
 Photos are served at full resolution regardless of display size; there is no `srcset` and no
 thumbnail derivative. Files range from 0.3 MB to 4.5 MB, and 8 of 12 exceed 1.3 MB. The
@@ -92,7 +92,7 @@ intake/<name>.jpeg + intake/<name>.md
   → Claude Code reads the form + photo, samples palette, picks anim, places dots
   → appends to art-data.js, appends id to HALLWAY_ORDER
   → human approves the diff                                   [relevant to ADR-0009]
-  → photo moves to assets/art/, form archives to intake/processed/
+  → photo is filed at assets/art/<id>/photo.jpeg, form archives to intake/processed/
   → commit + push → Vercel deploys (~30 s)
 ```
 
@@ -119,6 +119,6 @@ than only as tickets.
 | Runtime JSX transpile, 9 files | ~200 ms + parser download before first paint | QUA-03 / ADR-0008 |
 | No tests, no CI | Every change verified by eye | QUA-04 |
 | Load-order coupling via globals | Silent runtime breakage on reorder | §2 above |
-| `ART_GUIDE` documents 11 of 44 anims | Wrong choices on the next intake | FND-07 |
+| Sala effects share the `ANIMS` lookup with artwork routines | A wrong `anim` renders a filter | Guarded by docs-lint (FND-07) |
 | Photos in git are permanent | Repo grows monotonically | ADR-0006 |
 | PAT in `.git/config` | Credential exposure on any copy or screen share | FND-02 |

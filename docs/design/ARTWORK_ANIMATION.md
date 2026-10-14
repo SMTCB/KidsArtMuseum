@@ -14,7 +14,7 @@ related:
 
 **Principles and the technical contract** for animations that belong to one drawing and could
 not be moved to another. Planned as MUS-16 (the skill) and MUS-17 (the pilot) in
-[`PLAN.md`](../product/PLAN.md). It feeds FND-07 (what `anim` may point at).
+[`PLAN.md`](../product/PLAN.md). It settled FND-07 (what `anim` may point at).
 
 The goal, in the owner's words: not a filter. Any phone or free app applies a filter. The
 museum's animation should come from something in *this* drawing, and leave the drawing intact.
@@ -62,7 +62,7 @@ Full freedom of idea and technique, within these limits:
 - **Phone first.** 60 fps on a mid-range phone, composite properties only
   (`transform`, `opacity`). Check with the `animation-performance` skill.
 - **Not a flip book of effects.** The 33 Sala de Experimentação effects stay a playground; they
-  are filters by nature (see FND-07).
+  are filters by nature and not eligible as an artwork `anim` (ART_GUIDE §5c).
 
 ## 4. Splitting the drawing into parts
 
@@ -76,7 +76,7 @@ A routine may cut the drawing into pieces when that serves the idea.
   for `portal`. They are not fields of `ART`.
 - Cheapest first: **a crop by `backgroundPosition` or `clip-path`** (what `portal` does, no
   extra file). Only when a part needs its own outline, add a transparent PNG at
-  `assets/art/<id>/<part>.png`, optimized like the photo (long edge as small as the part
+  `assets/art/<id>/parts/<part>.png`, optimized like the photo (long edge as small as the part
   allows; aim for under 150 KB each).
 - Positions are percentages of the image, like dots, so they survive any screen size.
 - Cut a part only if it moves. Whatever does not move stays in the photo.
@@ -116,4 +116,4 @@ routines it writes can become templates later.
    and using the Emil Kowalski review skills for verification. MUS-16.
 3. Pilot on **Gato de Barro** (`clay`, currently `sculpture`: a spotlight and tilt that could
    be any object). MUS-17. The skill proposes the idea first; code only after the owner agrees.
-4. Update ART_GUIDE §5 and §9 with the three tests and the parts contract, and close FND-07.
+4. **Done 2026-10-14.** ART_GUIDE §5b/§5c/§7/§9 carry the three tests and the parts contract; FND-07 closed (Sala effects not eligible); layout in [ADR-0016](../decisions/0016-asset-layout.md).

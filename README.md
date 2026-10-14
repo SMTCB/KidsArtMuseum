@@ -65,7 +65,7 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── scripts/                ← optimize.js (photos) · docs-lint.js (documentation)
 ├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
 └── assets/
-    └── art/                ← original photos of the artworks
+    └── art/<id>/           ← one folder per artwork: photo.jpeg, audio.mp3, parts/ (ADR-0016)
 ```
 
 > **Script load order in `index.html` matters.** Each JSX file appends to shared globals
@@ -77,7 +77,8 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 
 ## 3. Adding new art (with Claude Code)
 
-Photos go in **`intake/`**, not `assets/art/` — Claude Code moves them once processed.
+Photos (and the audio description, if you have one) go in **`intake/`**, not `assets/art/` —
+Claude Code files them into `assets/art/<id>/` once processed (see [ADR-0016](./docs/decisions/0016-asset-layout.md)).
 The full procedure is in [`CLAUDE.md`](./CLAUDE.md); the parent-facing version (PT-PT) is in
 [`intake/README.md`](./intake/README.md).
 
@@ -129,7 +130,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 |---|---|
 | Change wall colour / lighting | `gallery.css` → `:root` and `[data-theme="…"]` blocks |
 | Reorder the hallway | `art-data.js` → `window.HALLWAY_ORDER` |
-| Add an audio description | Drop the mp3 in `assets/audio/` and add one entry to `audio-data.js` (see its header) |
+| Add an audio description | Save the mp3 as `assets/art/<id>/audio.mp3` and add one entry to `audio-data.js` (see its header) |
 | Add an artist gallery | Nothing — a new `artist` value in `art-data.js` gets its own chip and `#/<artist>` route (`index.html`) |
 | Add a theme tab | `index.html` → `THEMES` array + a new theme block in `gallery.css` |
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |

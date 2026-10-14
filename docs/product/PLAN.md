@@ -173,7 +173,7 @@ reuse a retired one.
 | FND-04 | Fix `README.md` drift | S | `todo` | §3 documents an obsolete workflow contradicting `CLAUDE.md`; §6 says run Squoosh by hand. |
 | FND-05 | Fix `CLAUDE.md` step numbering | S | `todo` | Two consecutive steps numbered 4. It is the operational spec. |
 | FND-06 | Fix the `art-data.js` header comment | S | `todo` | Documents an `aspect` field that does not exist; points `anim` at the wrong file. |
-| FND-07 | Reconcile `ART_GUIDE` §5a with `window.ANIMS` | M | `todo` | §5a documents 11 routines; the lookup holds 44. All 33 Sala effects are silently assignable. Will misfire on the next intake. |
+| FND-07 | Reconcile `ART_GUIDE` §5a with `window.ANIMS` | M | `done` | Decided 2026-10-14: the 33 Sala effects are **not** eligible as an artwork `anim` (ART_GUIDE §5c). `docs-lint` now fails on an `anim` outside §5a. EXP-05 still decides what the Sala becomes. |
 | FND-08 | Exercise the intake pipeline end-to-end | M | `todo` | `intake/processed/` is empty despite 11 artworks — the archival step has never run. |
 | FND-09 | Freeze and tag the prototype | S | `todo` | Tag `prototype-v1`, mark it read-only reference in `README.md`. Prevents feature work landing in two codebases. |
 
@@ -308,7 +308,7 @@ reuse a retired one.
 | AUD-02 | Audio upload and storage | M | `blocked` | On UPL-05, ADR-0014. |
 | AUD-03 | In-browser recording UI | L | `blocked` | On AUD-02. S-19. 15-second cap, waveform, re-record. |
 | AUD-04 | Transcription through the port | M | `blocked` | On AIS-03. Whisper-class, inside the budget. Transcript is an accessibility feature, not a replacement for the voice. |
-| AUD-06 | Artwork description audio on the prototype | S | `done` | No upload; owner drops files in `assets/audio/` and lists them in `audio-data.js`. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Consistent with ADR-0007 Option A; does not close it. |
+| AUD-06 | Artwork description audio on the prototype | S | `done` | No upload; owner drops files at `assets/art/<id>/audio.mp3` and lists them in `audio-data.js`. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Consistent with ADR-0007 Option A; does not close it. |
 | AUD-05 | Audio retention and deletion policy in code | M | `blocked` | On ADR-0014. The most sensitive object in the system. |
 
 > **AUD has a clock.** The children are 4, 7, and 7. This is the only item in the plan whose

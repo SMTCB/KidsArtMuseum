@@ -107,11 +107,22 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
 | `palitos` | Two stick arms, cut from the photo, sway out of step around the shoulder (±1.5°) | A figure with sticks or limbs that read as arms. Boxes are `PALITOS` in `art-animations.jsx` — re-measure for a new drawing |
 
-**Default to reuse.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first.
+**Default to reuse, but only when it is a genuine fit.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first. If the only match is a generic routine (a spotlight, sparkles, notes), the piece deserves its own: see §5b.
 
 ### 5b. Inventing a new routine
 
-Only when *no* existing routine fits. Process:
+Only when *no* existing routine is a genuine fit. The working method is the `animar-obra` skill
+(`.claude/skills/animar-obra/`); the principles and the parts contract are in
+[`docs/design/ARTWORK_ANIMATION.md`](docs/design/ARTWORK_ANIMATION.md). Every new routine must
+pass three tests:
+
+1. **Swapped-drawing:** moved onto another artwork it would stop making sense. If not, it is a filter.
+2. **Child:** what moves is something the child drew, named in the dots, or said (intake form or audio description).
+3. **Original:** with the animation off the work is the untouched photograph, and while it moves nothing tears, smears or hides the drawing.
+
+A routine may cut the drawing into moving parts, cut from the photo and never repainted
+(crops first; transparent PNGs at `assets/art/<id>/parts/` only when needed). Parts are assets
+of the routine, not fields of `ART`. Process:
 
 1. Add a new function `XxxAnimation({ art })` in `art-animations.jsx`.
 2. It receives `art` (the data object) and renders an `aria-hidden` overlay inside `.anim-layer`.
@@ -122,6 +133,7 @@ Only when *no* existing routine fits. Process:
    Object.assign(window, { …, MyNewAnimation });
    ```
 5. Add corresponding CSS in `gallery.css` under the section comment `/* === <name> animation === */`.
+6. Add its row to the §5a table in the same commit.
 
 **Animation rules of thumb:**
 - **One idea per routine.** Don't combine three effects.
@@ -129,6 +141,14 @@ Only when *no* existing routine fits. Process:
 - **Looped, not finite.** No "the animation ended" state.
 - **Pauseable.** If it has sound or strong motion, expose a pause toggle.
 - **Respect `prefers-reduced-motion`** — the existing CSS already does, follow the pattern.
+
+### 5c. What `anim` may point at
+
+`window.ANIMS` holds more keys than §5a lists, because the Sala de Experimentação effects
+(`art-templates*.jsx`, `art-painters*.jsx`) register into the same lookup. **Those effects are
+not eligible as an artwork's `anim`.** They are filters by nature: they run on any picture,
+which is exactly what §5b rules out. Only the keys in the §5a table are valid, and
+`scripts/docs-lint.js` fails if an `anim` in `art-data.js` is not in that table. (FND-07.)
 
 ---
 
@@ -146,12 +166,19 @@ The hotspots that say "tap me to learn what this is". They are how the child nar
 
 ## 7. The photo itself
 
-Lives in `assets/art/`. Naming:
+Every artwork has one folder, named by its `id` ([ADR-0016](docs/decisions/0016-asset-layout.md)):
 
-- All lowercase.
-- Hyphens, not spaces or underscores.
-- Pattern: `<artist>-<short-noun>.jpeg` (e.g. `manuel-figure.jpeg`, `miguel-warhol.jpeg`).
-- For "after" pieces, drop the artist's first name on the right: `miguel-van-gogh.jpeg`.
+```
+assets/art/<id>/
+├── photo.jpeg     ← the photo (required); `src` in art-data.js points here
+├── audio.mp3      ← the audio description (optional); listed in audio-data.js
+├── reference.jpg  ← a reference image some routines need (e.g. sunflowers); optional
+└── parts/         ← transparent PNGs cut for an animation (optional, see §5b)
+```
+
+- The filename is always `photo.jpeg`; the identity is the folder, which equals the `id`.
+- `id` is all lowercase, no hyphens or spaces (`manuelfigure`, `casaaranhas`), and never changes once published.
+- In `intake/` the photo keeps the human name `<artist>-<short-noun>.jpeg`; it is renamed when filed.
 
 Pre-flight before committing:
 
@@ -177,13 +204,13 @@ The order pieces appear on the wall lives in `window.HALLWAY_ORDER` at the botto
 
 Before you commit, walk this list:
 
-- [ ] Photo lives at `assets/art/<artist>-<noun>.(jpe?g)`, ≤ 600 KB, long edge ≤ 3000px.
+- [ ] Photo lives at `assets/art/<id>/photo.jpeg`, ≤ 600 KB, long edge ≤ 3000px; audio (if any) at `assets/art/<id>/audio.mp3`.
 - [ ] New `ART` entry with **all** required fields filled.
 - [ ] `w` and `h` match the final image.
 - [ ] `bg` is dominant, non-white, non-black, and appears in `palette`.
 - [ ] `palette` has 3–6 hexes, all sampled from the painting.
 - [ ] `signature` follows the patterns in §4.
-- [ ] `anim` reuses an existing routine, or — if newly invented — is registered in both maps in `art-animations.jsx`.
+- [ ] `anim` is a key from the §5a table (never a Sala effect, §5c). A genuinely new routine passes the three tests (§5b), is registered in both maps in `art-animations.jsx`, and has its §5a row.
 - [ ] 3 or 4 dots, spread out, child-pointable, short labels.
 - [ ] `id` added to `HALLWAY_ORDER`.
 - [ ] Local preview: tap the new frame, click each dot, watch the animation for one full loop.

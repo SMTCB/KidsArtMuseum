@@ -30,7 +30,7 @@ schema in `ART_GUIDE.md` §1.
 | Question | Decision | Why |
 |---|---|---|
 | Where does the data live? | New file `audio-data.js` with `window.AUDIO = { "<art id>": { src, secs, text } }`. | Keeps the `ART` schema untouched (CLAUDE.md rule). One file the owner edits by hand. A piece without an entry shows no audio control. |
-| Where are the files? | `assets/audio/<art-id>.mp3` (mono, 64 kbps, 15-60 s, about 100-500 KB). | Same convention as photos. ADR-0007 Option A, for the description only. |
+| Where are the files? | `assets/art/<art-id>/audio.mp3` (mono, 64 kbps, 15-60 s, about 100-500 KB). | One folder per artwork ([ADR-0016](../decisions/0016-asset-layout.md)). ADR-0007 Option A, for the description only. |
 | What is the control? | One text button in `.zm-label`, **"Ouvir a descrição"**, next to the Sala button. Becomes "Pausar" while playing. A thin progress bar and `0:12 / 0:40` sit under it. | Click-to-play. Never autoplay (children, shared spaces, browser policy). Text label, not an icon-only button, so it reads for a 6-year-old and a grandparent alike. |
 | Transcript? | `text` field shown under the player on a "Ler" toggle. | Accessibility (deaf and hard-of-hearing visitors, quiet rooms). The voice stays the product; the text is the fallback. |
 | What stops it? | Close, previous/next piece, opening the Sala, and the end of the file. | Audio must never outlive the piece it describes. |
@@ -45,12 +45,12 @@ Enter work by default. No new global shortcuts (arrows already step pieces).
 
 ### Plan
 
-1. `audio-data.js` plus `<script src>` in `index.html` before the gallery.
+1. `audio-data.js` (files at `assets/art/<id>/audio.mp3`) plus `<script src>` in `index.html` before the gallery.
 2. `AudioDescription({ art })` component in `gallery-core.jsx`; one `Audio` element in a ref;
    cleanup on unmount covers close and step.
 3. CSS in `gallery.css`, section `/* === audio description === */`. Same pill language as
    `.zm-cta`. `prefers-reduced-motion`: no progress easing.
-4. Tell the owner how to add one: file in `assets/audio/`, one line in `audio-data.js`. Add a
+4. Tell the owner how to add one: file at `assets/art/<id>/audio.mp3`, one line in `audio-data.js`. Add a
    row to the `README.md` file map and a note in `ART_GUIDE.md` §1.
 5. Verify desktop and 375 px, including iOS Safari behaviour (needs a user gesture; ours is one).
 

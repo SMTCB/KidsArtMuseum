@@ -11,7 +11,7 @@ Tira (ou escolhe) a foto da obra e dá-lhe um nome lowercase e hifenizado:
 - Padrão: `<artista>-<substantivo-curto>.jpeg` (ou `.jpg`, `.png`)
 - Exemplos: `miguel-gato-cubista.jpeg`, `muna-borboleta.jpeg`
 
-Guarda o ficheiro nesta pasta (`intake/`). **Não precisas de fazer mais nada com a foto** —
+Guarda o ficheiro nesta pasta (`intake/`). Se tens uma descrição em áudio, guarda-a também aqui com o mesmo nome base (`miguel-gato-cubista.mp3`). **Não precisas de fazer mais nada com a foto** —
 o Claude Code trata da otimização automaticamente quando processar a entrada.
 
 > **iPhone (HEIC)?** Exporta como JPEG antes de copiar:
@@ -39,7 +39,7 @@ O Claude vai:
 1. Ler a foto e o formulário desta pasta
 2. Analisar as dimensões e amostrar as cores dominantes
 3. Criar a entrada em `art-data.js` (título, paleta, animação, pontos de descoberta)
-4. Mover a foto para `assets/art/`
+4. Arrumar a foto em `assets/art/<id>/photo.jpeg` (e o áudio, se houver, em `assets/art/<id>/audio.mp3`)
 5. Arquivar o formulário em `intake/processed/`
 6. Mostrar o diff para aprovação antes de fazer commit
 

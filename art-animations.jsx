@@ -36,7 +36,7 @@ function MiroAnimation({ art }) {
 // ============================================================
 // SUNFLOWERS — Side-by-side compare with Van Gogh's original
 // ============================================================
-const VAN_GOGH_URL = "assets/art/van-gogh-original.jpg";
+const VAN_GOGH_URL = "assets/art/vangogh/reference.jpg";
 
 function SunflowersAnimation({ art }) {
   const [pos, setPos] = useS(50); // 0..100, slider position

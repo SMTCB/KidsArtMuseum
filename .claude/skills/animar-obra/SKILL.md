@@ -36,7 +36,7 @@ Work in this order. Steps 1–4 produce no code; the idea is where distinctivene
    2. a crop of the photo that moves, using `backgroundPosition` or `clip-path`, like `portal`
       (no new file);
    3. masks or several crops moving independently;
-   4. separate transparent PNG parts at `assets/art/<id>/<part>.png`, only when a part needs
+   4. separate transparent PNG parts at `assets/art/<id>/parts/<part>.png`, only when a part needs
       its own outline. Cut from the original photo, never repainted or enhanced.
    Whatever does not move stays in the photo. Prefer motions that do not reveal a hole behind
    the part (turning, swinging from an anchor, scaling from the centre). If a hole would show,

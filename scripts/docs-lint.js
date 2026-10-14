@@ -181,6 +181,42 @@ for (const file of docs) {
   }
 }
 
+// ---------------------------------------------------------------- artwork data
+// Not docs, but they are the contract ART_GUIDE describes (FND-07, ADR-0016).
+
+(function checkArtwork() {
+  const read = (f) => { try { return fs.readFileSync(path.join(ROOT, f), "utf8"); } catch { return null; } };
+  const data = read("art-data.js");
+  const guide = read("ART_GUIDE.md");
+  if (!data || !guide) return;
+
+  // Keys in the ART_GUIDE §5a table: rows that start with | `key` |
+  const sec = guide.split(/^### 5a\./m)[1] || "";
+  const allowed = new Set(
+    [...sec.split(/^### 5b\./m)[0].matchAll(/^\|\s*`([a-z0-9]+)`\s*\|/gm)].map((m) => m[1])
+  );
+
+  const entries = data.split(/^\s*id:\s*"/m).slice(1);
+  for (const e of entries) {
+    const id = e.slice(0, e.indexOf('"'));
+    const anim = (e.match(/anim:\s*"([^"]+)"/) || [])[1];
+    const src = (e.match(/src:\s*"([^"]+)"/) || [])[1];
+    if (anim && allowed.size && !allowed.has(anim)) {
+      errors.push(`art-data.js: '${id}' uses anim '${anim}', which is not in ART_GUIDE §5a (Sala effects are not eligible, §5c)`);
+    }
+    if (src && !fs.existsSync(path.join(ROOT, src))) {
+      errors.push(`art-data.js: '${id}' src '${src}' does not exist`);
+    } else if (src && src !== `assets/art/${id}/photo.jpeg`) {
+      warnings.push(`art-data.js: '${id}' src is '${src}', expected assets/art/${id}/photo.jpeg (ADR-0016)`);
+    }
+  }
+
+  const audio = read("audio-data.js") || "";
+  for (const m of audio.matchAll(/^\s*src:\s*"([^"]+)"/gm)) {
+    if (!fs.existsSync(path.join(ROOT, m[1]))) errors.push(`audio-data.js: file '${m[1]}' does not exist`);
+  }
+})();
+
 // ---------------------------------------------------------------- report
 
 if (staleOnly) {

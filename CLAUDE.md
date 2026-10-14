@@ -40,13 +40,14 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 5. **Sample dominant colours** — inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
 6. **Draft the new entry** in `window.ART` (`art-data.js`) following the schema in ART_GUIDE §1. Every required field, no inventing new keys.
 7. **Pick an `anim` routine** from ART_GUIDE §5a. Invent a new one only if no existing routine fits (follow §5b exactly if you do).
-   > Note: `window.ANIMS` currently holds **46** keys — the 13 documented routines plus the 33
-   > Sala de Experimentação effects, which register into the same lookup. Whether those 33 are
-   > eligible as an artwork `anim` is unsettled (backlog FND-07); until it is, pick from §5a.
+   > `window.ANIMS` also holds the 33 Sala de Experimentação effects. They are **not** eligible
+   > as an artwork `anim` (ART_GUIDE §5c, FND-07); only the routines in §5a are.
+   > If none of them is a genuine fit, use the `animar-obra` skill to design one for this drawing.
 8. **Place 3–4 discovery dots** (ART_GUIDE §6). Coordinates are percentages of the image. Spread them; no two within 15% on either axis.
 9. **Explain your choices** to the user: which animation and why, what the palette is, what the dots point at. Ask for approval before committing.
 10. **On approval:**
-   - Move the photo: `intake/<filename>` → `assets/art/<filename>`
+   - File the photo: `intake/<filename>` → `assets/art/<id>/photo.jpeg` (ADR-0016)
+   - If the intake has an audio description: `intake/<name>.mp3` → `assets/art/<id>/audio.mp3`, plus one entry in `audio-data.js`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`
    - Add a slot for it in `WALL_LAYOUT` in `gallery-core.jsx` (otherwise the wall theme hides it)
    - Archive the form: `intake/<name>.md` → `intake/processed/<name>.md`
@@ -59,9 +60,9 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 
 ## Adding art without the intake tray
 
-If the user hands you a photo directly (already in `assets/art/`) and gives context inline:
+If the user hands you a photo directly (already in `assets/art/<id>/photo.jpeg`) and gives context inline:
 
-1. Confirm photo is in `assets/art/` with correct naming.
+1. Confirm the photo is at `assets/art/<id>/photo.jpeg`.
 2. Read dimensions and sample palette.
 3. Draft the entry in `art-data.js`.
 4. Pick `anim`, place dots.
