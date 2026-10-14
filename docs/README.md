@@ -64,6 +64,7 @@ down anywhere (**STR-05**).
 | [IDENTITY.md](design/IDENTITY.md) | `canonical` | **The design language.** Direção A for the museum, Direção C for the product, and where they meet. |
 | [TEMPLATE_COMPOSITION_STRATEGY.md](design/TEMPLATE_COMPOSITION_STRATEGY.md) | `reference` | Scaling animation variety without a templated feel. |
 | [AUDIO_AND_COMMENTS.md](design/AUDIO_AND_COMMENTS.md) | `draft` | Design and plan for the prototype's audio description and visitor comments (AUD-06, SHR-09). |
+| [ARTWORK_ANIMATION.md](design/ARTWORK_ANIMATION.md) | `draft` | Principles and technical contract for animations that belong to one drawing, not a filter (MUS-16, MUS-17). |
 
 The raw redesign delivery lives in `design/FMB_IDENTITY_REDESIGN_V1.0/` — HTML comps and CSS,
 not a system. `IDENTITY.md` is what it means; **DES-01** is what turns it into tokens.

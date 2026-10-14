@@ -254,6 +254,8 @@ reuse a retired one.
 | MUS-13 | Empty states across museum, room, gallery | M | `blocked` | On DES-11. S-54. |
 | MUS-14 | Artwork edit | L | `blocked` | On MUS-07. S-24. Required under every ADR-0009 option. |
 | MUS-15 | Delete artwork, gallery, or room with confirmation | M | `blocked` | On MUS-05. |
+| MUS-16 | Skill `animar-obra`: distinctive, per-drawing animation | M | `now` | Principles and the parts contract in [ARTWORK_ANIMATION](../design/ARTWORK_ANIMATION.md). Written with `skill-creator`; verified with the Emil Kowalski review skills. Bespoke craft, not the volume path in TEMPLATE_COMPOSITION_STRATEGY. Closes with the ART_GUIDE §5/§9 update and FND-07. |
+| MUS-17 | Pilot the skill on Gato de Barro | S | `todo` | On MUS-16. Idea proposed to the owner before any code. |
 
 ### UPL — Upload and intake
 
@@ -324,7 +326,7 @@ reuse a retired one.
 | SHR-05 | Link previews and OG cards | M | `blocked` | On SHR-03. A shared museum link that unfurls as a framed artwork is the cheapest growth mechanism available. |
 | SHR-06 | Print view — A4/A3, artwork plus title card | M | `blocked` | On DES-05. S-10. Absorbs P1-03. |
 | SHR-07 | Watermarked export and upsell | M | `blocked` | On BIL-02. S-38 — the only monetization surface the redesign actually drew. |
-| SHR-09 | Visitor comments (name + text) on the prototype | M | `now` | Built 2026-10-13, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); goes live once Upstash is connected in Vercel (set-up in the design doc). Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. |
+| SHR-09 | Visitor comments (name + text) on the prototype | M | `done` | Built and live 2026-10-14, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); Set-up in the design doc. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. |
 | SHR-08 | "Start your own museum" CTA on the visitor view | S | `blocked` | On SHR-03. |
 
 ### BIL — Billing and entitlements
