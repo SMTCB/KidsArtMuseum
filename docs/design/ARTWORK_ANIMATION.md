@@ -110,7 +110,7 @@ routines it writes can become templates later.
 ## 7. Plan
 
 1. This document (principles and contract). **Done 2026-10-14.**
-2. Skill `animar-obra` in `.claude/skills/`, written with the `skill-creator`, following section 5
+2. **Done 2026-10-14.** Skill `animar-obra` in `.claude/skills/`, written with the `skill-creator`, following section 5
    and using the Emil Kowalski review skills for verification. MUS-16.
 3. Pilot on **Gato de Barro** (`clay`, currently `sculpture`: a spotlight and tilt that could
    be any object). MUS-17. The skill proposes the idea first; code only after the owner agrees.
