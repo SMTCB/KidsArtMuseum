@@ -255,7 +255,7 @@ reuse a retired one.
 | MUS-14 | Artwork edit | L | `blocked` | On MUS-07. S-24. Required under every ADR-0009 option. |
 | MUS-15 | Delete artwork, gallery, or room with confirmation | M | `blocked` | On MUS-05. |
 | MUS-16 | Skill `animar-obra`: distinctive, per-drawing animation | M | `done` | Principles and the parts contract in [ARTWORK_ANIMATION](../design/ARTWORK_ANIMATION.md). Written with `skill-creator`; verified with the Emil Kowalski review skills. Bespoke craft, not the volume path in TEMPLATE_COMPOSITION_STRATEGY. Closes with the ART_GUIDE §5/§9 update and FND-07. |
-| MUS-17 | Pilot the skill on Gato de Barro | S | `now` | On MUS-16. Idea proposed to the owner before any code. |
+| MUS-17 | Pilot the skill on Gato de Barro | S | `done` | Palitos (stick arms sway) approved idea; awaiting final owner approval to commit. |
 
 ### UPL — Upload and intake
 

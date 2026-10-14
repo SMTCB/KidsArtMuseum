@@ -838,8 +838,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .anim-sway { animation: sway 5s ease-in-out infinite; transform-origin: center bottom; }
 
 @keyframes swing {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
 }
 .anim-swing { animation: swing 4s ease-in-out infinite; transform-origin: 50% 0%; }
 
@@ -1764,6 +1764,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   15%  { opacity: 0.95; }
   100% { transform: translateY(-50vh) scale(1.3); opacity: 0; }
 }
+
+/* ============================================================
+   === palitos animation === (Gato de Barro)
+   ============================================================ */
+.palito {
+  position: absolute;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform;
+}
+.palito-l { animation: palitoSwayL 5.5s ease-in-out infinite; }
+.palito-r { animation: palitoSwayR 6.5s ease-in-out infinite; }
+@keyframes palitoSwayL { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes palitoSwayR { 0%, 100% { transform: rotate(1.5deg); } 50% { transform: rotate(-1.5deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .palito-l, .palito-r { animation-name: palitoBreathe; }
+}
+@keyframes palitoBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
 
 /* ============================================================
    === teia animation === (Uma Casa das Aranhas)

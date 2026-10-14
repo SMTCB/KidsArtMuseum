@@ -623,6 +623,33 @@ function TeiaAnimation({ art }) {
 }
 
 // ============================================================
+// PALITOS — the two stick arms sway from the shoulder, out of step
+// ============================================================
+// Stick boxes, as % of the image (measured on Miguel's clay cat). Each is a crop
+// of the photo that turns around `pivot`, the end buried in the body.
+const PALITOS = [
+  { l: 3.5, t: 49, w: 28, h: 3,   pivot: "100% 50%", cls: "palito-l" },
+  { l: 63,  t: 46.5, w: 28, h: 5, pivot: "0% 25%",  cls: "palito-r" }
+];
+
+function PalitosAnimation({ art }) {
+  return (
+    <div className="anim-layer palitos-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      {PALITOS.map((B) => (
+        <div key={B.cls} className={"palito " + B.cls} style={{
+          left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%",
+          transformOrigin: B.pivot,
+          backgroundImage: `url(${art.src})`,
+          backgroundSize: `${10000 / B.w}% ${10000 / B.h}%`,
+          backgroundPosition: `${B.l / (100 - B.w) * 100}% ${B.t / (100 - B.h) * 100}%`
+        }} />
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
 // Export to window
 // ============================================================
 window.ANIMS = {
@@ -638,12 +665,13 @@ window.ANIMS = {
   luna: LunaAnimation,
   rainbow: RainbowAnimation,
   portal: PortalAnimation,
-  teia: TeiaAnimation
+  teia: TeiaAnimation,
+  palitos: PalitosAnimation
 };
 
 Object.assign(window, {
   MiroAnimation, SunflowersAnimation, WarholAnimation, PortraitAnimation,
   MatisseAnimation, MbappeAnimation, MaestroAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
-  PortalAnimation, TeiaAnimation
+  PortalAnimation, TeiaAnimation, PalitosAnimation
 });

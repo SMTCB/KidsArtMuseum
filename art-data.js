@@ -105,7 +105,7 @@ window.ART = [
     w: 3140, h: 4500,
     bg: "#c0a079",
     palette: ["#c87b66", "#c0a079", "#9d6552"],
-    anim: "sculpture",
+    anim: "palitos",
     medium: "Barro e palitos",
     dots: [
       { x: 50, y: 25, label: "Cara de gato", detail: "Orelhas e olhos" },
