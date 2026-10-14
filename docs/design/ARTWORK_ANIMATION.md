@@ -86,7 +86,9 @@ A routine may cut the drawing into pieces when that serves the idea.
 
 ## 5. The method (what the skill follows)
 
-1. **Read.** The intake form, the dots, the child's description, the photo itself (view it).
+1. **Read.** The intake form, the dots, the child's description, the audio description
+   transcript if one exists (`audio-data.js`, see [`AUDIO_AND_COMMENTS.md`](AUDIO_AND_COMMENTS.md)),
+   the photo itself (view it).
 2. **List the candidates.** Every thing in the drawing that could move: figures, eyes, doors,
    animals, water, hair, sky. Note what the child said about each.
 3. **Choose one idea.** Make the call. Do not offer the owner a menu of five; state the idea

@@ -23,6 +23,9 @@ Work in this order. Steps 1–4 produce no code; the idea is where distinctivene
 1. **Read the piece.** The intake form or `art-data.js` entry (title, dots, `medium`), the
    child's own words, and the photo itself. View the image, do not work from the description.
    The child's words matter: the thing that moves should be something they named or pointed at.
+   If `audio-data.js` has an entry for the piece, read its `text` (the transcript of the audio
+   description) too: it is the family's own account of the work, and the best source for the
+   child test. No entry is normal (few are recorded yet); carry on without it.
 2. **List what could move.** Figures, eyes, doors, animals, hair, water, sky, a held object,
    the whole composition. For each, note what the child said about it. Reject anything that
    would equally fit another drawing.
@@ -56,7 +59,8 @@ A routine ships only if it passes all three. State the result of each when you p
 
 - **Swapped-drawing test.** Put it on a different artwork in your head. If it still makes
   sense, it is a filter; go back to step 2.
-- **Child test.** Point to the child's words, a dot, or the title that justify what moves.
+- **Child test.** Point to the child's words (intake form or audio description), a dot, or the
+  title that justify what moves.
 - **Original test.** With the animation off, the work is the untouched photograph. While it
   moves, nothing hides, tears or smears the drawing.
 
