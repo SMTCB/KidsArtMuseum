@@ -382,7 +382,7 @@ function ZoomModal({ art, onClose, onStep, theme }) {
       )}
 
       <div className="zm-stage" key={art.id} onClick={(e) => e.stopPropagation()}>
-        <div className={"zm-frame zm-frame-" + art.anim} style={{ aspectRatio: `${art.w} / ${art.h}` }}>
+        <div className={"zm-frame zm-frame-" + art.anim} style={{ aspectRatio: `${art.w} / ${art.h}`, "--ar": art.w / art.h }}>
           <Anim art={art} />
           {showDots && art.dots.map((d, i) => (
             <DiscoverDot key={i} dot={d} n={i + 1} />

@@ -679,8 +679,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .zm-frame {
   position: relative;
+  /* Height is the target; width follows the artwork's ratio (--ar, set inline) and is capped by
+     --fw so a wide piece shrinks to fit the screen instead of running off it. */
+  --fh: 80vh;
+  --fw: calc(92vw - 390px);
   max-height: 80vh;
-  height: 80vh;
+  height: min(var(--fh), calc(var(--fw) / var(--ar, 1)));
   background: #fff;
   box-shadow:
     0 40px 80px rgba(0,0,0,0.6),
@@ -1038,7 +1042,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (max-width: 768px) {
   /* ---- Zoom modal ---- */
   .zm-stage { flex-direction: column; gap: 20px; max-height: 88vh; }
-  .zm-frame { height: 55vh; }
+  /* 20px of frame shadow on each side, plus a little air */
+  .zm-frame { --fh: 55vh; --fw: calc(100vw - 64px); }
   .zm-label { width: 90vw; text-align: center; align-items: center; }
   .zm-label-meta { justify-content: center; }
 
