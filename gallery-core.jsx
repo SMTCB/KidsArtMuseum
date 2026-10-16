@@ -692,7 +692,7 @@ function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
         </div>
       )}
       <div className="gw-room">
-        <div className="gw-board">
+        <div className={"gw-board" + (heading ? "" : " gw-board-salon")}>
           {pieces.map((art, i) => {
             const layout = layouts[art.id];
             if (!layout) return null;
