@@ -31,7 +31,7 @@ window.ART = [
     signature: "Miguel van Gogh",
     src: "assets/art/vangogh/photo.jpeg",
     w: 3600, h: 5159,
-    bg: "#d9b04a",
+    bg: "#d6a93a",
     palette: ["#d6a93a", "#a6c9c2", "#7a3a1f", "#f1e4b8"],
     anim: "sunflowers",
     dots: [
@@ -161,7 +161,7 @@ window.ART = [
     signature: "Manuel",
     src: "assets/art/manuelfigure/photo.jpeg",
     w: 2223, h: 2682,
-    bg: "#e8f0e0",
+    bg: "#e8d96a",
     palette: ["#1f8a4a", "#1a1a1a", "#e8d96a", "#c8211c", "#7a3a1f"],
     anim: "jogador",
     dots: [
@@ -180,7 +180,7 @@ window.ART = [
     signature: "Manuel",
     src: "assets/art/luna/photo.jpeg",
     w: 777, h: 3608,
-    bg: "#f4efe2",
+    bg: "#82ab8b",
     palette: ["#4f6ed1", "#d75441", "#e6c12a", "#82ab8b", "#cf6673"],
     anim: "luna",
     dots: [
@@ -199,7 +199,7 @@ window.ART = [
     signature: "Muna",
     src: "assets/art/diadamae/photo.jpeg",
     w: 2363, h: 3655,
-    bg: "#f2c7d9",
+    bg: "#d18aa8",
     palette: ["#d18aa8", "#f7d54a", "#ec3a2a", "#8db97f", "#3980e6", "#a04acb"],
     anim: "rainbow",
     interactive: "paint-rainbow",
