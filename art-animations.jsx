@@ -669,6 +669,149 @@ function RelogioAnimation({ art }) {
 }
 
 // ============================================================
+// RASGACOLA — four torn scraps lift off the page one at a time, then settle back
+// ============================================================
+// Scraps measured on Miguel's collage, as % of the image. `shape` traces the torn
+// edge as % of the box so the shadow follows the paper, not a rectangle.
+const RASGACOLA = [
+  { l: 63.1, t: 19.9, w: 29.0, h: 10.0, delay: 0,
+    shape: "4% 16%, 24% 2%, 65% 1%, 94% 7%, 98% 36%, 99% 81%, 96% 98%, 46% 99%, 6% 91%, 0% 81%" },
+  { l: 60.3, t: 31.8, w: 29.3, h: 10.5, delay: 4,
+    shape: "0% 74%, 8% 26%, 18% 7%, 24% 0%, 55% 14%, 100% 37%, 91% 52%, 60% 74%, 31% 93%, 17% 100%, 3% 95%" },
+  { l: 69.8, t: 49.3, w: 30.2, h: 20.0, delay: 8,
+    shape: "8% 1%, 56% 0%, 100% 1%, 100% 86%, 68% 94%, 45% 100%, 13% 99%, 1% 94%, 6% 29%" },
+  { l: 46.2, t: 71.8, w: 28.5, h: 15.5, delay: 12,
+    shape: "1% 50%, 9% 29%, 40% 11%, 57% 1%, 72% 3%, 96% 24%, 100% 40%, 91% 69%, 57% 85%, 23% 97%, 17% 100%, 6% 82%" }
+];
+
+function RasgaColaAnimation({ art }) {
+  return (
+    <div className="anim-layer rasgacola-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      {RASGACOLA.map((B, i) => (
+        <div key={i} className="rc-scrap" style={{
+          left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%",
+          animationDelay: B.delay + "s"
+        }}>
+          <div className="rc-shadow" style={{ animationDelay: B.delay + "s" }}>
+            <div className="rc-shape" style={{ clipPath: `polygon(${B.shape})`, background: art.palette[4] }} />
+          </div>
+          <div className="rc-face" style={{
+            clipPath: `polygon(${B.shape})`,
+            backgroundImage: `url(${art.src})`,
+            backgroundSize: `${10000 / B.w}% ${10000 / B.h}%`,
+            backgroundPosition: `${B.l / (100 - B.w) * 100}% ${B.t / (100 - B.h) * 100}%`
+          }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
+// MEIODEMIM — the two spiral eyes he drew swirl, out of step with each other
+// ============================================================
+// Eye discs measured on the crayon half, as % of the image width; height follows
+// the image aspect so each disc is round.
+const MEIODEMIM_EYES = [
+  { cx: 15.6, cy: 44.0, r: 3.3, cls: "md-eye-l" },
+  { cx: 27.6, cy: 45.1, r: 3.3, cls: "md-eye-r" }
+];
+
+function MeioDeMimAnimation({ art }) {
+  return (
+    <div className="anim-layer meiodemim-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      {MEIODEMIM_EYES.map((E) => {
+        const w = E.r * 2, h = w * art.w / art.h;
+        const l = E.cx - E.r, t = E.cy - h / 2;
+        return (
+          <div key={E.cls} className="md-eye" style={{
+            left: l + "%", top: t + "%", width: w + "%", height: h + "%"
+          }}>
+            <div className={"md-spin " + E.cls} style={{
+              backgroundImage: `url(${art.src})`,
+              backgroundSize: `${10000 / w}% ${10000 / h}%`,
+              backgroundPosition: `${l / (100 - w) * 100}% ${t / (100 - h) * 100}%`
+            }} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ============================================================
+// MAEMARGARIDA — the real photo eye glances left and right inside its own frame
+// ============================================================
+// Photo-eye rectangle measured on Miguel's collage, as % of the image.
+const MARGARIDA_EYE = { l: 58.3, t: 35.3, w: 16.2, h: 9.0 };
+
+function MaeMargaridaAnimation({ art }) {
+  const B = MARGARIDA_EYE;
+  return (
+    <div className="anim-layer maemargarida-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="mm-eye" style={{
+        left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%"
+      }}>
+        <div className="mm-glance" style={{
+          backgroundImage: `url(${art.src})`,
+          backgroundSize: `${10000 / B.w}% ${10000 / B.h}%`,
+          backgroundPosition: `${B.l / (100 - B.w) * 100}% ${B.t / (100 - B.h) * 100}%`
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// AGENTESECRETO — the cardboard magnifier goes over the red scribbles and back
+// ============================================================
+// Lens as % of the image width; the lens starts on the cardboard glass (right) and
+// visits the scribbles (centre). Points are centres, as % of the image.
+const AGENTE_LENS = { r: 7, zoom: 1.7 };
+const AGENTE_PATH = [
+  { x: 84.5, y: 27 },
+  { x: 62,   y: 36 },
+  { x: 50,   y: 52 },
+  { x: 58,   y: 66 }
+];
+
+function AgenteSecretoAnimation({ art }) {
+  const R = AGENTE_LENS.r, Z = AGENTE_LENS.zoom;
+  const bw = R * 2, bh = bw * art.w / art.h;
+  const S = AGENTE_PATH[0];
+  const T = { x: S.x - bw / 2, y: S.y - bh / 2 };
+  // Each waypoint: how far the lens box moves (as % of the box), and the opposite shift
+  // of the magnified photo inside it (as % of the photo) so the glass keeps showing
+  // whatever is under it.
+  const vars = {};
+  AGENTE_PATH.forEach((P, k) => {
+    const dx = P.x - S.x, dy = P.y - S.y;
+    vars["--ox" + k] = (dx / bw * 100) + "%";
+    vars["--oy" + k] = (dy / bh * 100) + "%";
+    vars["--ix" + k] = ((1 - Z) * S.x - Z * dx) + "%";
+    vars["--iy" + k] = ((1 - Z) * S.y - Z * dy) + "%";
+  });
+  return (
+    <div className="anim-layer agente-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="ag-lens" style={{
+        left: T.x + "%", top: T.y + "%", width: bw + "%", height: bh + "%",
+        "--rim": art.palette[1], ...vars
+      }}>
+        <div className="ag-photo" style={{
+          left: (-T.x / bw * 100) + "%", top: (-T.y / bh * 100) + "%",
+          width: (100 / bw * 100) + "%", height: (100 / bh * 100) + "%",
+          backgroundImage: `url(${art.src})`
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // Export to window
 // ============================================================
 window.ANIMS = {
@@ -686,12 +829,17 @@ window.ANIMS = {
   portal: PortalAnimation,
   teia: TeiaAnimation,
   palitos: PalitosAnimation,
-  relogio: RelogioAnimation
+  relogio: RelogioAnimation,
+  rasgacola: RasgaColaAnimation,
+  meiodemim: MeioDeMimAnimation,
+  maemargarida: MaeMargaridaAnimation,
+  agentesecreto: AgenteSecretoAnimation
 };
 
 Object.assign(window, {
   MiroAnimation, SunflowersAnimation, WarholAnimation, PortraitAnimation,
   MatisseAnimation, MbappeAnimation, MaestroAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
-  PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation
+  PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
+  RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation
 });

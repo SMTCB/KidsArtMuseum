@@ -246,6 +246,86 @@ window.ART = [
       { x: 70, y: 27, label: "Teia laranja", detail: "Cor de sol" },
       { x: 36, y: 8, label: "O carimbo", detail: "Inventarte 26/27" }
     ]
+  },
+  {
+    id: "rasgacola",
+    title: "Rasga, Cola e Descola!",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/rasgacola/photo.jpeg",
+    w: 1439, h: 2000,
+    bg: "#c8b898",
+    palette: ["#c8b898", "#b58958", "#899175", "#9d695b", "#5d503d"],
+    medium: "Colagem",
+    anim: "rasgacola",
+    dots: [
+      { x: 50, y: 11, label: "O título", detail: "Escrito à máquina" },
+      { x: 43, y: 36, label: "O rosa", detail: "Um pedaço rasgado" },
+      { x: 85, y: 59, label: "O verde", detail: "Pintado à aguarela" },
+      { x: 60, y: 79, label: "O cinzento", detail: "Cola e descola" }
+    ]
+  },
+  {
+    id: "meiodemim",
+    title: "1/2 de Mim",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/meiodemim/photo.jpeg",
+    w: 2000, h: 1345,
+    bg: "#b8a888",
+    palette: ["#b8a888", "#e0601c", "#56120f", "#8e846d", "#a9a83a"],
+    medium: "Cera e fotografia",
+    anim: "meiodemim",
+    dots: [
+      { x: 15.5, y: 44, label: "Olho em espiral", detail: "Voltas e mais voltas" },
+      { x: 23, y: 80, label: "A língua", detail: "Vermelha, a sair" },
+      { x: 67.5, y: 48, label: "O outro lado", detail: "Metade fotografia" },
+      { x: 93, y: 96, label: "O carimbo", detail: "Inventarte" }
+    ]
+  },
+  {
+    id: "maemargarida",
+    title: "Mãe Margarida",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/maemargarida/photo.jpeg",
+    w: 1368, h: 2000,
+    bg: "#a41302",
+    palette: ["#a41302", "#d8c8a8", "#a17b3e", "#706246", "#1c1c1c"],
+    medium: "Colagem",
+    anim: "maemargarida",
+    dots: [
+      { x: 58, y: 13, label: "Corações de cartão", detail: "Recortados à mão" },
+      { x: 65.4, y: 40, label: "O olho verdadeiro", detail: "Recortado de uma fotografia" },
+      { x: 22, y: 39.5, label: "O outro olho", detail: "Desenhado com pestanas" },
+      { x: 42, y: 62.5, label: "O sorriso", detail: "Traços cruzados a lápis" }
+    ]
+  },
+  {
+    id: "agentesecreto",
+    title: "Agente Secreto",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/agentesecreto/photo.jpeg",
+    w: 2000, h: 1155,
+    bg: "#d8c8a8",
+    palette: ["#d8c8a8", "#c8b898", "#98927e", "#712a24", "#7d643c"],
+    medium: "Colagem e cartão",
+    anim: "agentesecreto",
+    dots: [
+      { x: 14, y: 32, label: "O bigode", detail: "Disfarce de agente" },
+      { x: 22, y: 48, label: "Top Secret", detail: "Carimbado no processo" },
+      { x: 52, y: 45, label: "Rabiscos vermelhos", detail: "Segredos por decifrar" },
+      { x: 85, y: 27, label: "A lupa", detail: "Feita de cartão" }
+    ]
   }
 ];
 
@@ -253,5 +333,6 @@ window.ART = [
 window.HALLWAY_ORDER = [
   "miro", "vangogh", "warhol", "portrait", "matisse",
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
-  "portal", "casaaranhas"
+  "portal", "casaaranhas",
+  "rasgacola", "meiodemim", "maemargarida", "agentesecreto"
 ];

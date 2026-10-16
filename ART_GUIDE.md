@@ -107,6 +107,10 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
 | `relogio` | A second hand sweeps the dial of a cut-out watch (30 s a turn); the collage stays still | A collage with a watch or clock someone pointed at. Dial centre and hand are `RELOGIO` in `art-animations.jsx` — re-measure for a new drawing |
 | `palitos` | Two stick arms, cut from the photo, sway out of step around the shoulder (±1.5°) | A figure with sticks or limbs that read as arms. Boxes are `PALITOS` in `art-animations.jsx` — re-measure for a new drawing |
+| `rasgacola` | Four torn scraps lift off the collage one after another, cast a soft shadow, and settle back | A collage with torn paper pieces. Boxes and shapes are `RASGACOLA` in `art-animations.jsx` — re-measure for a new drawing |
+| `meiodemim` | The two drawn eyes, cut from the photo, turn slowly in opposite directions | A face or portrait with round, separate eyes. Discs are `MEIODEMIM_EYES` in `art-animations.jsx` — re-measure for a new drawing |
+| `maemargarida` | The eye of the collaged face glances left and right | A collage face with one eye that can look. Box is `MARGARIDA_EYE` in `art-animations.jsx` — re-measure for a new drawing |
+| `agentesecreto` | A magnifying lens drifts over the photo along a path, enlarging what it passes over | A piece about looking closely or searching. Lens and path are `AGENTE_LENS` and `AGENTE_PATH` in `art-animations.jsx` — re-measure for a new drawing |
 
 **Default to reuse, but only when it is a genuine fit.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first. If the only match is a generic routine (a spotlight, sparkles, notes), the piece deserves its own: see §5b.
 

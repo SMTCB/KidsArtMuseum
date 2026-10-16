@@ -462,21 +462,28 @@ function WallPiece({ art, theme, onOpen, index }) {
 const WALL_LAYOUT = {
   // top-left positioning. l: % of board width; t: % of board height;
   // w: % of board width. Height is derived via CSS aspect-ratio on the frame.
-  // Row 1 (top edge ~8–12%)
-  warhol:       { l: 3,  t: 8,  w: 13 },
-  miro:         { l: 19, t: 12, w: 11 },
-  vangogh:      { l: 34, t: 8,  w: 12 },
-  eraumavez:    { l: 50, t: 10, w: 12 },
-  mbappe:       { l: 66, t: 9,  w: 12 },
-  portal:       { l: 82, t: 11, w: 15 },
-  // Row 2 (top edge ~50–58%)
-  matisse:      { l: 4,  t: 58, w: 10 },
-  portrait:     { l: 19, t: 50, w: 9 },
-  luna:         { l: 32, t: 50, w: 4 },
-  diadamae:     { l: 40, t: 52, w: 12 },
-  clay:         { l: 56, t: 53, w: 11 },
-  manuelfigure: { l: 71, t: 56, w: 11 },
-  casaaranhas:  { l: 84, t: 58, w: 13 }
+  // Three loose rows, top edge ~6–8%, ~37–43%, ~66–69%. Each piece is at most
+  // ~24% of the board tall at 16:10 (about 27% at 16:9), so rows never touch.
+  // Row 1
+  warhol:        { l: 4.0,  t: 6,  w: 10.4 },
+  miro:          { l: 19.6, t: 8,  w: 11.4 },
+  vangogh:       { l: 36.3, t: 6,  w: 10.5 },
+  eraumavez:     { l: 52.0, t: 7,  w: 11.4 },
+  mbappe:        { l: 68.7, t: 6,  w: 11.3 },
+  rasgacola:     { l: 85.2, t: 8,  w: 10.8 },
+  // Row 2
+  portrait:      { l: 4.0,  t: 37, w: 8.2 },
+  matisse:       { l: 19.0, t: 41, w: 12.5 },
+  luna:          { l: 38.3, t: 37, w: 3.2 },
+  diadamae:      { l: 48.2, t: 38, w: 9.7 },
+  clay:          { l: 64.7, t: 37, w: 10.5 },
+  meiodemim:     { l: 82.0, t: 43, w: 14 },
+  // Row 3
+  portal:        { l: 4.0,  t: 67, w: 14 },
+  casaaranhas:   { l: 24.6, t: 68, w: 14 },
+  manuelfigure:  { l: 45.1, t: 66, w: 12.4 },
+  maemargarida:  { l: 64.1, t: 66, w: 10.3 },
+  agentesecreto: { l: 81.0, t: 69, w: 15 }
 };
 
 function WallPiecePin({ art, layout, onOpen, i }) {

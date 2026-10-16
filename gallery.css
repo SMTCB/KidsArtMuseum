@@ -1838,6 +1838,129 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ============================================================
+   === rasgacola animation === (Rasga, Cola e Descola!)
+   ============================================================ */
+.rc-scrap {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+  animation: rcLift 16s ease-in-out infinite;
+}
+.rc-face { position: absolute; inset: 0; background-repeat: no-repeat; }
+.rc-shadow {
+  position: absolute; inset: 0;
+  filter: blur(4px);
+  opacity: 0;
+  transform: translate(5px, 8px);
+  animation: rcShadow 16s ease-in-out infinite;
+}
+.rc-shape { position: absolute; inset: 0; }
+@keyframes rcLift {
+  0%, 30%, 100% { transform: scale(1); }
+  8%, 20%       { transform: scale(1.045); }
+}
+@keyframes rcShadow {
+  0%, 30%, 100% { opacity: 0; }
+  8%, 20%       { opacity: 0.5; }
+}
+
+/* ============================================================
+   === meiodemim animation === (1/2 de mim)
+   ============================================================ */
+.md-eye {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.md-spin {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+.md-eye-l { animation: mdSpinL 9s ease-in-out infinite; }
+.md-eye-r { animation: mdSpinR 11s ease-in-out infinite; }
+@keyframes mdSpinL { 0%, 100% { transform: rotate(-35deg); } 50% { transform: rotate(35deg); } }
+@keyframes mdSpinR { 0%, 100% { transform: rotate(35deg); } 50% { transform: rotate(-35deg); } }
+
+/* ============================================================
+   === maemargarida animation === (Mãe Margarida)
+   ============================================================ */
+.mm-eye {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+.mm-glance {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  will-change: transform;
+  animation: mmGlance 10s ease-in-out infinite;
+}
+@keyframes mmGlance {
+  0%, 100% { transform: scale(1); }
+  12%      { transform: scale(1.12); }
+  32%      { transform: translateX(-4.5%) scale(1.12); }
+  60%      { transform: translateX(4.5%) scale(1.12); }
+  82%      { transform: scale(1.12); }
+  94%      { transform: scale(1); }
+}
+
+/* ============================================================
+   === agentesecreto animation === (Agente Secreto)
+   ============================================================ */
+.ag-lens {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  will-change: transform, opacity;
+  animation: agLens 14s ease-in-out infinite;
+}
+.ag-photo {
+  position: absolute;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transform-origin: 0 0;
+  will-change: transform;
+  animation: agPhoto 14s ease-in-out infinite;
+}
+.ag-lens::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: inset 0 0 0 4px var(--rim);
+}
+@keyframes agLens {
+  0%   { transform: translate(var(--ox0), var(--oy0)); opacity: 0; }
+  8%   { transform: translate(var(--ox0), var(--oy0)); opacity: 1; }
+  30%  { transform: translate(var(--ox1), var(--oy1)); opacity: 1; }
+  52%  { transform: translate(var(--ox2), var(--oy2)); opacity: 1; }
+  70%  { transform: translate(var(--ox3), var(--oy3)); opacity: 1; }
+  92%  { transform: translate(var(--ox0), var(--oy0)); opacity: 1; }
+  100% { transform: translate(var(--ox0), var(--oy0)); opacity: 0; }
+}
+@keyframes agPhoto {
+  0%, 8%, 92%, 100% { transform: translate(var(--ix0), var(--iy0)) scale(1.7); }
+  30%  { transform: translate(var(--ix1), var(--iy1)) scale(1.7); }
+  52%  { transform: translate(var(--ix2), var(--iy2)) scale(1.7); }
+  70%  { transform: translate(var(--ix3), var(--iy3)) scale(1.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-scrap, .rc-shadow, .md-spin, .mm-glance, .ag-lens, .ag-photo { animation: none; }
+  .rc-shadow { animation: rcSoft 8s ease-in-out infinite; }
+  .md-eye-l { animation: mdBreathe 8s ease-in-out infinite; }
+  .md-eye-r { animation: mdBreathe 10s ease-in-out infinite; }
+  .mm-glance { animation: mdBreathe 9s ease-in-out infinite; }
+  .ag-lens { transform: translate(var(--ox1), var(--oy1)); animation: agBreathe 8s ease-in-out infinite; }
+  .ag-photo { transform: translate(var(--ix1), var(--iy1)) scale(1.7); }
+}
+@keyframes rcSoft { 0%, 100% { opacity: 0; } 50% { opacity: 0.3; } }
+@keyframes mdBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+@keyframes agBreathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+/* ============================================================
    ARTIST GALLERIES — chips, heading, zoom prev/next
    ============================================================ */
 .app-bar-group { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
