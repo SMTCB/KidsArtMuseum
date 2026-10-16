@@ -2,7 +2,7 @@
 
 A tiny digital museum for kids' art. Each piece sits on a hallway wall; tapping it opens a close-up view with a bespoke "creative layer" — a custom animation, a palette pulled from the painting, and tap-to-discover hotspots.
 
-> **Status:** static site. No build step. Deploys to Vercel as-is.
+> **Status:** static prototype (`prototype-v1`). The source runs with no build step; Vercel runs `npm run build` and serves `dist/` (QUA-11). The platform rebuild is deferred (ADR-0017).
 
 ---
 
@@ -62,8 +62,8 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
 ├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
-├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation) · check-dots.js (no dot on an animated spot)
-├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
+├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation) · check-dots.js (no dot on an animated spot) · palette.js (proposes bg + palette from the photo)
+├── docs/                   ← plan, product, design, engineering, decisions — start at docs/README.md
 └── assets/
     └── art/<id>/           ← one folder per artwork: photo.jpeg, thumb-480/960.jpeg, audio.mp3, parts/ (ADR-0016)
 ```
@@ -166,7 +166,8 @@ The plan, the product definition, and the decision log live in
 | How do I keep docs from rotting? | [`docs/DOCUMENTATION_GUIDE.md`](./docs/DOCUMENTATION_GUIDE.md) |
 
 ```bash
-node scripts/docs-lint.js
+npm run hooks   # once per clone: pre-commit runs docs-lint + check-dots (STR-04)
+npm run check   # the same two checks by hand; CI runs them on every push
 ```
 
 Checks front-matter, statuses, cross-references, index coverage, and review dates. Run it

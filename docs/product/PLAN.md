@@ -176,13 +176,13 @@ reuse a retired one.
 |---|---|---|---|---|
 | FND-01 | Track `docs/` in git | S | `now` | 155 KB of strategy work was untracked — one `git clean` from gone. |
 | FND-02 | **Rotate the GitHub PAT out of `.git/config`** | S | `todo` | A personal access token sits in plaintext in the remote URL. Prints on `git remote -v`, leaks in screen shares, travels with a folder copy. **Do this first.** |
-| FND-03 | Delete the stale `effects/` bundle | S | `todo` | A handoff package already applied in `7480864`. Two files are older than the repo copies — re-applying it would silently revert `fbc62aa`. |
-| FND-04 | Fix `README.md` drift | S | `todo` | §3 documents an obsolete workflow contradicting `CLAUDE.md`; §6 says run Squoosh by hand. |
-| FND-05 | Fix `CLAUDE.md` step numbering | S | `todo` | Two consecutive steps numbered 4. It is the operational spec. |
-| FND-06 | Fix the `art-data.js` header comment | S | `todo` | Documents an `aspect` field that does not exist; points `anim` at the wrong file. |
+| FND-03 | Delete the stale `effects/` bundle | S | `done` | Gone already (verified 2026-10-16). Original note: A handoff package already applied in `7480864`. Two files are older than the repo copies — re-applying it would silently revert `fbc62aa`. |
+| FND-04 | Fix `README.md` drift | S | `done` | Status line and docs line fixed 2026-10-16; §3 and §6 were already corrected. Original note: §3 documents an obsolete workflow contradicting `CLAUDE.md`; §6 says run Squoosh by hand. |
+| FND-05 | Fix `CLAUDE.md` step numbering | S | `done` | Already 1-10 (verified 2026-10-16). Original note: Two consecutive steps numbered 4. It is the operational spec. |
+| FND-06 | Fix the `art-data.js` header comment | S | `done` | Header already accurate (verified 2026-10-16). Original note: Documents an `aspect` field that does not exist; points `anim` at the wrong file. |
 | FND-07 | Reconcile `ART_GUIDE` §5a with `window.ANIMS` | M | `done` | Decided 2026-10-14: the 33 Sala effects are **not** eligible as an artwork `anim` (ART_GUIDE §5c). `docs-lint` now fails on an `anim` outside §5a. EXP-05 still decides what the Sala becomes. |
-| FND-08 | Exercise the intake pipeline end-to-end | M | `todo` | `intake/processed/` is empty despite 11 artworks — the archival step has never run. |
-| FND-09 | Freeze and tag the prototype | S | `todo` | Tag `prototype-v1`, mark it read-only reference in `README.md`. Prevents feature work landing in two codebases. |
+| FND-08 | Exercise the intake pipeline end-to-end | M | `done` | Rehearsed 2026-10-16 with a throwaway entry: form server saved photo and ficha, the archive move to `intake/processed/` was honoured (a duplicate name was then refused), test files removed. `processed/` is still empty because the real pieces came in through the inline route, which has no form to archive. Original note: the archival step had never run. |
+| FND-09 | Freeze and tag the prototype | S | `done` | Tag `prototype-v1` (2026-10-16). Not frozen: ADR-0017 keeps improving the prototype, so the README calls it the prototype rather than read-only. |
 
 ### STR — Strategy and documentation
 
@@ -191,7 +191,7 @@ reuse a retired one.
 | STR-01 | Decide ADR-0004 (product ambition) | — | `done` | Decided 2026-08-22: venture-scale SaaS. |
 | STR-02 | Reconcile the per-artwork cost model | M | `retired` | Closed by [ADR-0012](../decisions/0012-ai-cost-floor.md). The 20× gap existed because two documents costed two different products. **AIS-01** now produces one measured number. |
 | STR-03 | Merge the roadmaps into one canonical file | M | `done` | This document. |
-| STR-04 | Doc lint in CI | S | `todo` | `scripts/docs-lint.js` exists; wire it to a pre-commit hook and a GitHub Action. Folded into PLT-04 for the platform repo. |
+| STR-04 | Doc lint in CI | S | `done` | `.githooks/pre-commit` (enable once per clone with `npm run hooks`) and `.github/workflows/checks.yml` run `docs-lint` and `check-dots`. The Action has not run on GitHub yet; first push shows it. Folded into PLT-04 for the platform repo. |
 | STR-05 | **Write down the strategy** | L | `todo` | Target market, wedge, pricing rationale, GTM. Nothing is captured in this repo. Horizon 5 cannot be sequenced without it. |
 | STR-06 | Commission the museum visual identity | M | `done` | Delivered 2026-08-22 as `docs/design/FMB_IDENTITY_REDESIGN_V1.0/`. Direction chosen in ADR-0010. |
 | STR-07 | Commission Direção C visuals for the undesigned screens | M | `blocked` | On DES-08. ~14 screens have no drawing in either direction. |
@@ -262,7 +262,7 @@ reuse a retired one.
 | MUS-14 | Artwork edit | L | `blocked` | On MUS-07. S-24. Required under every ADR-0009 option. |
 | MUS-15 | Delete artwork, gallery, or room with confirmation | M | `blocked` | On MUS-05. |
 | MUS-16 | Skill `animar-obra`: distinctive, per-drawing animation | M | `done` | Principles and the parts contract in [ARTWORK_ANIMATION](../design/ARTWORK_ANIMATION.md). Written with `skill-creator`; verified with the Emil Kowalski review skills. Bespoke craft, not the volume path in TEMPLATE_COMPOSITION_STRATEGY. Closes with the ART_GUIDE §5/§9 update and FND-07. |
-| MUS-17 | Pilot the skill on Gato de Barro | S | `done` | Palitos (stick arms sway) approved idea; awaiting final owner approval to commit. |
+| MUS-17 | Pilot the skill on Gato de Barro | S | `done` | Palitos (stick arms sway) approved idea; committed. Since then `jogador` (Maestro), 4 Miguel routines and `check-dots` landed outside a catalogue ID. |
 
 ### UPL — Upload and intake
 
@@ -288,7 +288,7 @@ reuse a retired one.
 | AIS-02 | Golden set — the 11 artworks with accepted outputs, plus a grader | M | `todo` | Quality is a floor, not a target. Nothing swaps in below the incumbent score. |
 | AIS-03 | `ArtworkIntelligence` port and adapters | L | `blocked` | On AIS-01. No provider SDK imported anywhere else in the codebase. |
 | AIS-04 | Curator description generation | M | `blocked` | On AIS-03. |
-| AIS-05 | Palette extraction — deterministic | M | `todo` | **The highest-leverage unlock in this plan.** Palettes are currently picked by eye, by hand. Code, not a model — zero marginal cost, and it feeds all 36 effects. |
+| AIS-05 | Palette extraction — deterministic | M | `done` | `scripts/palette.js` (sharp, Lab k-means, no model, no randomness) proposes `bg` and `palette`; `--audit` compares every artwork with the photo. It proposes, the owner approves at intake. Known limit: pale or muted work on paper where the ground is not one dominant colour. Not yet fed to the 36 effects. **The highest-leverage unlock in this plan.** Palettes are currently picked by eye, by hand. Code, not a model — zero marginal cost, and it feeds all 36 effects. |
 | AIS-06 | Generated-asset cache and invalidation | M | `blocked` | On MUS-01. Without it the per-artwork budget silently becomes a per-view budget. |
 | AIS-07 | Effect suggestion from classification | M | `blocked` | On AIS-03, PLT-07. Suggest, never auto-assign. |
 | AIS-08 | Discovery-dot suggestion | M | `blocked` | On AIS-03. |

@@ -1,0 +1,4 @@
+#!/bin/sh
+# STR-04: the two checks that keep the museum honest. Enable with `npm run hooks`.
+node scripts/docs-lint.js >/dev/null || { node scripts/docs-lint.js; echo "docs-lint failed"; exit 1; }
+node scripts/check-dots.js || exit 1

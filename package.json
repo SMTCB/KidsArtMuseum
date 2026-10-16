@@ -6,7 +6,9 @@
     "build": "node scripts/build.js",
     "optimize": "node scripts/optimize.js",
     "intake": "node scripts/intake-server.js",
-    "thumbs": "node scripts/thumbs.js"
+    "thumbs": "node scripts/thumbs.js",
+    "hooks": "git config core.hooksPath .githooks",
+    "check": "node scripts/docs-lint.js && node scripts/check-dots.js"
   },
   "dependencies": {
     "sharp": "^0.33.5"

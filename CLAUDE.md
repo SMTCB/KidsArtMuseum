@@ -37,7 +37,7 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
    "$($img.Width) x $($img.Height)"
    $img.Dispose()
    ```
-5. **Sample dominant colours** — inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
+5. **Sample dominant colours** — start from `node scripts/palette.js intake/<name>.jpeg` (deterministic proposal), then inspect the image visually (use the Read tool to view it) and pick 3–6 hex colours for `palette`. The `bg` must be the single most dominant non-white, non-black colour and must also appear in `palette`.
 6. **Draft the new entry** in `window.ART` (`art-data.js`) following the schema in ART_GUIDE §1. Every required field, no inventing new keys.
 7. **Pick an `anim` routine** from ART_GUIDE §5a. Invent a new one only if no existing routine fits (follow §5b exactly if you do).
    > `window.ANIMS` also holds the 33 Sala de Experimentação effects. They are **not** eligible

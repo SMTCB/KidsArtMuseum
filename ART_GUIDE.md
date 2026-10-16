@@ -62,7 +62,7 @@ The wall theme uses the artwork's own colours — this is what makes each frame 
 
 Rules:
 
-1. **Sample, don't invent.** Open the photo, eyedropper real pixels.
+1. **Sample, don't invent.** Open the photo, eyedropper real pixels. `node scripts/palette.js <photo>` proposes a `bg` and `palette` from real pixels (`--audit` checks the whole catalogue); you still look and decide.
 2. **No greys, no whites in the swatches unless they're a deliberate element** (e.g. the doily in *LUNA*).
 3. **Hex only**, lowercase, 6 digits (`#ec3a8a`, not `#EC3A8AFF`).
 4. **`bg` must appear in `palette`** — they share at least one colour, often the first.
