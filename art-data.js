@@ -13,8 +13,8 @@ window.ART = [
     signature: "Miguel Miró",
     src: "assets/art/miro/photo.jpeg",
     w: 3648, h: 4799,
-    bg: "#1a5a9a",
-    palette: ["#b9261c", "#1a5a9a", "#e9d24a", "#f4ede0", "#0d1d33"],
+    bg: "#225f9e",
+    palette: ["#b9261c", "#225f9e", "#ccc343", "#f4ede0", "#0d1d33"],
     anim: "miro",
     dots: [
       { x: 32, y: 22, label: "Olho amarelo", detail: "Um olho que pisca" },
@@ -67,8 +67,8 @@ window.ART = [
     signature: "Miguel Matisse",
     src: "assets/art/matisse/photo.jpeg",
     w: 3334, h: 3349,
-    bg: "#bda582",
-    palette: ["#1f8fd4", "#bda582", "#9a8466"],
+    bg: "#b09778",
+    palette: ["#1f8fd4", "#b09778", "#9a8466"],
     anim: "matisse",
     dots: [
       { x: 45, y: 35, label: "Recorte", detail: "Tesoura e papel" },
@@ -85,7 +85,7 @@ window.ART = [
     src: "assets/art/eraumavez/photo.jpeg",
     w: 3942, h: 5180,
     bg: "#f1ece1",
-    palette: ["#ec6aa3", "#1a3a8a", "#e6c12a", "#f1ece1"],
+    palette: ["#d07682", "#1a3a8a", "#e6c12a", "#f1ece1"],
     anim: "story",
     dots: [
       { x: 15, y: 35, label: "Gato cor-de-rosa", detail: "Tem bigodes" },
@@ -141,8 +141,8 @@ window.ART = [
     signature: "Miguel",
     src: "assets/art/mbappe/photo.jpeg",
     w: 3737, h: 4961,
-    bg: "#c8211c",
-    palette: ["#c8211c", "#1f7a3a", "#f1ece1", "#1a2a5a", "#d68a6a"],
+    bg: "#c1181f",
+    palette: ["#c1181f", "#1f7a3a", "#f1ece1", "#1a2a5a", "#d68a6a"],
     anim: "relogio",
     medium: "Recorte e colagem",
     dots: [
@@ -181,7 +181,7 @@ window.ART = [
     src: "assets/art/luna/photo.jpeg",
     w: 777, h: 3608,
     bg: "#f4efe2",
-    palette: ["#2a6fd8", "#ec3a2a", "#e6c12a", "#3aa46a", "#ec6aa3"],
+    palette: ["#4f6ed1", "#d75441", "#e6c12a", "#82ab8b", "#cf6673"],
     anim: "luna",
     dots: [
       { x: 50, y: 5, label: "A lua", detail: "Pintura salpicada" },
@@ -200,7 +200,7 @@ window.ART = [
     src: "assets/art/diadamae/photo.jpeg",
     w: 2363, h: 3655,
     bg: "#f2c7d9",
-    palette: ["#e9a0bd", "#f7d54a", "#ec3a2a", "#3aa46a", "#5a78d8", "#a04acb"],
+    palette: ["#d18aa8", "#f7d54a", "#ec3a2a", "#8db97f", "#3980e6", "#a04acb"],
     anim: "rainbow",
     interactive: "paint-rainbow",
     dots: [
@@ -218,8 +218,8 @@ window.ART = [
     signature: "Miguel",
     src: "assets/art/portal/photo.jpeg",
     w: 1500, h: 1110,
-    bg: "#3a9a55",
-    palette: ["#3a9a55", "#e0701e", "#1f4f9a", "#c8321e", "#7a4510"],
+    bg: "#4bae6a",
+    palette: ["#4bae6a", "#c06921", "#21529d", "#c8321e", "#7a4510"],
     anim: "portal",
     dots: [
       { x: 66, y: 52, label: "O portal", detail: "Cor de chocolate" },
@@ -237,8 +237,8 @@ window.ART = [
     signature: "Muna",
     src: "assets/art/casaaranhas/photo.jpeg",
     w: 1500, h: 1119,
-    bg: "#8fd43a",
-    palette: ["#8fd43a", "#d8281e", "#f08a1e", "#5aa8d8", "#5a3a28"],
+    bg: "#abd464",
+    palette: ["#abd464", "#d8281e", "#ec871e", "#7eb0ce", "#5b3b2a"],
     anim: "teia",
     dots: [
       { x: 30, y: 65, label: "A casa", detail: "Onde moram as aranhas" },

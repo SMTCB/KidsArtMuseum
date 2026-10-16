@@ -3,6 +3,9 @@
 //
 //   node scripts/palette.js <photo>            propose bg + palette for a photo
 //   node scripts/palette.js <photo> --json     machine-readable
+//   node scripts/palette.js --snap [--write]   move each hand-picked swatch that is not in the photo to the
+//                                              nearest colour that really is (same slot, so animations that read
+//                                              palette[n] keep their role); --write edits art-data.js
 //   node scripts/palette.js --audit            compare every artwork in art-data.js with what the
 //                                              photo says (how far each hand-picked swatch is from a real colour)
 //
@@ -166,9 +169,54 @@ async function audit() {
     : "\nEvery hand-picked swatch is within ΔE 25 of a colour the photo really contains.");
 }
 
+const SNAP_FROM = 25;   // only touch a swatch this far (ΔE) from any real colour
+const SNAP_STEP = 30;   // a snap that moves the colour farther than this changes its meaning (a pen black into brown, a ball white into mud): leave it
+const SNAP_MAX = 45;    // if even the nearest real colour is farther than this, the colour is not in the painting: leave it
+
+async function snap(write) {
+  global.window = {};
+  const artFile = path.join(__dirname, "..", "art-data.js");
+  require(artFile);
+  let src = fs.readFileSync(artFile, "utf8");
+  const root = path.join(__dirname, "..");
+  for (const a of window.ART) {
+    const f0 = path.join(root, a.src.replace(/photo\.jpeg$/, "thumb-960.jpeg"));
+    const px = await pixels(fs.existsSync(f0) ? f0 : path.join(root, a.src));
+    const labs = px.map((p) => ({ p, lab: rgb2lab(...p) }));
+    const real = extract(px).swatches.map((s) => s.lab);
+    const next = a.palette.slice();
+    const notes = [];
+    a.palette.forEach((h, i) => {
+      const L = hex2lab(h);
+      if (real.length && Math.min(...real.map((e) => dE(L, e))) <= SNAP_FROM) return;
+      // the 0.4% of pixels nearest the intended colour; the most common real colour among them
+      const ranked = labs.map((q) => [dE(L, q.lab), q.p]).sort((x, y) => x[0] - y[0]);
+      const near = ranked.slice(0, Math.max(30, Math.floor(ranked.length * 0.004)));
+      if (near[0][0] > SNAP_MAX) { notes.push(`${h} kept (nothing like it in the photo)`); return; }
+      const count = new Map();
+      for (const [, q] of near) { const k = hex(...q); count.set(k, (count.get(k) || 0) + 1); }
+      const to = [...count.entries()].sort((x, y) => y[1] - x[1])[0][0];
+      if (dE(L, hex2lab(to)) > SNAP_STEP || Math.abs(L[0] - hex2lab(to)[0]) > 15 || L[0] < 25 || L[0] > 85) { notes.push(`${h} kept (nearest real colour ${to} is a different colour)`); return; }
+      if (!next.includes(to)) { next[i] = to; notes.push(`${h} -> ${to}`); }
+    });
+    const bg = a.bg === a.palette[0] || a.palette.includes(a.bg) ? next[a.palette.indexOf(a.bg)] : a.bg;
+    if (notes.length || bg !== a.bg) console.log(a.id.padEnd(14) + notes.join("   ") + (bg !== a.bg ? `   bg ${a.bg} -> ${bg}` : ""));
+    if (write && (notes.length || bg !== a.bg)) {
+      const i0 = src.indexOf(`id: "${a.id}"`);
+      const i1 = src.indexOf("dots:", i0);
+      let seg = src.slice(i0, i1);
+      seg = seg.replace(/palette:\s*\[[^\]]*\]/, "palette: " + JSON.stringify(next).replace(/","/g, '", "'));
+      if (bg !== a.bg) seg = seg.replace(`bg: "${a.bg}"`, `bg: "${bg}"`);
+      src = src.slice(0, i0) + seg + src.slice(i1);
+    }
+  }
+  if (write) fs.writeFileSync(artFile, src);
+}
+
 (async () => {
   const args = process.argv.slice(2);
   if (args.includes("--audit")) return audit();
+  if (args.includes("--snap")) return snap(args.includes("--write"));
   const file = args.find((a) => !a.startsWith("--"));
   if (!file) { console.error("uso: node scripts/palette.js <foto> [--json] | --audit"); process.exit(2); }
   const r = await propose(file);
