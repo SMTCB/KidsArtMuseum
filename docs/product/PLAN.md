@@ -326,11 +326,11 @@ reuse a retired one.
 
 | ID | Item | Size | Status | Notes |
 |---|---|---|---|---|
-| SHR-01 | Stable artwork URLs | M | `blocked` | On MUS-07. Absorbs the prototype's P1-02. |
+| SHR-01 | Stable artwork URLs | M | `blocked` | On MUS-07. Prototype stopgap shipped 2026-10-16: `/o/<id>` pages (see SHR-05). Absorbs the prototype's P1-02. |
 | SHR-02 | Unguessable public gallery link, with revoke | M | `blocked` | On MUS-02, ADR-0014. Private by default; publishing is an explicit per-gallery action. |
 | SHR-03 | Visitor view — read-only | L | `blocked` | On SHR-02. S-31. |
-| SHR-04 | Share sheet | M | `blocked` | On SHR-02. S-30. |
-| SHR-05 | Link previews and OG cards | M | `blocked` | On SHR-03. A shared museum link that unfurls as a framed artwork is the cheapest growth mechanism available. |
+| SHR-04 | Share sheet | M | `blocked` | On SHR-02. Prototype version shipped 2026-10-16: "Partilhar" in the close-up (Web Share API, link-copy fallback, canvas postal); share text is a draft. S-30. |
+| SHR-05 | Link previews and OG cards | M | `blocked` | On SHR-03. Prototype version shipped 2026-10-16: `scripts/build.js` writes `dist/o/<id>.html` with Open Graph tags; unfurl only verifiable after deploy. A shared museum link that unfurls as a framed artwork is the cheapest growth mechanism available. |
 | SHR-06 | Print view — A4/A3, artwork plus title card | M | `blocked` | On DES-05. S-10. Absorbs P1-03. |
 | SHR-07 | Watermarked export and upsell | M | `blocked` | On BIL-02. S-38 — the only monetization surface the redesign actually drew. |
 | SHR-09 | Visitor comments (name + text) on the prototype | M | `done` | Built and live 2026-10-14, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); Set-up in the design doc. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. |

@@ -112,6 +112,15 @@ Full operating procedure: `CLAUDE.md`.
 `vercel.json` handles clean URLs and cache headers. `.vercelignore` keeps `intake/` off the
 public site. Push to `main` deploys; PRs get preview URLs.
 
+## 6b. Sharing
+
+`scripts/build.js` also writes one page per artwork, `dist/o/<id>.html`, with Open Graph tags
+(`og:image` is the artwork's `thumb-960.jpeg`) and a redirect to `/#/todos/<id>`; `cleanUrls`
+serves it at `/o/<id>`. The close-up's "Partilhar" button (`ShareButton`, `gallery-core.jsx`)
+shares that URL through the Web Share API, falls back to copying it, and can send a canvas-drawn
+"postal" (photo, frame, title) as an image. The origin is the constant `ORIGIN` in `build.js`.
+If the museum is ever put behind a PIN, these pages must stay readable by link crawlers.
+
 ## 7. Known weaknesses
 
 Each is tracked as a backlog item — this list exists so they are visible in one place rather

@@ -96,6 +96,38 @@ for (const rel of copy) {
   fs.cpSync(from, path.join(dist, rel), { recursive: true });
 }
 
+
+// Share pages (layer 2): /o/<id> carries the Open Graph tags that make a pasted link unfurl as
+// the framed artwork, then sends the visitor on to the real route. Crawlers do not run scripts.
+const ORIGIN = "https://fmbart.vercel.app";
+const sandbox = { window: {} };
+require("vm").runInNewContext(fs.readFileSync(path.join(root, "art-data.js"), "utf8"), sandbox);
+const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+fs.mkdirSync(path.join(dist, "o"), { recursive: true });
+for (const a of sandbox.window.ART) {
+  const title = `${a.title} · ${a.signature || a.artist}`;
+  const desc = `${a.signature || a.artist}, ${a.age} anos. Uma obra do museu FMB · ART.`;
+  const img = `${ORIGIN}/${a.src.replace(/photo\.jpeg$/, "thumb-960.jpeg")}`;
+  const dest = `/#/todos/${a.id}`;
+  fs.writeFileSync(path.join(dist, "o", a.id + ".html"), `<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8">
+<title>${esc(title)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FMB · ART">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${ORIGIN}/o/${a.id}">
+<meta property="og:image" content="${esc(img)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta http-equiv="refresh" content="0; url=${dest}">
+<link rel="canonical" href="${ORIGIN}/o/${a.id}">
+</head><body><script>location.replace(${JSON.stringify(dest)});</script>
+<p><a href="${dest}">Abrir ${esc(a.title)}</a></p></body></html>
+`);
+}
+
 const size = (d) => fs.readdirSync(d, { withFileTypes: true }).reduce((n, e) =>
   n + (e.isDirectory() ? 0 : fs.statSync(path.join(d, e.name)).size), 0);
 console.log(`Built dist/: ${compiled} scripts compiled, ${copy.size} entries copied, ` +

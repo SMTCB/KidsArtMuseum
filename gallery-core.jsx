@@ -408,6 +408,7 @@ function ZoomModal({ art, onClose, onStep, theme }) {
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1z"/></svg>
             Comentários{nComments ? " (" + nComments + ")" : ""}
           </button>
+          <ShareButton art={art} />
           {/* ── Experimentation Room button ── */}
           <button className="zm-cta zm-cta-room" onClick={() => setShowRoom(true)}>
             🔬 Sala de Experimentação
@@ -422,6 +423,113 @@ function ZoomModal({ art, onClose, onStep, theme }) {
           <RainbowGame onClose={() => setGame(false)} />
         </div>
       )}
+    </div>
+  );
+}
+
+// ---------- Share (link + postal) ----------
+// Texto de partilha: rascunho para afinar. Duas versões, troca-se SHARE_TONE.
+const SHARE_TONE = "warm";
+const shareText = (art) => SHARE_TONE === "warm"
+  ? `Olha esta obra do ${art.artist}, ${art.age} anos: "${art.title}". Está no nosso museu.`
+  : `"${art.title}", de ${art.signature || art.artist} (${art.age} anos), no museu FMB · ART.`;
+
+// The /o/<id> page (scripts/build.js) carries the link preview. Locally it does not exist.
+const shareUrl = (art) =>
+  /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+    ? location.origin + "/#/todos/" + art.id
+    : location.origin + "/o/" + art.id;
+
+// Postal: the photo in a frame on the artwork's own ground, with title and brand. Canvas only.
+async function makePostal(art) {
+  const img = await new Promise((res, rej) => {
+    const i = new Image();
+    i.onload = () => res(i);
+    i.onerror = rej;
+    i.src = art.src;
+  });
+  const W = 1080, pad = 70, label = 190;
+  const maxW = W - pad * 2, maxH = 1100;
+  const k = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
+  const pw = Math.round(img.naturalWidth * k), ph = Math.round(img.naturalHeight * k);
+  const H = pad + ph + label + pad / 2;
+  const c = document.createElement("canvas");
+  c.width = W; c.height = H;
+  const g = c.getContext("2d");
+  g.fillStyle = art.bg; g.fillRect(0, 0, W, H);
+  g.fillStyle = "rgba(0,0,0,0.28)"; g.fillRect(0, 0, W, H);
+  const x = (W - pw) / 2;
+  g.fillStyle = "#f6f1e6"; g.fillRect(x - 18, pad - 18, pw + 36, ph + 36);
+  g.drawImage(img, x, pad, pw, ph);
+  g.textAlign = "center"; g.fillStyle = "#f6f1e6";
+  g.font = "600 52px Georgia, serif";
+  g.fillText(art.title, W / 2, pad + ph + 92, maxW);
+  g.font = "500 28px system-ui, sans-serif";
+  g.fillText(`${art.signature || art.artist}  ·  ${art.age} anos`, W / 2, pad + ph + 140, maxW);
+  g.font = "600 20px system-ui, sans-serif";
+  g.globalAlpha = 0.7;
+  g.fillText("FMB · ART", W / 2, H - 28);
+  return new Promise((res) => c.toBlob(res, "image/png"));
+}
+
+function ShareButton({ art }) {
+  const [open, setOpen] = useState(false);
+  const [note, setNote] = useState("");
+  useEffect(() => { setOpen(false); setNote(""); }, [art.id]);
+  useEffect(() => {
+    if (!note) return;
+    const t = setTimeout(() => setNote(""), 2500);
+    return () => clearTimeout(t);
+  }, [note]);
+
+  const sendLink = async () => {
+    setOpen(false);
+    const data = { title: art.title, text: shareText(art), url: shareUrl(art) };
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(data.text + " " + data.url);
+      setNote("Ligação copiada");
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+      setNote("Não foi possível partilhar");
+    }
+  };
+
+  const sendPostal = async () => {
+    setOpen(false);
+    setNote("A preparar o postal...");
+    try {
+      const blob = await makePostal(art);
+      const file = new File([blob], art.id + ".png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: art.title, text: shareText(art) });
+        setNote("");
+      } else {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = art.id + ".png";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        setNote("Postal guardado");
+      }
+    } catch (e) {
+      setNote(e && e.name === "AbortError" ? "" : "Não foi possível criar o postal");
+    }
+  };
+
+  return (
+    <div className="zm-share">
+      <button className="zm-btn" onClick={() => setOpen(v => !v)} aria-expanded={open} aria-haspopup="true">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></svg>
+        Partilhar
+      </button>
+      {open && (
+        <div className="zm-share-menu" role="menu">
+          <button role="menuitem" onClick={sendLink}>Enviar a ligação</button>
+          <button role="menuitem" onClick={sendPostal}>Enviar como postal</button>
+        </div>
+      )}
+      <span className="zm-share-note" role="status" aria-live="polite">{note}</span>
     </div>
   );
 }

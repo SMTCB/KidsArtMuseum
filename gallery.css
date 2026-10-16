@@ -2174,3 +2174,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (prefers-reduced-motion: reduce) {
   .zm-comments, .zm-comment { animation: none; }
 }
+
+/* === share === */
+.zm-share { position: relative; align-self: flex-start; display: flex; flex-direction: column; gap: 6px; }
+.zm-share-menu {
+  display: flex; flex-direction: column; gap: 2px; padding: 6px;
+  border-radius: 14px; border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(20,18,16,0.92); backdrop-filter: blur(8px);
+}
+.zm-share-menu button {
+  min-height: 44px; padding: 10px 14px; border: 0; border-radius: 10px;
+  background: transparent; color: #f1ece1; text-align: left;
+  font: 600 13px/1 "Inter", system-ui, sans-serif; letter-spacing: 0.03em; cursor: pointer;
+}
+.zm-share-menu button:hover, .zm-share-menu button:focus-visible { background: rgba(255,255,255,0.14); outline: none; }
+.zm-share-note { min-height: 14px; font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em; color: #f7d54a; }
+.zm-share-note:empty { display: none; }
+@media (max-width: 768px) { .zm-share { align-self: center; } }
