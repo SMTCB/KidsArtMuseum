@@ -62,7 +62,7 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
 ├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
-├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation)
+├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation) · check-dots.js (no dot on an animated spot)
 ├── docs/                   ← roadmap, backlog, sprints, decisions — start at docs/README.md
 └── assets/
     └── art/<id>/           ← one folder per artwork: photo.jpeg, thumb-480/960.jpeg, audio.mp3, parts/ (ADR-0016)

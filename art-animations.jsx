@@ -547,6 +547,45 @@ function MaestroAnimation({ art }) {
 }
 
 // ============================================================
+// JOGADOR — the footballer keeps the ball up between his two green boots
+// ============================================================
+// Ball diameter and the points it visits (centres, % of the image), measured on Manuel's
+// drawing: left boot, up to the belt, right boot with a small bounce, and back again.
+const JOGADOR_BALL = { d: 11 };
+const JOGADOR_PATH = [
+  { x: 41, y: 81 }, { x: 53, y: 60 }, { x: 68, y: 79 }, { x: 69, y: 73 },
+  { x: 70, y: 80 }, { x: 54, y: 62 }
+];
+
+function JogadorAnimation({ art }) {
+  const D = JOGADOR_BALL.d, P = JOGADOR_PATH;
+  const side = D;                       // ball side, % of image width
+  const sideH = D * art.w / art.h;      // the same side as % of image height
+  const vars = {};
+  P.forEach((p, k) => {
+    // translate() % is relative to the ball itself, so convert image % to ball sides
+    vars["--bx" + k] = ((p.x - P[0].x) / side * 100) + "%";
+    vars["--by" + k] = ((p.y - P[0].y) / sideH * 100) + "%";
+  });
+  return (
+    <div className="anim-layer jogador-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="jg-ball" style={{
+        left: (P[0].x - side / 2) + "%", top: (P[0].y - sideH / 2) + "%",
+        width: side + "%", height: sideH + "%", ...vars
+      }}>
+        <svg viewBox="0 0 100 100" className="jg-ball-svg">
+          <circle cx="50" cy="50" r="46" fill={art.palette[2]} stroke={art.palette[1]} strokeWidth="6" />
+          <polygon points="50,30 69,44 62,66 38,66 31,44" fill={art.palette[1]} />
+          <path d="M50 30 L50 6 M69 44 L92 36 M62 66 L76 88 M38 66 L24 88 M31 44 L8 36"
+            stroke={art.palette[1]} strokeWidth="6" strokeLinecap="round" fill="none" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // PORTAL — tap the drawn door and it swings open on a swirl of ideas
 // ============================================================
 // Door box, as % of the image (matches Miguel's drawing).
@@ -822,6 +861,7 @@ window.ANIMS = {
   matisse: MatisseAnimation,
   mbappe: MbappeAnimation,
   maestro: MaestroAnimation,
+  jogador: JogadorAnimation,
   story: StoryAnimation,
   sculpture: SculptureAnimation,
   luna: LunaAnimation,
@@ -838,7 +878,7 @@ window.ANIMS = {
 
 Object.assign(window, {
   MiroAnimation, SunflowersAnimation, WarholAnimation, PortraitAnimation,
-  MatisseAnimation, MbappeAnimation, MaestroAnimation,
+  MatisseAnimation, MbappeAnimation, MaestroAnimation, JogadorAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation

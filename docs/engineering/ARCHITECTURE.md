@@ -47,7 +47,7 @@ shared globals:
 | # | File | Effect |
 |---|---|---|
 | 1 | `art-data.js` | Defines `window.ART` (17 artworks) and `window.HALLWAY_ORDER` |
-| 2 | `art-animations.jsx` | Creates `window.ANIMS` with **19** bespoke routines |
+| 2 | `art-animations.jsx` | Creates `window.ANIMS` with **20** bespoke routines |
 | 3–7 | `art-templates{,-3,-4}.jsx`, `art-painters{,-2}.jsx` | `Object.assign` **33** more effects onto `window.ANIMS`, and build `window.TEMPLATE_LIBRARY` |
 | 8 | `experimentation-room.jsx` | Reads `TEMPLATE_LIBRARY` + `ANIMS` |
 | 9 | `gallery-core.jsx` | The shell — **must be last** |

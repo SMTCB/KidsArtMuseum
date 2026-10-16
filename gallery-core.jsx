@@ -519,8 +519,11 @@ function autoWallLayout(pieces, vw, vh) {
   const n = pieces.length;
   if (!n) return {};
   const ratios = pieces.map((a) => a.w / a.h);
-  const availW = vw * 0.8, availH = vh * 0.56;
-  const gx = vw * 0.035, gy = vh * 0.08;
+  // Use nearly the whole room: below the heading (~150px) and above the hint pill (~64px).
+  // gy leaves space for the plaque under each piece.
+  const topStart = Math.max(vh * 0.22, 150);
+  const availW = vw * 0.92, availH = vh - topStart - 64;
+  const gx = vw * 0.02, gy = 46;
   let best = null;
   for (let k = 1; k <= Math.min(n, 5); k++) {
     const target = ratios.reduce((x, y) => x + y, 0) / k;
@@ -536,11 +539,11 @@ function autoWallLayout(pieces, vw, vh) {
       const rs = row.reduce((x, i) => x + ratios[i], 0);
       h = Math.min(h, (availW - (row.length - 1) * gx) / rs);
     });
-    h = Math.min(h, vh * 0.42);
+    h = Math.min(h, vh * 0.5);
     if (!best || h > best.h) best = { h, rows };
   }
   const { h, rows } = best;
-  const top0 = vh * 0.26 + (availH - (rows.length * h + (rows.length - 1) * gy)) / 2;
+  const top0 = topStart + (availH - (rows.length * h + (rows.length - 1) * gy)) / 2;
   const out = {};
   rows.forEach((row, ri) => {
     const rw = row.reduce((x, i) => x + h * ratios[i], 0) + (row.length - 1) * gx;

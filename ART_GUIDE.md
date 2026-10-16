@@ -103,10 +103,11 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `rainbow` | Scratch-to-reveal canvas overlay | Drawings where colour itself is the subject |
 | `mbappe` | Collage pieces drift; gentle sparkles | Magazine cut-outs / collages |
 | `maestro` | Figure's arms pulse like conducting | Standing figure portraits |
+| `jogador` | A drawn football is kept up between the figure's two boots, rising to the belt and bouncing once on the way back | A standing figure that is a footballer or has feet to juggle with. Ball size and path are `JOGADOR_BALL` and `JOGADOR_PATH` in `art-animations.jsx` — re-measure for a new drawing |
 | `portal` | The drawn door swings open (tap to toggle, also loops by itself) on a swirl of palette colours; "ideas" float out | A door or opening as the subject. Door box is `PORTAL_BOX` in `art-animations.jsx` — re-measure for a new drawing |
 | `teia` | Spiders slowly drop and climb on silk threads from the top edge | Webs, scribbled tangles, anything "alive with tiny creatures" |
 | `relogio` | A second hand sweeps the dial of a cut-out watch (30 s a turn); the collage stays still | A collage with a watch or clock someone pointed at. Dial centre and hand are `RELOGIO` in `art-animations.jsx` — re-measure for a new drawing |
-| `palitos` | Two stick arms, cut from the photo, sway out of step around the shoulder (±1.5°) | A figure with sticks or limbs that read as arms. Boxes are `PALITOS` in `art-animations.jsx` — re-measure for a new drawing |
+| `palitos` | Two stick arms, cut from the photo, sway out of step around the shoulder (±4°, about 2 s a swing) | A figure with sticks or limbs that read as arms. Boxes are `PALITOS` in `art-animations.jsx` — re-measure for a new drawing |
 | `rasgacola` | Four torn scraps lift off the collage one after another, cast a soft shadow, and settle back | A collage with torn paper pieces. Boxes and shapes are `RASGACOLA` in `art-animations.jsx` — re-measure for a new drawing |
 | `meiodemim` | The two drawn eyes, cut from the photo, turn slowly in opposite directions | A face or portrait with round, separate eyes. Discs are `MEIODEMIM_EYES` in `art-animations.jsx` — re-measure for a new drawing |
 | `maemargarida` | The eye of the collaged face glances left and right | A collage face with one eye that can look. Box is `MARGARIDA_EYE` in `art-animations.jsx` — re-measure for a new drawing |
@@ -164,6 +165,7 @@ The hotspots that say "tap me to learn what this is". They are how the child nar
 - **3 or 4 dots.** Never 1, never 6+.
 - **Coordinates are percentages of the image**, not pixels. `x` and `y` ∈ [0, 100].
 - **Spread them.** No two dots within 15% of each other on either axis.
+- **Never on an animated spot.** A number must not sit on the part that moves (an eye that turns, a scrap that lifts, the lens path): it hides the surprise. Put it on a neighbouring thing, at least 4% clear of the box. `node scripts/check-dots.js` enforces it; when you add or re-measure a routine, add its boxes to `SPOTS` there.
 - **Each dot points to something a child would actually point at**: a face, a hand, a signature, a weird shape — not an art-historical observation.
 - **`label` is the noun** ("Bigodes"). **`detail` is the *gossip*** ("Cosido com fio vermelho"). Both stay short.
 
@@ -219,7 +221,7 @@ Before you commit, walk this list:
 - [ ] `palette` has 3–6 hexes, all sampled from the painting.
 - [ ] `signature` follows the patterns in §4.
 - [ ] `anim` is a key from the §5a table (never a Sala effect, §5c). A genuinely new routine passes the three tests (§5b), is registered in both maps in `art-animations.jsx`, and has its §5a row.
-- [ ] 3 or 4 dots, spread out, child-pointable, short labels.
+- [ ] 3 or 4 dots, spread out, child-pointable, short labels, none on an animated spot (`node scripts/check-dots.js`).
 - [ ] `id` added to `HALLWAY_ORDER`.
 - [ ] Local preview: tap the new frame, click each dot, watch the animation for one full loop.
 - [ ] Diff is *only* the new entry + new asset(s). No drive-by edits to other pieces.

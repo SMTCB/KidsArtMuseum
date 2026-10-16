@@ -1716,6 +1716,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ============================================================
+   === jogador animation === (O Maestro de Boné Preto, a footballer)
+   ============================================================ */
+.jogador-stage { background: #f4ede0; }
+.jg-ball {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+  animation: jgJuggle 8s linear infinite;
+}
+.jg-ball-svg { display: block; width: 100%; height: 100%; }
+@keyframes jgJuggle {
+  0%, 6%  { transform: translate(var(--bx0), var(--by0)) rotate(0deg);   animation-timing-function: ease-out; }
+  24%     { transform: translate(var(--bx1), var(--by1)) rotate(200deg); animation-timing-function: ease-in; }
+  42%     { transform: translate(var(--bx2), var(--by2)) rotate(400deg); animation-timing-function: ease-out; }
+  48%     { transform: translate(var(--bx3), var(--by3)) rotate(450deg); animation-timing-function: ease-in; }
+  54%     { transform: translate(var(--bx4), var(--by4)) rotate(500deg); animation-timing-function: linear; }
+  58%     { transform: translate(var(--bx4), var(--by4)) rotate(500deg); animation-timing-function: ease-out; }
+  72%     { transform: translate(var(--bx5), var(--by5)) rotate(700deg); animation-timing-function: ease-in; }
+  90%, 100% { transform: translate(var(--bx0), var(--by0)) rotate(900deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jg-ball { animation: jgBreathe 5s ease-in-out infinite; transform: translate(var(--bx0), var(--by0)); }
+}
+@keyframes jgBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
+
+/* ============================================================
    === portal animation === (Um Portal Para a Minha Cabeça)
    ============================================================ */
 .portal-door {
@@ -1774,10 +1800,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   pointer-events: none;
   will-change: transform;
 }
-.palito-l { animation: palitoSwayL 5.5s ease-in-out infinite; }
-.palito-r { animation: palitoSwayR 6.5s ease-in-out infinite; }
-@keyframes palitoSwayL { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
-@keyframes palitoSwayR { 0%, 100% { transform: rotate(1.5deg); } 50% { transform: rotate(-1.5deg); } }
+.palito-l { animation: palitoSwayL 1.8s ease-in-out infinite; }
+.palito-r { animation: palitoSwayR 2.1s ease-in-out infinite; }
+@keyframes palitoSwayL { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes palitoSwayR { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
 @media (prefers-reduced-motion: reduce) {
   .palito-l, .palito-r { animation-name: palitoBreathe; }
 }
@@ -1844,24 +1870,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: absolute;
   pointer-events: none;
   will-change: transform;
+  transform-origin: 0% 100%;
   animation: rcLift 16s ease-in-out infinite;
 }
 .rc-face { position: absolute; inset: 0; background-repeat: no-repeat; }
 .rc-shadow {
   position: absolute; inset: 0;
-  filter: blur(4px);
+  filter: blur(6px);
   opacity: 0;
-  transform: translate(5px, 8px);
+  transform: translate(10px, 16px);
   animation: rcShadow 16s ease-in-out infinite;
 }
 .rc-shape { position: absolute; inset: 0; }
 @keyframes rcLift {
-  0%, 30%, 100% { transform: scale(1); }
-  8%, 20%       { transform: scale(1.045); }
+  0%, 24%, 100% { transform: translateY(0) rotate(0) scale(1); }
+  7%, 17%       { transform: translateY(-4%) rotate(-5deg) scale(1.14); }
 }
 @keyframes rcShadow {
-  0%, 30%, 100% { opacity: 0; }
-  8%, 20%       { opacity: 0.5; }
+  0%, 24%, 100% { opacity: 0; }
+  7%, 17%       { opacity: 0.85; }
 }
 
 /* ============================================================

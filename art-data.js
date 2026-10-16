@@ -146,7 +146,7 @@ window.ART = [
     anim: "relogio",
     medium: "Recorte e colagem",
     dots: [
-      { x: 32, y: 30, label: "Audemars Piguet", detail: "O rel\u00f3gio que o Mbap\u00e9 usa" },
+      { x: 26, y: 27, label: "Audemars Piguet", detail: "O rel\u00f3gio que o Mbap\u00e9 usa" },
       { x: 65, y: 22, label: "A casa de f\u00e9rias", detail: "Onde estaciona o carro" },
       { x: 65, y: 56, label: "M B A P", detail: "Escrito com tinta azul" },
       { x: 35, y: 85, label: "Lou\u00e7a", detail: "Recortada de uma revista" }
@@ -163,12 +163,12 @@ window.ART = [
     w: 2223, h: 2682,
     bg: "#e8f0e0",
     palette: ["#1f8a4a", "#1a1a1a", "#e8d96a", "#c8211c", "#7a3a1f"],
-    anim: "maestro",
+    anim: "jogador",
     dots: [
       { x: 50, y: 28, label: "Bon\u00e9 preto", detail: "Sempre na cabe\u00e7a" },
       { x: 27, y: 55, label: "M\u00e3o esquerda", detail: "Levantada para sa\u00fadar" },
       { x: 73, y: 55, label: "M\u00e3o direita", detail: "A acenar tamb\u00e9m" },
-      { x: 50, y: 60, label: "Camisola \u00e0s riscas", detail: "Verde e branca" }
+      { x: 50, y: 50, label: "Camisola \u00e0s riscas", detail: "Verde e branca" }
     ]
   },
   {
@@ -222,7 +222,7 @@ window.ART = [
     palette: ["#3a9a55", "#e0701e", "#1f4f9a", "#c8321e", "#7a4510"],
     anim: "portal",
     dots: [
-      { x: 48, y: 52, label: "O portal", detail: "Cor de chocolate" },
+      { x: 66, y: 52, label: "O portal", detail: "Cor de chocolate" },
       { x: 13, y: 38, label: "Risco azul", detail: "Forte, forte, forte" },
       { x: 88, y: 30, label: "Rabisco vermelho", detail: "Cor de fogo" },
       { x: 50, y: 95, label: "O carimbo", detail: "Inventarte 26/27" }
@@ -263,8 +263,8 @@ window.ART = [
     dots: [
       { x: 50, y: 11, label: "O título", detail: "Escrito à máquina" },
       { x: 43, y: 36, label: "O rosa", detail: "Um pedaço rasgado" },
-      { x: 85, y: 59, label: "O verde", detail: "Pintado à aguarela" },
-      { x: 60, y: 79, label: "O cinzento", detail: "Cola e descola" }
+      { x: 48, y: 62, label: "O lilás", detail: "Pintado à aguarela" },
+      { x: 86, y: 84, label: "O castanho", detail: "Cola e descola" }
     ]
   },
   {
@@ -281,7 +281,7 @@ window.ART = [
     medium: "Cera e fotografia",
     anim: "meiodemim",
     dots: [
-      { x: 15.5, y: 44, label: "Olho em espiral", detail: "Voltas e mais voltas" },
+      { x: 20, y: 12, label: "O cabelo", detail: "Rabiscos a voar" },
       { x: 23, y: 80, label: "A língua", detail: "Vermelha, a sair" },
       { x: 67.5, y: 48, label: "O outro lado", detail: "Metade fotografia" },
       { x: 93, y: 96, label: "O carimbo", detail: "Inventarte" }
@@ -302,7 +302,7 @@ window.ART = [
     anim: "maemargarida",
     dots: [
       { x: 58, y: 13, label: "Corações de cartão", detail: "Recortados à mão" },
-      { x: 65.4, y: 40, label: "O olho verdadeiro", detail: "Recortado de uma fotografia" },
+      { x: 66.4, y: 50, label: "O olho verdadeiro", detail: "Recortado de uma fotografia" },
       { x: 22, y: 39.5, label: "O outro olho", detail: "Desenhado com pestanas" },
       { x: 42, y: 62.5, label: "O sorriso", detail: "Traços cruzados a lápis" }
     ]
@@ -323,8 +323,8 @@ window.ART = [
     dots: [
       { x: 14, y: 32, label: "O bigode", detail: "Disfarce de agente" },
       { x: 22, y: 48, label: "Top Secret", detail: "Carimbado no processo" },
-      { x: 52, y: 45, label: "Rabiscos vermelhos", detail: "Segredos por decifrar" },
-      { x: 85, y: 27, label: "A lupa", detail: "Feita de cartão" }
+      { x: 40, y: 25, label: "Rabiscos vermelhos", detail: "Segredos por decifrar" },
+      { x: 85, y: 48, label: "A lupa", detail: "Feita de cartão" }
     ]
   }
 ];
