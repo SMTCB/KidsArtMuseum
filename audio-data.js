@@ -16,5 +16,9 @@ window.AUDIO = {
   "miro": {
     src:  "assets/art/miro/audio.mp3",
     secs: 25
+  },
+  "casaaranhas": {
+    src:  "assets/art/casaaranhas/audio.mp3",
+    secs: 20
   }
 };
