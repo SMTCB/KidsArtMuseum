@@ -13,4 +13,8 @@
 // Cada ficheiro fica na pasta da obra: assets/art/<id>/audio.mp3. Ver docs/design/AUDIO_AND_COMMENTS.md.
 // ============================================================
 window.AUDIO = {
+  "miro": {
+    src:  "assets/art/miro/audio.mp3",
+    secs: 25
+  }
 };
