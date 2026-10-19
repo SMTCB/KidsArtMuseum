@@ -132,6 +132,19 @@ const fmtTime = (s) => {
   return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
 };
 
+// Small speaker beside a title on the wall: this piece has the artist's voice (audio-data.js).
+function AudioMark({ art, badge }) {
+  if (!(window.AUDIO || {})[art.id]) return null;
+  return (
+    <span className={"art-audio-mark" + (badge ? " art-audio-badge" : "")} role="img" aria-label="Tem descrição em áudio" title="Tem descrição em áudio">
+      <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+        <path d="M3 9.5v5h3.5L11 18.5v-13L6.5 9.5z"/>
+        <path d="M14 8.5a5 5 0 0 1 0 7M16.6 5.9a9 9 0 0 1 0 12.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    </span>
+  );
+}
+
 function AudioDescription({ art }) {
   const entry = (window.AUDIO || {})[art.id];
   const audioRef = useRef(null);
@@ -554,7 +567,7 @@ function WallPiece({ art, theme, onOpen, index }) {
         </span>
       </span>
       <span className="wp-plaque">
-        <span className="wp-plaque-title">{art.title}</span>
+        <span className="wp-plaque-title">{art.title}<AudioMark art={art} /></span>
         <span className="wp-plaque-meta">{art.signature || art.artist} · {art.age} anos</span>
       </span>
     </button>
@@ -612,6 +625,7 @@ function WallPiecePin({ art, layout, onOpen, i }) {
         <span className="gw-mat">
           <img {...thumbProps(art, "(max-width: 700px) 30vw, 16vw")} alt={art.title} className="gw-img" loading="lazy" />
         </span>
+        <AudioMark art={art} badge />
       </span>
       <span className="gw-tag">
         <span className="gw-tag-title">{art.title}</span>

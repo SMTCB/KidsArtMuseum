@@ -2100,6 +2100,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   outline: 2px solid #f7d54a; outline-offset: 2px;
 }
 
+/* Speaker mark beside a wall title: the piece has an audio description */
+.art-audio-mark {
+  display: inline-block; margin-left: 0.4em;
+  font-size: 0.8em; line-height: 1; vertical-align: -0.08em;
+  opacity: 0.6;
+}
+.art-audio-mark svg { display: block; }
+/* On the salon wall titles show only on hover, so the mark sits on the frame corner instead */
+.art-audio-badge {
+  position: absolute; right: -7px; bottom: -7px; z-index: 5;
+  width: 24px; height: 24px; margin: 0; font-size: 13px; opacity: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: #f7ecd0; background: rgba(34,28,22,0.86);
+  border: 1.5px solid rgba(255,255,255,0.85); border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
 .zm-audio { display: flex; flex-direction: column; gap: 8px; align-self: stretch; }
 .zm-audio .zm-btn { align-self: flex-start; }
 .zm-audio-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.18); overflow: hidden; }

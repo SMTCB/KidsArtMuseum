@@ -34,6 +34,7 @@ schema in `ART_GUIDE.md` §1.
 | What is the control? | One text button in `.zm-label`, **"Ouvir a descrição"**, next to the Sala button. Becomes "Pausar" while playing. A thin progress bar and `0:12 / 0:40` sit under it. | Click-to-play. Never autoplay (children, shared spaces, browser policy). Text label, not an icon-only button, so it reads for a 6-year-old and a grandparent alike. |
 | Transcript? | `text` field shown under the player on a "Ler" toggle. | Accessibility (deaf and hard-of-hearing visitors, quiet rooms). The voice stays the product; the text is the fallback. |
 | What stops it? | Close, previous/next piece, opening the Sala, and the end of the file. | Audio must never outlive the piece it describes. |
+| Visible on the wall? | A small speaker mark (`AudioMark` in `gallery-core.jsx`): a round badge on the frame corner on the Parede de Galeria, inline after the title on the plaques of the hallway and Cubo Branco. Shown only for pieces with an entry in `audio-data.js`. | Visitors can tell which pieces carry the artist's voice before opening them. |
 | Conflict with animations? | None to resolve. `portrait` already uses the mic, not playback. | Verify during build. |
 
 ### Interaction states
