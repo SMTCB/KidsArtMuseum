@@ -41,6 +41,7 @@ is Sprint 1 work, not paperwork.
 | [0012](0012-ai-cost-floor.md) | **Nothing ships that we could not afford at 10,000 subscribers.** Deterministic first; all inference behind one port; Claude API for internal tooling only. | 2026-08-22 |
 | [0017](0017-stay-static-for-now.md) | **Stay static for now; improve in layers; defer the rebuild.** ADR-0011 stays proposed, reopened on a trigger (second real family, or public launch). | 2026-10-14 |
 | [0016](0016-asset-layout.md) | **One folder per artwork** (`assets/art/<id>/`: photo, audio, reference, parts). | 2026-10-14 |
+| [0018](0018-printed-album-manual-test.md) | **Printed album: a manual test before any store.** A PDF generator in the repo (POD-01), then manual pre-orders. Build a store only if those sell. Scoped exception to the POD icebox. | 2026-10-24 |
 | [0015](0015-prototype-comments-backend.md) | **A minimal comments backend for the prototype** (Vercel Function + Upstash). Exception to 0001, scoped to the prototype. | 2026-10-13 |
 
 ## Superseded

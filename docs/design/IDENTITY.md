@@ -75,6 +75,14 @@ Layered, physical, in this order from outside in: **7px carvalho · 4px preto ·
 - Metadata is quiet and monospaced — it is a museum label, not a caption.
 - Motion is slow. The wall does not animate; the artwork does, and only in Explore.
 
+### Print: the album
+
+The printed album (POD-01, [ADR-0018](../decisions/0018-printed-album-manual-test.md)) is
+Cubo Branco on paper. It uses the same tokens and the same three type families, and latão is the
+only accent, used as the plaque edge is used on the wall. The approved comps are
+`album/identidade.html`. The generator's styles are `scripts/album.css`, sized in units of 1/100 of
+the trimmed page width so that the two stay comparable.
+
 ---
 
 ## 3. Direção C — Corredor

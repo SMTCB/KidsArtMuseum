@@ -7,6 +7,7 @@
     "optimize": "node scripts/optimize.js",
     "intake": "node scripts/intake-server.js",
     "thumbs": "node scripts/thumbs.js",
+    "album": "node scripts/album.js",
     "hooks": "git config core.hooksPath .githooks",
     "check": "node scripts/docs-lint.js && node scripts/check-dots.js"
   },
@@ -14,6 +15,7 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "qrcode-generator": "^1.4.4"
   }
 }

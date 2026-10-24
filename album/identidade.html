@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Álbum · Identidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  /* Cubo Branco tokens (docs/design/IDENTITY.md §2) */
+  :root {
+    --fundo: #FAF8F2; --parede: #EEF0EA; --tinta: #1A1A1A; --meta: #77736a;
+    --latao: #B3924F; --carvalho: #B98A55; --pano: #23231f;
+    --page: min(42vw, 520px); --u: calc(var(--page) / 100);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #2b2a27; color: var(--tinta); font-family: "EB Garamond", serif; }
+  header.note { max-width: 1100px; margin: 0 auto; padding: 40px 24px 8px; color: #d9d4c7; }
+  header.note h1 { font: italic 600 34px "Cormorant Garamond", serif; margin: 0 0 6px; }
+  header.note p { font: 12px/1.6 "JetBrains Mono", monospace; letter-spacing: .04em; margin: 0; color: #a39d8f; max-width: 760px; }
+  section { padding: 56px 16px 12px; display: flex; flex-direction: column; align-items: center; }
+  .label { font: 11px "JetBrains Mono", monospace; letter-spacing: .22em; text-transform: uppercase; color: #a39d8f; margin-top: 18px; text-align: center; max-width: 860px; line-height: 1.7; }
+  .label b { color: #e9e2cf; font-weight: 500; }
+  .spread { display: flex; box-shadow: 0 40px 80px rgba(0,0,0,.45); position: relative; }
+  .spread::after { /* gutter shadow */
+    content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 60px; transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,.10) 45%, rgba(0,0,0,.16) 50%, rgba(0,0,0,.10) 55%, transparent);
+    pointer-events: none;
+  }
+  .page { width: var(--page); aspect-ratio: 210 / 297; background: var(--fundo); position: relative; overflow: hidden; }
+  .mono { font-family: "JetBrains Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+  .folio { position: absolute; bottom: calc(var(--u) * 4.5); font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); }
+  .left .folio { left: calc(var(--u) * 9); } .right .folio { right: calc(var(--u) * 9); }
+
+  /* ---------- Cover ---------- */
+  .book { perspective: 1800px; }
+  .cover {
+    width: calc(var(--page) * 1.04); aspect-ratio: 210 / 297; position: relative;
+    transform: rotateY(-14deg) rotateX(4deg); transform-origin: left center;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at 30% 20%, #34332d, var(--pano) 70%);
+    border-radius: 2px 6px 6px 2px;
+    box-shadow: inset 10px 0 18px rgba(0,0,0,.5), inset calc(var(--u) * 2.2) 0 0 rgba(255,255,255,.03),
+                30px 40px 70px rgba(0,0,0,.6), 6px 0 0 #e8e2d2, 8px 2px 0 #d5cfbf;
+  }
+  .cover .recess { /* debossed window with the tipped-in plate */
+    position: absolute; left: calc(var(--u) * 24); right: calc(var(--u) * 24); top: calc(var(--u) * 14); aspect-ratio: 3648 / 4799;
+    background: #1b1b18; box-shadow: inset 0 2px 6px rgba(0,0,0,.8), 0 1px 0 rgba(255,255,255,.06);
+    padding: calc(var(--u) * 1.6);
+  }
+  .cover .recess img { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 1px 3px rgba(0,0,0,.5); }
+  .foil {
+    background: linear-gradient(100deg, #8c6d32 0%, #e7cf8e 30%, #b3924f 48%, #f3e3ad 62%, #9b7a3a 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cover .name { position: absolute; left: 0; right: 0; bottom: calc(var(--u) * 21); text-align: center; font: italic 600 calc(var(--u) * 13)/1 "Cormorant Garamond", serif; }
+  .cover .sub { position: absolute; left: 0; right: 0; bottom: calc(var(--u) * 14.5); text-align: center; font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
+  .cover .mark { position: absolute; left: 0; right: 0; bottom: calc(var(--u) * 6); text-align: center; font: calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .5em; }
+
+  /* ---------- Endpapers: mosaic of the child's own details ---------- */
+  .endpaper { background: #efe9dc; padding: calc(var(--u) * 5); display: grid; grid-template-columns: repeat(5, 1fr); gap: calc(var(--u) * 1.6); align-content: center; }
+  .endpaper .tile { aspect-ratio: 1; background-repeat: no-repeat; filter: saturate(.92); box-shadow: 0 0 0 calc(var(--u) * .3) #fff; }
+
+  /* ---------- Title + index ---------- */
+  .exlibris { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: calc(var(--u) * 14); }
+  .exlibris .ex { font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; letter-spacing: .4em; color: var(--meta); }
+  .exlibris .rule { width: calc(var(--u) * 18); height: 1px; background: var(--latao); margin: calc(var(--u) * 6) 0; }
+  .exlibris .line { width: calc(var(--u) * 60); border-bottom: 1px solid #cfc8b6; height: calc(var(--u) * 9); margin-bottom: calc(var(--u) * 2); }
+  .exlibris .hand { font: italic 500 calc(var(--u) * 4.6) "Cormorant Garamond", serif; color: var(--meta); }
+  .exlibris .ed { margin-top: calc(var(--u) * 10); font: calc(var(--u) * 2)/2 "JetBrains Mono", monospace; letter-spacing: .25em; color: var(--meta); }
+  .index { padding: calc(var(--u) * 16) calc(var(--u) * 12); }
+  .index h2 { font: italic 600 calc(var(--u) * 8.5)/1 "Cormorant Garamond", serif; margin: 0 0 calc(var(--u) * 1.5); }
+  .index .kick { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .3em; text-transform: uppercase; color: var(--meta); margin-bottom: calc(var(--u) * 9); }
+  .index ol { list-style: none; padding: 0; margin: 0; }
+  .index li { display: flex; align-items: baseline; gap: calc(var(--u) * 2.4); padding: calc(var(--u) * 1.9) 0; border-bottom: 1px solid #e3ddcf; }
+  .index .n { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--latao); width: calc(var(--u) * 9); }
+  .index .t { font: italic 500 calc(var(--u) * 3.6) "Cormorant Garamond", serif; flex: 1; }
+  .index .p { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; color: var(--meta); }
+
+  /* ---------- Catalogue entry ---------- */
+  .entry { padding: calc(var(--u) * 15) calc(var(--u) * 11) calc(var(--u) * 12); display: flex; flex-direction: column; }
+  .entry .cat { font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .32em; color: var(--latao); }
+  .entry h2 { font: italic 600 calc(var(--u) * 9)/1.02 "Cormorant Garamond", serif; margin: calc(var(--u) * 3) 0 calc(var(--u) * 4); }
+  .entry dl { display: grid; grid-template-columns: calc(var(--u) * 22) 1fr; gap: calc(var(--u) * 1.4) calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 7); font: calc(var(--u) * 2.15) "JetBrains Mono", monospace; letter-spacing: .08em; }
+  .entry dt { color: var(--meta); text-transform: uppercase; letter-spacing: .2em; }
+  .entry blockquote { margin: 0 0 calc(var(--u) * 7); font: italic calc(var(--u) * 3.5)/1.45 "EB Garamond", serif; color: #3a3833; border-left: 1px solid var(--latao); padding-left: calc(var(--u) * 4); }
+  .entry blockquote small { display: block; margin-top: calc(var(--u) * 2); font: normal calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); text-transform: uppercase; }
+  .entry .notes { counter-reset: n; margin: 0 0 auto; padding: 0; list-style: none; }
+  .entry .notes li { display: flex; gap: calc(var(--u) * 2.5); align-items: baseline; font: calc(var(--u) * 3.1)/1.5 "EB Garamond", serif; }
+  .entry .notes li span { font: calc(var(--u) * 2) "JetBrains Mono", monospace; color: var(--latao); width: calc(var(--u) * 4); }
+  .swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 6); }
+  .swatches i { width: calc(var(--u) * 7); height: calc(var(--u) * 7); border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .qr { display: flex; gap: calc(var(--u) * 4); align-items: center; border-top: 1px solid #e3ddcf; padding-top: calc(var(--u) * 5); }
+  .qr .code { width: calc(var(--u) * 17); height: calc(var(--u) * 17); flex: none; }
+  .qr .code svg { width: 100%; height: 100%; display: block; }
+  .qr .say { font: italic 600 calc(var(--u) * 4.6)/1.1 "Cormorant Garamond", serif; }
+  .qr .how { font: calc(var(--u) * 1.9)/1.7 "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 1.4); }
+
+  /* ---------- Plate with margin callouts ---------- */
+  .plate { display: flex; align-items: center; justify-content: flex-start; padding: 0 0 0 calc(var(--u) * 10); }
+  .plate .art { position: relative; width: calc(var(--u) * 68); box-shadow: 0 calc(var(--u) * .4) calc(var(--u) * 1.4) rgba(0,0,0,.18); }
+  .plate .art img { width: 100%; display: block; }
+  .plate svg.lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .plate .num { position: absolute; left: calc(100% + calc(var(--u) * 9)); transform: translateY(-50%); font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; color: var(--tinta); white-space: nowrap; }
+  .plate .num::before { content: ""; display: inline-block; width: calc(var(--u) * 1.2); }
+
+  /* ---------- Detail (the lens) ---------- */
+  .detail { background-repeat: no-repeat; }
+  .detail .cap { position: absolute; left: calc(var(--u) * 7); bottom: calc(var(--u) * 7); background: var(--fundo); padding: calc(var(--u) * 3) calc(var(--u) * 4); }
+  .detail .cap .mono { font-size: calc(var(--u) * 1.9); color: var(--latao); }
+  .detail .cap div:last-child { font: italic 600 calc(var(--u) * 5.4) "Cormorant Garamond", serif; margin-top: calc(var(--u) * 1); }
+  .lens { position: absolute; width: calc(var(--u) * 50); left: calc(var(--u) * 25); top: calc(var(--u) * 22); overflow: hidden; }
+  .lens img { width: 100%; display: block; }
+  .lens .ring { position: absolute; border: 1px solid var(--tinta); border-radius: 50%; transform: translate(-50%, -50%); }
+  .lensnote { position: absolute; left: calc(var(--u) * 12); right: calc(var(--u) * 12); bottom: calc(var(--u) * 16); text-align: center; font: italic calc(var(--u) * 3.4)/1.5 "EB Garamond", serif; color: #3a3833; }
+
+  /* ---------- Colour finale ---------- */
+  .colours { padding: calc(var(--u) * 15) calc(var(--u) * 10) calc(var(--u) * 12); display: flex; flex-direction: column; }
+  .colours h2 { font: italic 600 calc(var(--u) * 8)/1.05 "Cormorant Garamond", serif; margin: 0 0 calc(var(--u) * 2); }
+  .colours .kick { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .3em; text-transform: uppercase; color: var(--meta); margin-bottom: calc(var(--u) * 8); }
+  .bars { display: flex; gap: calc(var(--u) * 1.6); flex: 1; }
+  .bar { flex: 1; display: flex; flex-direction: column; gap: calc(var(--u) * .6); }
+  .bar i { flex: 1; }
+  .bar b { font: 400 calc(var(--u) * 1.7) "JetBrains Mono", monospace; color: var(--meta); text-align: center; margin-top: calc(var(--u) * 1.4); }
+  .colophon { padding: 0 calc(var(--u) * 14); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .colophon .qr { flex-direction: column; border: 0; }
+  .colophon .qr .code { width: calc(var(--u) * 26); height: calc(var(--u) * 26); }
+  .colophon p { font: calc(var(--u) * 2)/2 "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 10); }
+
+  @media (max-width: 760px) {
+    :root { --page: 44vw; }
+  }
+</style>
+</head>
+<body>
+<header class="note">
+  <h1>Álbum do Museu · proposta de identidade</h1>
+  <p>Conceito: o livro trata a criança como um artista a sério. É o catálogo da obra completa,
+  ao estilo de um museu, impresso em papel e ligado ao museu vivo por um QR em cada obra.
+  Mockup em ecrã com obras reais do Miguel; a cor do pano, do papel e da folha dourada confirma-se
+  com uma prova da gráfica.</p>
+</header>
+
+<section>
+  <div class="book"><div class="cover">
+    <div class="recess"><img src="../assets/art/miro/thumb-960.jpeg" alt=""></div>
+    <div class="name foil">Miguel</div>
+    <div class="sub foil">Obra completa · 2026</div>
+    <div class="mark foil">FMB · ART</div>
+  </div></div>
+  <div class="label"><b>1 · Capa</b> · capa dura em pano escuro, uma obra colada numa janela rebaixada
+  (o gesto clássico dos livros de arte), nome em folha dourada</div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="page left endpaper" id="endL"></div>
+    <div class="page right endpaper" id="endR"></div>
+  </div>
+  <div class="label"><b>2 · Guardas</b> · um mosaico feito dos pormenores dos desenhos do próprio artista.
+  Cada livro tem guardas únicas, geradas a partir das bolinhas de descoberta</div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="page left exlibris">
+      <div class="ex">EX · LIBRIS</div>
+      <div class="rule"></div>
+      <div class="line"></div>
+      <div class="hand">Este livro pertence a</div>
+      <div class="ed">Exemplar n.º 1 de 3<br>Impresso em Portugal</div>
+    </div>
+    <div class="page right index">
+      <h2>Obras</h2>
+      <div class="kick">Miguel · 6 anos · 2026</div>
+      <ol id="index"></ol>
+    </div>
+  </div>
+  <div class="label"><b>3 · Ex-libris e índice</b> · tiragem numerada (uma por avó, avô, tio), lista de
+  obras com número de catálogo</div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="page left entry" id="entry"></div>
+    <div class="page right plate" id="plate"></div>
+  </div>
+  <div class="label"><b>4 · A obra</b> · à esquerda a ficha de catálogo (palavras da criança, cores, pormenores);
+  à direita a obra, com as bolinhas do museu transformadas em chamadas de margem.
+  O QR abre esta obra a mexer</div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="page left detail" id="detail"><div class="cap"><div class="mono" id="dcat"></div><div id="dlabel"></div></div></div>
+    <div class="page right" id="lensPage"></div>
+  </div>
+  <div class="label"><b>5 · Pormenor</b> · uma página inteira ampliada num pormenor, como nos catálogos
+  de pintura; ao lado, onde fica na obra</div>
+</section>
+
+<section>
+  <div class="spread">
+    <div class="page left colours">
+      <h2>As cores do Miguel</h2>
+      <div class="kick">Todas as cores das obras deste livro</div>
+      <div class="bars" id="bars"></div>
+      <div class="folio">—</div>
+    </div>
+    <div class="page right colophon">
+      <div class="qr"><div class="code" id="qrRoom"></div>
+        <div><div class="say">A sala do Miguel</div><div class="how">Todas as obras, a mexer</div></div></div>
+      <p>FMB · ART<br>Museu de arte de criança<br>Fotografias sem retoque: a obra é a obra</p>
+    </div>
+  </div>
+  <div class="label"><b>6 · Fecho</b> · a paleta de todas as obras como um único gráfico, e a sala inteira
+  num QR</div>
+</section>
+
+<script src="../art-data.js"></script>
+<script>
+  const ART = window.ART, artist = "Miguel";
+  const pieces = window.HALLWAY_ORDER.map(id => ART.find(a => a.id === id)).filter(a => a && a.artist === artist);
+  const cat = i => "Cat. " + String(i + 1).padStart(2, "0");
+  const photo = a => `../assets/art/${a.id}/thumb-960.jpeg`;
+  const origin = "https://fmb-art.vercel.app"; // confirmar o domínio público
+
+  function qr(el, url) {
+    const q = qrcode(0, "M"); q.addData(url); q.make();
+    el.innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    el.querySelector("svg").querySelector("path").setAttribute("fill", "#1A1A1A");
+  }
+
+  // background crop centred on a dot: zoom z, position from the dot's % coords
+  function crop(el, a, d, z) {
+    el.style.backgroundImage = `url(${photo(a)})`;
+    el.style.backgroundSize = (z * 100) + "% auto";
+    const ar = a.w / a.h, boxAr = el.clientWidth / el.clientHeight || 1;
+    el.style.backgroundSize = ar >= boxAr ? `auto ${z * 100}%` : `${z * 100}% auto`;
+    el.style.backgroundPosition = `${d.x}% ${d.y}%`;
+  }
+
+  // Endpapers
+  const tiles = pieces.flatMap(a => a.dots.map(d => [a, d]));
+  ["endL", "endR"].forEach((id, k) => {
+    const host = document.getElementById(id);
+    for (let i = 0; i < 35; i++) {
+      const [a, d] = tiles[(i * 3 + k * 7) % tiles.length];
+      const t = document.createElement("div"); t.className = "tile"; host.appendChild(t);
+      requestAnimationFrame(() => crop(t, a, d, 4));
+    }
+  });
+
+  // Index
+  document.getElementById("index").innerHTML = pieces.map((a, i) =>
+    `<li><span class="n">${String(i + 1).padStart(2, "0")}</span><span class="t">${a.title}</span><span class="p">${7 + i * 2}</span></li>`).join("");
+
+  // Entry + plate for the cover piece
+  const a = pieces.find(p => p.id === "miro"), ai = pieces.indexOf(a);
+  document.getElementById("entry").innerHTML = `
+    <div class="cat">${cat(ai)}</div>
+    <h2>${a.title}</h2>
+    <dl><dt>Artista</dt><dd>${a.signature || a.artist}</dd><dt>Idade</dt><dd>${a.age} anos</dd>
+        <dt>Ano</dt><dd>${a.year}</dd><dt>Técnica</dt><dd>${a.medium || "Guache sobre papel"}</dd></dl>
+    <blockquote>«Ele é vermelho porque está zangado, mas só um bocadinho.»<small>O Miguel, sobre esta obra · exemplo</small></blockquote>
+    <div class="swatches">${a.palette.map(c => `<i style="background:${c}"></i>`).join("")}</div>
+    <ol class="notes">${a.dots.map((d, i) => `<li><span>${i + 1}</span>${d.label}</li>`).join("")}</ol>
+    <div class="qr"><div class="code" id="qrPiece"></div>
+      <div><div class="say">Esta obra mexe.</div><div class="how">Aponta a câmara do telemóvel</div></div></div>
+    <div class="folio">${8 + ai * 2}</div>`;
+  qr(document.getElementById("qrPiece"), `${origin}/#/${a.artist}/${a.id}`);
+
+  const plate = document.getElementById("plate");
+  plate.innerHTML = `<div class="art"><img src="${photo(a)}" alt=""><svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div><div class="folio">${9 + ai * 2}</div>`;
+  const art = plate.querySelector(".art"), svg = art.querySelector("svg");
+  // labels sit in the outer margin, spread so they never collide
+  const order = a.dots.map((d, i) => ({ d, i })).sort((p, q) => p.d.y - q.d.y);
+  let last = -100;
+  order.forEach(o => { o.ly = Math.max(o.d.y, last + 8); last = o.ly; });
+  order.forEach(o => {
+    svg.insertAdjacentHTML("beforeend",
+      `<polyline points="${o.d.x},${o.d.y} 104,${o.ly} 112,${o.ly}" fill="none" stroke="#1A1A1A" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+    art.insertAdjacentHTML("beforeend",
+      `<span class="ring" style="position:absolute;left:${o.d.x}%;top:${o.d.y}%;width:calc(var(--u) * 2.2);height:calc(var(--u) * 2.2);border:1px solid #1A1A1A;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(255,255,255,.85)"></span>
+       <span class="num" style="top:${o.ly}%">${o.i + 1}</span>`);
+  });
+
+  // Detail (lens)
+  const da = pieces.find(p => p.id === "eraumavez"), dd = da.dots[1];
+  const det = document.getElementById("detail");
+  document.getElementById("dcat").textContent = `${cat(pieces.indexOf(da))} · Pormenor`;
+  document.getElementById("dlabel").textContent = dd.label;
+  requestAnimationFrame(() => crop(det, da, dd, 3.2));
+  document.getElementById("lensPage").innerHTML = `
+    <div class="lens"><img src="${photo(da)}" alt="">
+      <span class="ring" style="left:${dd.x}%;top:${dd.y}%;width:30%;aspect-ratio:1;border:1.5px solid #1A1A1A;box-shadow:0 0 0 2px #FAF8F2,0 0 0 999px rgba(250,248,242,.62)"></span></div>
+    <div class="lensnote">${da.title}<br><span class="mono" style="font-size:calc(var(--u) * 1.9);color:#77736a">${da.signature || da.artist} · ${da.age} anos · ${da.year}</span></div>
+    <div class="folio">${10 + pieces.indexOf(da) * 2}</div>`;
+
+  // Colour finale
+  document.getElementById("bars").innerHTML = pieces.map((p, i) =>
+    `<div class="bar">${p.palette.map(c => `<i style="background:${c}"></i>`).join("")}<b>${String(i + 1).padStart(2, "0")}</b></div>`).join("");
+  qr(document.getElementById("qrRoom"), `${origin}/#/${artist}`);
+</script>
+</body>
+</html>

@@ -140,6 +140,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 | Add an artist gallery | Nothing — a new `artist` value in `art-data.js` gets its own chip and `#/<artist>` route (`index.html`) |
 | Add a theme tab | `index.html` → `THEMES` array + a new theme block in `gallery.css` |
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |
+| Make a printed album | `npm run album -- Miguel` writes `album/out/<slug>/miolo.pdf` + `capa.pdf`. Put full-resolution photos in `album/originais/<id>.jpeg` first if you have them. POD-01, ADR-0018 |
 
 ---
 

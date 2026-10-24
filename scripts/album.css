@@ -1,0 +1,105 @@
+/* Printed album — page styles for scripts/album.js.
+   The look is album/identidade.html (Cubo Branco, docs/design/IDENTITY.md). Sizes are in --u,
+   1/100 of the trimmed page width, so the two stay comparable. --pw/--ph/--b come from the script. */
+@page { size: 216mm 303mm; margin: 0; }
+:root { --fundo: #FAF8F2; --tinta: #1A1A1A; --meta: #77736a; --latao: #B3924F; --pano: #23231f; --linha: #e3ddcf; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { color: var(--tinta); font-family: "EB Garamond", serif; }
+.mono { font-family: "JetBrains Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+
+.page { width: var(--pw); height: var(--ph); position: relative; overflow: hidden; background: var(--fundo); break-after: page; }
+.trim { position: absolute; left: var(--b); top: var(--b); width: calc(var(--pw) - 2 * var(--b)); height: calc(var(--ph) - 2 * var(--b)); }
+.folio { position: absolute; bottom: calc(var(--b) + var(--u) * 4.5); font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); }
+.folio.l { left: calc(var(--b) + var(--u) * 9); } .folio.r { right: calc(var(--b) + var(--u) * 9); }
+.kick { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .3em; text-transform: uppercase; color: var(--meta); }
+
+/* Ex-libris */
+.exlibris { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.exlibris .ex { font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; letter-spacing: .4em; color: var(--meta); }
+.exlibris .rule { width: calc(var(--u) * 18); height: .3mm; background: var(--latao); margin: calc(var(--u) * 6) 0; }
+.exlibris .line { width: calc(var(--u) * 60); border-bottom: .2mm solid #cfc8b6; height: calc(var(--u) * 9); margin-bottom: calc(var(--u) * 2); }
+.exlibris .hand { font: italic 500 calc(var(--u) * 4.6) "Cormorant Garamond", serif; color: var(--meta); }
+.exlibris .ed { margin-top: calc(var(--u) * 10); font: calc(var(--u) * 2)/2 "JetBrains Mono", monospace; letter-spacing: .25em; color: var(--meta); }
+
+/* Endpapers: crops of the artist's own details */
+.k-endpaper { background: #efe9dc; }
+.endpaper .tile { position: absolute; background-repeat: no-repeat; box-shadow: 0 0 0 calc(var(--u) * .3) #fff; }
+
+/* Title page */
+.titlepage { display: flex; flex-direction: column; justify-content: center; padding: 0 calc(var(--u) * 14); }
+.titlepage h1 { font: italic 600 calc(var(--u) * 17)/1 "Cormorant Garamond", serif; margin: calc(var(--u) * 5) 0 calc(var(--u) * 4); }
+.titlepage .sub { font: calc(var(--u) * 2.4) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
+.titlepage .count { margin-top: calc(var(--u) * 14); padding-top: calc(var(--u) * 3); border-top: .3mm solid var(--latao); width: calc(var(--u) * 40);
+  font: italic calc(var(--u) * 3.4) "EB Garamond", serif; color: var(--meta); }
+
+/* Index */
+.index { padding: calc(var(--u) * 16) calc(var(--u) * 12); }
+.index h2 { font: italic 600 calc(var(--u) * 8.5)/1 "Cormorant Garamond", serif; margin: 0 0 calc(var(--u) * 1.5); }
+.index .kick { margin-bottom: calc(var(--u) * 9); }
+.index ol { list-style: none; padding: 0; margin: 0; }
+.index li { display: flex; align-items: baseline; gap: calc(var(--u) * 2.4); padding: calc(var(--u) * 1.9) 0; border-bottom: .2mm solid var(--linha); }
+.index ol.dense li { padding: calc(var(--u) * 1.1) 0; }
+.index .n { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--latao); width: calc(var(--u) * 9); }
+.index .t { font: italic 500 calc(var(--u) * 3.6) "Cormorant Garamond", serif; flex: 1; }
+.index .p { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; color: var(--meta); }
+
+/* Catalogue entry */
+.entry { padding: calc(var(--u) * 15) calc(var(--u) * 11) calc(var(--u) * 14); display: flex; flex-direction: column; }
+.entry .cat { font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .32em; color: var(--latao); }
+.entry h2 { font: italic 600 calc(var(--u) * 9)/1.02 "Cormorant Garamond", serif; margin: calc(var(--u) * 3) 0 calc(var(--u) * 5); }
+.entry dl { display: grid; grid-template-columns: calc(var(--u) * 22) 1fr; gap: calc(var(--u) * 1.4) calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 8); font: calc(var(--u) * 2.15) "JetBrains Mono", monospace; letter-spacing: .08em; }
+.entry dt { color: var(--meta); text-transform: uppercase; letter-spacing: .2em; }
+.entry dd { margin: 0; }
+.swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 7); }
+.swatches i { width: calc(var(--u) * 7); height: calc(var(--u) * 7); border-radius: 50%; box-shadow: inset 0 0 0 .2mm rgba(0,0,0,.08); }
+.entry .notes { margin: 0 0 auto; padding: 0; list-style: none; }
+.entry .notes li { display: flex; gap: calc(var(--u) * 2.5); align-items: baseline; font: calc(var(--u) * 3.1)/1.4 "EB Garamond", serif; margin-bottom: calc(var(--u) * 1.6); }
+.entry .notes li span { font: calc(var(--u) * 2) "JetBrains Mono", monospace; color: var(--latao); width: calc(var(--u) * 4); flex: none; }
+.entry .notes em { display: block; font-size: calc(var(--u) * 2.6); color: var(--meta); }
+.qr { display: flex; gap: calc(var(--u) * 4); align-items: center; border-top: .2mm solid var(--linha); padding-top: calc(var(--u) * 5); }
+.qr svg { flex: none; display: block; }
+.say { font: italic 600 calc(var(--u) * 4.6)/1.1 "Cormorant Garamond", serif; }
+.how { font: calc(var(--u) * 1.9)/1.7 "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 1.4); }
+
+/* Plate with margin callouts */
+.plate .art { position: absolute; left: calc(var(--u) * 10); box-shadow: 0 .6mm 2.4mm rgba(0,0,0,.18); }
+.plate .art img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.plate .art svg { position: absolute; left: 0; top: 0; overflow: visible; }
+.plate polyline { fill: none; stroke: var(--tinta); stroke-width: .25; }
+.plate circle { fill: none; stroke: var(--tinta); stroke-width: .25; }
+.plate circle.halo { stroke: rgba(255,255,255,.85); stroke-width: .8; }
+.plate .num { position: absolute; transform: translateY(-50%); font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; white-space: nowrap; }
+
+/* Detail: a full-bleed crop, and where it sits in the work */
+.k-detail { background: none; }
+.detail { position: absolute; inset: 0; background-repeat: no-repeat; }
+.cap { position: absolute; left: calc(var(--u) * 7); bottom: calc(var(--u) * 7); background: var(--fundo); padding: calc(var(--u) * 3) calc(var(--u) * 4); }
+.cap .mono { font-size: calc(var(--u) * 1.9); color: var(--latao); }
+.cap .lbl { font: italic 600 calc(var(--u) * 5.4) "Cormorant Garamond", serif; margin-top: calc(var(--u) * 1); }
+.lens { position: absolute; overflow: hidden; }
+.lens img { width: 100%; height: 100%; display: block; }
+.lens .window { position: absolute; outline: .4mm solid var(--tinta); box-shadow: 0 0 0 .6mm var(--fundo), 0 0 0 200mm rgba(250,248,242,.62); }
+.lensnote { position: absolute; left: calc(var(--u) * 12); right: calc(var(--u) * 12); bottom: calc(var(--u) * 16); text-align: center; font: italic calc(var(--u) * 3.4)/1.5 "EB Garamond", serif; color: #3a3833; }
+.lensnote .mono { font-size: calc(var(--u) * 1.9); color: var(--meta); font-style: normal; }
+
+/* Colour finale */
+.colours { padding: calc(var(--u) * 15) calc(var(--u) * 10) calc(var(--u) * 14); display: flex; flex-direction: column; }
+.colours h2 { font: italic 600 calc(var(--u) * 8)/1.05 "Cormorant Garamond", serif; margin: 0 0 calc(var(--u) * 2); }
+.colours .kick { margin-bottom: calc(var(--u) * 8); }
+.bars { display: flex; gap: calc(var(--u) * 1.6); flex: 1; }
+.bar { flex: 1; display: flex; flex-direction: column; gap: calc(var(--u) * .6); }
+.bar i { flex: 1; }
+.bar b { font: 400 calc(var(--u) * 1.7) "JetBrains Mono", monospace; color: var(--meta); text-align: center; margin-top: calc(var(--u) * 1.4); flex: none; }
+.colophon { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.colophon .roomqr { margin-bottom: calc(var(--u) * 5); }
+.colophon p { font: calc(var(--u) * 2)/2 "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 10); }
+
+/* Front cover (flat: on a cloth case the name is foil and the plate is tipped in by the binder) */
+.page.cover { background: var(--pano); }
+.cover .recess { position: absolute; top: calc(var(--u) * 14); background: #1b1b18; padding: calc(var(--u) * 1.6); box-shadow: inset 0 .5mm 1.6mm rgba(0,0,0,.8); }
+.cover .recess img { display: block; }
+.cover .name, .cover .sub, .cover .mark { position: absolute; left: 0; right: 0; text-align: center; color: var(--latao); }
+.cover .name { bottom: calc(var(--u) * 21); font: italic 600 calc(var(--u) * 13)/1 "Cormorant Garamond", serif; }
+.cover .sub { bottom: calc(var(--u) * 14.5); font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
+.cover .mark { bottom: calc(var(--u) * 6); font: calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .5em; }

@@ -40,3 +40,7 @@ uploads/
 
 # Build output (scripts/build.js)
 dist/
+
+# Printed album (scripts/album.js): generated PDFs and full-resolution originals
+album/out/
+album/originais/

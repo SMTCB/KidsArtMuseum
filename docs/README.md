@@ -54,7 +54,7 @@ down anywhere (**STR-05**).
 
 | Doc | Status | Purpose |
 |---|---|---|
-| [decisions/README.md](decisions/README.md) | `canonical` | The decision log. **6 open, 7 accepted, 2 superseded.** |
+| [decisions/README.md](decisions/README.md) | `canonical` | The decision log. **7 open, 10 accepted, 1 superseded.** |
 | [ADR-TEMPLATE.md](decisions/ADR-TEMPLATE.md) | — | Copy this to start a new one. |
 
 ## Design

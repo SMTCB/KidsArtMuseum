@@ -391,6 +391,13 @@ masterpiece print, NFC smart frame, configurator, checkout and shipping, order t
 (S-39–S-45). Highest-margin line in `PLATFORM_DEFINITION.md` and the one most likely to be a
 distraction before there are subscribers.
 
+**One scoped exception, [ADR-0018](../decisions/0018-printed-album-manual-test.md):** a printed
+album tested by hand before any store.
+
+| ID | Item | Size | Status | Notes |
+|---|---|---|---|---|
+| POD-01 | Printed album: PDF generator | M | `done` | 2026-10-24. `npm run album -- <Artista> [ano] [--tiragem N]` (`scripts/album.js`, `scripts/album.css`). It writes `album/out/<slug>/miolo.pdf` + `capa.pdf` (A4 + 3 mm bleed, headless Chrome). Contents: entries, plates with callouts, details, colour finale, and QR codes to `/o/<id>`. Identity: `album/identidade.html`. Phase 2 (manual pre-orders) is owner work. |
+
 ### Retired legacy IDs
 
 Retained so old commit messages remain readable. **Never reused.**
@@ -538,3 +545,4 @@ gets rewritten against what they actually say, and Horizon 5 gets sequenced from
 |---|---|---|
 | 0 | Ground control | *in progress* |
 | ADR-0017 detour (2026-10-14) | Improve the static prototype in layers instead of the rebuild | QUA-11 build (esbuild, `dist/`), UPL-11 owner-run intake form, QUA-12 thumbnails and `srcset`, all done. Sprints 2-9 stay paused; ADR-0011 reopens on a second real family or a public launch. |
+| ADR-0018 (2026-10-24) | Test a printed album by hand before any store | POD-01 generator done (Miguel: 13 works, 40 pages). Next: manual pre-orders to the testing families. |
