@@ -574,41 +574,9 @@ function WallPiece({ art, theme, onOpen, index }) {
   );
 }
 
-// ---------- Salon-style gallery wall (theme: wall) ----------
-// Pieces are absolutely positioned on a fixed-ratio wall. No scroll.
-// Click any piece to zoom into the regular ZoomModal.
-// Top-aligned in loose rows so different aspect ratios stay neat.
-// l: % of board width (top-left edge); t: cqh (= % of board height);
-// w: cqh — height is derived from the image's natural aspect ratio.
-const WALL_LAYOUT = {
-  // top-left positioning. l: % of board width; t: % of board height;
-  // w: % of board width. Height is derived via CSS aspect-ratio on the frame.
-  // Three loose rows, top edge ~6–8%, ~37–43%, ~66–69%. Each piece is at most
-  // ~24% of the board tall at 16:10 (about 27% at 16:9), so rows never touch.
-  // Row 1
-  warhol:        { l: 4.0,  t: 6,  w: 10.4 },
-  miro:          { l: 19.6, t: 8,  w: 11.4 },
-  vangogh:       { l: 36.3, t: 6,  w: 10.5 },
-  eraumavez:     { l: 52.0, t: 7,  w: 11.4 },
-  mbappe:        { l: 68.7, t: 6,  w: 11.3 },
-  rasgacola:     { l: 85.2, t: 8,  w: 10.8 },
-  // Row 2
-  portrait:      { l: 4.0,  t: 37, w: 8.2 },
-  matisse:       { l: 19.0, t: 41, w: 12.5 },
-  luna:          { l: 38.3, t: 37, w: 3.2 },
-  diadamae:      { l: 48.2, t: 38, w: 9.7 },
-  clay:          { l: 64.7, t: 37, w: 10.5 },
-  meiodemim:     { l: 82.0, t: 43, w: 14 },
-  // Row 3
-  portal:        { l: 4.0,  t: 67, w: 14 },
-  casaaranhas:   { l: 24.6, t: 68, w: 14 },
-  manuelfigure:  { l: 45.1, t: 66, w: 12.4 },
-  maemargarida:  { l: 64.1, t: 66, w: 10.3 },
-  agentesecreto: { l: 81.0, t: 69, w: 15 },
-  // Row 4 (below the gaps under row 3)
-  sernormal:     { l: 12.0, t: 86, w: 11 },
-  outono:        { l: 78.0, t: 86, w: 11 }
-};
+// ---------- Gallery wall (theme: wall) ----------
+// "Todos" flows into rows of equal height and scrolls (flowWallLayout); artist galleries
+// fit one screen (autoWallLayout). Click any piece to zoom into the regular ZoomModal.
 
 function WallPiecePin({ art, layout, onOpen, i }) {
   return (
@@ -616,7 +584,7 @@ function WallPiecePin({ art, layout, onOpen, i }) {
       className={"gw-piece gw-piece-" + art.id + " wp-anim-" + art.anim}
       style={{
         left: layout.l + "%",
-        top: layout.t + "%",
+        top: layout.tpx != null ? layout.tpx + "px" : layout.t + "%",
         width: layout.w + "%",
         "--ratio": `${art.w} / ${art.h}`,
         "--i": i
@@ -686,6 +654,43 @@ function autoWallLayout(pieces, vw, vh) {
   return out;
 }
 
+// "Todos": pieces flow into rows of equal height that fill the wall's width, and the wall
+// grows downward (scrolls) as the collection does. No hand placement, nothing is clipped.
+// Positions: l = % of board width, tpx = px from the board's top; the board gets `height`.
+function flowWallLayout(pieces, vw, vh) {
+  const ratios = pieces.map((a) => a.w / a.h);
+  const side = Math.max(vw * 0.05, 24);
+  const availW = vw - 2 * side;
+  const gx = Math.max(vw * 0.02, 18), gy = 64;
+  const target = Math.min(Math.max(vh * 0.27, 150), 270);
+  const top0 = 128, bottom = 130; // clear the app bar above and the hint pill below
+  const rows = [[]];
+  let sum = 0;
+  ratios.forEach((r, i) => {
+    const cur = rows[rows.length - 1];
+    if (cur.length && (sum + r) * target + cur.length * gx > availW) { rows.push([]); sum = 0; }
+    rows[rows.length - 1].push(i);
+    sum += r;
+  });
+  const out = {};
+  let y = top0;
+  rows.forEach((row, ri) => {
+    const rs = row.reduce((x, i) => x + ratios[i], 0);
+    const fit = (availW - (row.length - 1) * gx) / rs;
+    // the last row keeps a natural height instead of stretching a few pieces across the wall
+    const h = ri === rows.length - 1 ? Math.min(fit, target) : Math.min(fit, target * 1.25);
+    const rw = rs * h + (row.length - 1) * gx;
+    let x = (vw - rw) / 2;
+    row.forEach((i) => {
+      const w = h * ratios[i];
+      out[pieces[i].id] = { l: (x / vw) * 100, tpx: y, w: (w / vw) * 100 };
+      x += w + gx;
+    });
+    y += h + gy;
+  });
+  return { layouts: out, height: y - gy + bottom };
+}
+
 function useViewport() {
   const [vp, setVp] = useState({ w: window.innerWidth, h: window.innerHeight });
   useEffect(() => {
@@ -698,10 +703,11 @@ function useViewport() {
 
 function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
   const vp = useViewport();
-  // "Todos" keeps the hand-hung salon layout; artist galleries are automatic.
-  const layouts = heading ? autoWallLayout(pieces, vp.w, vp.h) : WALL_LAYOUT;
+  // Artist galleries (few pieces) fit one screen; "Todos" flows into rows and scrolls.
+  const flow = heading ? null : flowWallLayout(pieces, vp.w, vp.h);
+  const layouts = heading ? autoWallLayout(pieces, vp.w, vp.h) : flow.layouts;
   return (
-    <div className={"gallery-wall theme-" + theme}>
+    <div className={"gallery-wall theme-" + theme + (heading ? "" : " gallery-wall-flow")}>
       {heading && (
         <div className="gw-heading">
           <h1 className="gw-heading-name">{heading.name}</h1>
@@ -709,7 +715,7 @@ function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
         </div>
       )}
       <div className="gw-room">
-        <div className={"gw-board" + (heading ? "" : " gw-board-salon")}>
+        <div className={"gw-board" + (heading ? "" : " gw-board-flow")} style={flow ? { height: flow.height + "px" } : undefined}>
           {pieces.map((art, i) => {
             const layout = layouts[art.id];
             if (!layout) return null;

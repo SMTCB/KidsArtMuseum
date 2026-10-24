@@ -31,9 +31,9 @@ Every piece is one entry in `window.ART` (inside `art-data.js`). The schema is f
 }
 ```
 
-Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, **and** give it a slot in `WALL_LAYOUT` in `gallery-core.jsx` (the Parede de Galeria skips any piece without one). Optionally add a `.gw-piece-<id> .gw-frame` rule in `gallery.css`.
+Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, and the Parede de Galeria hangs it automatically. Optionally add a `.gw-piece-<id> .gw-frame` rule in `gallery.css`.
 
-The `artist` value also drives the per-artist galleries: each distinct name becomes a chip in the app bar and a `#/<artist>` route (`#/<artist>/<id>` opens a piece). Artist galleries are laid out automatically, so only the "Todos" wall needs the hand-placed `WALL_LAYOUT` slot.
+The `artist` value also drives the per-artist galleries: each distinct name becomes a chip in the app bar and a `#/<artist>` route (`#/<artist>/<id>` opens a piece). Both walls are laid out automatically: artist galleries fit one screen (`autoWallLayout`), "Todos" flows into rows of equal height and scrolls (`flowWallLayout`), so a new piece needs no slot.
 
 ---
 

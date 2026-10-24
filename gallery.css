@@ -534,13 +534,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   inset: 0;
   z-index: 3;
 }
-/* The hand-hung "Todos" layout is tuned for 16:10. On a wider window (or a tall one) the board
-   keeps that ratio, centred, so the pieces keep their relative sizes and never overlap. */
-.gw-board-salon {
-  inset: auto; left: 50%; top: 50%;
-  width: min(100%, 160vh); height: min(100%, 62.5vw);
-  transform: translate(-50%, -50%);
-}
+/* "Todos": the wall scrolls and the board is as tall as its rows (height set inline). */
+.gallery-wall-flow { overflow-y: auto; overflow-x: hidden; }
+.gallery-wall-flow .gw-room { position: relative; inset: auto; container-type: normal; }
+.gallery-wall-flow .gw-board { position: relative; inset: auto; width: 100%; }
 
 /* Hide all chrome from the scrolling-hallway theme when on wall */
 .theme-wall .hall-bg,

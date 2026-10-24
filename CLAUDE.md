@@ -50,7 +50,6 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
    - Make the wall thumbnails: `npm run thumbs` (writes `thumb-480.jpeg` and `thumb-960.jpeg` beside the photo, QUA-12); commit them with the piece
    - If the intake has an audio description: `intake/<name>.mp3` → `assets/art/<id>/audio.mp3`, plus one entry in `audio-data.js`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`
-   - Add a slot for it in `WALL_LAYOUT` in `gallery-core.jsx` (otherwise the wall theme hides it)
    - Archive the form: `intake/<name>.md` → `intake/processed/<name>.md`
    - Commit with a short message, e.g. `Add: Gato Cubista (Miguel)`
    - Push to `main` (Vercel auto-deploys)
