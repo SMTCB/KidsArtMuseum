@@ -604,7 +604,10 @@ const WALL_LAYOUT = {
   casaaranhas:   { l: 24.6, t: 68, w: 14 },
   manuelfigure:  { l: 45.1, t: 66, w: 12.4 },
   maemargarida:  { l: 64.1, t: 66, w: 10.3 },
-  agentesecreto: { l: 81.0, t: 69, w: 15 }
+  agentesecreto: { l: 81.0, t: 69, w: 15 },
+  // Row 4 (below the gaps under row 3)
+  sernormal:     { l: 12.0, t: 86, w: 11 },
+  outono:        { l: 78.0, t: 86, w: 11 }
 };
 
 function WallPiecePin({ art, layout, onOpen, i }) {

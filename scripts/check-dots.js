@@ -38,6 +38,17 @@ const SPOTS = {
         out.push({ l: P[i][0] + (P[i + 1][0] - P[i][0]) * t - d / 2, t: P[i][1] + (P[i + 1][1] - P[i][1]) * t - hh / 2, w: d, h: hh });
     return out;
   })(),
+  sernormal: [{ l: 58.75, t: 40.6, w: 14.85, h: 7.55 }, { l: 77.8, t: 35.6, w: 13.7, h: 10.1 }],
+  outono: (() => {
+    // buds are ~6% long; each fall is sampled along its path, as boxes the size of a leaf
+    const a = byId.outono, W = a.w, H = a.h, d = 100 * 110 / W, hh = 100 * 110 / H;
+    const out = [];
+    [[170, 110], [400, 62], [800, 55], [990, 300], [135, 260]].forEach(([x, y]) => out.push({ l: 100 * (x - 110) / W, t: 100 * (y - 110) / H, w: 2 * d, h: 2 * hh }));
+    [[1470, 290, -170, 860], [1470, 290, -110, 840], [1830, 335, 80, 800]].forEach(([x, y, dx, dy]) => {
+      for (let t = 0; t <= 1.001; t += 0.1) out.push({ l: 100 * (x + dx * t - 110) / W, t: 100 * (y + dy * t - 110) / H, w: 2 * d, h: 2 * hh });
+    });
+    return out;
+  })(),
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
   mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }]

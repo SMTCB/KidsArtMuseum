@@ -326,6 +326,44 @@ window.ART = [
       { x: 40, y: 25, label: "Rabiscos vermelhos", detail: "Segredos por decifrar" },
       { x: 85, y: 48, label: "A lupa", detail: "Feita de cartão" }
     ]
+  },
+  {
+    id: "sernormal",
+    title: "Ser Diferente É Normal",
+    artist: "Muna",
+    age: 4,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/sernormal/photo.jpeg",
+    w: 2000, h: 1390,
+    bg: "#5b6f82",
+    palette: ["#5b6f82", "#b88087", "#8d3030", "#513623", "#412330"],
+    anim: "palitos",
+    dots: [
+      { x: 27, y: 50, label: "O ursinho", detail: "De orelhas redondas" },
+      { x: 50, y: 36, label: "Cara amarela", detail: "Sorri de lado" },
+      { x: 79, y: 25, label: "Orelhas roxas", detail: "Quase um coelho" },
+      { x: 66, y: 94, label: "A frase", detail: "Ser diferente é normal" }
+    ]
+  },
+  {
+    id: "outono",
+    title: "Duas Árvores de Outono",
+    artist: "Muna",
+    age: 4,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/outono/photo.jpeg",
+    w: 2000, h: 1428,
+    bg: "#6b4a34",
+    palette: ["#6b4a34", "#6daa65", "#3d7544", "#4c874f", "#526046"],
+    anim: "outono",
+    dots: [
+      { x: 24, y: 22, label: "Folhas verdes", detail: "Pinceladas largas" },
+      { x: 38, y: 62, label: "O tronco", detail: "Castanho até ao fundo" },
+      { x: 82, y: 55, label: "Árvore pelada", detail: "Já sem uma folha" },
+      { x: 56, y: 95, label: "A assinatura", detail: "Com a data de hoje" }
+    ]
   }
 ];
 
@@ -334,5 +372,6 @@ window.HALLWAY_ORDER = [
   "miro", "vangogh", "warhol", "portrait", "matisse",
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
   "portal", "casaaranhas",
-  "rasgacola", "meiodemim", "maemargarida", "agentesecreto"
+  "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
+  "sernormal", "outono"
 ];

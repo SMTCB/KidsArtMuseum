@@ -664,18 +664,25 @@ function TeiaAnimation({ art }) {
 // ============================================================
 // PALITOS — the two stick arms sway from the shoulder, out of step
 // ============================================================
-// Stick boxes, as % of the image (measured on Miguel's clay cat). Each is a crop
-// of the photo that turns around `pivot`, the end buried in the body.
-const PALITOS = [
-  { l: 3.5, t: 49, w: 28, h: 3,   pivot: "100% 50%", cls: "palito-l" },
-  { l: 63,  t: 46.5, w: 28, h: 5, pivot: "0% 25%",  cls: "palito-r" }
-];
+// Stick boxes per artwork, as % of the image. Each is a crop of the photo that
+// turns around `pivot`, the end buried in the body.
+const PALITOS = {
+  clay: [
+    { l: 3.5, t: 49, w: 28, h: 3,   pivot: "100% 50%", cls: "palito-l" },
+    { l: 63,  t: 46.5, w: 28, h: 5, pivot: "0% 25%",  cls: "palito-r" }
+  ],
+  // Muna's "Ser Diferente É Normal": the two blue arms of the figure on the right
+  sernormal: [
+    { l: 58.75, t: 40.6, w: 14.85, h: 7.55, pivot: "100% 33%", cls: "palito-l" },
+    { l: 77.8,  t: 35.6, w: 13.7,  h: 10.1, pivot: "0% 79%",   cls: "palito-r" }
+  ]
+};
 
 function PalitosAnimation({ art }) {
   return (
     <div className="anim-layer palitos-stage" aria-hidden>
       <img src={art.src} alt="" className="anim-img" />
-      {PALITOS.map((B) => (
+      {(PALITOS[art.id] || []).map((B) => (
         <div key={B.cls} className={"palito " + B.cls} style={{
           left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%",
           transformOrigin: B.pivot,
@@ -851,6 +858,66 @@ function AgenteSecretoAnimation({ art }) {
 }
 
 // ============================================================
+// OUTONO — green leaves are born on the leafy tree; brown ones let go of the bare tree
+// ============================================================
+// Everything is in pixels of Muna's photo (2000 x 1428); the SVG layer uses the image's own
+// viewBox, so it scales with the frame. Buds: where a leaf unfurls on the crown's edge
+// (x, y = its base; r = pointing angle). Falls: a twig tip, where the leaf drifts to.
+const OUTONO_BUDS = [
+  { x: 170, y: 110, r: -145, d: 0 },
+  { x: 400, y: 62,  r: -95,  d: 1.6 },
+  { x: 800, y: 55,  r: -75,  d: 3.4 },
+  { x: 990, y: 300, r: 15,   d: 5 },
+  { x: 135, y: 260, r: 180,  d: 6.6 }
+];
+const OUTONO_FALLS = [
+  { x: 1470, y: 290, dx: -110, dy: 840, d: -1.5 },
+  { x: 1830, y: 335, dx: 80,   dy: 800, d: -8 },
+  { x: 1470, y: 290, dx: -170, dy: 860, d: -14.5 }
+];
+
+function OutonoLeaf({ fill, vein }) {
+  return (
+    <g transform="scale(1.5)">
+      <path d="M0 0 C14 -26 58 -26 84 0 C58 26 14 26 0 0 Z" fill={fill} stroke={vein} strokeWidth="3" />
+      <path d="M6 0 L74 0" stroke={vein} strokeWidth="3" strokeLinecap="round" fill="none" />
+    </g>
+  );
+}
+
+function OutonoAnimation({ art }) {
+  const [brown, green, vein] = [art.palette[0], art.palette[1], art.palette[2]];
+  return (
+    <div className="anim-layer outono-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <svg className="ou-svg" viewBox={`0 0 ${art.w} ${art.h}`} preserveAspectRatio="none">
+        {OUTONO_BUDS.map((B, i) => (
+          <g key={"b" + i} transform={`translate(${B.x} ${B.y}) rotate(${B.r})`}>
+            <g className="ou-bud" style={{ animationDelay: B.d + "s" }}>
+              <OutonoLeaf fill={green} vein={vein} />
+            </g>
+          </g>
+        ))}
+        {OUTONO_FALLS.map((F, i) => (
+          <g key={"f" + i} transform={`translate(${F.x} ${F.y})`}>
+            <g className="ou-drop" style={{ "--dx": F.dx + "px", "--dy": F.dy + "px", animationDelay: F.d + "s" }}>
+              <g className="ou-sway" style={{ animationDelay: (F.d * 0.4) + "s" }}>
+                <g transform="rotate(90)">
+                  <OutonoLeaf fill={green} vein={vein} />
+                  <g className="ou-brown" style={{ animationDelay: F.d + "s" }}>
+                    <OutonoLeaf fill={brown} vein={vein} />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+// ============================================================
 // Export to window
 // ============================================================
 window.ANIMS = {
@@ -873,7 +940,8 @@ window.ANIMS = {
   rasgacola: RasgaColaAnimation,
   meiodemim: MeioDeMimAnimation,
   maemargarida: MaeMargaridaAnimation,
-  agentesecreto: AgenteSecretoAnimation
+  agentesecreto: AgenteSecretoAnimation,
+  outono: OutonoAnimation
 };
 
 Object.assign(window, {
@@ -881,5 +949,5 @@ Object.assign(window, {
   MatisseAnimation, MbappeAnimation, MaestroAnimation, JogadorAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
-  RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation
+  RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation
 });

@@ -2222,3 +2222,45 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .zm-share-note { min-height: 14px; font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em; color: #f7d54a; }
 .zm-share-note:empty { display: none; }
 @media (max-width: 768px) { .zm-share { align-self: center; } }
+
+/* ============================================================
+   === outono animation === (Duas Árvores de Outono)
+   ============================================================ */
+.ou-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ou-bud {
+  animation: ouBud 20s ease-in-out infinite both;
+  will-change: transform, opacity;
+}
+.ou-drop {
+  animation: ouDrop 20s linear infinite both;
+  will-change: transform, opacity;
+}
+.ou-sway { animation: ouSway 3.4s ease-in-out infinite alternate; }
+.ou-brown { animation: ouBrown 20s linear infinite both; }
+@keyframes ouBud {
+  0%   { transform: scale(0) rotate(-40deg); opacity: 0; }
+  14%  { transform: scale(1) rotate(0); opacity: 1; }
+  68%  { transform: scale(1) rotate(0); opacity: 1; }
+  88%, 100% { transform: scale(1) rotate(0); opacity: 0; }
+}
+@keyframes ouDrop {
+  0%   { transform: translate(0, 0) scale(0.3); opacity: 0; }
+  4%   { transform: translate(calc(var(--dx) * 0.02), calc(var(--dy) * 0.02)) scale(1); opacity: 1; }
+  44%  { transform: translate(var(--dx), var(--dy)) scale(1); opacity: 1; }
+  54%, 100% { transform: translate(var(--dx), var(--dy)) scale(1); opacity: 0; }
+}
+@keyframes ouSway {
+  0%   { transform: translate(-45px, 0) rotate(-30deg); }
+  100% { transform: translate(45px, 0) rotate(30deg); }
+}
+@keyframes ouBrown {
+  0%, 4% { opacity: 0; }
+  42%, 100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ou-bud { animation: ouBreathe 6s ease-in-out infinite; }
+  .ou-drop { animation: ouBreathe 6s ease-in-out infinite; }
+  .ou-sway, .ou-brown { animation: none; }
+  .ou-brown { opacity: 1; }
+}
+@keyframes ouBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
