@@ -45,31 +45,27 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .index .p { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; color: var(--meta); }
 
 /* Catalogue entry */
-.entry { padding: calc(var(--u) * 15) calc(var(--u) * 11) calc(var(--u) * 14); display: flex; flex-direction: column; }
+.entry { --f: var(--fit, 1); padding: calc(var(--u) * 13) calc(var(--u) * 11) calc(var(--u) * 12); display: flex; flex-direction: column; }
 .entry .cat { font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .32em; color: var(--latao); }
-.entry h2 { font: italic 600 calc(var(--u) * 9)/1.02 "Cormorant Garamond", serif; margin: calc(var(--u) * 3) 0 calc(var(--u) * 5); }
-.entry dl { display: grid; grid-template-columns: calc(var(--u) * 22) 1fr; gap: calc(var(--u) * 1.4) calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 8); font: calc(var(--u) * 2.15) "JetBrains Mono", monospace; letter-spacing: .08em; }
+.entry h2 { font: italic 600 calc(var(--u) * 9 * var(--f))/1.02 "Cormorant Garamond", serif; margin: calc(var(--u) * 3 * var(--f)) 0 calc(var(--u) * 4 * var(--f)); }
+.entry dl { display: grid; grid-template-columns: calc(var(--u) * 22) 1fr; gap: calc(var(--u) * 1.4) calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 6 * var(--f)); font: calc(var(--u) * 2.15) "JetBrains Mono", monospace; letter-spacing: .08em; }
 .entry dt { color: var(--meta); text-transform: uppercase; letter-spacing: .2em; }
 .entry dd { margin: 0; }
-.swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 7); }
-.swatches i { width: calc(var(--u) * 7); height: calc(var(--u) * 7); border-radius: 50%; box-shadow: inset 0 0 0 .2mm rgba(0,0,0,.08); }
+.swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 5 * var(--f, 1)); }
+.swatches i { width: calc(var(--u) * 7 * var(--f, 1)); height: calc(var(--u) * 7 * var(--f, 1)); border-radius: 50%; box-shadow: inset 0 0 0 .2mm rgba(0,0,0,.08); }
+.entry .kick { margin-bottom: calc(var(--u) * 3); }
 .entry .notes { margin: 0 0 auto; padding: 0; list-style: none; }
-.entry .notes li { display: flex; gap: calc(var(--u) * 2.5); align-items: baseline; font: calc(var(--u) * 3.1)/1.4 "EB Garamond", serif; margin-bottom: calc(var(--u) * 1.6); }
-.entry .notes li span { font: calc(var(--u) * 2) "JetBrains Mono", monospace; color: var(--latao); width: calc(var(--u) * 4); flex: none; }
-.entry .notes em { display: block; font-size: calc(var(--u) * 2.6); color: var(--meta); }
-.qr { display: flex; gap: calc(var(--u) * 4); align-items: center; border-top: .2mm solid var(--linha); padding-top: calc(var(--u) * 5); }
+.entry .notes li { font: calc(var(--u) * 3.1 * var(--f))/1.3 "EB Garamond", serif; margin-bottom: calc(var(--u) * 1.4 * var(--f)); padding-left: calc(var(--u) * 4); position: relative; }
+.entry .notes li::before { content: ""; position: absolute; left: 0; top: .72em; width: calc(var(--u) * 2); height: .25mm; background: var(--latao); }
+.entry .notes em { display: block; font-size: calc(var(--u) * 2.6 * var(--f)); color: var(--meta); }
+.qr { display: flex; gap: calc(var(--u) * 4); align-items: center; border-top: .2mm solid var(--linha); padding-top: calc(var(--u) * 4); margin-top: calc(var(--u) * 3); }
 .qr svg { flex: none; display: block; }
 .say { font: italic 600 calc(var(--u) * 4.6)/1.1 "Cormorant Garamond", serif; }
 .how { font: calc(var(--u) * 1.9)/1.7 "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 1.4); }
 
-/* Plate with margin callouts */
-.plate .art { position: absolute; left: calc(var(--u) * 10); box-shadow: 0 .6mm 2.4mm rgba(0,0,0,.18); }
+/* Plate: the work alone, nothing drawn on it */
+.plate .art { position: absolute; box-shadow: 0 .6mm 2.4mm rgba(0,0,0,.18); }
 .plate .art img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.plate .art svg { position: absolute; left: 0; top: 0; overflow: visible; }
-.plate polyline { fill: none; stroke: var(--tinta); stroke-width: .25; }
-.plate circle { fill: none; stroke: var(--tinta); stroke-width: .25; }
-.plate circle.halo { stroke: rgba(255,255,255,.85); stroke-width: .8; }
-.plate .num { position: absolute; transform: translateY(-50%); font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; white-space: nowrap; }
 
 /* Detail: a full-bleed crop, and where it sits in the work */
 .k-detail { background: none; }

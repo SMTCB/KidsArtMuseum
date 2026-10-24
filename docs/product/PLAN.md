@@ -396,7 +396,7 @@ album tested by hand before any store.
 
 | ID | Item | Size | Status | Notes |
 |---|---|---|---|---|
-| POD-01 | Printed album: PDF generator | M | `done` | 2026-10-24. `npm run album -- <Artista> [ano] [--tiragem N]` (`scripts/album.js`, `scripts/album.css`). It writes `album/out/<slug>/miolo.pdf` + `capa.pdf` (A4 + 3 mm bleed, headless Chrome). Contents: entries, plates with callouts, details, colour finale, and QR codes to `/o/<id>`. Identity: `album/identidade.html`. Phase 2 (manual pre-orders) is owner work. |
+| POD-01 | Printed album: PDF generator | M | `done` | 2026-10-24. `npm run album -- <Artista> [ano] [--tiragem N]` (`scripts/album.js`, `scripts/album.css`). It writes `album/out/<slug>/miolo.pdf` + `capa.pdf` (A4 + 3 mm bleed, headless Chrome). Contents: entries, plates (the work alone, no callouts since 2026-10-24), details, colour finale, and QR codes to `/o/<id>`. Identity: `album/identidade.html`. Phase 2 (manual pre-orders) is owner work. |
 
 ### Retired legacy IDs
 

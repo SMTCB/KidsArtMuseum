@@ -89,9 +89,10 @@
   .entry dt { color: var(--meta); text-transform: uppercase; letter-spacing: .2em; }
   .entry blockquote { margin: 0 0 calc(var(--u) * 7); font: italic calc(var(--u) * 3.5)/1.45 "EB Garamond", serif; color: #3a3833; border-left: 1px solid var(--latao); padding-left: calc(var(--u) * 4); }
   .entry blockquote small { display: block; margin-top: calc(var(--u) * 2); font: normal calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); text-transform: uppercase; }
-  .entry .notes { counter-reset: n; margin: 0 0 auto; padding: 0; list-style: none; }
-  .entry .notes li { display: flex; gap: calc(var(--u) * 2.5); align-items: baseline; font: calc(var(--u) * 3.1)/1.5 "EB Garamond", serif; }
-  .entry .notes li span { font: calc(var(--u) * 2) "JetBrains Mono", monospace; color: var(--latao); width: calc(var(--u) * 4); }
+  .entry .kick { font: calc(var(--u) * 2.1) "JetBrains Mono", monospace; letter-spacing: .3em; text-transform: uppercase; color: var(--meta); margin-bottom: calc(var(--u) * 3); }
+  .entry .notes { margin: 0 0 auto; padding: 0; list-style: none; }
+  .entry .notes li { font: calc(var(--u) * 3.1)/1.5 "EB Garamond", serif; padding-left: calc(var(--u) * 4); position: relative; }
+  .entry .notes li::before { content: ""; position: absolute; left: 0; top: .75em; width: calc(var(--u) * 2); height: 1px; background: var(--latao); }
   .swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 6); }
   .swatches i { width: calc(var(--u) * 7); height: calc(var(--u) * 7); border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
   .qr { display: flex; gap: calc(var(--u) * 4); align-items: center; border-top: 1px solid #e3ddcf; padding-top: calc(var(--u) * 5); }
@@ -100,13 +101,10 @@
   .qr .say { font: italic 600 calc(var(--u) * 4.6)/1.1 "Cormorant Garamond", serif; }
   .qr .how { font: calc(var(--u) * 1.9)/1.7 "JetBrains Mono", monospace; letter-spacing: .14em; color: var(--meta); text-transform: uppercase; margin-top: calc(var(--u) * 1.4); }
 
-  /* ---------- Plate with margin callouts ---------- */
-  .plate { display: flex; align-items: center; justify-content: flex-start; padding: 0 0 0 calc(var(--u) * 10); }
-  .plate .art { position: relative; width: calc(var(--u) * 68); box-shadow: 0 calc(var(--u) * .4) calc(var(--u) * 1.4) rgba(0,0,0,.18); }
+  /* ---------- Plate: the work alone, nothing drawn on it ---------- */
+  .plate { display: flex; align-items: center; justify-content: center; padding-bottom: calc(var(--u) * 6); }
+  .plate .art { position: relative; width: calc(var(--u) * 78); box-shadow: 0 calc(var(--u) * .4) calc(var(--u) * 1.4) rgba(0,0,0,.18); }
   .plate .art img { width: 100%; display: block; }
-  .plate svg.lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-  .plate .num { position: absolute; left: calc(100% + calc(var(--u) * 9)); transform: translateY(-50%); font: calc(var(--u) * 2.2) "JetBrains Mono", monospace; color: var(--tinta); white-space: nowrap; }
-  .plate .num::before { content: ""; display: inline-block; width: calc(var(--u) * 1.2); }
 
   /* ---------- Detail (the lens) ---------- */
   .detail { background-repeat: no-repeat; }
@@ -190,7 +188,7 @@
     <div class="page right plate" id="plate"></div>
   </div>
   <div class="label"><b>4 · A obra</b> · à esquerda a ficha de catálogo (palavras da criança, cores, pormenores);
-  à direita a obra, com as bolinhas do museu transformadas em chamadas de margem.
+  à direita a obra sozinha, sem nada desenhado por cima.
   O QR abre esta obra a mexer</div>
 </section>
 
@@ -268,26 +266,15 @@
         <dt>Ano</dt><dd>${a.year}</dd><dt>Técnica</dt><dd>${a.medium || "Guache sobre papel"}</dd></dl>
     <blockquote>«Ele é vermelho porque está zangado, mas só um bocadinho.»<small>O Miguel, sobre esta obra · exemplo</small></blockquote>
     <div class="swatches">${a.palette.map(c => `<i style="background:${c}"></i>`).join("")}</div>
-    <ol class="notes">${a.dots.map((d, i) => `<li><span>${i + 1}</span>${d.label}</li>`).join("")}</ol>
+    <div class="kick">Repara em</div>
+    <ul class="notes">${a.dots.map(d => `<li>${d.label}</li>`).join("")}</ul>
     <div class="qr"><div class="code" id="qrPiece"></div>
       <div><div class="say">Esta obra mexe.</div><div class="how">Aponta a câmara do telemóvel</div></div></div>
     <div class="folio">${8 + ai * 2}</div>`;
   qr(document.getElementById("qrPiece"), `${origin}/#/${a.artist}/${a.id}`);
 
   const plate = document.getElementById("plate");
-  plate.innerHTML = `<div class="art"><img src="${photo(a)}" alt=""><svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div><div class="folio">${9 + ai * 2}</div>`;
-  const art = plate.querySelector(".art"), svg = art.querySelector("svg");
-  // labels sit in the outer margin, spread so they never collide
-  const order = a.dots.map((d, i) => ({ d, i })).sort((p, q) => p.d.y - q.d.y);
-  let last = -100;
-  order.forEach(o => { o.ly = Math.max(o.d.y, last + 8); last = o.ly; });
-  order.forEach(o => {
-    svg.insertAdjacentHTML("beforeend",
-      `<polyline points="${o.d.x},${o.d.y} 104,${o.ly} 112,${o.ly}" fill="none" stroke="#1A1A1A" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
-    art.insertAdjacentHTML("beforeend",
-      `<span class="ring" style="position:absolute;left:${o.d.x}%;top:${o.d.y}%;width:calc(var(--u) * 2.2);height:calc(var(--u) * 2.2);border:1px solid #1A1A1A;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(255,255,255,.85)"></span>
-       <span class="num" style="top:${o.ly}%">${o.i + 1}</span>`);
-  });
+  plate.innerHTML = `<div class="art"><img src="${photo(a)}" alt=""></div><div class="folio">${9 + ai * 2}</div>`;
 
   // Detail (lens)
   const da = pieces.find(p => p.id === "eraumavez"), dd = da.dots[1];

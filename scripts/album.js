@@ -160,24 +160,17 @@ function crop(img, dot, bw, bh, z) {
           <dl><dt>Artista</dt><dd>${esc(a.signature || a.artist)}</dd><dt>Idade</dt><dd>${a.age} anos</dd>
             <dt>Ano</dt><dd>${a.year}</dd>${a.medium ? `<dt>Técnica</dt><dd>${esc(a.medium)}</dd>` : ""}</dl>
           <div class="swatches">${a.palette.map((c) => `<i style="background:${c}"></i>`).join("")}</div>
-          <ol class="notes">${a.dots.map((d, i) => `<li><span>${i + 1}</span><div>${esc(d.label)}${d.detail ? `<em>${esc(d.detail)}</em>` : ""}</div></li>`).join("")}</ol>
-          <div class="qr">${qr(`${ORIGIN}/o/${a.id}`, 17 * U)}
+          <div class="kick">Repara em</div>
+          <ul class="notes">${a.dots.map((d) => `<li>${esc(d.label)}${d.detail ? `<em>${esc(d.detail)}</em>` : ""}</li>`).join("")}</ul>
+          <div class="qr">${qr(`${ORIGIN}/o/${a.id}`, 14 * U)}
             <div><div class="say">Esta obra mexe.</div><div class="how">Aponta a câmara do telemóvel</div></div></div>`, "entry") + folio(n);
       case "plate": {
-        const ar = a.img.pw / a.img.ph, w = Math.min(68 * U, 225 * ar), h = w / ar;
+        // The work alone, centred and a little above the middle (optical centre)
+        const ar = a.img.pw / a.img.ph, w = Math.min(78 * U, 228 * ar), h = w / ar;
         const dpi = a.img.pw / (w / 25.4);
         if (dpi < MIN_DPI) warn.push(`${a.id}: obra a ${Math.round(dpi)} dpi`);
-        const order = a.dots.map((d, i) => ({ d, i })).sort((p1, p2) => p1.d.y - p2.d.y);
-        let last = -1e9;
-        order.forEach((o) => { o.ly = Math.max((o.d.y / 100) * h, last + 7); last = o.ly; });
-        const lines = order.map((o) => {
-          const x = (o.d.x / 100) * w, y = (o.d.y / 100) * h;
-          return `<polyline points="${num(x)},${num(y)} ${num(w + 6)},${num(o.ly)} ${num(w + 13)},${num(o.ly)}"/>` +
-            `<circle cx="${num(x)}" cy="${num(y)}" r="2.3" class="halo"/><circle cx="${num(x)}" cy="${num(y)}" r="2.3"/>`;
-        }).join("");
-        const nums = order.map((o) => `<span class="num" style="left:${num(w + 15)}mm;top:${num(o.ly)}mm">${o.i + 1}</span>`).join("");
-        return trim(`<div class="art" style="width:${num(w)}mm;height:${num(h)}mm;top:${num((TH - h) / 2)}mm">
-          <img src="${a.img.url}" alt=""><svg viewBox="0 0 ${num(w)} ${num(h)}" width="${num(w)}mm" height="${num(h)}mm">${lines}</svg>${nums}</div>`, "plate") + folio(n);
+        return trim(`<div class="art" style="width:${num(w)}mm;height:${num(h)}mm;left:${num((TW - w) / 2)}mm;top:${num((TH - h) / 2 - 6)}mm">
+          <img src="${a.img.url}" alt=""></div>`, "plate") + folio(n);
       }
       case "detail": {
         const d = detailDot(a), z = zFor(a), c = crop(a.img, d, PW, PH, z);
@@ -207,7 +200,11 @@ function crop(img, dot, bw, bh, z) {
   const css = fs.readFileSync(path.join(__dirname, "album.css"), "utf8");
   const doc = (title, body) => `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><title>${esc(title)}</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
-<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}</body></html>`;
+<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}
+<script>/* An entry with a long title and many notes would push the QR onto the folio: shrink it until it fits */
+document.fonts.ready.then(() => { for (const e of document.querySelectorAll(".entry")) {
+  const over = () => e.querySelector(".qr").getBoundingClientRect().bottom - (e.getBoundingClientRect().bottom - parseFloat(getComputedStyle(e).paddingBottom)) > .5;
+  for (let f = 1; over() && f > .7; ) e.style.setProperty("--fit", f -= .04); } });</script></body></html>`;
 
   const chrome = findChrome();
   const print = (htmlFile, pdfFile) => {
