@@ -142,6 +142,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |
 | Make a printed album | `npm run album -- Miguel` writes `album/out/<slug>/miolo.pdf` + `capa.pdf`. Put full-resolution photos in `album/originais/<id>.jpeg` first if you have them. POD-01, ADR-0018 |
 | Make a gift album | Copy `album/presentes/exemplo.md` to `album/presentes/<nome>.md`, choose the works (`npm run album -- --lista`) and write the texts. Then run `npm run album -- <nome>`. Gift files stay local and are not in git. POD-02 |
+| Send an album to leaf through | Every album run also writes `album/out/<slug>/livro.html`, the same book with turning pages. It is one file that opens in any browser, so you can send it as it is. POD-03 |
 
 ---
 

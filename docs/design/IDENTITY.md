@@ -90,6 +90,12 @@ A gift album (POD-02) keeps the same pages with three additions:
 
 A long title on the cover shrinks to stay on one line.
 
+The album on screen (POD-03, `livro.html`) is the same printed pages turning, not a second
+design. The book sits on the Parede wall, which turns dark under a dark system theme. Above it
+are the title and the brand in mono; below it are two round outline buttons with the page
+number between them. Latão marks hover and focus, as on paper. On screen the QR codes are
+links, and the ex-libris has no copy number.
+
 ---
 
 ## 3. Direção C — Corredor

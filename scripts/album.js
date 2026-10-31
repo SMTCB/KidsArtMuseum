@@ -17,6 +17,7 @@
  * Writes album/out/<artista>-<ano>/ (or album/out/<presente>/):
  *   miolo.pdf    the interior, 216 x 303 mm (A4 + 3 mm bleed), page count a multiple of 4
  *   capa.pdf     the front cover, same size (flat; cloth and foil are the printer's job)
+ *   livro.html   the same book to leaf through on screen, pages turning (one file, send it as it is)
  *   *.html       the pages the PDFs were printed from, to inspect in a browser
  * With --tiragem N, one numbered interior per copy (miolo-1.pdf ... miolo-N.pdf).
  *
@@ -37,6 +38,7 @@ const ORIGIN = "https://fmbart.vercel.app"; // same as scripts/build.js share pa
 // Page geometry, in mm. U is the mockup's unit: 1/100 of the trimmed page width.
 const BLEED = 3, TW = 210, TH = 297, PW = TW + 2 * BLEED, PH = TH + 2 * BLEED, U = TW / 100;
 const MIN_DPI = 150;
+const WEB_PX = 2000; // longest side of a photo in livro.html: sharp enough for the 2-3x details
 
 // ---------- arguments ----------
 const args = process.argv.slice(2);
@@ -137,8 +139,12 @@ function qr(url, sizeMm) {
   const n = q.getModuleCount();
   let d = "";
   for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c} ${r}h1v1h-1z`;
-  return `<svg viewBox="0 0 ${n} ${n}" width="${sizeMm}mm" height="${sizeMm}mm" shape-rendering="crispEdges"><path d="${d}" fill="#1A1A1A"/></svg>`;
+  const svg = `<svg viewBox="0 0 ${n} ${n}" width="${sizeMm}mm" height="${sizeMm}mm" shape-rendering="crispEdges"><path d="${d}" fill="#1A1A1A"/></svg>`;
+  // on screen (livro.html) the code is also a link: there is no camera to point at it
+  return web ? `<a href="${url}" target="_blank" rel="noopener" aria-label="Abrir no museu">${svg}</a>` : svg;
 }
+let web = false;
+const how = () => (web ? "Toca no código para a abrir" : "Aponta a câmara do telemóvel");
 
 // A background crop of an image into a box of bw x bh mm, zoomed z times past "cover",
 // centred on a dot when it can be (clamped so the box never shows past the image's edge).
@@ -164,7 +170,7 @@ function crop(img, dot, bw, bh, z) {
     const file = orig || path.join(root, a.src);
     const m = await sharp(file).metadata();
     const turned = (m.orientation || 1) >= 5;
-    a.img = { url: pathToFileURL(file).href, pw: turned ? m.height : m.width, ph: turned ? m.width : m.height, orig: !!orig };
+    a.img = { file, url: pathToFileURL(file).href, pw: turned ? m.height : m.width, ph: turned ? m.width : m.height, orig: !!orig };
   }
 
   // Which works get a full-page detail spread: those whose photo holds a 2x crop at MIN_DPI,
@@ -207,7 +213,7 @@ function crop(img, dot, bw, bh, z) {
         return trim(`<div class="ex">EX · LIBRIS</div><div class="rule"></div>${gift && gift.dedicatoria.length
           ? `<div class="dedic">${gift.dedicatoria.map((p) => `<p>${lines(p)}</p>`).join("")}</div>`
           : `<div class="line"></div><div class="hand">Este livro pertence a</div>`}
-          <div class="ed">${copy ? `Exemplar n.º ${copy} de ${tiragem}` : "Exemplar n.º ______"}<br>Impresso em Portugal</div>`, "exlibris");
+          ${web ? "" : `<div class="ed">${copy ? `Exemplar n.º ${copy} de ${tiragem}` : "Exemplar n.º ______"}<br>Impresso em Portugal</div>`}`, "exlibris");
       case "endpaper": {
         let html = "";
         for (let i = 0; i < TILE_COLS * TILE_ROWS; i++) {
@@ -236,7 +242,7 @@ function crop(img, dot, bw, bh, z) {
           ${a.notes.length ? `<div class="kick">Repara em</div>` : ""}
           <ul class="notes">${a.notes.map((d) => `<li>${esc(d.label)}${d.detail ? `<em>${esc(d.detail)}</em>` : ""}</li>`).join("")}</ul>
           <div class="qr">${qr(`${ORIGIN}/o/${a.id}`, 14 * U)}
-            <div><div class="say">Esta obra mexe.</div><div class="how">Aponta a câmara do telemóvel</div></div></div>`, "entry") + folio(n);
+            <div><div class="say">Esta obra mexe.</div><div class="how">${how()}</div></div></div>`, "entry") + folio(n);
       case "plate": {
         // The work alone, centred and a little above the middle (optical centre)
         const ar = a.img.pw / a.img.ph, w = Math.min(78 * U, 228 * ar), h = w / ar;
@@ -272,17 +278,19 @@ function crop(img, dot, bw, bh, z) {
   }
 
   const css = fs.readFileSync(path.join(__dirname, "album.css"), "utf8");
-  const doc = (title, body) => `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><title>${esc(title)}</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
-<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}
-<script>/* An entry with a long title and many notes would push the QR onto the folio: shrink it until it fits */
-document.fonts.ready.then(() => { for (const e of document.querySelectorAll(".entry")) {
+  const FIT = `/* An entry with a long title and many notes would push the QR onto the folio: shrink it until it fits */
+function fitPages() { for (const e of document.querySelectorAll(".entry")) {
   const over = () => e.querySelector(".qr").getBoundingClientRect().bottom - (e.getBoundingClientRect().bottom - parseFloat(getComputedStyle(e).paddingBottom)) > .5;
   for (let f = 1; over() && f > .7; ) e.style.setProperty("--fit", f -= .04); }
   /* A one-line title that is too wide for its page (a long gift title on the cover) shrinks too */
   for (const e of document.querySelectorAll("[data-fit]")) {
     const size = parseFloat(getComputedStyle(e).fontSize);
-    for (let f = 1; e.scrollWidth > e.clientWidth && f > .5; ) e.style.fontSize = size * (f -= .04) + "px"; } });</script></body></html>`;
+    for (let f = 1; e.scrollWidth > e.clientWidth && f > .5; ) e.style.fontSize = size * (f -= .04) + "px"; } }\n`;
+  const FONTS = `<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">`;
+  const doc = (title, body) => `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><title>${esc(title)}</title>
+${FONTS}
+<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}
+<script>${FIT}document.fonts.ready.then(fitPages);</script></body></html>`;
 
   const chrome = findChrome();
   const print = (htmlFile, pdfFile) => {
@@ -303,11 +311,45 @@ document.fonts.ready.then(() => { for (const e of document.querySelectorAll(".en
   }
 
   const cr = coverPiece.img.pw / coverPiece.img.ph, cw = Math.min(52 * U, 150 * cr);
-  const cover = `<section class="page cover"><div class="trim">
+  const cover = () => `<section class="page cover"><div class="trim">
     <div class="recess" style="width:${num(cw + 2 * 1.6 * U)}mm;left:${num((TW - cw) / 2 - 1.6 * U)}mm"><img src="${coverPiece.img.url}" alt="" style="width:${num(cw)}mm;height:${num(cw / cr)}mm"></div>
     <div class="name" data-fit>${esc(bookTitle)}</div><div class="sub">${esc(bookSub)}</div><div class="mark">FMB · ART</div></div></section>`;
-  fs.writeFileSync(path.join(outDir, "capa.html"), doc(`${bookTitle} · Capa`, cover));
+  fs.writeFileSync(path.join(outDir, "capa.html"), doc(`${bookTitle} · Capa`, cover()));
   print(path.join(outDir, "capa.html"), path.join(outDir, "capa.pdf"));
+
+  // ---------- livro.html: the same book, to leaf through on screen ----------
+  // The pages are the printed ones, live (crisp text, QR codes as links), turned by StPageFlip.
+  // Everything is inside the one file (photos shrunk to WEB_PX) so it can be sent as it is.
+  web = true;
+  const imgs = {};
+  for (const a of pieces) {
+    const buf = await sharp(a.img.file).rotate().resize(WEB_PX, WEB_PX, { fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 74, mozjpeg: true }).toBuffer();
+    imgs[a.id] = buf.toString("base64");
+    a.img.url = `__img_${a.id}__`; // swapped for the photo in the browser (scripts/album-livro.js)
+  }
+  const leaf = (page, hard) => `<div class="leaf"${hard ? ` data-density="hard"` : ""}><div class="sheet">${page}</div></div>`;
+  const board = `<section class="page k-endpaper"></section>`; // the inside of the cover
+  const leaves = [leaf(cover(), true), leaf(board, true),
+    ...plan.map((p, i) => leaf(`<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, 0)}</section>`)),
+    leaf(board, true), leaf(`<section class="page cover back"><div class="trim"><div class="mark">FMB · ART</div></div></section>`, true)];
+  const lib = (f) => fs.readFileSync(f, "utf8").replace(/<\/script/gi, "<\\/script");
+  const livro = `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(bookTitle)} · ${esc(bookSub)}</title>
+${FONTS}<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}${fs.readFileSync(path.join(__dirname, "album-livro.css"), "utf8")}</style></head>
+<body class="livro"><header class="top"><span class="brand">FMB · ART</span><h1>${esc(bookTitle)}</h1><span class="brand">${esc(bookSub)}</span></header>
+<main class="stage"><div class="frame"><div id="book"></div></div></main>
+<nav class="ctl"><button id="prev" aria-label="Página anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+<span id="where" aria-live="polite">Capa</span>
+<button id="next" aria-label="Página seguinte"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></nav>
+<template id="pages">${leaves.join("\n")}</template>
+<script>${FIT}</script>
+<script>/* StPageFlip 2.0.7, MIT, (c) 2020 Nodlik, https://github.com/Nodlik/StPageFlip */
+${lib(require.resolve("page-flip/dist/js/page-flip.browser.js"))}</script>
+<script>const IMG = ${JSON.stringify(imgs)}, FOLIOS = ${plan.length};
+${lib(path.join(__dirname, "album-livro.js"))}</script></body></html>`;
+  fs.writeFileSync(path.join(outDir, "livro.html"), livro);
+  console.log(`  ${path.relative(root, path.join(outDir, "livro.html"))}  ${(Buffer.byteLength(livro) / 1048576).toFixed(1)} MB`);
 
   const unique = [...new Set(warn)];
   if (unique.length) console.log(`\nResolução abaixo de ${MIN_DPI} dpi (põe o original em album/originais/<id>.jpeg):\n  ` + unique.join("\n  "));
