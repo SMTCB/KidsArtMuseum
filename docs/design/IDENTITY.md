@@ -83,6 +83,13 @@ only accent, used as the plaque edge is used on the wall. The approved comps are
 `album/identidade.html`. The generator's styles are `scripts/album.css`, sized in units of 1/100 of
 the trimmed page width so that the two stay comparable.
 
+A gift album (POD-02) keeps the same pages with three additions:
+- the dedication sits on the ex-libris page in place of the blank "belongs to" line;
+- an opening paragraph sits on the title page;
+- the child's words appear as the quote on the entry, in the comps' blockquote style.
+
+A long title on the cover shrinks to stay on one line.
+
 ---
 
 ## 3. Direção C — Corredor

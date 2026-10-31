@@ -44,3 +44,6 @@ dist/
 # Printed album (scripts/album.js): generated PDFs and full-resolution originals
 album/out/
 album/originais/
+# Gift albums hold family dedications and the repo is public: only the example is tracked
+album/presentes/*
+!album/presentes/exemplo.md

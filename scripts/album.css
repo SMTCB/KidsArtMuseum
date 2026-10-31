@@ -20,6 +20,8 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .exlibris .rule { width: calc(var(--u) * 18); height: .3mm; background: var(--latao); margin: calc(var(--u) * 6) 0; }
 .exlibris .line { width: calc(var(--u) * 60); border-bottom: .2mm solid #cfc8b6; height: calc(var(--u) * 9); margin-bottom: calc(var(--u) * 2); }
 .exlibris .hand { font: italic 500 calc(var(--u) * 4.6) "Cormorant Garamond", serif; color: var(--meta); }
+.exlibris .dedic { max-width: calc(var(--u) * 62); font: italic 500 calc(var(--u) * 5)/1.35 "Cormorant Garamond", serif; }
+.exlibris .dedic p { margin: 0 0 calc(var(--u) * 2.5); }
 .exlibris .ed { margin-top: calc(var(--u) * 10); font: calc(var(--u) * 2)/2 "JetBrains Mono", monospace; letter-spacing: .25em; color: var(--meta); }
 
 /* Endpapers: crops of the artist's own details */
@@ -30,8 +32,10 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .titlepage { display: flex; flex-direction: column; justify-content: center; padding: 0 calc(var(--u) * 14); }
 .titlepage h1 { font: italic 600 calc(var(--u) * 17)/1 "Cormorant Garamond", serif; margin: calc(var(--u) * 5) 0 calc(var(--u) * 4); }
 .titlepage .sub { font: calc(var(--u) * 2.4) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
-.titlepage .count { margin-top: calc(var(--u) * 14); padding-top: calc(var(--u) * 3); border-top: .3mm solid var(--latao); width: calc(var(--u) * 40);
+.titlepage .count { margin-top: calc(var(--u) * 14); padding-top: calc(var(--u) * 3); border-top: .3mm solid var(--latao); width: fit-content; min-width: calc(var(--u) * 40);
   font: italic calc(var(--u) * 3.4) "EB Garamond", serif; color: var(--meta); }
+.titlepage .open { max-width: calc(var(--u) * 60); margin: calc(var(--u) * 6) 0 0; font: calc(var(--u) * 3.2)/1.5 "EB Garamond", serif; color: #3a3833; }
+.titlepage .open + .open { margin-top: calc(var(--u) * 2.5); }
 
 /* Index */
 .index { padding: calc(var(--u) * 16) calc(var(--u) * 12); }
@@ -51,6 +55,8 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .entry dl { display: grid; grid-template-columns: calc(var(--u) * 22) 1fr; gap: calc(var(--u) * 1.4) calc(var(--u) * 2); margin: 0 0 calc(var(--u) * 6 * var(--f)); font: calc(var(--u) * 2.15) "JetBrains Mono", monospace; letter-spacing: .08em; }
 .entry dt { color: var(--meta); text-transform: uppercase; letter-spacing: .2em; }
 .entry dd { margin: 0; }
+.entry blockquote { margin: 0 0 calc(var(--u) * 6 * var(--f)); font: italic calc(var(--u) * 3.5 * var(--f))/1.45 "EB Garamond", serif; color: #3a3833; border-left: .2mm solid var(--latao); padding-left: calc(var(--u) * 4); }
+.entry blockquote small { display: block; margin-top: calc(var(--u) * 2); font: normal calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .2em; color: var(--meta); text-transform: uppercase; }
 .swatches { display: flex; gap: calc(var(--u) * 1.2); margin-bottom: calc(var(--u) * 5 * var(--f, 1)); }
 .swatches i { width: calc(var(--u) * 7 * var(--f, 1)); height: calc(var(--u) * 7 * var(--f, 1)); border-radius: 50%; box-shadow: inset 0 0 0 .2mm rgba(0,0,0,.08); }
 .entry .kick { margin-bottom: calc(var(--u) * 3); }
@@ -96,6 +102,6 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .cover .recess { position: absolute; top: calc(var(--u) * 14); background: #1b1b18; padding: calc(var(--u) * 1.6); box-shadow: inset 0 .5mm 1.6mm rgba(0,0,0,.8); }
 .cover .recess img { display: block; }
 .cover .name, .cover .sub, .cover .mark { position: absolute; left: 0; right: 0; text-align: center; color: var(--latao); }
-.cover .name { bottom: calc(var(--u) * 21); font: italic 600 calc(var(--u) * 13)/1 "Cormorant Garamond", serif; }
+.cover .name { white-space: nowrap; padding: 0 calc(var(--u) * 8); bottom: calc(var(--u) * 21); font: italic 600 calc(var(--u) * 13)/1 "Cormorant Garamond", serif; }
 .cover .sub { bottom: calc(var(--u) * 14.5); font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
 .cover .mark { bottom: calc(var(--u) * 6); font: calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .5em; }

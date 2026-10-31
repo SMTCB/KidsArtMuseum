@@ -397,6 +397,7 @@ album tested by hand before any store.
 | ID | Item | Size | Status | Notes |
 |---|---|---|---|---|
 | POD-01 | Printed album: PDF generator | M | `done` | 2026-10-24. `npm run album -- <Artista> [ano] [--tiragem N]` (`scripts/album.js`, `scripts/album.css`). It writes `album/out/<slug>/miolo.pdf` + `capa.pdf` (A4 + 3 mm bleed, headless Chrome). Contents: entries, plates (the work alone, no callouts since 2026-10-24), details, colour finale, and QR codes to `/o/<id>`. Identity: `album/identidade.html`. Phase 2 (manual pre-orders) is owner work. |
+| POD-02 | Gift albums: chosen works, own texts | S | `done` | 2026-10-31. `npm run album -- <presente>` reads `album/presentes/<presente>.md` (copy `exemplo.md`). It sets title, subtitle, cover work, dedication (ex-libris page), opening text, and the works and their order, which may mix children. Per work it sets title, technique, the child's words (a quote on the entry) and the "Repara em" notes. These texts live only in the gift file, so `art-data.js` is unchanged. Gift files are gitignored (public repo, family dedications); only `exemplo.md` is tracked. `--lista` prints every id. |
 
 ### Retired legacy IDs
 
