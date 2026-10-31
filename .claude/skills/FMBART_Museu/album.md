@@ -79,8 +79,16 @@ the tray: ask about it. HEIC cannot be read: ask for JPEG. Run `--originais` aga
 
 ## 4. The livro first
 
-Run `npm run album -- <album> --so livro` (seconds). Send `album/out/<pasta>/livro.html`
-(attach) and say it opens in any browser and the pages turn with a tap or a swipe. If the
+Run `npm run album -- <album> --so livro` (seconds). It writes two files with the same pages.
+Send both (attach):
+- `album/out/<pasta>/livro.epub`, for the iPhone or iPad: tap it in the chat, then Partilhar,
+  then **Livros**. It opens like a real book, pages turning as paper, two side by side with the
+  device held sideways, and it stays in the library offline. It can go on by AirDrop, WhatsApp
+  or email.
+- `album/out/<pasta>/livro.html`, for a computer or Android: it opens in any browser and the
+  pages turn with a tap or a swipe.
+
+Both are private: send them, never put them on the site. If the
 preview tools are available, also open it and send a screenshot of the cover and of one spread,
 so the owner can judge from the phone.
 

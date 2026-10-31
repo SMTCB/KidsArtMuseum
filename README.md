@@ -150,6 +150,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 | Make any album, guided | `/FMBART_Museu` in Claude Code. It asks the questions, shows a numbered contact sheet to choose works from (`npm run folha`), makes `livro.html` first (`--so livro`, seconds) and the PDFs only after a yes (`--so pdf`). `--originais` lists which works have an original photo. POD-05 |
 | Make a gift album | Copy `album/presentes/exemplo.md` to `album/presentes/<nome>.md`, choose the works (`npm run album -- --lista`) and write the texts. Then run `npm run album -- <nome>`. Gift files stay local and are not in git. POD-02 |
 | Send an album to leaf through | Every album run also writes `album/out/<slug>/livro.html`, the same book with turning pages. It is one file that opens in any browser, so you can send it as it is. POD-03 |
+| Send an album for iPhone or iPad | The same run writes `album/out/<slug>/livro.epub` (`scripts/album-epub.js`), a fixed-layout EPUB. Open it with Partilhar → Livros: real page turns, works offline, the QR codes are links. POD-06 |
 
 ---
 

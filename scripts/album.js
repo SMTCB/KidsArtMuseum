@@ -11,7 +11,7 @@
  *   npm run album -- --lista                           every work, numbered: id, artist, year, title
  *                                                      (npm run folha shows the same numbers as pictures)
  *   npm run album -- <album> --originais               which works have an original, then stop
- *   npm run album -- <album> --so livro                only livro.html (seconds: to look at first)
+ *   npm run album -- <album> --so livro                only livro.html and livro.epub (seconds: to look at first)
  *   npm run album -- <album> --so pdf                  only the PDFs (minutes: once the book is right)
  *
  * A gift file (copy album/presentes/exemplo.md) picks the works and their order, and sets the
@@ -26,6 +26,8 @@
  *                --lombada <mm>. --dobra <mm> is the margin round the outside, 3 mm of bleed by
  *                default; a hardcover case wrap wants the printer's figure (often 15-20 mm).
  *   livro.html   the same book to leaf through on screen, pages turning (one file, send it as it is)
+ *   livro.epub   the same book for Livros (Apple Books) on an iPhone or iPad: fixed layout, pages
+ *                turning as paper, QR codes as links (POD-06, scripts/album-epub.js; unpacked in epub/)
  *   *.html       the pages the PDFs were printed from, to inspect in a browser
  * With --tiragem N, one numbered interior per copy (miolo-1.pdf ... miolo-N.pdf).
  *
@@ -40,6 +42,7 @@ const { execFileSync } = require("child_process");
 const { pathToFileURL } = require("url");
 const sharp = require("sharp");
 const qrcode = require("qrcode-generator");
+const { writeEpub } = require("./album-epub");
 
 const root = path.join(__dirname, "..");
 const ORIGIN = "https://fmbart.vercel.app"; // same as scripts/build.js share pages
@@ -400,6 +403,23 @@ ${lib(require.resolve("page-flip/dist/js/page-flip.browser.js"))}</script>
 ${lib(path.join(__dirname, "album-livro.js"))}</script></body></html>`;
     fs.writeFileSync(path.join(outDir, "livro.html"), livro);
     console.log(`  ${path.relative(root, path.join(outDir, "livro.html"))}  ${(Buffer.byteLength(livro) / 1048576).toFixed(1)} MB`);
+
+    // ---------- livro.epub: the same pages, for Livros on the iPhone and iPad (scripts/album-epub.js) ----------
+    for (const a of pieces) a.img.url = `../images/${a.id}.jpeg`;
+    const fontFiles = [];
+    const epubCss = `${fontFaces(fontFiles)}\n:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}`;
+    const sheets = [cover(), board,
+      ...plan.map((p, i) => `<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, 0)}</section>`),
+      board, `<section class="page cover">${back()}</section>`];
+    const toc = [{ label: "Capa", i: 0 }, { label: "Índice", i: plan.findIndex((p) => p.kind === "index") + 2 },
+      ...pieces.map((a) => ({ label: `${two(a.cat)}  ${a.title}`, i: a.page + 1 })),
+      { label: "As cores", i: plan.findIndex((p) => p.kind === "colours") + 2 }];
+    let chromeEpub = null;
+    try { chromeEpub = chrome || findChrome(); } catch { /* the library thumbnail falls back to the cover's work */ }
+    const epub = await writeEpub({ dir: outDir, book: { title: bookTitle, sub: bookSub, creator: solo ? artist : "FMB · ART", slug: path.basename(outDir) },
+      css: epubCss, fonts: fontFiles, images: Object.fromEntries(Object.entries(imgs).map(([id, b]) => [id, Buffer.from(b, "base64")])),
+      sheets, toc, fit: FIT, coverId: coverPiece.id, chrome: chromeEpub });
+    console.log(`  ${path.relative(root, epub)}  ${(fs.statSync(epub).size / 1048576).toFixed(1)} MB`);
   }
 
   const unique = [...new Set(warn)];
@@ -412,7 +432,8 @@ ${lib(path.join(__dirname, "album-livro.js"))}</script></body></html>`;
 // The three families, static instances from @fontsource (OFL), inside the page. Google Fonts
 // serves variable fonts, and Chrome prints a variable font at a weight other than its default
 // as Type3 outlines, which printers reject. A static instance is embedded as a real font.
-function fontFaces() {
+// With an array, the fonts are named as fonts/<file> and their paths pushed onto it (livro.epub).
+function fontFaces(files) {
   const faces = [["cormorant-garamond", "500-italic"], ["cormorant-garamond", "600-italic"],
     ["eb-garamond", "400"], ["eb-garamond", "400-italic"], ["jetbrains-mono", "400"], ["jetbrains-mono", "500"]];
   return faces.map(([fam, face]) => {
@@ -420,8 +441,10 @@ function fontFaces() {
     return fs.readFileSync(path.join(dir, `${face}.css`), "utf8").split(/(?=\/\*)/)
       .filter((b) => /-latin(-ext)?-/.test(b.slice(0, 80))) // Portuguese and the rest of Europe
       .map((b) => b.replace("font-display: swap", "font-display: block")
-        .replace(/src: url\(\.\/files\/([^)]+\.woff2)\)[^;]*;/, (_, f) =>
-          `src: url(data:font/woff2;base64,${fs.readFileSync(path.join(dir, "files", f)).toString("base64")}) format('woff2');`))
+        .replace(/src: url\(\.\/files\/([^)]+\.woff2)\)[^;]*;/, (_, f) => {
+          if (files) return files.push(path.join(dir, "files", f)), `src: url(fonts/${f}) format('woff2');`;
+          return `src: url(data:font/woff2;base64,${fs.readFileSync(path.join(dir, "files", f)).toString("base64")}) format('woff2');`;
+        }))
       .join("");
   }).join("");
 }

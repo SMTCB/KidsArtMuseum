@@ -21,7 +21,7 @@ header of [`scripts/album.js`](../../../scripts/album.js) (the album).
 - Never ask what the files already answer (dimensions, existing artists, ages from earlier works,
   which originals exist). Look first, then propose it as the default.
 - Send what the owner should look at with SendUserFile: pictures with `display: "render"`,
-  `livro.html` and the PDFs with `display: "attach"`.
+  `livro.epub`, `livro.html` and the PDFs with `display: "attach"`.
 - Keep the task list current: one step per stage below.
 
 ## The entry tray
