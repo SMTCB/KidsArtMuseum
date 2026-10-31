@@ -31,7 +31,9 @@ Every piece is one entry in `window.ART` (inside `art-data.js`). The schema is f
 }
 ```
 
-Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, and the Parede de Galeria hangs it automatically. Optionally add a `.gw-piece-<id> .gw-frame` rule in `gallery.css`.
+Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, and the Parede de Galeria hangs it automatically.
+
+Give it a frame. Without one it falls back to a plain white frame, which is the look to avoid. In `gallery.css` ("Frame looks shared by several pieces"), add the piece's selector to one of the shared looks: ouro entalhado (old museum gilt), carvalho claro, moderno (thin black with a wide passe-partout), sem moldura (the work alone, floating), laca, or nogueira com filete dourado. Pick one that suits the work and differs from the pieces hung just before it in `HALLWAY_ORDER`. A one-off `.gw-piece-<id> .gw-frame` rule is fine too, like the older pieces have; a new shared look is a design change, not part of filing a piece.
 
 The `artist` value also drives the per-artist galleries: each distinct name becomes a chip in the app bar and a `#/<artist>` route (`#/<artist>/<id>` opens a piece). Both walls are laid out automatically: artist galleries fit one screen (`autoWallLayout`), "Todos" flows into rows of equal height and scrolls (`flowWallLayout`), so a new piece needs no slot.
 
@@ -224,6 +226,7 @@ Before you commit, walk this list:
 - [ ] `anim` is a key from the §5a table (never a Sala effect, §5c). A genuinely new routine passes the three tests (§5b), is registered in both maps in `art-animations.jsx`, and has its §5a row.
 - [ ] 3 or 4 dots, spread out, child-pointable, short labels, none on an animated spot (`node scripts/check-dots.js`).
 - [ ] `id` added to `HALLWAY_ORDER`.
+- [ ] Its selector added to one of the frame looks in `gallery.css` (§1), not the same as its neighbours'.
 - [ ] Local preview: tap the new frame, click each dot, watch the animation for one full loop.
 - [ ] Diff is *only* the new entry + new asset(s). No drive-by edits to other pieces.
 

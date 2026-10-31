@@ -614,7 +614,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    Padding values are % of frame width for proportional matting. */
 .gw-piece-warhol .gw-frame      { padding: 3%; background: #fff; }
 .gw-piece-warhol .gw-mat        { background: #fff; }
-.gw-piece-miro .gw-frame        { padding: 8%; background: linear-gradient(135deg, #d9b566 0%, #b18438 35%, #d9b566 70%, #8a6a2a 100%); box-shadow: 0 10px 20px rgba(40,40,40,0.22), inset 0 0 0 1px rgba(60,40,15,0.45); }
 .gw-piece-vangogh .gw-frame     { padding: 4%; background: #1a1a1a; }
 .gw-piece-vangogh .gw-mat       { background: #fff; }
 .gw-piece-eraumavez .gw-frame   { padding: 5%; background: #f4ede0; }
@@ -628,6 +627,86 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .gw-piece-clay .gw-frame        { padding: 5%; background: linear-gradient(135deg, #4a2e1a 0%, #2a1808 100%); }
 .gw-piece-portal .gw-frame       { padding: 4%; background: #4a2e1a; }
 .gw-piece-casaaranhas .gw-frame { padding: 5%; background: #f4ede0; }
+
+/* Frame looks shared by several pieces: add a piece's selector to the look it should wear.
+   Lines and beading are in px so they stay crisp on the small phone frames. */
+
+/* Ouro entalhado — old museum gilt: carved rope texture, bevel lines, beaded lip, linen slip */
+.gw-piece-miro .gw-frame,
+.gw-piece-maemargarida .gw-frame {
+  padding: 10%;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,236,180,0.22) 0 2px, rgba(70,45,10,0.22) 2px 4px),
+    linear-gradient(135deg, #e6c477 0%, #b8892f 28%, #f0d58c 50%, #9a7228 74%, #d4ad5a 100%);
+  box-shadow:
+    0 12px 24px rgba(40,30,10,0.28),
+    0 2px 4px rgba(40,30,10,0.15),
+    inset 0 0 0 1px rgba(60,38,10,0.7),
+    inset 0 0 0 3px rgba(255,228,160,0.55),
+    inset 0 0 0 4px rgba(60,38,10,0.45),
+    inset 0 0 10px 2px rgba(70,45,10,0.35);
+}
+.gw-piece-miro .gw-mat,
+.gw-piece-maemargarida .gw-mat {
+  padding: 4%;
+  background: #efe6d2;
+  box-shadow: 0 0 0 2px #5a3c12, 0 0 0 4px #e9cf86, inset 0 0 0 1px rgba(60,40,15,0.2);
+  outline: 2px dotted rgba(90,60,18,0.7);
+  outline-offset: 6px;
+}
+
+/* Carvalho claro — light oak, fine grain */
+.gw-piece-rasgacola .gw-frame {
+  padding: 5%;
+  background:
+    repeating-linear-gradient(90deg, rgba(120,80,40,0.12) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, rgba(255,240,210,0.10) 0 3px, transparent 3px 11px),
+    linear-gradient(180deg, #d2a874 0%, #b98a55 60%, #a8794a 100%);
+  box-shadow:
+    0 8px 18px rgba(40,40,40,0.16),
+    0 2px 4px rgba(40,40,40,0.08),
+    inset 0 0 0 1px rgba(80,50,20,0.35),
+    inset 0 1px 0 rgba(255,240,210,0.5);
+}
+.gw-piece-rasgacola .gw-mat { box-shadow: 0 0 0 1px rgba(60,40,20,0.4); }
+
+/* Moderno — thin black edge, wide white passe-partout; the work is shown whole, not cropped */
+.gw-piece-meiodemim .gw-frame { padding: 1.6%; background: #161616; }
+.gw-piece-meiodemim .gw-mat   { padding: 8%; background: #fbfaf7; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+.gw-piece-meiodemim .gw-img   { object-fit: contain; filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.35)); }
+
+/* Sem moldura — the work alone, floating off the wall */
+.gw-piece-agentesecreto .gw-frame {
+  padding: 0;
+  background: transparent;
+  box-shadow: 0 14px 28px rgba(40,40,40,0.22), 0 3px 6px rgba(40,40,40,0.12);
+}
+
+/* Laca — glossy coloured lacquer */
+.gw-piece-sernormal .gw-frame {
+  padding: 4%;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 38%),
+    #a9636d;
+  box-shadow:
+    0 8px 18px rgba(40,40,40,0.16),
+    0 2px 4px rgba(40,40,40,0.08),
+    inset 0 0 0 1px rgba(0,0,0,0.22),
+    inset 0 2px 0 rgba(255,255,255,0.25);
+}
+.gw-piece-sernormal .gw-mat { box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
+
+/* Nogueira com filete dourado — dark walnut with a gilt inner lip */
+.gw-piece-outono .gw-frame {
+  padding: 8%;
+  background: linear-gradient(135deg, #3e2716 0%, #22140a 55%, #3a2414 100%);
+  box-shadow:
+    0 10px 22px rgba(30,20,10,0.28),
+    0 2px 4px rgba(30,20,10,0.12),
+    inset 0 0 0 1px rgba(255,220,160,0.14),
+    inset 0 0 12px rgba(0,0,0,0.5);
+}
+.gw-piece-outono .gw-mat { box-shadow: 0 0 0 2px #c9a24e, 0 0 0 3px #6a4a18; }
 
 /* Soft hung-on-wall shadow under each frame */
 .gw-frame::after {
