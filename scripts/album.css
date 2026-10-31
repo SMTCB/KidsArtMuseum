@@ -105,3 +105,19 @@ body { color: var(--tinta); font-family: "EB Garamond", serif; }
 .cover .name { white-space: nowrap; padding: 0 calc(var(--u) * 8); bottom: calc(var(--u) * 21); font: italic 600 calc(var(--u) * 13)/1 "Cormorant Garamond", serif; }
 .cover .sub { bottom: calc(var(--u) * 14.5); font: calc(var(--u) * 2.3) "JetBrains Mono", monospace; letter-spacing: .38em; text-transform: uppercase; }
 .cover .mark { bottom: calc(var(--u) * 6); font: calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .5em; }
+
+/* Back cover: a brass-edged plaque on the cloth, the room's QR on it (dark on light, so it scans) */
+.cover .plaque { position: absolute; left: 50%; transform: translate(-50%, -50%); width: calc(var(--u) * 46);
+  padding: calc(var(--u) * 5) 0 calc(var(--u) * 4.4); background: var(--fundo); outline: .35mm solid var(--latao); outline-offset: -1.6mm;
+  display: flex; flex-direction: column; align-items: center; text-align: center; }
+.cover .plaque svg { display: block; }
+.cover .plaque .say { margin-top: calc(var(--u) * 3.2); font: italic 600 calc(var(--u) * 4.2)/1.1 "Cormorant Garamond", serif; }
+.cover .plaque .how { margin-top: calc(var(--u) * 1.4); font: calc(var(--u) * 1.7) "JetBrains Mono", monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--meta); }
+.cover .line { position: absolute; left: 0; right: 0; bottom: calc(var(--u) * 14.5); text-align: center; color: var(--latao);
+  font: calc(var(--u) * 1.9) "JetBrains Mono", monospace; letter-spacing: .3em; text-transform: uppercase; }
+
+/* The whole cover in one sheet (capa-aberta.pdf): the spine between the two panels, read top to bottom */
+.page.spread { width: auto; }
+.spread .spine { position: absolute; height: calc(var(--ph) - 2 * var(--b)); display: flex; align-items: center; justify-content: center; }
+.spread .spine span { writing-mode: vertical-rl; white-space: nowrap; color: var(--latao); font: calc(var(--u) * 1.6) "JetBrains Mono", monospace; letter-spacing: .4em; }
+.spread .spine i { font: italic 600 calc(var(--u) * 2.6) "Cormorant Garamond", serif; letter-spacing: 0; margin-bottom: calc(var(--u) * 8); }

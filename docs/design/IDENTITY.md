@@ -2,7 +2,7 @@
 title: Visual Identity
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-08-22
+last_reviewed: 2026-10-31
 review_cycle: 90d
 related:
   - docs/decisions/0010-visual-identity-direction.md
@@ -89,6 +89,12 @@ A gift album (POD-02) keeps the same pages with three additions:
 - the child's words appear as the quote on the entry, in the comps' blockquote style.
 
 A long title on the cover shrinks to stay on one line.
+
+The back cover (POD-04) is the same cloth with a small plaque on it: fundo, a latão edge, the QR
+to the child's room and its name in Cormorant. It sits level with the work on the front. Below
+it a mono line in latão reads "Museu de arte de criança · fotografias sem retoque", and the mark
+closes the page as on the front. The QR stays dark on light so that it scans. A spine of 6 mm or
+more carries the title and the mark, read top to bottom; a thinner one is left plain.
 
 The album on screen (POD-03, `livro.html`) is the same printed pages turning, not a second
 design. The book sits on the Parede wall, which turns dark under a dark system theme. Above it

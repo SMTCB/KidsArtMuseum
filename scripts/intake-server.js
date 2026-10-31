@@ -78,13 +78,18 @@ async function save(f) {
   }
 
   const buf = Buffer.from(f.photo.data, "base64");
-  let info;
+  let info, format;
   try {
+    format = (await sharp(buf).metadata()).format;
     info = await sharp(buf).rotate().resize(3000, 3000, { fit: "inside", withoutEnlargement: true })
       .jpeg({ quality: 78, mozjpeg: true }).toFile(out(".jpeg"));
   } catch (e) {
     throw new Error("Não consegui ler a foto. Se for do iPhone (HEIC), exporta como JPEG primeiro.");
   }
+  // The untouched original, for the printed album (POD-04). Out of git; filing renames it to <id>.
+  const origDir = path.join(root, "album", "originais");
+  fs.mkdirSync(origDir, { recursive: true });
+  fs.writeFileSync(path.join(origDir, `${name}.${format === "jpeg" ? "jpeg" : format}`), buf);
 
   fs.writeFileSync(out(".md"), ficha({ ...f, artist }, name), "utf8");
   if (f.audio && f.audio.data) fs.writeFileSync(out(".mp3"), Buffer.from(f.audio.data, "base64"));

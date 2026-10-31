@@ -47,6 +47,8 @@ The user drops a photo and a filled-in form into `intake/`. They then say someth
 9. **Explain your choices** to the user: which animation and why, what the palette is, what the dots point at. Ask for approval before committing.
 10. **On approval:**
    - File the photo: `intake/<filename>` → `assets/art/<id>/photo.jpeg` (ADR-0016)
+   - Rename the untouched original that intake kept: `album/originais/<name>.<ext>` → `album/originais/<id>.<ext>`
+     (gitignored, never committed; the printed album prints from it, POD-04)
    - Make the wall thumbnails: `npm run thumbs` (writes `thumb-480.jpeg` and `thumb-960.jpeg` beside the photo, QUA-12); commit them with the piece
    - If the intake has an audio description: `intake/<name>.mp3` → `assets/art/<id>/audio.mp3`, plus one entry in `audio-data.js`
    - Append the new `id` to `window.HALLWAY_ORDER` at the bottom of `art-data.js`

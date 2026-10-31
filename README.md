@@ -140,7 +140,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 | Add an artist gallery | Nothing — a new `artist` value in `art-data.js` gets its own chip and `#/<artist>` route (`index.html`) |
 | Add a theme tab | `index.html` → `THEMES` array + a new theme block in `gallery.css` |
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |
-| Make a printed album | `npm run album -- Miguel` writes `album/out/<slug>/miolo.pdf` + `capa.pdf`. Put full-resolution photos in `album/originais/<id>.jpeg` first if you have them. POD-01, ADR-0018 |
+| Make a printed album | `npm run album -- Miguel` writes `album/out/<slug>/miolo.pdf`, `capa.pdf` (front) and `capa-aberta.pdf` (back, spine and front on one sheet; pass the printer's spine with `--lombada <mm>`). It prints from the original photo in `album/originais/<id>.*` when there is one (intake keeps it there since POD-04), otherwise from the site photo. POD-01, POD-04, ADR-0018 |
 | Make a gift album | Copy `album/presentes/exemplo.md` to `album/presentes/<nome>.md`, choose the works (`npm run album -- --lista`) and write the texts. Then run `npm run album -- <nome>`. Gift files stay local and are not in git. POD-02 |
 | Send an album to leaf through | Every album run also writes `album/out/<slug>/livro.html`, the same book with turning pages. It is one file that opens in any browser, so you can send it as it is. POD-03 |
 

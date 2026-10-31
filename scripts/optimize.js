@@ -14,6 +14,8 @@
  *   3. Compresses with MozJPEG quality 78 (same codec as Squoosh)
  *   4. Saves as intake/<name>.jpeg, prints dimensions + size savings
  *   5. Deletes the original if it had a different extension (e.g. .png, .jpg → .jpeg)
+ *      — after first copying it, untouched, to album/originais/<name>.<ext> for the printed
+ *      album (not in git; scripts/album.js prints from it)
  *
  * Run once to install: npm install
  */
@@ -46,6 +48,17 @@ if (!/^[a-z][a-z0-9-]+$/.test(baseName)) {
   console.warn("\n⚠  Filename should be lowercase with hyphens only.");
   console.warn(`   Got: "${baseName}"`);
   console.warn("   Rename it before committing (e.g. miguel-gato-cubista).\n");
+}
+
+// ── Keep the untouched original for the printed album (POD-04) ─────────────────
+// album/originais/ is out of git. Filing renames it to <id> (CLAUDE.md step 10).
+// Never overwrite: on a second run the input is already the optimized copy.
+const origDir = path.join("album", "originais");
+const kept = fs.existsSync(origDir) &&
+  fs.readdirSync(origDir).some((f) => path.basename(f, path.extname(f)) === baseName);
+if (!kept) {
+  fs.mkdirSync(origDir, { recursive: true });
+  fs.copyFileSync(inputPath, path.join(origDir, baseName + path.extname(input).toLowerCase()));
 }
 
 const outputPath = path.join("intake", baseName + ".jpeg");

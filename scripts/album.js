@@ -17,12 +17,17 @@
  * Writes album/out/<artista>-<ano>/ (or album/out/<presente>/):
  *   miolo.pdf    the interior, 216 x 303 mm (A4 + 3 mm bleed), page count a multiple of 4
  *   capa.pdf     the front cover, same size (flat; cloth and foil are the printer's job)
+ *   capa-aberta.pdf  the whole cover in one sheet, as printers ask for it: back, spine, front.
+ *                The spine is estimated from the page count; give the printer's own figure with
+ *                --lombada <mm>. --dobra <mm> is the margin round the outside, 3 mm of bleed by
+ *                default; a hardcover case wrap wants the printer's figure (often 15-20 mm).
  *   livro.html   the same book to leaf through on screen, pages turning (one file, send it as it is)
  *   *.html       the pages the PDFs were printed from, to inspect in a browser
  * With --tiragem N, one numbered interior per copy (miolo-1.pdf ... miolo-N.pdf).
  *
- * Photos: album/originais/<id>.jpeg (full-resolution originals, kept out of git) when present,
- * otherwise assets/art/<id>/photo.jpeg. Prints a warning for any image below 150 dpi on paper.
+ * Photos: the original when album/originais/<id>.<jpeg|jpg|png|webp|tif> exists (the untouched
+ * photo, kept out of git; the intake saves it there), otherwise the site's assets/art/<id>/photo.jpeg.
+ * The run says which works had no original, and warns for any image below 150 dpi on paper.
  * Set CHROME_PATH if Chrome or Edge is not found in the usual places.
  */
 const fs = require("fs");
@@ -38,12 +43,18 @@ const ORIGIN = "https://fmbart.vercel.app"; // same as scripts/build.js share pa
 // Page geometry, in mm. U is the mockup's unit: 1/100 of the trimmed page width.
 const BLEED = 3, TW = 210, TH = 297, PW = TW + 2 * BLEED, PH = TH + 2 * BLEED, U = TW / 100;
 const MIN_DPI = 150;
+const ORIG_EXT = ["jpeg", "jpg", "png", "webp", "tif", "tiff", "JPEG", "JPG", "PNG"];
+const ORIG_PX = 6000; // longest side of an original in the PDF: a 3x detail at 150 dpi needs ~3800 px
 const WEB_PX = 2000; // longest side of a photo in livro.html: sharp enough for the 2-3x details
+const LEAF_MM = 0.15; // one leaf (two pages) of ~170 g/m2 silk: the spine estimate when --lombada is not given
+const SPINE_TEXT = 6; // below this the spine is left plain: printers will not promise text on it
 
 // ---------- arguments ----------
 const args = process.argv.slice(2);
 const flag = (name) => { const i = args.indexOf(name); return i < 0 ? null : args.splice(i, 2)[1]; };
 const tiragem = Number(flag("--tiragem")) || 0;
+const lombada = Number(String(flag("--lombada") || "").replace(",", ".")) || 0;
+const dobra = Number(String(flag("--dobra") || "").replace(",", ".")) || BLEED;
 const [artistArg, yearArg] = args;
 const fail = (msg) => { console.error(msg); process.exit(1); };
 const fold = (t) => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -166,8 +177,8 @@ function crop(img, dot, bw, bh, z) {
 (async () => {
   const warn = [];
   for (const a of pieces) {
-    const orig = ["jpeg", "jpg", "png"].map((e) => path.join(root, "album", "originais", `${a.id}.${e}`)).find(fs.existsSync);
-    const file = orig || path.join(root, a.src);
+    const orig = ORIG_EXT.map((e) => path.join(root, "album", "originais", `${a.id}.${e}`)).find(fs.existsSync);
+    const file = orig ? await fromOriginal(orig, a.id) : path.join(root, a.src);
     const m = await sharp(file).metadata();
     const turned = (m.orientation || 1) >= 5;
     a.img = { file, url: pathToFileURL(file).href, pw: turned ? m.height : m.width, ph: turned ? m.width : m.height, orig: !!orig };
@@ -286,7 +297,7 @@ function fitPages() { for (const e of document.querySelectorAll(".entry")) {
   for (const e of document.querySelectorAll("[data-fit]")) {
     const size = parseFloat(getComputedStyle(e).fontSize);
     for (let f = 1; e.scrollWidth > e.clientWidth && f > .5; ) e.style.fontSize = size * (f -= .04) + "px"; } }\n`;
-  const FONTS = `<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=EB+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">`;
+  const FONTS = `<style>${fontFaces()}</style>`;
   const doc = (title, body) => `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><title>${esc(title)}</title>
 ${FONTS}
 <style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}
@@ -311,11 +322,29 @@ ${FONTS}
   }
 
   const cr = coverPiece.img.pw / coverPiece.img.ph, cw = Math.min(52 * U, 150 * cr);
-  const cover = () => `<section class="page cover"><div class="trim">
+  const front = (at = "") => `<div class="trim"${at}>
     <div class="recess" style="width:${num(cw + 2 * 1.6 * U)}mm;left:${num((TW - cw) / 2 - 1.6 * U)}mm"><img src="${coverPiece.img.url}" alt="" style="width:${num(cw)}mm;height:${num(cw / cr)}mm"></div>
-    <div class="name" data-fit>${esc(bookTitle)}</div><div class="sub">${esc(bookSub)}</div><div class="mark">FMB · ART</div></div></section>`;
+    <div class="name" data-fit>${esc(bookTitle)}</div><div class="sub">${esc(bookSub)}</div><div class="mark">FMB · ART</div></div>`;
+  // The back: the museum's brass plaque, holding the way into the child's room (as the colophon does)
+  const back = (at = "") => `<div class="trim"${at}><div class="plaque" style="top:${num(14 * U + 1.6 * U + cw / cr / 2)}mm">${qr(solo ? `${ORIGIN}/#/${encodeURIComponent(artist)}` : `${ORIGIN}/`, 20 * U)}
+    <div class="say">${solo ? `A sala ${daDo(artist)} ${esc(artist)}` : "O museu"}</div><div class="how">${how()}</div></div>
+    <div class="line">Museu de arte de criança · fotografias sem retoque</div><div class="mark">FMB · ART</div></div>`;
+  const cover = () => `<section class="page cover">${front()}</section>`;
   fs.writeFileSync(path.join(outDir, "capa.html"), doc(`${bookTitle} · Capa`, cover()));
   print(path.join(outDir, "capa.html"), path.join(outDir, "capa.pdf"));
+
+  // The whole cover in one sheet: dobra | back | spine | front | dobra
+  const spine = num(lombada || Math.max(2, Math.ceil(plan.length / 2 * LEAF_MM * 2) / 2));
+  const SW = num(2 * dobra + 2 * TW + spine), SH = num(2 * dobra + TH);
+  const at = (x) => ` style="left:${num(x)}mm;top:${num(dobra)}mm"`;
+  const spread = `<style>@page { size: ${SW}mm ${SH}mm; }</style>
+    <section class="page cover spread" style="width:${SW}mm;height:${SH}mm">${back(at(dobra))}
+    <div class="spine" style="left:${num(dobra + TW)}mm;top:${num(dobra)}mm;width:${spine}mm">${spine >= SPINE_TEXT
+      ? `<span><i>${esc(bookTitle)}</i>FMB · ART</span>` : ""}</div>${front(at(dobra + TW + spine))}</section>`;
+  fs.writeFileSync(path.join(outDir, "capa-aberta.html"), doc(`${bookTitle} · Capa aberta`, spread));
+  print(path.join(outDir, "capa-aberta.html"), path.join(outDir, "capa-aberta.pdf"));
+  console.log(`    ${SW} x ${SH} mm, lombada ${spine} mm${lombada ? "" : " (estimada: confirma com a gráfica e usa --lombada)"}` +
+    `${spine >= SPINE_TEXT ? "" : ", sem texto na lombada (menos de " + SPINE_TEXT + " mm)"}`);
 
   // ---------- livro.html: the same book, to leaf through on screen ----------
   // The pages are the printed ones, live (crisp text, QR codes as links), turned by StPageFlip.
@@ -332,7 +361,7 @@ ${FONTS}
   const board = `<section class="page k-endpaper"></section>`; // the inside of the cover
   const leaves = [leaf(cover(), true), leaf(board, true),
     ...plan.map((p, i) => leaf(`<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, 0)}</section>`)),
-    leaf(board, true), leaf(`<section class="page cover back"><div class="trim"><div class="mark">FMB · ART</div></div></section>`, true)];
+    leaf(board, true), leaf(`<section class="page cover">${back()}</section>`, true)];
   const lib = (f) => fs.readFileSync(f, "utf8").replace(/<\/script/gi, "<\\/script");
   const livro = `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(bookTitle)} · ${esc(bookSub)}</title>
@@ -354,8 +383,43 @@ ${lib(path.join(__dirname, "album-livro.js"))}</script></body></html>`;
   const unique = [...new Set(warn)];
   if (unique.length) console.log(`\nResolução abaixo de ${MIN_DPI} dpi (põe o original em album/originais/<id>.jpeg):\n  ` + unique.join("\n  "));
   const missing = pieces.filter((a) => !a.img.orig).map((a) => a.id);
-  if (missing.length) console.log(`\nSem original em album/originais/, impresso a partir de assets/: ${missing.join(", ")}`);
+  console.log(`\nFotos originais: ${pieces.length - missing.length} de ${pieces.length}.` +
+    (missing.length ? ` As restantes vêm do site (assets/): ${missing.join(", ")}` : ""));
 })().catch((e) => { console.error(e.message); process.exit(1); });
+
+// The three families, static instances from @fontsource (OFL), inside the page. Google Fonts
+// serves variable fonts, and Chrome prints a variable font at a weight other than its default
+// as Type3 outlines, which printers reject. A static instance is embedded as a real font.
+function fontFaces() {
+  const faces = [["cormorant-garamond", "500-italic"], ["cormorant-garamond", "600-italic"],
+    ["eb-garamond", "400"], ["eb-garamond", "400-italic"], ["jetbrains-mono", "400"], ["jetbrains-mono", "500"]];
+  return faces.map(([fam, face]) => {
+    const dir = path.dirname(require.resolve(`@fontsource/${fam}/package.json`));
+    return fs.readFileSync(path.join(dir, `${face}.css`), "utf8").split(/(?=\/\*)/)
+      .filter((b) => /-latin(-ext)?-/.test(b.slice(0, 80))) // Portuguese and the rest of Europe
+      .map((b) => b.replace("font-display: swap", "font-display: block")
+        .replace(/src: url\(\.\/files\/([^)]+\.woff2)\)[^;]*;/, (_, f) =>
+          `src: url(data:font/woff2;base64,${fs.readFileSync(path.join(dir, "files", f)).toString("base64")}) format('woff2');`))
+      .join("");
+  }).join("");
+}
+
+// An original straight off a phone can be 10 MB, sideways in EXIF or a PNG with transparency.
+// The PDF gets a copy that is upright, on white, at most ORIG_PX and JPEG q90, made once and
+// kept in album/out/.originais/ until the original changes. The original itself is never touched.
+async function fromOriginal(src, id) {
+  const out = path.join(root, "album", "out", ".originais", `${id}.jpeg`);
+  if (fs.existsSync(out) && fs.statSync(out).mtimeMs >= fs.statSync(src).mtimeMs) return out;
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  try {
+    await sharp(src).rotate().flatten({ background: "#ffffff" })
+      .resize(ORIG_PX, ORIG_PX, { fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 90, mozjpeg: true, chromaSubsampling: "4:4:4" }).toFile(out);
+  } catch (e) {
+    throw new Error(`Não consegui ler ${path.relative(root, src)} (${e.message}). Se for HEIC, exporta-o como JPEG.`);
+  }
+  return out;
+}
 
 function findChrome() {
   const c = [process.env.CHROME_PATH,
