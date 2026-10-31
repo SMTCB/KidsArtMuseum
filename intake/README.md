@@ -2,6 +2,13 @@
 
 Esta pasta é a **bandeja de entrada** do museu. Para adicionar uma nova obra:
 
+## O caminho mais simples: /FMBART_Museu
+
+No Claude Code, escreve **`/FMBART_Museu`**. Pergunta se queres acrescentar uma obra ou fazer um
+álbum e guia-te com perguntas curtas. Só tens de guardar a foto (e o áudio, se houver) na
+**bandeja `intake/nova/`**, com o nome que tiverem. O Claude dá-lhes nome, arruma cada ficheiro
+no seu lugar e deixa a bandeja vazia. Nada do que está na bandeja vai para o git.
+
 ## O caminho curto: o formulário
 
 Faz duplo clique em **`Nova obra.cmd`** (ou corre `npm run intake`). Abre um formulário no

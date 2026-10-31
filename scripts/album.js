@@ -8,7 +8,11 @@
  *
  *   npm run album -- <Artista> [ano] [--tiragem N]     "Obra completa": every work of one child
  *   npm run album -- <presente> [--tiragem N]          a gift album: album/presentes/<presente>.md
- *   npm run album -- --lista                           every work's id, to write a gift file
+ *   npm run album -- --lista                           every work, numbered: id, artist, year, title
+ *                                                      (npm run folha shows the same numbers as pictures)
+ *   npm run album -- <album> --originais               which works have an original, then stop
+ *   npm run album -- <album> --so livro                only livro.html (seconds: to look at first)
+ *   npm run album -- <album> --so pdf                  only the PDFs (minutes: once the book is right)
  *
  * A gift file (copy album/presentes/exemplo.md) picks the works and their order, and sets the
  * title, subtitle, dedication, an opening text and, per work, the title, technique, the child's
@@ -55,8 +59,13 @@ const flag = (name) => { const i = args.indexOf(name); return i < 0 ? null : arg
 const tiragem = Number(flag("--tiragem")) || 0;
 const lombada = Number(String(flag("--lombada") || "").replace(",", ".")) || 0;
 const dobra = Number(String(flag("--dobra") || "").replace(",", ".")) || BLEED;
+const so = flag("--so");
+const pdfs = so !== "livro", book = so !== "pdf";
+const bool = (name) => { const i = args.indexOf(name); return i >= 0 && !!args.splice(i, 1); };
+const onlyList = bool("--lista"), checkOrig = bool("--originais");
 const [artistArg, yearArg] = args;
 const fail = (msg) => { console.error(msg); process.exit(1); };
+if (so && !["livro", "pdf"].includes(so)) fail('--so leva "livro" ou "pdf".');
 const fold = (t) => String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 // ---------- data ----------
@@ -64,12 +73,13 @@ const sandbox = { window: {} };
 require("vm").runInNewContext(fs.readFileSync(path.join(root, "art-data.js"), "utf8"), sandbox);
 const { ART, HALLWAY_ORDER } = sandbox.window;
 
-if (args.includes("--lista")) {
-  for (const a of HALLWAY_ORDER.map((id) => ART.find((x) => x.id === id)).filter(Boolean))
-    console.log(`${a.id.padEnd(16)} ${a.artist.padEnd(8)} ${a.year}  ${a.title}`);
+// The numbers are the museum's order (HALLWAY_ORDER), the same as on the contact sheet (npm run folha)
+if (onlyList) {
+  HALLWAY_ORDER.map((id) => ART.find((x) => x.id === id)).filter(Boolean)
+    .forEach((a, i) => console.log(`${String(i + 1).padStart(2)}  ${a.id.padEnd(16)} ${a.artist.padEnd(8)} ${a.year}  ${a.title}`));
   process.exit(0);
 }
-if (!artistArg) fail("Uso: npm run album -- <Artista> [ano] [--tiragem N]\n     npm run album -- <presente> [--tiragem N]\n     npm run album -- --lista");
+if (!artistArg) fail("Uso: npm run album -- <Artista> [ano] [--tiragem N] [--so livro|pdf] [--originais]\n     npm run album -- <presente> [...]\n     npm run album -- --lista");
 
 const giftFile = [artistArg, path.join(root, "album", "presentes", `${artistArg}.md`)]
   .find((f) => /\.md$/i.test(f) && fs.existsSync(f));
@@ -104,6 +114,14 @@ const outDir = path.join(root, "album", "out", slug);
 const coverPiece = gift && gift.capa ? pieces.find((a) => a.id === gift.capa) : pieces[0];
 if (!coverPiece) fail(`${path.basename(giftFile)}: a capa "${gift.capa}" tem de ser uma das obras do álbum.`);
 const daDo = (name) => (/a$/i.test(name) ? "da" : "do");
+const original = (id) => ORIG_EXT.map((e) => path.join(root, "album", "originais", `${id}.${e}`)).find(fs.existsSync);
+
+if (checkOrig) {
+  const have = pieces.filter((a) => original(a.id));
+  console.log(`${bookTitle}: ${have.length} de ${pieces.length} obras têm foto original em album/originais/.`);
+  for (const a of pieces) console.log(`  ${original(a.id) ? "sim" : "não"}  ${a.id.padEnd(16)} ${a.title}`);
+  process.exit(0);
+}
 
 // A gift file: front matter (titulo, subtitulo, capa), then "## Dedicatória", "## Abertura" and
 // "## Obras" with one "### <id>" per work, holding "titulo:", "tecnica:", "frase:" and "- nota — pormenor" lines.
@@ -177,7 +195,7 @@ function crop(img, dot, bw, bh, z) {
 (async () => {
   const warn = [];
   for (const a of pieces) {
-    const orig = ORIG_EXT.map((e) => path.join(root, "album", "originais", `${a.id}.${e}`)).find(fs.existsSync);
+    const orig = original(a.id);
     const file = orig ? await fromOriginal(orig, a.id) : path.join(root, a.src);
     const m = await sharp(file).metadata();
     const turned = (m.orientation || 1) >= 5;
@@ -303,7 +321,7 @@ ${FONTS}
 <style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}</style></head><body>${body}
 <script>${FIT}document.fonts.ready.then(fitPages);</script></body></html>`;
 
-  const chrome = findChrome();
+  const chrome = pdfs && findChrome();
   const print = (htmlFile, pdfFile) => {
     execFileSync(chrome, ["--headless", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
       "--virtual-time-budget=30000", `--print-to-pdf=${pdfFile}`, pathToFileURL(htmlFile).href], { stdio: "ignore" });
@@ -313,7 +331,7 @@ ${FONTS}
   fs.mkdirSync(outDir, { recursive: true });
   console.log(`${bookTitle}: ${obras(pieces.length)}, ${plan.length} páginas, ${detailed.size} pormenores.`);
 
-  const copies = tiragem ? Array.from({ length: tiragem }, (_, i) => i + 1) : [0];
+  const copies = !pdfs ? [] : tiragem ? Array.from({ length: tiragem }, (_, i) => i + 1) : [0];
   for (const copy of copies) {
     const body = plan.map((p, i) => `<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, copy)}</section>`).join("\n");
     const name = copy ? `miolo-${copy}` : "miolo";
@@ -330,40 +348,43 @@ ${FONTS}
     <div class="say">${solo ? `A sala ${daDo(artist)} ${esc(artist)}` : "O museu"}</div><div class="how">${how()}</div></div>
     <div class="line">Museu de arte de criança · fotografias sem retoque</div><div class="mark">FMB · ART</div></div>`;
   const cover = () => `<section class="page cover">${front()}</section>`;
-  fs.writeFileSync(path.join(outDir, "capa.html"), doc(`${bookTitle} · Capa`, cover()));
-  print(path.join(outDir, "capa.html"), path.join(outDir, "capa.pdf"));
+  if (pdfs) {
+    fs.writeFileSync(path.join(outDir, "capa.html"), doc(`${bookTitle} · Capa`, cover()));
+    print(path.join(outDir, "capa.html"), path.join(outDir, "capa.pdf"));
 
-  // The whole cover in one sheet: dobra | back | spine | front | dobra
-  const spine = num(lombada || Math.max(2, Math.ceil(plan.length / 2 * LEAF_MM * 2) / 2));
-  const SW = num(2 * dobra + 2 * TW + spine), SH = num(2 * dobra + TH);
-  const at = (x) => ` style="left:${num(x)}mm;top:${num(dobra)}mm"`;
-  const spread = `<style>@page { size: ${SW}mm ${SH}mm; }</style>
-    <section class="page cover spread" style="width:${SW}mm;height:${SH}mm">${back(at(dobra))}
-    <div class="spine" style="left:${num(dobra + TW)}mm;top:${num(dobra)}mm;width:${spine}mm">${spine >= SPINE_TEXT
-      ? `<span><i>${esc(bookTitle)}</i>FMB · ART</span>` : ""}</div>${front(at(dobra + TW + spine))}</section>`;
-  fs.writeFileSync(path.join(outDir, "capa-aberta.html"), doc(`${bookTitle} · Capa aberta`, spread));
-  print(path.join(outDir, "capa-aberta.html"), path.join(outDir, "capa-aberta.pdf"));
-  console.log(`    ${SW} x ${SH} mm, lombada ${spine} mm${lombada ? "" : " (estimada: confirma com a gráfica e usa --lombada)"}` +
-    `${spine >= SPINE_TEXT ? "" : ", sem texto na lombada (menos de " + SPINE_TEXT + " mm)"}`);
+    // The whole cover in one sheet: dobra | back | spine | front | dobra
+    const spine = num(lombada || Math.max(2, Math.ceil(plan.length / 2 * LEAF_MM * 2) / 2));
+    const SW = num(2 * dobra + 2 * TW + spine), SH = num(2 * dobra + TH);
+    const at = (x) => ` style="left:${num(x)}mm;top:${num(dobra)}mm"`;
+    const spread = `<style>@page { size: ${SW}mm ${SH}mm; }</style>
+      <section class="page cover spread" style="width:${SW}mm;height:${SH}mm">${back(at(dobra))}
+      <div class="spine" style="left:${num(dobra + TW)}mm;top:${num(dobra)}mm;width:${spine}mm">${spine >= SPINE_TEXT
+        ? `<span><i>${esc(bookTitle)}</i>FMB · ART</span>` : ""}</div>${front(at(dobra + TW + spine))}</section>`;
+    fs.writeFileSync(path.join(outDir, "capa-aberta.html"), doc(`${bookTitle} · Capa aberta`, spread));
+    print(path.join(outDir, "capa-aberta.html"), path.join(outDir, "capa-aberta.pdf"));
+    console.log(`    ${SW} x ${SH} mm, lombada ${spine} mm${lombada ? "" : " (estimada: confirma com a gráfica e usa --lombada)"}` +
+      `${spine >= SPINE_TEXT ? "" : ", sem texto na lombada (menos de " + SPINE_TEXT + " mm)"}`);
+  }
 
   // ---------- livro.html: the same book, to leaf through on screen ----------
   // The pages are the printed ones, live (crisp text, QR codes as links), turned by StPageFlip.
   // Everything is inside the one file (photos shrunk to WEB_PX) so it can be sent as it is.
-  web = true;
-  const imgs = {};
-  for (const a of pieces) {
-    const buf = await sharp(a.img.file).rotate().resize(WEB_PX, WEB_PX, { fit: "inside", withoutEnlargement: true })
-      .jpeg({ quality: 74, mozjpeg: true }).toBuffer();
-    imgs[a.id] = buf.toString("base64");
-    a.img.url = `__img_${a.id}__`; // swapped for the photo in the browser (scripts/album-livro.js)
-  }
-  const leaf = (page, hard) => `<div class="leaf"${hard ? ` data-density="hard"` : ""}><div class="sheet">${page}</div></div>`;
-  const board = `<section class="page k-endpaper"></section>`; // the inside of the cover
-  const leaves = [leaf(cover(), true), leaf(board, true),
-    ...plan.map((p, i) => leaf(`<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, 0)}</section>`)),
-    leaf(board, true), leaf(`<section class="page cover">${back()}</section>`, true)];
-  const lib = (f) => fs.readFileSync(f, "utf8").replace(/<\/script/gi, "<\\/script");
-  const livro = `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8">
+  if (book) {
+    web = true;
+    const imgs = {};
+    for (const a of pieces) {
+      const buf = await sharp(a.img.file).rotate().resize(WEB_PX, WEB_PX, { fit: "inside", withoutEnlargement: true })
+        .jpeg({ quality: 74, mozjpeg: true }).toBuffer();
+      imgs[a.id] = buf.toString("base64");
+      a.img.url = `__img_${a.id}__`; // swapped for the photo in the browser (scripts/album-livro.js)
+    }
+    const leaf = (page, hard) => `<div class="leaf"${hard ? ` data-density="hard"` : ""}><div class="sheet">${page}</div></div>`;
+    const board = `<section class="page k-endpaper"></section>`; // the inside of the cover
+    const leaves = [leaf(cover(), true), leaf(board, true),
+      ...plan.map((p, i) => leaf(`<section class="page k-${p.kind} ${(i + 1) % 2 ? "recto" : "verso"}">${render(p, i + 1, 0)}</section>`)),
+      leaf(board, true), leaf(`<section class="page cover">${back()}</section>`, true)];
+    const lib = (f) => fs.readFileSync(f, "utf8").replace(/<\/script/gi, "<\\/script");
+    const livro = `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(bookTitle)} · ${esc(bookSub)}</title>
 ${FONTS}<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}${fs.readFileSync(path.join(__dirname, "album-livro.css"), "utf8")}</style></head>
 <body class="livro"><header class="top"><span class="brand">FMB · ART</span><h1>${esc(bookTitle)}</h1><span class="brand">${esc(bookSub)}</span></header>
@@ -377,8 +398,9 @@ ${FONTS}<style>:root{--u:${U}mm;--pw:${PW}mm;--ph:${PH}mm;--b:${BLEED}mm}${css}$
 ${lib(require.resolve("page-flip/dist/js/page-flip.browser.js"))}</script>
 <script>const IMG = ${JSON.stringify(imgs)}, FOLIOS = ${plan.length};
 ${lib(path.join(__dirname, "album-livro.js"))}</script></body></html>`;
-  fs.writeFileSync(path.join(outDir, "livro.html"), livro);
-  console.log(`  ${path.relative(root, path.join(outDir, "livro.html"))}  ${(Buffer.byteLength(livro) / 1048576).toFixed(1)} MB`);
+    fs.writeFileSync(path.join(outDir, "livro.html"), livro);
+    console.log(`  ${path.relative(root, path.join(outDir, "livro.html"))}  ${(Buffer.byteLength(livro) / 1048576).toFixed(1)} MB`);
+  }
 
   const unique = [...new Set(warn)];
   if (unique.length) console.log(`\nResolução abaixo de ${MIN_DPI} dpi (põe o original em album/originais/<id>.jpeg):\n  ` + unique.join("\n  "));

@@ -33,6 +33,10 @@ uploads/
 # intake/*.jpg
 # intake/*.png
 
+# The /FMBART_Museu entry tray: raw phone photos and audio, never committed (the repo is public)
+intake/nova/*
+!intake/nova/LEIA-ME.txt
+
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
 

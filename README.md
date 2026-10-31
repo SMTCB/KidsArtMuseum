@@ -62,7 +62,7 @@ Every `git push` to `main` triggers a new deploy. PRs get a preview URL automati
 ├── experimentation-room.jsx← the effects room UI
 ├── vercel.json             ← clean URLs + cache headers
 ├── intake/                 ← the tray: drop a photo + form here (see intake/README.md)
-├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation) · check-dots.js (no dot on an animated spot) · palette.js (proposes bg + palette from the photo)
+├── scripts/                ← optimize.js (photos) · thumbs.js (wall thumbnails) · build.js (production build) · intake-server.js (new-piece form) · docs-lint.js (documentation) · check-dots.js (no dot on an animated spot) · palette.js (proposes bg + palette from the photo) · album.js + album-folha.js (printed album, contact sheet)
 ├── docs/                   ← plan, product, design, engineering, decisions — start at docs/README.md
 └── assets/
     └── art/<id>/           ← one folder per artwork: photo.jpeg, thumb-480/960.jpeg, audio.mp3, parts/ (ADR-0016)
@@ -82,6 +82,12 @@ Photos (and the audio description, if you have one) go in **`intake/`**, not `as
 Claude Code files them into `assets/art/<id>/` once processed (see [ADR-0016](./docs/decisions/0016-asset-layout.md)).
 The full procedure is in [`CLAUDE.md`](./CLAUDE.md); the parent-facing version (PT-PT) is in
 [`intake/README.md`](./intake/README.md).
+
+**Easiest (POD-05):** say `/FMBART_Museu` in Claude Code. The skill
+(`.claude/skills/FMBART_Museu/`) asks whether it is a new piece or an album and guides you with
+short questions. You save the photo, and the audio if there is one, in the entry tray
+`intake/nova/` (out of git) with any name; Claude names the files, fills the form, processes
+the entry and empties the tray.
 
 **Shortcut (UPL-11):** double-click `Nova obra.cmd` (or `npm run intake`). A local form
 (`scripts/intake-server.js`, 127.0.0.1 only) takes the photo and the fields, optimizes the photo,
@@ -141,6 +147,7 @@ The short version: each entry in `art-data.js` is a complete artwork "card" — 
 | Add a theme tab | `index.html` → `THEMES` array + a new theme block in `gallery.css` |
 | Tweak an animation | `art-animations.jsx` → the function named in the artwork's `anim` field |
 | Make a printed album | `npm run album -- Miguel` writes `album/out/<slug>/miolo.pdf`, `capa.pdf` (front) and `capa-aberta.pdf` (back, spine and front on one sheet; pass the printer's spine with `--lombada <mm>`). It prints from the original photo in `album/originais/<id>.*` when there is one (intake keeps it there since POD-04), otherwise from the site photo. POD-01, POD-04, ADR-0018 |
+| Make any album, guided | `/FMBART_Museu` in Claude Code. It asks the questions, shows a numbered contact sheet to choose works from (`npm run folha`), makes `livro.html` first (`--so livro`, seconds) and the PDFs only after a yes (`--so pdf`). `--originais` lists which works have an original photo. POD-05 |
 | Make a gift album | Copy `album/presentes/exemplo.md` to `album/presentes/<nome>.md`, choose the works (`npm run album -- --lista`) and write the texts. Then run `npm run album -- <nome>`. Gift files stay local and are not in git. POD-02 |
 | Send an album to leaf through | Every album run also writes `album/out/<slug>/livro.html`, the same book with turning pages. It is one file that opens in any browser, so you can send it as it is. POD-03 |
 

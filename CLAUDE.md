@@ -12,6 +12,10 @@ This is a static digital museum of kids' art. Deploys to Vercel from `main`.
 
 ## Most common task: process a new artwork from the intake tray
 
+> The owner usually starts with `/FMBART_Museu` (`.claude/skills/FMBART_Museu/`): it collects the
+> photo from the tray `intake/nova/` and the answers, writes the form, and then runs the steps below.
+> The same skill makes albums.
+
 The user drops a photo and a filled-in form into `intake/`. They then say something like:
 
 > "Processa a entrada `miguel-gato-cubista`"

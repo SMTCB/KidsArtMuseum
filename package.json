@@ -8,6 +8,7 @@
     "intake": "node scripts/intake-server.js",
     "thumbs": "node scripts/thumbs.js",
     "album": "node scripts/album.js",
+    "folha": "node scripts/album-folha.js",
     "hooks": "git config core.hooksPath .githooks",
     "check": "node scripts/docs-lint.js && node scripts/check-dots.js"
   },

@@ -1,0 +1,10 @@
+Bandeja de entrada do museu.
+
+Guarda aqui as fotos das obras (e o áudio, se houver), com o nome que tiverem, e diz ao
+Claude Code /FMBART_Museu. Ele dá-lhes nome e arruma cada ficheiro no seu lugar:
+
+  a foto do site      assets/art/<obra>/photo.jpeg
+  o áudio             assets/art/<obra>/audio.mp3
+  a foto original     album/originais/<obra>.<ext>   (para o álbum impresso)
+
+Nada do que está aqui vai para o git nem para o site. No fim, esta pasta fica vazia.
