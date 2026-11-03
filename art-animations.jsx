@@ -717,6 +717,39 @@ function FlorestaAnimation({ art }) {
 }
 
 // ============================================================
+// CRESCER — Muna's autumn garden grows out of the cardboard ground, then the photo comes back
+// ============================================================
+// Under everything is the empty ground (parts/chao.jpeg): the same photo with the plants and the
+// corks taken out and filled from the pixels beside them. Each part is a transparent cut-out of
+// the photo, laid over its own place, and grows from where it stands on the board: the three
+// cork mushrooms first, then the little twig, then the tall plant with the drawings. Then the
+// photograph itself fades in on top, holds, and fades out over the empty ground for the next loop.
+// Boxes as % of the image; pivots as % of the cut-out (the foot of each stem). Delays in seconds.
+const CRESCER_PARTS = [
+  { name: "cogumelo1", l: 52.05, t: 55.87, w: 4.55,  h: 11.2,  pivot: "50% 100%",    delay: 0 },
+  { name: "cogumelo2", l: 56.6,  t: 57.67, w: 4.7,   h: 9.4,   pivot: "50% 100%",    delay: 0.5 },
+  { name: "cogumelo3", l: 66.55, t: 55.67, w: 5.05,  h: 10.87, pivot: "22.8% 100%",  delay: 1 },
+  { name: "raminho",   l: 39.8,  t: 43.8,  w: 7.55,  h: 22.87, pivot: "88.1% 98.8%", delay: 1.8 },
+  { name: "planta",    l: 22.25, t: 5.33,  w: 23.15, h: 61.73, pivot: "60.9% 99.4%", delay: 2.6 }
+];
+
+function CrescerAnimation({ art }) {
+  const part = (n) => art.src.replace(/[^/]+$/, "parts/" + n);
+  return (
+    <div className="anim-layer crescer-stage" aria-hidden>
+      <img src={part("chao.jpeg")} alt="" className="anim-img" />
+      {CRESCER_PARTS.map((P) => (
+        <img key={P.name} src={part(P.name + ".png")} alt="" className="crescer-part" style={{
+          left: P.l + "%", top: P.t + "%", width: P.w + "%", height: P.h + "%",
+          transformOrigin: P.pivot, animationDelay: P.delay + "s"
+        }} />
+      ))}
+      <img src={art.src} alt="" className="anim-img crescer-photo" />
+    </div>
+  );
+}
+
+// ============================================================
 // RELOGIO — the cut-out watch gets a second hand sweeping its dial
 // ============================================================
 // Dial centre and hand length, as % of the image width (measured on Miguel's collage).
@@ -963,7 +996,8 @@ window.ANIMS = {
   maemargarida: MaeMargaridaAnimation,
   agentesecreto: AgenteSecretoAnimation,
   outono: OutonoAnimation,
-  floresta: FlorestaAnimation
+  floresta: FlorestaAnimation,
+  crescer: CrescerAnimation
 };
 
 Object.assign(window, {
@@ -972,5 +1006,5 @@ Object.assign(window, {
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
-  FlorestaAnimation
+  FlorestaAnimation, CrescerAnimation
 });

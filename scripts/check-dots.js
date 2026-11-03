@@ -50,6 +50,11 @@ const SPOTS = {
     return out;
   })(),
   floresta: [{ l: 10.15, t: 6.07, w: 43.85, h: 52.93 }],
+  outonomuna: [
+    { l: 52.05, t: 55.87, w: 4.55, h: 11.2 }, { l: 56.6, t: 57.67, w: 4.7, h: 9.4 },
+    { l: 66.55, t: 55.67, w: 5.05, h: 10.87 }, { l: 39.8, t: 43.8, w: 7.55, h: 22.87 },
+    { l: 22.25, t: 5.33, w: 23.15, h: 61.73 }
+  ],
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
   mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }]

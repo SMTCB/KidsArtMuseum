@@ -2,7 +2,7 @@
 title: Distinctive artwork animation
 status: draft
 owner: SMTCB
-last_reviewed: 2026-10-14
+last_reviewed: 2026-11-03
 review_cycle: 30d
 related:
   - ART_GUIDE.md
@@ -83,6 +83,11 @@ A routine may cut the drawing into pieces when that serves the idea.
 - Parts hidden behind a moving part need a believable background. Prefer motions that do not
   reveal a hole (turning, scaling from the centre, swinging from an anchor), or fill from
   neighbouring pixels of the same photograph. Ask before inventing paint.
+- When the parts appear out of nothing (they grow, or are put in place), the stage needs the
+  photo without them: an **empty plate** (`parts/chao.jpeg`), the same photograph with each
+  part's area filled from the pixels beside it, never painted. `crescer` (*O Outono do Muna*)
+  is the example. The plate is only ever seen under moving parts; the routine ends each loop on
+  the untouched photo.
 
 ## 5. The method (what the skill follows)
 

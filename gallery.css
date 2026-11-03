@@ -656,7 +656,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* Carvalho claro — light oak, fine grain */
-.gw-piece-rasgacola .gw-frame {
+.gw-piece-rasgacola .gw-frame,
+.gw-piece-outonomuna .gw-frame {
   padding: 5%;
   background:
     repeating-linear-gradient(90deg, rgba(120,80,40,0.12) 0 1px, transparent 1px 5px),
@@ -668,7 +669,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     inset 0 0 0 1px rgba(80,50,20,0.35),
     inset 0 1px 0 rgba(255,240,210,0.5);
 }
-.gw-piece-rasgacola .gw-mat { box-shadow: 0 0 0 1px rgba(60,40,20,0.4); }
+.gw-piece-rasgacola .gw-mat,
+.gw-piece-outonomuna .gw-mat { box-shadow: 0 0 0 1px rgba(60,40,20,0.4); }
 
 /* Moderno — thin black edge, wide white passe-partout; the work is shown whole, not cropped */
 .gw-piece-meiodemim .gw-frame,
@@ -1938,6 +1940,42 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .floresta-plant { animation-name: florestaBreathe; }
 }
 @keyframes florestaBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
+
+/* ============================================================
+   === crescer animation === (O Outono do Muna)
+   One 14 s loop. Each part grows from its foot (its own delay, set inline, shifts its whole
+   cycle; every part is back to nothing while the photo covers the stage, 55%-88%).
+   ============================================================ */
+.crescer-part {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+  animation: crescerGrow 14s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+}
+@keyframes crescerGrow {
+  0%, 8%    { transform: scale(0.35, 0); }
+  20%       { transform: scale(1.02, 1.05); }
+  24%, 62%  { transform: scale(1); }
+  63%, 100% { transform: scale(0.35, 0); }
+}
+.crescer-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+  animation: crescerPhoto 14s ease-in-out infinite;
+}
+@keyframes crescerPhoto {
+  0%, 48%  { opacity: 0; }
+  55%, 88% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crescer-part  { transform: none; animation: crescerBreathe 6s ease-in-out infinite; }
+  .crescer-photo { animation: none; }
+}
+@keyframes crescerBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
 
 /* ============================================================
    === relogio animation === (Composição Livre / Mbappé)

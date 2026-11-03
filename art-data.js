@@ -408,6 +408,55 @@ window.ART = [
           { x: 88, y: 45, label: "Duas rolhas", detail: "Com a marca do Douro" }
         ] }
     ]
+  },
+  {
+    id: "outonomuna",
+    title: "O Outono do Muna",
+    artist: "Muna",
+    age: 5,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/outonomuna/photo.jpeg",
+    w: 2000, h: 1500,
+    bg: "#8e7453",
+    palette: ["#8e7453", "#a29a87", "#5f4017", "#3a2917", "#c8792f"],
+    medium: "Cartão, rolhas, bolotas, plantas secas e desenhos",
+    anim: "crescer",
+    dots: [
+      { x: 32, y: 77, label: "O cartão", detail: "É o chão do jardim" },
+      { x: 66, y: 76, label: "O título", detail: "Na Floresta do Outono..." },
+      { x: 79, y: 70.5, label: "INVENTARTE", detail: "Uma etiqueta no canto" }
+    ],
+    views: [
+      { label: "A crescer" },
+      { label: "De frente", src: "assets/art/outonomuna/views/2.jpeg", w: 2000, h: 1500,
+        dots: [
+          { x: 41, y: 13, label: "Um desenho", detail: "No alto da planta" },
+          { x: 39, y: 62, label: "CUCU...", detail: "Escrito num cartão" },
+          { x: 60, y: 59, label: "Cogumelos", detail: "Bolotas em cima de rolhas" },
+          { x: 71, y: 78, label: "O título", detail: "Na Floresta do Outono..." }
+        ] },
+      { label: "Rente ao chão", src: "assets/art/outonomuna/views/3.jpeg", w: 2000, h: 1500,
+        dots: [
+          { x: 41, y: 40, label: "Duas rolhas", detail: "Com chapéu de bolota" },
+          { x: 72, y: 38, label: "Cogumelo de pau", detail: "Uma bolota num pauzinho" },
+          { x: 66, y: 58, label: "Um raminho", detail: "Com cascas secas" },
+          { x: 64, y: 74, label: "O título", detail: "Escrito em letras ocas" }
+        ] },
+      { label: "Os cogumelos", src: "assets/art/outonomuna/views/4.jpeg", w: 2000, h: 1500,
+        dots: [
+          { x: 10, y: 30, label: "O raminho", detail: "Espetado no cartão" },
+          { x: 29, y: 50, label: "Rolhas de vinho", detail: "Ainda com as letras" },
+          { x: 77, y: 64, label: "INVENTARTE", detail: "Uma etiqueta no canto" },
+          { x: 8, y: 80, label: "O cartão", detail: "Ondulado por dentro" }
+        ] },
+      { label: "A planta", src: "assets/art/outonomuna/views/5.jpeg", w: 1500, h: 2000,
+        dots: [
+          { x: 50, y: 12, label: "Um desenho", detail: "Preso lá no alto" },
+          { x: 49, y: 48, label: "Um bicho", detail: "Pendurado num fio" },
+          { x: 40, y: 64, label: "CUCU...", detail: "Um cartão a espreitar" }
+        ] }
+    ]
   }
 ];
 
@@ -417,5 +466,5 @@ window.HALLWAY_ORDER = [
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
-  "sernormal", "outono", "floresta"
+  "sernormal", "outono", "floresta", "outonomuna"
 ];
