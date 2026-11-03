@@ -457,6 +457,26 @@ window.ART = [
           { x: 40, y: 64, label: "CUCU...", detail: "Um cartão a espreitar" }
         ] }
     ]
+  },
+  {
+    id: "passaro",
+    title: "O Pássaro",
+    artist: "Manuel",
+    age: 8,
+    year: 2026,
+    signature: "Manuel",
+    src: "assets/art/passaro/photo.jpeg",
+    w: 2000, h: 1500,
+    bg: "#6e8b91",
+    palette: ["#6e8b91", "#dd4021", "#e56a1a", "#884511", "#f0cfae"],
+    medium: "Carimbos de tinta e papel recortado",
+    anim: "passaro",
+    dots: [
+      { x: 28, y: 51, label: "O tronco", detail: "Em papel castanho" },
+      { x: 61, y: 35, label: "A neve", detail: "Carimbada, bola a bola" },
+      { x: 92, y: 7, label: "Lá no alto", detail: "A neve vem do céu todo" },
+      { x: 36.5, y: 96, label: "Pingos", detail: "A tinta também caiu" }
+    ]
   }
 ];
 
@@ -466,5 +486,5 @@ window.HALLWAY_ORDER = [
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
-  "sernormal", "outono", "floresta", "outonomuna"
+  "sernormal", "outono", "floresta", "outonomuna", "passaro"
 ];

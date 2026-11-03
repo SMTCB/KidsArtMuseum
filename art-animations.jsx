@@ -750,6 +750,35 @@ function CrescerAnimation({ art }) {
 }
 
 // ============================================================
+// PASSARO — Manuel's paper bird lifts its head to look at the snow, then shakes its tail
+// ============================================================
+// The head is its own piece of paper glued over the body, so it is cut out (parts/cabeca.png)
+// and tilts up about the back of its neck; the tail (parts/cauda.png) wags about the narrow
+// waist. Under them a small patch of the photo (parts/fundo.jpeg) has the parts filled in from
+// the blue paper beside them, and the body's red carried on behind the seams.
+// Boxes as % of the image; pivots as % of the cut-out.
+const PASSARO_FUNDO = { l: 19.9, t: 67.27, w: 26.35, h: 13.4 };
+const PASSARO_PARTS = [
+  { name: "cauda",  l: 20.35, t: 68.4,  w: 6.15, h: 11.67, pivot: "98.4% 49.1%" },
+  { name: "cabeca", l: 38.85, t: 67.87, w: 6.95, h: 10.6,  pivot: "9.4% 83%" }
+];
+
+function PassaroAnimation({ art }) {
+  const part = (n) => art.src.replace(/[^/]+$/, "parts/" + n);
+  const box = (B) => ({ left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%" });
+  return (
+    <div className="anim-layer passaro-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <img src={part("fundo.jpeg")} alt="" className="passaro-fundo" style={box(PASSARO_FUNDO)} />
+      {PASSARO_PARTS.map((P) => (
+        <img key={P.name} src={part(P.name + ".png")} alt="" className={"passaro-" + P.name}
+          style={{ ...box(P), transformOrigin: P.pivot }} />
+      ))}
+    </div>
+  );
+}
+
+// ============================================================
 // RELOGIO — the cut-out watch gets a second hand sweeping its dial
 // ============================================================
 // Dial centre and hand length, as % of the image width (measured on Miguel's collage).
@@ -997,7 +1026,8 @@ window.ANIMS = {
   agentesecreto: AgenteSecretoAnimation,
   outono: OutonoAnimation,
   floresta: FlorestaAnimation,
-  crescer: CrescerAnimation
+  crescer: CrescerAnimation,
+  passaro: PassaroAnimation
 };
 
 Object.assign(window, {
@@ -1006,5 +1036,5 @@ Object.assign(window, {
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
-  FlorestaAnimation, CrescerAnimation
+  FlorestaAnimation, CrescerAnimation, PassaroAnimation
 });
