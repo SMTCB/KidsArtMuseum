@@ -671,9 +671,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .gw-piece-rasgacola .gw-mat { box-shadow: 0 0 0 1px rgba(60,40,20,0.4); }
 
 /* Moderno — thin black edge, wide white passe-partout; the work is shown whole, not cropped */
-.gw-piece-meiodemim .gw-frame { padding: 1.6%; background: #161616; }
-.gw-piece-meiodemim .gw-mat   { padding: 8%; background: #fbfaf7; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
-.gw-piece-meiodemim .gw-img   { object-fit: contain; filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.35)); }
+.gw-piece-meiodemim .gw-frame,
+.gw-piece-floresta .gw-frame { padding: 1.6%; background: #161616; }
+.gw-piece-meiodemim .gw-mat,
+.gw-piece-floresta .gw-mat   { padding: 8%; background: #fbfaf7; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+.gw-piece-meiodemim .gw-img,
+.gw-piece-floresta .gw-img   { object-fit: contain; filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.35)); }
 
 /* Sem moldura — the work alone, floating off the wall */
 .gw-piece-agentesecreto .gw-frame {
@@ -785,6 +788,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     0 30px 60px rgba(0,0,0,0.5),
     0 0 0 16px #ec6aa3;
 }
+
+/* Angles of a 3D piece (ADR-0019): a row of chips under the frame */
+.zm-view { display: flex; flex-direction: column; align-items: center; gap: 34px; }
+.zm-views { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.zm-view-chip {
+  padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 13px; color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.zm-view-chip:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
+.zm-view-chip.is-on { background: rgba(255,255,255,0.9); color: #1a1a1a; border-color: transparent; }
+.zm-view-chip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 .anim-layer {
   position: absolute; inset: 0;
@@ -1903,6 +1919,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .palito-l, .palito-r { animation-name: palitoBreathe; }
 }
 @keyframes palitoBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+
+/* ============================================================
+   === floresta animation === (Na Floresta do Outono...)
+   ============================================================ */
+.floresta-plant {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+  animation: florestaSway 6s ease-in-out infinite;
+}
+@keyframes florestaSway {
+  0%, 100% { transform: rotate(-1.1deg); }
+  50%      { transform: rotate(1.1deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floresta-plant { animation-name: florestaBreathe; }
+}
+@keyframes florestaBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
 
 /* ============================================================
    === relogio animation === (Composição Livre / Mbappé)

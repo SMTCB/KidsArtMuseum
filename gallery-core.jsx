@@ -350,7 +350,15 @@ function ZoomModal({ art, onClose, onStep, theme }) {
   const [showRoom, setShowRoom] = useState(false);   // ← Experimentation Room
   const [showComments, setShowComments] = useState(false);
   const [nComments, setNComments] = useState(null);
-  const Anim = (window.ANIMS && window.ANIMS[art.anim]) || PlainAnim;
+  const [viewIx, setViewIx] = useState(0);            // which angle of a 3D piece (ADR-0019)
+  const views = art.views && art.views.length > 1 ? art.views : null;
+  const v = views ? views[viewIx] || views[0] : null;
+  // The first view is the main photo: it keeps the animation. The others are plain photos.
+  const onMain = !v || viewIx === 0;
+  const shown = onMain ? art : { ...art, src: v.src, w: v.w, h: v.h, dots: v.dots || [] };
+  const Anim = (onMain && window.ANIMS && window.ANIMS[art.anim]) || PlainAnim;
+
+  useEffect(() => { setViewIx(0); }, [art.id]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -395,11 +403,22 @@ function ZoomModal({ art, onClose, onStep, theme }) {
       )}
 
       <div className="zm-stage" key={art.id} onClick={(e) => e.stopPropagation()}>
-        <div className={"zm-frame zm-frame-" + art.anim} style={{ aspectRatio: `${art.w} / ${art.h}`, "--ar": art.w / art.h }}>
-          <Anim art={art} />
-          {showDots && art.dots.map((d, i) => (
-            <DiscoverDot key={i} dot={d} n={i + 1} />
-          ))}
+        <div className="zm-view">
+          <div className={"zm-frame zm-frame-" + (onMain ? art.anim : "plain")} key={viewIx}
+            style={{ aspectRatio: `${shown.w} / ${shown.h}`, "--ar": shown.w / shown.h }}>
+            <Anim art={shown} />
+            {showDots && shown.dots.map((d, i) => (
+              <DiscoverDot key={i} dot={d} n={i + 1} />
+            ))}
+          </div>
+          {views && (
+            <div className="zm-views" role="group" aria-label="Ângulos da obra">
+              {views.map((vw, i) => (
+                <button key={i} className={"zm-view-chip" + (i === viewIx ? " is-on" : "")}
+                  aria-pressed={i === viewIx} onClick={() => setViewIx(i)}>{vw.label}</button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="zm-label">

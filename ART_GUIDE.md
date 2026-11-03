@@ -25,11 +25,14 @@ Every piece is one entry in `window.ART` (inside `art-data.js`). The schema is f
   anim:      "miro",                  // key into window.ANIMS (see §5)
   medium:    "Barro e palitos",       // OPTIONAL — only if non-paint (clay, collage…)
   interactive: "paint-rainbow",       // OPTIONAL — only if anim is interactive
+  views:     [{ label: "De cima" }],  // OPTIONAL — 3D pieces only, see "Several views" below
   dots: [                             // 3–4 discovery hotspots (see §6)
     { x: 32, y: 22, label: "Olho amarelo", detail: "Um olho que pisca" }
   ]
 }
 ```
+
+**Several views (3D pieces only, [ADR-0019](docs/decisions/0019-artwork-views.md)).** `views` is a list of angles shown as chips under the frame. The first entry is the main photo and carries only a `label` (`src`, `w`, `h`, `dots` come from the piece). Each later entry is `{ label, src, w, h, dots }`: its own photo, size and 3–4 dots. Extra photos live in `assets/art/<id>/views/<n>.jpeg`. The `anim` runs on the main view only; the wall, thumbnails, postal and album use the main photo. Leave the field out for a flat work.
 
 Then append the new `id` to `window.HALLWAY_ORDER` at the bottom of the file, and the Parede de Galeria hangs it automatically.
 
@@ -115,6 +118,7 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `maemargarida` | The eye of the collaged face glances left and right | A collage face with one eye that can look. Box is `MARGARIDA_EYE` in `art-animations.jsx` — re-measure for a new drawing |
 | `agentesecreto` | A magnifying lens drifts over the photo along a path, enlarging what it passes over | A piece about looking closely or searching. Lens and path are `AGENTE_LENS` and `AGENTE_PATH` in `art-animations.jsx` — re-measure for a new drawing |
 | `outono` | Green leaves unfurl on the edge of the leafy tree's crown; green leaves let go of the bare tree's twigs, turn brown as they sway down, and fade on the ground (about 20 s a cycle) | Two trees, or one tree in two seasons, where leaves can be born and fall. Buds and twig tips are `OUTONO_BUDS` and `OUTONO_FALLS` in `art-animations.jsx` (image pixels) — re-measure for a new drawing |
+| `floresta` | A dried plant, cut from the photo as a transparent PNG, sways slowly (±1°, 6 s a swing) about the point where its stem enters the glue; the rest of the photo stays still | A 3D piece with a tall, thin thing that stands up and could catch the wind. Box and pivot are `FLORESTA_PLANT` in `art-animations.jsx`, the cut-out is `assets/art/<id>/parts/planta.png` — re-measure and re-cut for a new piece |
 
 **Default to reuse, but only when it is a genuine fit.** A new "talking head" should use `portrait`, not a new function. A new collage should try `mbappe` or `luna` first. If the only match is a generic routine (a spotlight, sparkles, notes), the piece deserves its own: see §5b.
 
@@ -185,6 +189,7 @@ assets/art/<id>/
 ├── thumb-960.jpeg ←   no schema field: `gallery-core.jsx` derives the `srcset` from `src`
 ├── audio.mp3      ← the audio description (optional); listed in audio-data.js
 ├── reference.jpg  ← a reference image some routines need (e.g. sunflowers); optional
+├── views/         ← extra angles of a 3D piece, `<n>.jpeg` (optional, `views` in §1)
 └── parts/         ← transparent PNGs cut for an animation (optional, see §5b)
 ```
 

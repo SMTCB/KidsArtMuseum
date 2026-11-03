@@ -696,6 +696,27 @@ function PalitosAnimation({ art }) {
 }
 
 // ============================================================
+// FLORESTA — the dried plant, Miguel's tree, sways in the wind from its glued base
+// ============================================================
+// The plant is a transparent cut-out of the photo (assets/art/floresta/parts/planta.png), laid
+// exactly over its own place and turned about the point where the stem enters the glue.
+// Box as % of the image; pivot as % of the cut-out. Re-measure for a new piece.
+const FLORESTA_PLANT = { l: 10.15, t: 6.07, w: 43.85, h: 52.93, pivot: "61.3% 100%" };
+
+function FlorestaAnimation({ art }) {
+  const P = FLORESTA_PLANT;
+  return (
+    <div className="anim-layer floresta-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <img src={art.src.replace(/[^/]+$/, "parts/planta.png")} alt="" className="floresta-plant" style={{
+        left: P.l + "%", top: P.t + "%", width: P.w + "%", height: P.h + "%",
+        transformOrigin: P.pivot
+      }} />
+    </div>
+  );
+}
+
+// ============================================================
 // RELOGIO — the cut-out watch gets a second hand sweeping its dial
 // ============================================================
 // Dial centre and hand length, as % of the image width (measured on Miguel's collage).
@@ -941,7 +962,8 @@ window.ANIMS = {
   meiodemim: MeioDeMimAnimation,
   maemargarida: MaeMargaridaAnimation,
   agentesecreto: AgenteSecretoAnimation,
-  outono: OutonoAnimation
+  outono: OutonoAnimation,
+  floresta: FlorestaAnimation
 };
 
 Object.assign(window, {
@@ -949,5 +971,6 @@ Object.assign(window, {
   MatisseAnimation, MbappeAnimation, MaestroAnimation, JogadorAnimation,
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
-  RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation
+  RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
+  FlorestaAnimation
 });

@@ -364,6 +364,50 @@ window.ART = [
       { x: 82, y: 55, label: "Árvore pelada", detail: "Já sem uma folha" },
       { x: 56, y: 95, label: "A assinatura", detail: "Com a data de hoje" }
     ]
+  },
+  {
+    id: "floresta",
+    title: "Na Floresta do Outono...",
+    artist: "Miguel",
+    age: 6,
+    year: 2026,
+    signature: "Miguel",
+    src: "assets/art/floresta/photo.jpeg",
+    w: 2000, h: 1500,
+    bg: "#c9bc9f",
+    palette: ["#c9bc9f", "#8b7455", "#3a2d22", "#9c4a44", "#6b4a34"],
+    medium: "Cortiça, bolotas, cartão e plantas secas",
+    anim: "floresta",
+    dots: [
+      { x: 26, y: 78, label: "A rolha deitada", detail: "Com chapéu de bolota nas pontas" },
+      { x: 57, y: 68, label: "Bolota equilibrada", detail: "Com um pauzinho atravessado" },
+      { x: 82, y: 80, label: "Duas bolotas", detail: "Lado a lado, em duas rolhas" },
+      { x: 62, y: 92, label: "O título", detail: "Escrito à mão, em letras ocas" }
+    ],
+    views: [
+      { label: "De cima" },
+      { label: "Em ângulo", src: "assets/art/floresta/views/2.jpeg", w: 1500, h: 2000,
+        dots: [
+          { x: 46, y: 32, label: "Papel desenhado", detail: "Dentro da cúpula da bolota" },
+          { x: 77, y: 17, label: "Bolotas em fila", detail: "Uma em cima da outra" },
+          { x: 77, y: 40, label: "INVENTARTE", detail: "Com o nome do Miguel" },
+          { x: 68, y: 67, label: "A rolha deitada", detail: "Vista pelo lado" }
+        ] },
+      { label: "Rente ao chão", src: "assets/art/floresta/views/3.jpeg", w: 2000, h: 1500,
+        dots: [
+          { x: 10, y: 59, label: "A cola", detail: "Segura a planta de pé" },
+          { x: 52, y: 30, label: "Bolota com pau", detail: "O pauzinho espreita de lado" },
+          { x: 60, y: 72, label: "A rolha deitada", detail: "De bolota em bolota" },
+          { x: 50, y: 92, label: "O cartão", detail: "Ondulado por dentro" }
+        ] },
+      { label: "De frente", src: "assets/art/floresta/views/4.jpeg", w: 2000, h: 1500,
+        dots: [
+          { x: 46, y: 22, label: "Bolota equilibrada", detail: "Sobre uma rolha de pé" },
+          { x: 63, y: 49, label: "Um desenho recortado", detail: "Com cara sorridente" },
+          { x: 68, y: 68, label: "O título", detail: "Na Floresta do Outono..." },
+          { x: 88, y: 45, label: "Duas rolhas", detail: "Com a marca do Douro" }
+        ] }
+    ]
   }
 ];
 
@@ -373,5 +417,5 @@ window.HALLWAY_ORDER = [
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
-  "sernormal", "outono"
+  "sernormal", "outono", "floresta"
 ];

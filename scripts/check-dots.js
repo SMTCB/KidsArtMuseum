@@ -49,6 +49,7 @@ const SPOTS = {
     });
     return out;
   })(),
+  floresta: [{ l: 10.15, t: 6.07, w: 43.85, h: 52.93 }],
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
   mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }]
