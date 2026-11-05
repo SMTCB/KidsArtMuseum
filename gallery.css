@@ -676,11 +676,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* Moderno — thin black edge, wide white passe-partout; the work is shown whole, not cropped */
 .gw-piece-meiodemim .gw-frame,
-.gw-piece-floresta .gw-frame { padding: 1.6%; background: #161616; }
+.gw-piece-floresta .gw-frame,
+.gw-piece-autoretratomuna .gw-frame { padding: 1.6%; background: #161616; }
 .gw-piece-meiodemim .gw-mat,
-.gw-piece-floresta .gw-mat   { padding: 8%; background: #fbfaf7; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+.gw-piece-floresta .gw-mat,
+.gw-piece-autoretratomuna .gw-mat { padding: 8%; background: #fbfaf7; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
 .gw-piece-meiodemim .gw-img,
-.gw-piece-floresta .gw-img   { object-fit: contain; filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.35)); }
+.gw-piece-floresta .gw-img,
+.gw-piece-autoretratomuna .gw-img { object-fit: contain; filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.35)); }
 
 /* Sem moldura — the work alone, floating off the wall */
 .gw-piece-agentesecreto .gw-frame {
@@ -2010,6 +2013,65 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .passaro-cauda { transform: none; animation: passaroBreathe 6s ease-in-out infinite; }
 }
 @keyframes passaroBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
+
+/* ============================================================
+   === risco animation === (Auto-Retrato, Muna)
+   One 24 s loop. The cut-out line and the colours under it fade in over the photo, the line
+   hops left, across to the right, and back to its place; then both fade out and the photo
+   rests. Each hop is an arc: up and tilted half way, down on the next spot.
+   ============================================================ */
+.risco-cores,
+.risco-linha {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+.risco-cores { opacity: 0; animation: riscoCores 24s linear infinite; }
+.risco-linha {
+  left: 0; top: 0; width: 100%; height: 100%;
+  opacity: 0;
+  transform-origin: 50% 95%;
+  will-change: transform, opacity;
+  animation: riscoOpacidade 24s linear infinite, riscoPasseio 24s ease-in-out infinite;
+}
+@keyframes riscoCores {
+  0%, 10%   { opacity: 0; }
+  13%, 84%  { opacity: 1; }
+  87%, 100% { opacity: 0; }
+}
+@keyframes riscoOpacidade {
+  0%, 8%    { opacity: 0; }
+  10%, 87%  { opacity: 1; }
+  89%, 100% { opacity: 0; }
+}
+@keyframes riscoPasseio {
+  0%, 14%   { transform: translate(0, 0) rotate(0deg); }
+  16.5%     { transform: translate(-1.5%, -0.8%) rotate(-1.5deg); }
+  19%       { transform: translate(-3%, 0) rotate(0deg); }
+  21.5%     { transform: translate(-4.5%, -0.8%) rotate(1.5deg); }
+  24%       { transform: translate(-6%, 0) rotate(0deg); }
+  26.5%     { transform: translate(-7.25%, -0.8%) rotate(-1.5deg); }
+  29%, 36%  { transform: translate(-8.5%, 0) rotate(0deg); }
+  39%       { transform: translate(-6.25%, -0.8%) rotate(1.5deg); }
+  42%       { transform: translate(-4%, 0) rotate(0deg); }
+  45%       { transform: translate(-1.75%, -0.8%) rotate(-1.5deg); }
+  48%       { transform: translate(0.5%, 0) rotate(0deg); }
+  51%       { transform: translate(3%, -0.8%) rotate(1.5deg); }
+  54%       { transform: translate(5.5%, 0) rotate(0deg); }
+  57%       { transform: translate(7.75%, -0.8%) rotate(-1.5deg); }
+  60%, 67%  { transform: translate(10%, 0) rotate(0deg); }
+  69.5%     { transform: translate(8.25%, -0.8%) rotate(-1.5deg); }
+  72%       { transform: translate(6.5%, 0) rotate(0deg); }
+  74.5%     { transform: translate(4.75%, -0.8%) rotate(1.5deg); }
+  77%       { transform: translate(3%, 0) rotate(0deg); }
+  79.5%     { transform: translate(1.5%, -0.8%) rotate(-1.5deg); }
+  82%, 100% { transform: translate(0, 0) rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .risco-linha { display: none; }
+  .risco-cores { animation: riscoBreathe 8s ease-in-out infinite; }
+}
+@keyframes riscoBreathe { 0%, 100% { opacity: 0; } 50% { opacity: 0.35; } }
 
 /* ============================================================
    === relogio animation === (Composição Livre / Mbappé)

@@ -477,6 +477,25 @@ window.ART = [
       { x: 92, y: 7, label: "Lá no alto", detail: "A neve vem do céu todo" },
       { x: 36.5, y: 96, label: "Pingos", detail: "A tinta também caiu" }
     ]
+  },
+  {
+    id: "autoretratomuna",
+    title: "Auto-Retrato",
+    artist: "Muna",
+    age: 5,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/autoretratomuna/photo.jpeg",
+    w: 1406, h: 2000,
+    bg: "#927043",
+    palette: ["#927043", "#7a9d31", "#b3706b", "#bc7839", "#b7a55c"],
+    anim: "risco",
+    dots: [
+      { x: 18, y: 6, label: "O título", detail: "Sou eu, desenhado por mim" },
+      { x: 2, y: 1.8, label: "Um pionés", detail: "Um em cada canto" },
+      { x: 20.6, y: 96.7, label: "A assinatura", detail: "Quem fez este desenho" },
+      { x: 80.4, y: 96.3, label: "A data", detail: "Feito em novembro" }
+    ]
   }
 ];
 
@@ -486,5 +505,6 @@ window.HALLWAY_ORDER = [
   "mbappe", "luna", "manuelfigure", "eraumavez", "diadamae", "clay",
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
-  "sernormal", "outono", "floresta", "outonomuna", "passaro"
+  "sernormal", "outono", "floresta", "outonomuna", "passaro",
+  "autoretratomuna"
 ];

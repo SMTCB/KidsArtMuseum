@@ -57,6 +57,11 @@ const SPOTS = {
   ],
   // head and tail, plus room for their sweep as they turn
   passaro: [{ l: 18.35, t: 65.87, w: 10.15, h: 15.67 }, { l: 37.85, t: 63.87, w: 8.95, h: 14.6 }],
+  // the line's sweep, 8.5% left to 10% right: head and hair, arms, body, legs
+  autoretratomuna: [
+    { l: 25.6, t: 6.2, w: 64.4, h: 46.3 }, { l: 10.7, t: 65, w: 79.8, h: 13 },
+    { l: 31.3, t: 52, w: 43.7, h: 40 }, { l: 34.9, t: 88, w: 38.8, h: 11.5 }
+  ],
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
   mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }]

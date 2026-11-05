@@ -779,6 +779,29 @@ function PassaroAnimation({ art }) {
 }
 
 // ============================================================
+// RISCO — Muna's black line gets up from its watercolour, walks about the paper and comes back
+// ============================================================
+// The paint and the line do not coincide in this drawing, so they are two layers: the line is
+// cut from the photo (parts/risco.png, full size, so it moves in % of the image) and under it
+// parts/cores.jpeg is the photo with the line filled in from the pixels beside it. Both fade
+// in only around the walk; the rest of the loop is the untouched photo.
+// Box as % of the image.
+const RISCO_CORES = { l: 17.78, t: 6, w: 63.73, h: 93.8 };
+
+function RiscoAnimation({ art }) {
+  const part = (n) => art.src.replace(/[^/]+$/, "parts/" + n);
+  const B = RISCO_CORES;
+  return (
+    <div className="anim-layer risco-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <img src={part("cores.jpeg")} alt="" className="risco-cores"
+        style={{ left: B.l + "%", top: B.t + "%", width: B.w + "%", height: B.h + "%" }} />
+      <img src={part("risco.png")} alt="" className="risco-linha" />
+    </div>
+  );
+}
+
+// ============================================================
 // RELOGIO — the cut-out watch gets a second hand sweeping its dial
 // ============================================================
 // Dial centre and hand length, as % of the image width (measured on Miguel's collage).
@@ -1027,7 +1050,8 @@ window.ANIMS = {
   outono: OutonoAnimation,
   floresta: FlorestaAnimation,
   crescer: CrescerAnimation,
-  passaro: PassaroAnimation
+  passaro: PassaroAnimation,
+  risco: RiscoAnimation
 };
 
 Object.assign(window, {
@@ -1036,5 +1060,5 @@ Object.assign(window, {
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
-  FlorestaAnimation, CrescerAnimation, PassaroAnimation
+  FlorestaAnimation, CrescerAnimation, PassaroAnimation, RiscoAnimation
 });
