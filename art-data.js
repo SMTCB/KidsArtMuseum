@@ -496,6 +496,26 @@ window.ART = [
       { x: 20.6, y: 96.7, label: "A assinatura", detail: "Quem fez este desenho" },
       { x: 80.4, y: 96.3, label: "A data", detail: "Feito em novembro" }
     ]
+  },
+  {
+    id: "autoretratoverde",
+    title: "Auto-Retrato (todo verde)",
+    artist: "Muna",
+    age: 5,
+    year: 2026,
+    signature: "Muna \u00b7 \u00e0 maneira de Van Gogh",
+    src: "assets/art/autoretratoverde/photo.jpeg",
+    w: 1844, h: 2576,
+    bg: "#6dc00c",
+    palette: ["#6dc00c", "#00a314", "#b8df79", "#fff1b7", "#f7fd37"],
+    anim: "sunflowers",
+    medium: "Pastel de \u00f3leo",
+    dots: [
+      { x: 51, y: 30, label: "Cabelo", detail: "Verde-escuro, aos rabiscos" },
+      { x: 56, y: 59, label: "Sorriso", detail: "Uma linha s\u00f3" },
+      { x: 31, y: 58, label: "Rabisco branco", detail: "Com um ponto amarelo" },
+      { x: 72, y: 50, label: "Outro branco", detail: "Do outro lado da cara" }
+    ]
   }
 ];
 
@@ -506,5 +526,5 @@ window.HALLWAY_ORDER = [
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
   "sernormal", "outono", "floresta", "outonomuna", "passaro",
-  "autoretratomuna"
+  "autoretratomuna", "autoretratoverde"
 ];

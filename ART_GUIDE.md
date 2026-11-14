@@ -98,7 +98,7 @@ This is the **creative layer** — the thing that happens when you click into a 
 | `anim` key | What it does | Good fit for |
 |---|---|---|
 | `miro` | Disco lights + floating music notes over the painting | Bold, dancing, abstract-figurative work |
-| `sunflowers` | Side-by-side slider comparing child's version to a reference image | "Cover" of a famous painting (needs `assets/art/<ref>.jpg`) |
+| `sunflowers` | Side-by-side slider comparing child's version to a reference image | "Cover" of a famous painting. The reference is `assets/art/<id>/reference.jpg`; a piece other than `vangogh` adds its entry (image + right-hand label) to `COMPARE_REFS` in `art-animations.jsx` |
 | `warhol` | Four-panel grid cycles through pop palettes | 2×2 or 4-up compositions |
 | `portrait` | Eyes track cursor; mouth opens when you talk into the mic | Faces / self-portraits |
 | `matisse` | Cutout shape sways gently on an invisible string | Cutout / collage / mobile pieces |
