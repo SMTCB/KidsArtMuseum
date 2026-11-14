@@ -2,7 +2,7 @@
 title: Screen Inventory
 status: reference
 owner: SMTCB
-last_reviewed: 2026-08-22
+last_reviewed: 2026-11-14
 review_cycle: 90d
 related: [docs/product/PLAN.md, docs/product/PLATFORM_DEFINITION.md]
 ---
@@ -35,10 +35,10 @@ related: [docs/product/PLAN.md, docs/product/PLATFORM_DEFINITION.md]
 |---|---|---|---|
 | **S-01** | Hallway / Wall View (Main Gallery) | 🟢 Live | The primary feed. Artworks hung on a wall in a themed layout (Classic Hallway or Gallery Wall). Grid/masonry of framed pieces, subtle categorization (by artist, year, collection). Entry point to everything else. |
 | **S-02** | Wall Theme Switcher | 🟢 Live | Top-bar control to switch between wall themes (currently "Cubo Branco" / "Parede de Galeria"; a 3rd "children's bedroom" theme is planned). Affects the whole gallery's chrome, not individual artworks. |
-| **S-03** | Exhibition View (Single Artwork Focus) | 🟢 Live | Clicking a frame opens a focused view of one artwork: image with digital frame, title card/curator's plaque (title, artist, age, year, AI-style description), tap-to-discover hotspots. |
+| **S-03** | Exhibition View (Single Artwork Focus) | 🟢 Live | Clicking a frame opens the artwork's page, a light catalogue page: the photo on a plate, title, artist, age, year, palette swatches, audio description, tap-to-discover hotspots (also listed under the title), comments, share, and the neighbouring works. Look in [IDENTITY](../design/IDENTITY.md) §2. |
 | **S-04** | Discovery Dot Tooltip / Audio Playback | 🟢 Live | Small overlay triggered by tapping a hotspot on the artwork — shows the child's narrated text/audio about that detail of the piece. |
 | **S-05** | Explore / "Bring to Life" Modal | 🟢 Live | Full-screen overlay activated from the Exhibition View. Plays the artwork's animation routine (one of the 11+ routines: miro, warhol, portrait, matisse, story, etc.). |
-| **S-06** | Sala de Experimentação (Experimentation Room) | 🟢 Live | A gallery of 33 standalone visual effects (one stage, one caption below it, a plain list with prev/next to switch), separate from the main hallway — a sandbox/showcase of animation ideas not yet attached to specific artworks. |
+| **S-06** | Sala de Experimentação (Experimentation Room) | 🟢 Live | A gallery of 33 standalone visual effects (one plate, one caption below it with prev/next, and an index folded into four families that open on a plus / minus button), separate from the main hallway — a sandbox/showcase of animation ideas not yet attached to specific artworks. |
 | **S-07** | Story Mode | 🔵 Future | Sub-view within the Explore Modal: AI-generated "bedtime story" based on the artwork, formatted as readable narrative text. |
 | **S-08** | Coloring Book Mode | 🔵 Future | Sub-view within the Explore Modal: the artwork converted to black-and-white line art with a "Print" action. |
 | **S-09** | Mobile Gallery (responsive) | 🟢 Live | Mobile-specific layout of S-01 — wall themes collapse to scrollable justified rows (QUA-14, was a 2-column grid). Not a separate route, but a distinct responsive state worth designing explicitly. |

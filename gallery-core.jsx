@@ -81,7 +81,7 @@ function RainbowGame({ onClose }) {
           onTouchMove={(e) => { e.preventDefault(); move(e); }}
           onTouchEnd={end}
         />
-        <div className="rg-hint">Pinta o teu arco-íris! 🎨</div>
+        <div className="rg-hint">Pinta o teu arco-íris!</div>
       </div>
       <div className="rg-controls">
         <div className="rg-colors">
@@ -100,13 +100,16 @@ function RainbowGame({ onClose }) {
 }
 
 // ---------- Discover dot ----------
-function DiscoverDot({ dot, n }) {
-  const [open, setOpen] = useState(false);
+// Which dot is open lives in ZoomModal: the "Para descobrir" list opens the same popover.
+// Near an edge the popover turns inward so it stays on the photo's side of the screen.
+function DiscoverDot({ dot, n, open, onToggle }) {
+  const side = (dot.y < 24 ? " is-low" : "") + (dot.x < 26 ? " is-left" : dot.x > 74 ? " is-right" : "");
   return (
     <button
-      className={"dd " + (open ? "is-open" : "")}
+      className={"dd" + side + (open ? " is-open" : "")}
       style={{ left: dot.x + "%", top: dot.y + "%" }}
-      onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
+      aria-expanded={open}
+      onClick={(e) => { e.stopPropagation(); onToggle(); }}
     >
       <span className="dd-num">{n}</span>
       <span className="dd-pulse" />
@@ -117,6 +120,20 @@ function DiscoverDot({ dot, n }) {
         </span>
       )}
     </button>
+  );
+}
+
+// Small line icons for the page chrome (no emoji in UI copy).
+function Ico({ name, size = 18 }) {
+  const paths = {
+    back: <path d="M19 12H5M11 6l-6 6 6 6" />,
+    next: <path d="M5 12h14M13 6l6 6-6 6" />,
+    room: <path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3M7.5 15h9" />,
+    brush: <path d="M14 4l6 6-8.5 8.5a3 3 0 0 1-2.1.9H5v-4.4a3 3 0 0 1 .9-2.1zM12 6l6 6" />
+  };
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>
   );
 }
 
@@ -186,28 +203,31 @@ function AudioDescription({ art }) {
   };
 
   const busy = state === "playing" || state === "loading";
+  const label = busy ? "Pausar" : state === "paused" ? "Continuar" : "Ouvir a descrição";
   return (
     <div className="zm-audio">
-      <button className="zm-btn" onClick={toggle} aria-pressed={state === "playing"}>
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor">
+      <button className="zm-play" onClick={toggle} aria-pressed={state === "playing"} aria-label={label}>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
           {busy ? <path d="M6 5h4v14H6zM14 5h4v14h-4z" /> : <path d="M7 4.5v15l13-7.5z" />}
         </svg>
-        {busy ? "Pausar" : state === "paused" ? "Continuar" : "Ouvir a descrição"}
       </button>
-      {(state !== "idle" || time > 0) && (
+      <div className="zm-audio-body">
+        <div className="zm-audio-title" aria-hidden="true">{label}</div>
         <div className="zm-audio-bar" aria-hidden="true">
           <span style={{ width: (dur ? Math.min(100, (time / dur) * 100) : 0) + "%" }} />
         </div>
-      )}
-      <div className="zm-audio-meta" aria-live="polite">
-        {state === "error"
-          ? "Não foi possível ouvir. Tenta outra vez."
-          : fmtTime(time) + " / " + fmtTime(dur)}
-        {entry.text && (
-          <button className="zm-link" aria-expanded={showText} onClick={() => setShowText(v => !v)}>
-            {showText ? "Esconder texto" : "Ler"}
-          </button>
-        )}
+        <div className="zm-audio-meta" aria-live="polite">
+          <span>
+            {state === "error"
+              ? "Não foi possível ouvir. Tenta outra vez."
+              : fmtTime(time) + " / " + fmtTime(dur)}
+          </span>
+          {entry.text && (
+            <button className="zm-link" aria-expanded={showText} onClick={() => setShowText(v => !v)}>
+              {showText ? "Esconder texto" : "Ler"}
+            </button>
+          )}
+        </div>
       </div>
       {showText && entry.text && <p className="zm-audio-text">{entry.text}</p>}
     </div>
@@ -343,28 +363,45 @@ function CommentsPanel({ art, onClose, onCount }) {
   );
 }
 
-// ---------- Zoom modal (the "frame view") ----------
-function ZoomModal({ art, onClose, onStep, theme }) {
+// ---------- Zoom modal: the artwork's page ----------
+// A light catalogue page (QUA-15): the plate, then title, palette, audio, the dots as a list,
+// comments and share, the door to the Sala, and the neighbouring works at the foot.
+// `nav` = { pos, total, prev, next } within the gallery being walked (from Hallway).
+function ZoomModal({ art, onClose, onStep, theme, nav }) {
   const [showDots, setShowDots] = useState(false);
+  const [openDot, setOpenDot] = useState(null);
   const [game, setGame] = useState(false);
   const [showRoom, setShowRoom] = useState(false);   // ← Experimentation Room
   const [showComments, setShowComments] = useState(false);
   const [nComments, setNComments] = useState(null);
   const [viewIx, setViewIx] = useState(0);            // which angle of a 3D piece (ADR-0019)
+  const pageRef = useRef(null);
+  const frameRef = useRef(null);
   const views = art.views && art.views.length > 1 ? art.views : null;
   const v = views ? views[viewIx] || views[0] : null;
   // The first view is the main photo: it keeps the animation. The others are plain photos.
   const onMain = !v || viewIx === 0;
   const shown = onMain ? art : { ...art, src: v.src, w: v.w, h: v.h, dots: v.dots || [] };
   const Anim = (onMain && window.ANIMS && window.ANIMS[art.anim]) || PlainAnim;
+  const nEffects = (window.TEMPLATE_LIBRARY || []).length;
 
   useEffect(() => { setViewIx(0); }, [art.id]);
+  useEffect(() => { setOpenDot(null); }, [art.id, viewIx]);
+  // A new piece starts at the top of its page
+  useEffect(() => { if (pageRef.current) pageRef.current.scrollTop = 0; }, [art.id]);
 
   useEffect(() => {
     const onKey = (e) => {
       const typing = /^(INPUT|TEXTAREA)$/.test((e.target && e.target.tagName) || "");
-      if (e.key === "Escape") { showComments ? setShowComments(false) : onClose(); return; }
-      if (!onStep || showRoom || game || typing) return;
+      // The Sala has its own keys: Esc there comes back to this page, it does not close it too
+      if (showRoom) return;
+      if (e.key === "Escape") {
+        if (showComments) setShowComments(false);
+        else if (game) setGame(false);
+        else onClose();
+        return;
+      }
+      if (!onStep || game || typing) return;
       if (e.key === "ArrowRight") onStep(1);
       if (e.key === "ArrowLeft") onStep(-1);
     };
@@ -376,13 +413,23 @@ function ZoomModal({ art, onClose, onStep, theme }) {
     };
   }, [onClose, onStep, showRoom, game, showComments]);
 
-  // Reveal dots after a beat so the zoom animation finishes first
+  // Reveal dots after a beat so the page settles first
   useEffect(() => {
     setShowDots(false);
     setNComments(null);
     const t = setTimeout(() => setShowDots(true), 650);
     return () => clearTimeout(t);
   }, [art.id]);
+
+  // A row of the list opens its dot on the photo, and brings the photo back into view
+  const showDot = (i) => {
+    const next = openDot === i ? null : i;
+    setOpenDot(next);
+    if (next !== null && frameRef.current && frameRef.current.scrollIntoView) {
+      const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      frameRef.current.scrollIntoView({ block: "nearest", behavior: calm ? "auto" : "smooth" });
+    }
+  };
 
   // ── Open the Experimentation Room ──
   if (showRoom) {
@@ -391,24 +438,33 @@ function ZoomModal({ art, onClose, onStep, theme }) {
   }
 
   return (
-    <div className={"zoom-modal theme-" + theme} onClick={onClose}>
-      <button className="zm-close" onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Fechar">×</button>
-      {onStep && (
-        <>
-          <button className="zm-nav zm-nav-prev" aria-label="Obra anterior"
-            onClick={(e) => { e.stopPropagation(); onStep(-1); }}>←</button>
-          <button className="zm-nav zm-nav-next" aria-label="Obra seguinte"
-            onClick={(e) => { e.stopPropagation(); onStep(1); }}>→</button>
-        </>
-      )}
+    <div className={"zoom-modal theme-" + theme} ref={pageRef} role="dialog" aria-modal="true" aria-label={art.title}>
+      <header className="zm-bar">
+        <button className="zm-back" onClick={onClose}>
+          <Ico name="back" />
+          {theme === "wall" ? "Parede" : "Galeria"}
+        </button>
+        {nav && (
+          <div className="zm-pager">
+            {onStep && (
+              <button className="zm-nav" aria-label="Obra anterior" onClick={() => onStep(-1)}><Ico name="back" /></button>
+            )}
+            <span className="zm-pos">{nav.pos} / {nav.total}</span>
+            {onStep && (
+              <button className="zm-nav" aria-label="Obra seguinte" onClick={() => onStep(1)}><Ico name="next" /></button>
+            )}
+          </div>
+        )}
+      </header>
 
-      <div className="zm-stage" key={art.id} onClick={(e) => e.stopPropagation()}>
-        <div className="zm-view">
-          <div className={"zm-frame zm-frame-" + (onMain ? art.anim : "plain")} key={viewIx}
+      <div className="zm-page" key={art.id}>
+        <div className={"zm-view" + (views ? " has-views" : "")}>
+          <div className={"zm-frame zm-frame-" + (onMain ? art.anim : "plain")} key={viewIx} ref={frameRef}
             style={{ aspectRatio: `${shown.w} / ${shown.h}`, "--ar": shown.w / shown.h }}>
             <Anim art={shown} />
             {showDots && shown.dots.map((d, i) => (
-              <DiscoverDot key={i} dot={d} n={i + 1} />
+              <DiscoverDot key={i} dot={d} n={i + 1} open={openDot === i}
+                onToggle={() => setOpenDot(openDot === i ? null : i)} />
             ))}
           </div>
           {views && (
@@ -422,7 +478,7 @@ function ZoomModal({ art, onClose, onStep, theme }) {
         </div>
 
         <div className="zm-label">
-          <div className="zm-label-title">{art.title}</div>
+          <h2 className="zm-label-title">{art.title}</h2>
           <div className="zm-label-meta">
             <span>{art.signature || art.artist}</span>
             <span className="zm-dot">•</span>
@@ -430,25 +486,74 @@ function ZoomModal({ art, onClose, onStep, theme }) {
             <span className="zm-dot">•</span>
             <span>{art.year}</span>
           </div>
+          <div className="zm-palette" role="img" aria-label="As cores da obra">
+            <span className="zm-palette-rule" />
+            {(art.palette || []).map((c, i) => (
+              <span key={i} className="zm-swatch" style={{ background: c }} />
+            ))}
+          </div>
+
           {art.interactive === "paint-rainbow" && (
             <button className="zm-cta" onClick={() => setGame(true)}>
-              🎨 Pinta o teu próprio
+              <Ico name="brush" size={16} />
+              Pinta o teu próprio
             </button>
           )}
+
           <AudioDescription art={art} />
-          <button className="zm-btn" onClick={() => setShowComments(v => !v)} aria-expanded={showComments}>
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1z"/></svg>
-            Comentários{nComments ? " (" + nComments + ")" : ""}
-          </button>
-          <ShareButton art={art} />
-          {/* ── Experimentation Room button ── */}
-          <button className="zm-cta zm-cta-room" onClick={() => setShowRoom(true)}>
-            🔬 Sala de Experimentação
+
+          {shown.dots.length > 0 && (
+            <section className="zm-finds">
+              <h3 className="zm-kicker">Para descobrir</h3>
+              <ol>
+                {shown.dots.map((d, i) => (
+                  <li key={i}>
+                    <button className={"zm-find" + (openDot === i ? " is-on" : "")}
+                      aria-pressed={openDot === i} onClick={() => showDot(i)}>
+                      <span className="zm-find-n">{i + 1}</span>
+                      <span className="zm-find-text"><strong>{d.label}</strong><em>{d.detail}</em></span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          <div className="zm-actions">
+            <button className="zm-btn" onClick={() => setShowComments(v => !v)} aria-expanded={showComments}>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>
+              Comentários{nComments ? " (" + nComments + ")" : ""}
+            </button>
+            <ShareButton art={art} />
+          </div>
+
+          {/* ── The door to the Experimentation Room ── */}
+          <button className="zm-room" onClick={() => setShowRoom(true)}>
+            <Ico name="room" size={22} />
+            <span className="zm-room-text">
+              <strong>Sala de Experimentação</strong>
+              <em>{nEffects ? nEffects + " efeitos para experimentar nesta obra" : "Efeitos para experimentar nesta obra"}</em>
+            </span>
+            <Ico name="next" />
           </button>
         </div>
       </div>
 
-      {showComments && <CommentsPanel key={art.id} art={art} onClose={() => setShowComments(false)} onCount={setNComments} />}
+      {onStep && nav && nav.prev && nav.next && (
+        <nav className="zm-foot" aria-label="Outras obras">
+          <button className="zm-foot-link" onClick={() => onStep(-1)}>
+            <span className="zm-foot-dir">← Anterior</span>
+            <span className="zm-foot-title">{nav.prev.title}</span>
+          </button>
+          <button className="zm-foot-link zm-foot-next" onClick={() => onStep(1)}>
+            <span className="zm-foot-dir">Seguinte →</span>
+            <span className="zm-foot-title">{nav.next.title}</span>
+          </button>
+        </nav>
+      )}
+
+      {showComments && <div className="zm-scrim" onClick={() => setShowComments(false)} />}
+      {showComments && <CommentsPanel key={"comments-" + art.id} art={art} onClose={() => setShowComments(false)} onCount={setNComments} />}
 
       {game && (
         <div className="zm-game" onClick={(e) => e.stopPropagation()}>
@@ -720,7 +825,7 @@ function useViewport() {
   return vp;
 }
 
-function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
+function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep, nav }) {
   const vp = useViewport();
   // Artist galleries (few pieces) fit one screen; "Todos" flows into rows and scrolls.
   const flow = heading ? null : flowWallLayout(pieces, vp.w, vp.h);
@@ -751,7 +856,7 @@ function GalleryWall({ theme, pieces, heading, zoomed, setZoomed, onStep }) {
         </div>
       </div>
 
-      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={onStep} theme={theme} />}
+      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={onStep} theme={theme} nav={nav} />}
     </div>
   );
 }
@@ -770,6 +875,14 @@ function Hallway({ theme, artist, openId, onOpen, onClose, onStep }) {
     const i = pieces.findIndex((a) => a.id === openId);
     onStep(pieces[(i + dir + pieces.length) % pieces.length].id);
   } : undefined;
+  // Where the open piece sits in this gallery, and which works hang either side of it
+  const at = zoomed ? pieces.indexOf(zoomed) : -1;
+  const nav = zoomed ? {
+    pos: at + 1,
+    total: pieces.length,
+    prev: pieces[(at - 1 + pieces.length) % pieces.length],
+    next: pieces[(at + 1) % pieces.length]
+  } : null;
 
   const ages = pieces.map((a) => a.age);
   const heading = artist ? {
@@ -783,7 +896,7 @@ function Hallway({ theme, artist, openId, onOpen, onClose, onStep }) {
   // The salon-style wall is its own layout — bypass the scrolling hallway.
   if (theme === "wall") {
     return <GalleryWall theme={theme} pieces={pieces} heading={heading}
-      zoomed={zoomed} setZoomed={setZoomed} onStep={step} />;
+      zoomed={zoomed} setZoomed={setZoomed} onStep={step} nav={nav} />;
   }
 
   // Horizontal scroll via mouse wheel
@@ -853,7 +966,7 @@ function Hallway({ theme, artist, openId, onOpen, onClose, onStep }) {
       <button className="nav-arrow nav-arrow-left" onClick={() => scrollBy(-700)} aria-label="Anterior">←</button>
       <button className="nav-arrow nav-arrow-right" onClick={() => scrollBy(700)} aria-label="Seguinte">→</button>
 
-      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={step} theme={theme} />}
+      {zoomed && <ZoomModal art={zoomed} onClose={() => setZoomed(null)} onStep={step} theme={theme} nav={nav} />}
     </div>
   );
 }

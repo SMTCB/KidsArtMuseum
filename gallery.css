@@ -732,84 +732,132 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ============================================================
-   ZOOM MODAL (shared)
+   ZOOM MODAL: the artwork's page (QUA-15)
+   A light catalogue page, in the register of the wall it opens from (IDENTITY.md, Direção A:
+   fundo, tinta, latão, and no accent of its own). Phone: one scrolling column.
+   Desktop: the plate stays on the left while the text scrolls beside it.
+   The --zm-* colours are shared with the Sala (experimentation-room.css).
    ============================================================ */
+.zoom-modal, .er-overlay {
+  --zm-paper: #faf8f2;
+  --zm-card: #ffffff;
+  --zm-ink: #1a1a1a;
+  --zm-body: #4f4f49;
+  --zm-soft: #6a6a64;
+  --zm-line: rgba(26,26,26,0.12);
+  --zm-line-2: rgba(26,26,26,0.28);
+  --zm-brass: #b3924f;
+  --zm-vh: 100vh;
+}
+@supports (height: 100dvh) {
+  .zoom-modal, .er-overlay { --zm-vh: 100dvh; }
+}
+
 .zoom-modal {
   position: fixed; inset: 0;
   height: 100vh; height: 100dvh;
   z-index: 100;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at center, rgba(20,15,10,0.85) 0%, rgba(0,0,0,0.96) 80%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: zmFade 380ms ease-out;
+  display: flex; flex-direction: column;
+  overflow-x: hidden; overflow-y: auto;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  background: var(--zm-paper);
+  color: var(--zm-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  animation: zmFade 320ms ease-out;
 }
 @keyframes zmFade { from { opacity: 0; } to { opacity: 1; } }
 
-.zm-close {
-  position: fixed;
-  top: 22px; right: 22px;
-  z-index: 110;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  font-size: 26px; line-height: 1;
-  color: #fff;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: background 180ms ease, transform 180ms ease;
+/* ---- top bar: back to the wall, and where this piece sits in the gallery ---- */
+.zm-bar {
+  position: sticky; top: 0; z-index: 20;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 56px; padding: 0 12px 0 20px;
+  background: rgba(250,248,242,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--zm-line);
 }
-.zm-close:hover { background: rgba(255,255,255,0.18); transform: rotate(90deg); }
+.zm-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 12px 0 0;
+  font: 600 13px/1 "Inter", system-ui, sans-serif;
+  color: var(--zm-ink);
+}
+.zm-pager { display: flex; align-items: center; }
+.zm-pos {
+  min-width: 62px; text-align: center;
+  font: 11px/1 "JetBrains Mono", monospace; letter-spacing: 0.16em;
+  color: var(--zm-soft);
+}
+.zm-nav {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--zm-ink);
+  transition: background 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .zm-nav:hover { background: rgba(26,26,26,0.07); }
+  .zm-back:hover { text-decoration: underline; text-decoration-color: var(--zm-brass); text-underline-offset: 5px; }
+}
 
-.zm-stage {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 60px;
-  max-width: 92vw;
-  max-height: 90vh;
-  animation: zmStage 520ms cubic-bezier(.2,.7,.2,1);
+/* ---- the page: plate + text ---- */
+.zm-page {
+  flex: 1 0 auto;
+  box-sizing: border-box;
+  width: 100%; max-width: 1480px; margin: 0 auto;
+  padding: 48px 48px 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  column-gap: 64px;
+  align-items: start;
+  animation: zmPage 420ms cubic-bezier(.2,.7,.2,1);
 }
-@keyframes zmStage {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes zmPage {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
 
+.zm-view {
+  position: sticky; top: 104px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 30px;
+  min-height: calc(var(--zm-vh) - 168px);
+}
 .zm-frame {
   position: relative;
-  /* Height is the target; width follows the artwork's ratio (--ar, set inline) and is capped by
-     --fw so a wide piece shrinks to fit the screen instead of running off it. */
-  --fh: 80vh;
-  --fw: calc(92vw - 390px);
-  max-height: 80vh;
+  /* The plate: a white passe-partout inside a thin black edge, drawn as shadow rings so the
+     dots keep measuring from the photo itself. --chrome is their total width.
+     Height is the target; width follows the artwork's ratio (--ar, set inline) and is capped
+     by --fw so a wide piece shrinks to fit the column instead of running off it. */
+  --chrome: 22px;
+  --edge: 4px;
+  --fh: calc(var(--zm-vh) - 168px - 2 * var(--chrome));
+  --fw: calc(min(100vw, 1480px) - 540px - 2 * var(--chrome));
   height: min(var(--fh), calc(var(--fw) / var(--ar, 1)));
+  margin: var(--chrome);
   background: #fff;
   box-shadow:
-    0 40px 80px rgba(0,0,0,0.6),
-    0 0 0 18px var(--frame-color, #d9b566),
-    0 0 0 20px rgba(0,0,0,0.4);
+    0 0 0 calc(var(--chrome) - var(--edge)) #fff,
+    0 0 0 var(--chrome) #161616,
+    0 26px 44px 14px rgba(40,40,40,0.16);
+  scroll-margin-top: 100px;
 }
-.theme-whitecube .zm-frame {
-  box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
-}
-.theme-magic .zm-frame {
-  box-shadow:
-    0 30px 60px rgba(0,0,0,0.5),
-    0 0 0 16px #ec6aa3;
-}
+/* a 3D piece has a row of chips under the plate: leave them their height */
+.zm-view.has-views .zm-frame { --fh: calc(var(--zm-vh) - 242px - 2 * var(--chrome)); }
 
 /* Angles of a 3D piece (ADR-0019): a row of chips under the frame */
-.zm-view { display: flex; flex-direction: column; align-items: center; gap: 34px; }
 .zm-views { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .zm-view-chip {
-  padding: 8px 16px; border-radius: 999px; cursor: pointer;
-  font: inherit; font-size: 13px; color: rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25);
-  transition: background 180ms ease, border-color 180ms ease;
+  min-height: 40px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  font: 600 13px/1 "Inter", system-ui, sans-serif; color: var(--zm-ink);
+  background: var(--zm-card); border: 1px solid var(--zm-line-2);
+  transition: border-color 180ms ease;
 }
-.zm-view-chip:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
-.zm-view-chip.is-on { background: rgba(255,255,255,0.9); color: #1a1a1a; border-color: transparent; }
-.zm-view-chip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.zm-view-chip.is-on { background: var(--zm-ink); color: var(--zm-paper); border-color: var(--zm-ink); }
+@media (hover: hover) and (pointer: fine) {
+  .zm-view-chip:hover { border-color: var(--zm-ink); }
+}
 
 .anim-layer {
   position: absolute; inset: 0;
@@ -822,45 +870,192 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transform-origin: center;
 }
 
+/* ---- the text column ---- */
 .zm-label {
-  width: 280px;
+  min-width: 0;
   display: flex; flex-direction: column;
-  gap: 14px;
-  color: #f1ece1;
+  /* beside the plate: centred against it while shorter than the screen, from the top once longer */
+  margin: auto 0;
 }
 .zm-label-title {
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-size: 32px;
-  line-height: 1.15;
-  text-wrap: pretty;
+  margin: 0;
+  font: italic 600 46px/1.04 "Cormorant Garamond", serif;
+  color: var(--zm-ink);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 .zm-label-meta {
+  margin-top: 16px;
   display: flex; flex-wrap: wrap; align-items: center;
   gap: 8px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font: 10px/1.4 "JetBrains Mono", monospace;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(241,236,225,0.6);
+  color: var(--zm-soft);
 }
-.zm-dot { opacity: 0.4; }
+.zm-dot { opacity: 0.5; }
 
-.zm-cta {
-  margin-top: 8px;
-  align-self: flex-start;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #f7d54a, #ec6aa3);
-  color: #1a1a1a;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  box-shadow: 0 8px 24px rgba(247,213,74,0.35);
-  transition: transform 180ms ease;
+/* the painting's own colours (ART_GUIDE §3), after a short brass rule */
+.zm-palette { margin-top: 18px; display: flex; align-items: center; gap: 8px; }
+.zm-palette-rule { width: 48px; height: 1px; margin-right: 6px; background: var(--zm-brass); }
+.zm-swatch {
+  width: 18px; height: 18px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(26,26,26,0.15);
 }
-.zm-cta:hover { transform: translateY(-2px) scale(1.04); }
+
+/* filled button: the one thing to do next (paint your own, send a comment) */
+.zm-cta {
+  margin-top: 24px;
+  align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 22px;
+  border-radius: 999px;
+  background: var(--zm-ink);
+  color: var(--zm-paper);
+  font: 600 13px/1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  transition: background 180ms ease;
+}
+/* outline button: comments, share */
+.zm-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--zm-line-2);
+  background: var(--zm-card);
+  color: var(--zm-ink);
+  font: 600 13px/1 "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: border-color 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .zm-cta:hover { background: #000; }
+  .zm-btn:hover { border-color: var(--zm-ink); }
+}
+
+/* "Para descobrir": the dots again, as a list. A row opens its dot on the photo. */
+.zm-finds { margin-top: 32px; }
+.zm-kicker {
+  margin: 0 0 10px;
+  font: 400 10px/1.4 "JetBrains Mono", monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--zm-soft);
+}
+.zm-finds ol { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--zm-line); }
+.zm-find {
+  width: 100%;
+  display: flex; align-items: center; gap: 14px;
+  min-height: 54px; padding: 7px 0;
+  border-top: 1px solid var(--zm-line);
+  text-align: left;
+  color: var(--zm-ink);
+}
+.zm-find-n {
+  flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--zm-ink); color: var(--zm-paper);
+  font: 600 12px/1 "Inter", system-ui, sans-serif;
+  transition: background 180ms ease, color 180ms ease;
+}
+.zm-find.is-on .zm-find-n {
+  background: var(--zm-paper); color: var(--zm-ink);
+  box-shadow: inset 0 0 0 1.5px var(--zm-ink);
+}
+.zm-find-text { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.zm-find-text strong { font: 600 14px/1.25 "Inter", system-ui, sans-serif; }
+.zm-find-text em { font: italic 400 16px/1.15 "Cormorant Garamond", serif; color: var(--zm-body); }
+
+/* comments + share, side by side */
+.zm-actions {
+  margin-top: 28px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+/* the door to the Sala de Experimentação */
+.zm-room {
+  margin-top: 14px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  background: var(--zm-ink);
+  color: var(--zm-paper);
+  text-align: left;
+  transition: background 180ms ease;
+}
+.zm-room-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.zm-room-text strong { font: 600 14px/1.25 "Inter", system-ui, sans-serif; }
+.zm-room-text em { font: italic 400 16px/1.15 "Cormorant Garamond", serif; color: #d9d3c4; }
+@media (hover: hover) and (pointer: fine) {
+  .zm-room:hover { background: #000; }
+}
+
+/* ---- foot: the works hanging either side of this one ---- */
+.zm-foot {
+  flex-shrink: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  border-top: 1px solid var(--zm-line);
+}
+.zm-foot-link {
+  min-width: 0;
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 20px 48px 28px;
+  text-align: left;
+  color: var(--zm-ink);
+}
+.zm-foot-next { align-items: flex-end; text-align: right; border-left: 1px solid var(--zm-line); }
+.zm-foot-dir {
+  font: 10px/1.4 "JetBrains Mono", monospace;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--zm-soft);
+}
+.zm-foot-title { font: italic 500 19px/1.15 "Cormorant Garamond", serif; text-wrap: balance; }
+@media (hover: hover) and (pointer: fine) {
+  .zm-foot-link:hover .zm-foot-title {
+    text-decoration: underline; text-decoration-color: var(--zm-brass); text-underline-offset: 4px;
+  }
+}
+
+/* ---- narrower than a spread: one column, the plate first ---- */
+@media (max-width: 1100px) {
+  .zm-page { grid-template-columns: minmax(0, 1fr) 340px; column-gap: 44px; padding: 40px 32px 56px; }
+  .zm-frame { --fw: calc(100vw - 448px - 2 * var(--chrome)); }
+  .zm-foot-link { padding: 18px 32px 26px; }
+}
+@media (max-width: 900px) {
+  .zm-page { grid-template-columns: minmax(0, 1fr); row-gap: 30px; padding: 28px 24px 40px; }
+  .zm-view { position: static; min-height: 0; gap: 22px; }
+  .zm-frame,
+  .zm-view.has-views .zm-frame {
+    --chrome: 17px;
+    --edge: 3px;
+    --fh: calc(var(--zm-vh) * 0.62);
+    --fw: calc(100vw - 48px - 2 * var(--chrome));
+    box-shadow:
+      0 0 0 calc(var(--chrome) - var(--edge)) #fff,
+      0 0 0 var(--chrome) #161616,
+      0 16px 26px 12px rgba(40,40,40,0.13);
+  }
+  .zm-label { margin: 0; }
+  .zm-label-title { font-size: 38px; line-height: 1.05; }
+  .zm-foot-link { padding: 16px 24px 22px; }
+  .zm-foot-title { font-size: 17px; }
+}
+
+.zm-back:focus-visible, .zm-nav:focus-visible, .zm-view-chip:focus-visible, .zm-cta:focus-visible,
+.zm-btn:focus-visible, .zm-find:focus-visible, .zm-room:focus-visible, .zm-foot-link:focus-visible,
+.zm-play:focus-visible, .zm-link:focus-visible, .zm-comments-x:focus-visible,
+.zm-field input:focus-visible, .zm-field textarea:focus-visible {
+  outline: 2px solid var(--zm-ink); outline-offset: 2px;
+}
+.zm-room:focus-visible { outline-color: var(--zm-brass); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-modal, .zm-page { animation: none; }
+}
 
 /* ---------- Discover dots ---------- */
 .dd {
@@ -868,13 +1063,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: 28px; height: 28px;
   margin: -14px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.95);
-  color: #1a1a1a;
+  background: #1a1a1a;
+  color: #faf8f2;
   display: flex; align-items: center; justify-content: center;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(250,248,242,0.92), 0 4px 12px rgba(0,0,0,0.35);
   z-index: 5;
   animation: ddPop 320ms cubic-bezier(.2,.7,.2,1.4) backwards;
 }
@@ -887,7 +1082,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .dd-pulse {
   position: absolute; inset: -8px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.6);
+  border: 2px solid rgba(250,248,242,0.85);
+  box-shadow: 0 0 0 1px rgba(26,26,26,0.22);
   animation: ddPulse 1.8s ease-out infinite;
   pointer-events: none;
 }
@@ -896,7 +1092,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   100% { transform: scale(1.4); opacity: 0; }
 }
 .dd.is-open .dd-pulse { display: none; }
-.dd.is-open { background: #f7d54a; transform: scale(1.15); }
+.dd.is-open {
+  background: #faf8f2; color: #1a1a1a;
+  box-shadow: 0 0 0 2px #1a1a1a, 0 4px 12px rgba(0,0,0,0.35);
+  transform: scale(1.15);
+  z-index: 6;
+}
 
 .dd-pop {
   position: absolute;
@@ -909,8 +1110,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-radius: 8px;
   display: flex; flex-direction: column;
   gap: 2px;
+  text-align: left;
   pointer-events: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   animation: ddPopIn 220ms ease-out;
 }
 .dd-pop strong {
@@ -931,9 +1133,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border: 6px solid transparent;
   border-top-color: #1a1611;
 }
+/* Near an edge the popover turns inward: below a dot at the top, and flush with a dot
+   at the left or right, so it never runs under the bar or off the screen. */
+.dd.is-low .dd-pop { bottom: auto; top: calc(100% + 14px); }
+.dd.is-low .dd-pop::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #1a1611; }
+.dd.is-left .dd-pop { left: -8px; transform: none; animation-name: ddPopInFlat; }
+.dd.is-left .dd-pop::after { left: 16px; transform: none; }
+.dd.is-right .dd-pop { left: auto; right: -8px; transform: none; animation-name: ddPopInFlat; }
+.dd.is-right .dd-pop::after { left: auto; right: 16px; transform: none; }
 @keyframes ddPopIn {
   from { opacity: 0; transform: translateX(-50%) translateY(4px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes ddPopInFlat {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================================================
@@ -1076,24 +1290,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: fixed; inset: 0;
   z-index: 120;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(180deg, #f4d8ea 0%, #fce4d4 100%);
+  background: var(--zm-paper, #faf8f2);
   animation: zmFade 280ms ease-out;
 }
 .rainbow-game {
   width: min(90vw, 820px);
   display: flex; flex-direction: column;
   gap: 20px;
-  padding: 28px;
+  padding: 28px 0;
 }
+/* the sheet to paint on: white, inside the same thin black edge as the plate */
 .rg-canvas-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16/10;
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(60,40,80,0.2);
+  box-shadow: 0 0 0 3px #161616, 0 18px 30px 8px rgba(40,40,40,0.13);
   overflow: hidden;
-  border: 2px dashed #ec6aa3;
 }
 .rg-canvas-wrap canvas {
   width: 100%; height: 100%;
@@ -1104,63 +1317,55 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .rg-hint {
   position: absolute;
   top: 16px; left: 50%; transform: translateX(-50%);
+  white-space: nowrap;
   font-family: "Caveat", cursive;
   font-size: 22px;
-  color: rgba(60,40,80,0.45);
+  color: rgba(26,26,26,0.5);
   pointer-events: none;
 }
 
+/* colours, then the two buttons; on a phone they wrap onto their own row */
 .rg-controls {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 18px;
 }
 .rg-colors {
-  display: flex; gap: 10px;
+  display: flex; flex-wrap: wrap; gap: 10px;
 }
 .rg-color {
   width: 44px; height: 44px;
   border-radius: 50%;
   border: 3px solid #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  box-shadow: 0 0 0 1px rgba(26,26,26,0.18);
   transition: transform 160ms ease;
 }
 .rg-color:hover { transform: scale(1.1); }
-.rg-color.is-active { transform: scale(1.2); border-color: #1a1a1a; }
+.rg-color.is-active { transform: scale(1.15); box-shadow: 0 0 0 2px #1a1a1a; }
 .rg-actions {
-  display: flex; gap: 10px;
+  display: flex; gap: 10px; margin-left: auto;
 }
 .rg-btn {
-  padding: 10px 20px;
+  min-height: 46px;
+  padding: 0 22px;
   border-radius: 999px;
+  border: 1px solid rgba(26,26,26,0.28);
   font-family: "Inter", system-ui, sans-serif;
   font-size: 13px;
-  font-weight: 500;
-  background: #fff;
-  color: #2a1f3a;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 160ms ease;
-}
-.rg-btn:hover { transform: translateY(-1px); }
-.rg-btn-primary {
-  background: linear-gradient(135deg, #f7d54a, #ec6aa3);
-  color: #1a1a1a;
   font-weight: 600;
+  background: #fff;
+  color: #1a1a1a;
 }
+.rg-btn-primary {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #faf8f2;
+}
+.rg-btn:focus-visible, .rg-color:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 3px; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
-  /* ---- Zoom modal ---- */
-  /* The stage can be taller than the screen (frame + label + buttons): the modal scrolls, and
-     margin:auto keeps it centred when it fits, without clipping the top when it does not. */
-  .zoom-modal { align-items: flex-start; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
-  .zm-stage { flex-direction: column; gap: 20px; max-height: none; margin: auto; padding: 72px 0 120px; }
-  /* 20px of frame shadow on each side, plus a little air */
-  .zm-frame { --fh: 55vh; --fw: calc(100vw - 64px); }
-  .zm-label { width: 90vw; text-align: center; align-items: center; }
-  .zm-label-meta { justify-content: center; }
-
   /* ---- App bar ---- */
   .app-bar-brand { display: none; }
   .app-bar-tab { padding: 8px 12px; font-size: 11px; }
@@ -2292,19 +2497,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .theme-whitecube .gw-heading-name { color: rgba(40,36,30,0.88); }
 
-.zm-nav {
-  position: fixed; top: 50%; transform: translateY(-50%);
-  z-index: 110;
-  width: 44px; height: 44px; border-radius: 50%;
-  font-size: 20px; line-height: 1; color: #fff;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: background 180ms ease;
-}
-.zm-nav:hover { background: rgba(255,255,255,0.2); }
-.zm-nav-prev { left: 22px; }
-.zm-nav-next { right: 22px; }
-
 @media (max-width: 768px) {
   .app-bar {
     width: calc(100vw - 24px); max-width: 520px;
@@ -2321,9 +2513,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .gw-heading-name { font-size: 34px; }
   .gw-heading + .gw-room .gw-board { padding-top: 20px; }
   .gw-board { padding-top: 124px; }
-  .zm-nav { top: auto; bottom: 18px; transform: none; }
-  .zm-nav-prev { left: 18px; }
-  .zm-nav-next { right: 18px; }
 }
 
 .app-bar { max-width: calc(100vw - 24px); }
@@ -2335,26 +2524,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .app-bar { width: max-content; }
 
 /* ============================================================
-   AUDIO DESCRIPTION + COMMENTS (zoom view)
+   AUDIO DESCRIPTION + COMMENTS + SHARE (the artwork's page)
+   Same light register as the page: paper, ink, hairlines.
    ============================================================ */
-.zm-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  align-self: flex-start;
-  min-height: 44px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.28);
-  background: rgba(255,255,255,0.08);
-  color: #f1ece1;
-  font: 600 13px/1 "Inter", system-ui, sans-serif;
-  letter-spacing: 0.03em;
-  transition: background 180ms ease, border-color 180ms ease;
-}
-.zm-btn:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
-.zm-btn:focus-visible, .zm-link:focus-visible, .zm-comments-x:focus-visible,
-.zm-field input:focus-visible, .zm-field textarea:focus-visible, .zm-send:focus-visible {
-  outline: 2px solid #f7d54a; outline-offset: 2px;
-}
 
 /* Speaker mark beside a wall title: the piece has an audio description */
 .art-audio-mark {
@@ -2373,111 +2545,156 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   pointer-events: none;
 }
-.zm-audio { display: flex; flex-direction: column; gap: 8px; align-self: stretch; }
-.zm-audio .zm-btn { align-self: flex-start; }
-.zm-audio-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.18); overflow: hidden; }
-.zm-audio-bar span { display: block; height: 100%; background: #f7d54a; }
+
+/* ---- audio description: a card with a round play button ---- */
+.zm-audio {
+  margin-top: 28px;
+  display: grid; grid-template-columns: 48px minmax(0, 1fr);
+  column-gap: 14px; row-gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--zm-card);
+  border: 1px solid rgba(26,26,26,0.16);
+}
+.zm-play {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--zm-ink); color: var(--zm-paper);
+  transition: background 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .zm-play:hover { background: #000; }
+}
+.zm-audio-body { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.zm-audio-title { font: 600 14px/1.2 "Inter", system-ui, sans-serif; }
+.zm-audio-bar { height: 2px; background: rgba(26,26,26,0.14); overflow: hidden; }
+.zm-audio-bar span { display: block; height: 100%; background: var(--zm-ink); }
 .zm-audio-meta {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
   font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em;
-  color: rgba(241,236,225,0.7);
+  color: var(--zm-soft);
 }
 .zm-link {
   background: none; border: 0; padding: 6px 0; cursor: pointer;
-  color: #f7d54a; font: 600 12px/1 "Inter", system-ui, sans-serif;
+  color: var(--zm-ink); font: 600 12px/1 "Inter", system-ui, sans-serif; letter-spacing: 0;
   text-decoration: underline; text-underline-offset: 3px;
 }
 .zm-audio-text {
-  margin: 0; font: 400 14px/1.5 "Inter", system-ui, sans-serif;
-  color: #f1ece1; text-align: left; text-wrap: pretty;
+  grid-column: 1 / -1;
+  margin: 0; font: 400 14px/1.55 "Inter", system-ui, sans-serif;
+  color: var(--zm-body); text-align: left; text-wrap: pretty;
 }
 
 /* ---- comments panel: right drawer (desktop) / bottom sheet (mobile) ---- */
+.zm-scrim {
+  position: fixed; inset: 0; z-index: 115;
+  background: rgba(26,26,26,0.24);
+  animation: zmFade 220ms ease-out;
+}
 .zm-comments {
   position: fixed; z-index: 120;
   top: 0; right: 0; bottom: 0;
-  width: min(360px, 100vw);
-  display: flex; flex-direction: column; gap: 16px;
-  padding: 22px 20px;
+  width: min(380px, 100vw);
+  box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 20px;
+  padding: 24px 22px 28px;
   overflow-y: auto;
-  background: rgba(24,19,14,0.985);
-  border-left: 1px solid rgba(255,255,255,0.14);
-  box-shadow: -20px 0 50px rgba(0,0,0,0.5);
-  color: #f1ece1;
+  background: var(--zm-paper);
+  border-left: 1px solid var(--zm-line-2);
+  box-shadow: -18px 0 44px rgba(40,40,40,0.14);
+  color: var(--zm-ink);
   font-family: "Inter", system-ui, sans-serif;
   animation: zmDrawer 260ms cubic-bezier(.2,.7,.2,1);
 }
 @keyframes zmDrawer { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
-.zm-comments-head { display: flex; justify-content: space-between; gap: 12px; padding-right: 52px; }
-.zm-comments-title { margin: 0; font: italic 400 28px/1.1 "Cormorant Garamond", serif; }
-.zm-comments-ask { margin: 6px 0 0; font-size: 13px; color: rgba(241,236,225,0.7); }
+.zm-comments-head {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 0 52px 18px 0;
+  border-bottom: 1px solid var(--zm-brass);
+}
+.zm-comments-title { margin: 0; font: italic 600 32px/1.05 "Cormorant Garamond", serif; }
+.zm-comments-ask { margin: 8px 0 0; font: italic 400 18px/1.25 "Cormorant Garamond", serif; color: var(--zm-body); }
 .zm-comments-x {
   position: absolute; top: 14px; right: 14px;
   width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-  color: #fff; font-size: 24px; line-height: 1;
+  background: var(--zm-card); border: 1px solid var(--zm-line-2);
+  color: var(--zm-ink); font-size: 22px; line-height: 1;
 }
-.zm-comments-note { margin: 0; font-size: 14px; color: rgba(241,236,225,0.7); }
+.zm-comments-note { margin: 0; font-size: 14px; line-height: 1.5; color: var(--zm-body); }
 
-.zm-form { display: flex; flex-direction: column; gap: 12px; }
-.zm-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; position: relative; }
+.zm-form { display: flex; flex-direction: column; gap: 14px; }
+/* field labels read like the page's mono kickers */
+.zm-field {
+  display: flex; flex-direction: column; gap: 7px; position: relative;
+  font: 400 10px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--zm-soft);
+}
 .zm-field input, .zm-field textarea {
   width: 100%; box-sizing: border-box;
-  min-height: 44px; padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.08);
-  color: #fff; font: 400 16px/1.4 "Inter", system-ui, sans-serif;
+  min-height: 46px; padding: 11px 12px;
+  border-radius: 0;
+  border: 1px solid var(--zm-line-2);
+  background: var(--zm-card);
+  color: var(--zm-ink); font: 400 16px/1.4 "Inter", system-ui, sans-serif;
+  letter-spacing: 0; text-transform: none;
   resize: vertical;
 }
-.zm-field [aria-invalid="true"] { border-color: #ff8a7a; }
-.zm-count { align-self: flex-end; font: 400 11px "JetBrains Mono", monospace; color: rgba(241,236,225,0.55); }
-.zm-err { font-style: normal; font-size: 13px; font-weight: 500; color: #ffb4a8; }
+.zm-field [aria-invalid="true"] { border-color: #a3231b; }
+.zm-count { align-self: flex-end; font: 400 11px "JetBrains Mono", monospace; letter-spacing: 0.08em; color: var(--zm-soft); }
+.zm-err {
+  font: normal 500 13px/1.4 "Inter", system-ui, sans-serif; letter-spacing: 0; text-transform: none;
+  color: #a3231b;
+}
 .zm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.zm-send { align-self: flex-start; margin-top: 0; min-height: 44px; border: 0; cursor: pointer; }
-.zm-send:disabled { opacity: 0.6; cursor: default; transform: none; }
+.zm-send { align-self: flex-start; margin-top: 0; border: 0; cursor: pointer; }
+.zm-send:disabled { opacity: 0.55; cursor: default; }
 
-.zm-comments-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
-.zm-comment { padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); animation: zmFade 380ms ease-out; }
+.zm-comments-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.zm-comment { padding: 14px 0; border-top: 1px solid var(--zm-line); animation: zmFade 380ms ease-out; }
 .zm-comment-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-.zm-comment-head strong { font-size: 14px; }
-.zm-comment-head time { font: 11px "JetBrains Mono", monospace; color: rgba(241,236,225,0.55); }
-.zm-comment p { margin: 6px 0 0; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.zm-comment-head strong { font-size: 14px; font-weight: 600; }
+.zm-comment-head time { font: 11px "JetBrains Mono", monospace; letter-spacing: 0.06em; color: var(--zm-soft); }
+.zm-comment p { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--zm-body); overflow-wrap: anywhere; }
 
 @media (max-width: 768px) {
-  .zm-audio { align-items: center; }
-  .zm-audio .zm-btn, .zm-label > .zm-btn, .zm-label > .zm-cta { align-self: center; }
-  .zm-audio-meta { justify-content: center; }
   .zm-comments {
     top: auto; left: 0; width: 100%;
-    max-height: 78dvh;
-    border-left: 0; border-top: 1px solid rgba(255,255,255,0.14);
-    border-radius: 18px 18px 0 0;
-    box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+    max-height: 82dvh;
+    border-left: 0; border-top: 1px solid var(--zm-line-2);
+    box-shadow: 0 -18px 44px rgba(40,40,40,0.16);
     animation-name: zmSheet;
   }
 }
 @keyframes zmSheet { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .zm-comments, .zm-comment { animation: none; }
+  .zm-comments, .zm-comment, .zm-scrim { animation: none; }
 }
 
 /* === share === */
-.zm-share { position: relative; align-self: flex-start; display: flex; flex-direction: column; gap: 6px; }
+.zm-share { position: relative; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.zm-actions > .zm-btn, .zm-share > .zm-btn { width: 100%; }
 .zm-share-menu {
-  display: flex; flex-direction: column; gap: 2px; padding: 6px;
-  border-radius: 14px; border: 1px solid rgba(255,255,255,0.28);
-  background: rgba(20,18,16,0.92); backdrop-filter: blur(8px);
+  position: absolute; z-index: 15;
+  top: 54px; right: 0;
+  min-width: 210px;
+  display: flex; flex-direction: column;
+  padding: 4px;
+  background: var(--zm-card);
+  border: 1px solid var(--zm-line-2);
+  box-shadow: 0 14px 30px rgba(40,40,40,0.16);
 }
 .zm-share-menu button {
-  min-height: 44px; padding: 10px 14px; border: 0; border-radius: 10px;
-  background: transparent; color: #f1ece1; text-align: left;
-  font: 600 13px/1 "Inter", system-ui, sans-serif; letter-spacing: 0.03em; cursor: pointer;
+  min-height: 46px; padding: 10px 14px; border: 0;
+  background: transparent; color: var(--zm-ink); text-align: left;
+  font: 600 13px/1 "Inter", system-ui, sans-serif; letter-spacing: 0.02em; cursor: pointer;
 }
-.zm-share-menu button:hover, .zm-share-menu button:focus-visible { background: rgba(255,255,255,0.14); outline: none; }
-.zm-share-note { min-height: 14px; font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em; color: #f7d54a; }
+.zm-share-menu button + button { border-top: 1px solid var(--zm-line); }
+.zm-share-menu button:hover, .zm-share-menu button:focus-visible { background: rgba(26,26,26,0.06); outline: none; }
+.zm-share-note {
+  min-height: 14px; text-align: center;
+  font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em; color: var(--zm-soft);
+}
 .zm-share-note:empty { display: none; }
-@media (max-width: 768px) { .zm-share { align-self: center; } }
 
 /* ============================================================
    === outono animation === (Duas Árvores de Outono)
