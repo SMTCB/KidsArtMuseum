@@ -2520,3 +2520,75 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .ou-brown { opacity: 1; }
 }
 @keyframes ouBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* ============================================================
+   === piscadela animation === (O Senhor Vermelho)
+   One 7 s loop. A lid cut from the blue paper of the photo comes down over the yellow
+   eye, holds, and goes back up: a slow wink. The red eye stays open.
+   ============================================================ */
+.pisc-eye {
+  position: absolute;
+  clip-path: ellipse(50% 50% at 50% 50%);
+  pointer-events: none;
+}
+.pisc-lid {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+  will-change: transform;
+  animation: piscLid 7s ease-in-out infinite;
+}
+@keyframes piscLid {
+  0%, 60%   { transform: scaleY(0); }
+  67%, 74%  { transform: scaleY(1); }
+  81%, 100% { transform: scaleY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pisc-lid { transform: none; opacity: 0; animation: piscDim 7s ease-in-out infinite; }
+}
+@keyframes piscDim { 0%, 55%, 90%, 100% { opacity: 0; } 70% { opacity: 0.5; } }
+
+/* ============================================================
+   === pendulo animation === (Forma Azul)
+   The cut-out swings ±4° about the hole of its string, 3.2 s a side, like a pendulum.
+   It starts mid-swing (negative delay) so opening the piece never jumps.
+   ============================================================ */
+.pendulo-fundo,
+.pendulo-forma {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+.pendulo-forma {
+  will-change: transform;
+  animation: penduloSwing 3.2s cubic-bezier(.37, 0, .63, 1) -1.6s infinite alternate;
+}
+@keyframes penduloSwing {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pendulo-forma { transform: none; animation: penduloBreathe 6s ease-in-out infinite; }
+}
+@keyframes penduloBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; } }
+
+/* ============================================================
+   === luar animation === (LUNA)
+   One 8 s loop. A ring of the halo's own yellow brightens round the moon and fades;
+   the moon itself is left clear.
+   ============================================================ */
+.luar-glow {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+  animation: luarGlow 8s ease-in-out infinite;
+}
+@keyframes luarGlow {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .luar-glow { animation-duration: 12s; }
+}

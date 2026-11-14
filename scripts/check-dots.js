@@ -64,7 +64,19 @@ const SPOTS = {
   ],
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
-  mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }]
+  mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }],
+  // piscadela: the yellow eye the lid closes over (PISCADELA_EYE)
+  miro: [{ l: 23.2, t: 19.7, w: 16.0, h: 13.6 }],
+  // pendulo: the area the cut-out sweeps at ±4.5° about its string, in 5% bands
+  matisse: [
+    { l: 51.4, t: 3.0, w: 19.1, h: 1.9 }, { l: 39.8, t: 5, w: 33.5, h: 5 }, { l: 34.7, t: 10, w: 39.1, h: 5 },
+    { l: 32.0, t: 15, w: 41.4, h: 5 }, { l: 30.5, t: 20, w: 40.8, h: 5 }, { l: 29.4, t: 25, w: 26.0, h: 5 },
+    { l: 28.2, t: 30, w: 30.5, h: 5 }, { l: 26.0, t: 35, w: 34.3, h: 5 }, { l: 23.3, t: 40, w: 37.1, h: 5 },
+    { l: 20.9, t: 45, w: 38.5, h: 5 }, { l: 18.6, t: 50, w: 37.3, h: 5 }, { l: 17.0, t: 55, w: 31.5, h: 5 },
+    { l: 16.9, t: 60, w: 21.6, h: 5 }, { l: 19.3, t: 65, w: 13.7, h: 3.6 }
+  ],
+  // luar: the glowing ring round the moon (LUAR); the moon itself stays clear
+  luna: [{ l: 69, t: 0, w: 31, h: 12 }, { l: 0, t: 11.5, w: 100, h: 6 }, { l: 0, t: 0, w: 9, h: 12 }]
 };
 
 let bad = 0;
