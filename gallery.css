@@ -1702,37 +1702,41 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: background 0.6s ease;
   z-index: 4;
 }
+/* Buttons and panel in the artwork page's register (QUA-15): tinta pill, paper card, hairlines.
+   The handwriting of the story itself stays in Caveat. */
 .story-start {
   position: absolute;
   bottom: 22px; left: 50%;
   transform: translateX(-50%);
-  padding: 12px 22px;
-  background: linear-gradient(135deg, #f7d54a, #ec6aa3);
-  color: #1a1a1a;
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 46px; padding: 0 22px;
+  background: #1a1a1a;
+  color: #faf8f2;
   border-radius: 999px;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-  z-index: 5;
-  animation: pulseBtn 2.2s ease-in-out infinite;
-  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgba(250,248,242,0.92), 0 8px 22px rgba(0,0,0,0.35);
+  z-index: 7; /* above the discovery dots (5), so a dot cannot steal the tap */
+  animation: pulseBtn 2.6s ease-in-out infinite;
 }
 @keyframes pulseBtn {
   0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.06); }
+  50% { transform: translateX(-50%) scale(1.04); }
 }
 .story-panel {
   position: absolute;
   left: 6%; right: 6%; bottom: 5%;
   padding: 18px 22px;
-  background: rgba(255,250,240,0.97);
-  border-radius: 16px;
-  box-shadow: 0 14px 34px rgba(0,0,0,0.55);
-  z-index: 5;
+  background: #faf8f2;
+  border: 1px solid rgba(26,26,26,0.28);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+  z-index: 7;
   font-family: "Caveat", cursive;
-  color: #2a1f3a;
+  color: #1a1a1a;
 }
 .story-text {
   font-size: 24px;
@@ -1749,22 +1753,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .sp-dot {
   width: 9px; height: 9px; border-radius: 50%;
-  background: rgba(60,40,80,0.18);
+  background: rgba(26,26,26,0.16);
   transition: transform 200ms ease, background 200ms ease;
 }
-.sp-dot.is-on { background: #ec6aa3; transform: scale(1.4); }
-.sp-dot.is-done { background: #f7d54a; }
+.sp-dot.is-on { background: #1a1a1a; transform: scale(1.4); }
+.sp-dot.is-done { background: #1a1a1a; opacity: 0.55; }
 .story-next {
-  padding: 8px 18px;
-  background: #2a1f3a;
-  color: #fff;
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 20px;
+  background: #1a1a1a;
+  color: #faf8f2;
   border-radius: 999px;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
 }
-.story-next:hover { background: #4a3a5a; }
+.story-next:hover { background: #000; }
+.story-start:focus-visible, .story-next:focus-visible { outline: 2px solid #faf8f2; outline-offset: 3px; box-shadow: 0 0 0 5px #1a1a1a; }
+@media (prefers-reduced-motion: reduce) {
+  .story-start { animation: none; }
+}
 
 /* ---------- Clay moving spotlight ---------- */
 .clay-spot {
@@ -1861,44 +1870,47 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transform: translateX(-50%);
   display: flex; align-items: center; gap: 12px;
   pointer-events: auto;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #faf8f2;
+  border: 1px solid rgba(26,26,26,0.28);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   border-radius: 999px;
-  padding: 8px 8px 8px 14px;
-  z-index: 5;
+  padding: 4px 4px 4px 16px;
+  z-index: 7;
+  max-width: calc(100% - 20px);
 }
 .reveal-meter {
   position: relative;
-  width: 120px; height: 8px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 4px;
+  width: 96px; height: 4px; flex-shrink: 1; min-width: 40px;
+  background: rgba(26,26,26,0.14);
+  border-radius: 2px;
   overflow: hidden;
 }
 .reveal-meter-bar {
   position: absolute; top: 0; left: 0; bottom: 0;
-  background: linear-gradient(90deg, #ec3a2a, #f08a2a, #f7d54a, #3aa46a, #5a78d8, #a04acb);
+  background: #1a1a1a;
   transition: width 0.2s ease;
 }
 .reveal-meter-label {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "JetBrains Mono", monospace;
   font-size: 11px;
-  color: rgba(255,255,255,0.85);
+  color: #4f4f49;
   letter-spacing: 0.04em;
-  min-width: 80px;
+  white-space: nowrap;
 }
 .reveal-reset {
-  padding: 6px 14px;
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 40px; padding: 0 16px;
+  background: #1a1a1a;
+  color: #faf8f2;
   border-radius: 999px;
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer;
 }
-.reveal-reset:hover { background: rgba(255,255,255,0.25); }
+.reveal-reset:hover { background: #000; }
+.reveal-reset:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 2px; }
 
 .rainbow-celebrate {
   position: absolute; inset: 0;

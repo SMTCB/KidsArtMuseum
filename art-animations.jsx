@@ -187,7 +187,7 @@ const STORY_BEATS = [
   },
   {
     x: 78, y: 80, r: 13,
-    text: "…e os meninos cantavam a sua canção favorita. FIM. 🌈"
+    text: "…e os meninos cantavam a sua canção favorita. Fim."
   }
 ];
 
@@ -242,7 +242,8 @@ function StoryAnimation({ art }) {
       {/* Story controls */}
       {!playing ? (
         <button className="story-start" onClick={() => start()}>
-          ▶ Conta-me a história
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M7 4.5v15l13-7.5z" /></svg>
+          Conta-me a história
         </button>
       ) : (
         <div className="story-panel" onClick={(e) => e.stopPropagation()}>
@@ -254,7 +255,10 @@ function StoryAnimation({ art }) {
               ))}
             </div>
             <button className="story-next" onClick={next}>
-              {step < STORY_BEATS.length - 1 ? "Próximo →" : "Acabou ✨"}
+              {step < STORY_BEATS.length - 1 ? "Próximo" : "Acabou"}
+              {step < STORY_BEATS.length - 1 && (
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              )}
             </button>
           </div>
         </div>
@@ -322,10 +326,10 @@ function RainbowAnimation({ art }) {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, r.width, r.height);
     // Add a subtle hint text
-    ctx.fillStyle = "rgba(60,40,80,0.32)";
+    ctx.fillStyle = "rgba(26,26,26,0.42)";
     ctx.font = "italic 22px 'Caveat', cursive";
     ctx.textAlign = "center";
-    ctx.fillText("pinta para revelar 🌈", r.width / 2, r.height * 0.5);
+    ctx.fillText("pinta para revelar", r.width / 2, r.height * 0.5);
   };
 
   useE(() => {
@@ -408,7 +412,10 @@ function RainbowAnimation({ art }) {
           <div className="reveal-meter-bar" style={{ width: revealed + "%" }} />
         </div>
         <span className="reveal-meter-label">{revealed}% revelado</span>
-        <button className="reveal-reset" onClick={reset}>↺ Cobrir</button>
+        <button className="reveal-reset" onClick={reset}>
+          <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" /></svg>
+          Cobrir
+        </button>
       </div>
     </div>
   );

@@ -104,8 +104,10 @@ Three things differ from the tables above, on purpose:
   fundo where `#8A8578` does not (QUA-07).
 - Errors in the comment form are a dark red, `#A3231B`. It is a state colour, not an accent.
 
-What sits inside the plate belongs to the piece's own routine and is not part of this chrome:
-the story button on *Era Uma Vez…* and the scratch layer on *Dia da Mãe* keep their colours.
+What a routine draws inside the plate is its own, but its **buttons** follow the same chrome: the
+story button and panel on *Era Uma Vez…* and the progress bar on *Dia da Mãe* are tinta pills and
+paper cards with hairlines, drawn above the discovery dots. The story's handwriting stays in
+Caveat, the spotlight and the pink scratch cover are the effect itself and keep their colours.
 
 ### Print: the album
 
