@@ -2,7 +2,7 @@
 title: Audio description and visitor comments (prototype)
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-10-13
+last_reviewed: 2026-11-14
 review_cycle: 30d
 related:
   - docs/decisions/0015-prototype-comments-backend.md
@@ -31,7 +31,7 @@ schema in `ART_GUIDE.md` §1.
 |---|---|---|
 | Where does the data live? | New file `audio-data.js` with `window.AUDIO = { "<art id>": { src, secs, text } }`. | Keeps the `ART` schema untouched (CLAUDE.md rule). One file the owner edits by hand. A piece without an entry shows no audio control. |
 | Where are the files? | `assets/art/<art-id>/audio.mp3` (mono, 64 kbps, 15-60 s, about 100-500 KB). | One folder per artwork ([ADR-0016](../decisions/0016-asset-layout.md)). ADR-0007 Option A, for the description only. |
-| What is the control? | One text button in `.zm-label`, **"Ouvir a descrição"**, next to the Sala button. Becomes "Pausar" while playing. A thin progress bar and `0:12 / 0:40` sit under it. | Click-to-play. Never autoplay (children, shared spaces, browser policy). Text label, not an icon-only button, so it reads for a 6-year-old and a grandparent alike. |
+| What is the control? | A card in `.zm-label`: a round play button with the words **"Ouvir a descrição"** beside it (since QUA-15; before, one text button). The words become "Pausar" while playing. A thin progress bar and `0:12 / 0:40` sit under them. | Click-to-play. Never autoplay (children, shared spaces, browser policy). Text label, not an icon-only button, so it reads for a 6-year-old and a grandparent alike. |
 | Transcript? | `text` field shown under the player on a "Ler" toggle. | Accessibility (deaf and hard-of-hearing visitors, quiet rooms). The voice stays the product; the text is the fallback. |
 | What stops it? | Close, previous/next piece, opening the Sala, and the end of the file. | Audio must never outlive the piece it describes. |
 | Visible on the wall? | A small speaker mark (`AudioMark` in `gallery-core.jsx`): a round badge on the frame corner on the Parede de Galeria, inline after the title on the plaques of the hallway and Cubo Branco. Shown only for pieces with an entry in `audio-data.js`. | Visitors can tell which pieces carry the artist's voice before opening them. |
@@ -49,8 +49,8 @@ Enter work by default. No new global shortcuts (arrows already step pieces).
 1. `audio-data.js` (files at `assets/art/<id>/audio.mp3`) plus `<script src>` in `index.html` before the gallery.
 2. `AudioDescription({ art })` component in `gallery-core.jsx`; one `Audio` element in a ref;
    cleanup on unmount covers close and step.
-3. CSS in `gallery.css`, section `/* === audio description === */`. Same pill language as
-   `.zm-cta`. `prefers-reduced-motion`: no progress easing.
+3. CSS in `gallery.css`, section "AUDIO DESCRIPTION + COMMENTS + SHARE". The look is the
+   artwork page's ([IDENTITY](IDENTITY.md) §2). `prefers-reduced-motion`: no progress easing.
 4. Tell the owner how to add one: file at `assets/art/<id>/audio.mp3`, one line in `audio-data.js`. Add a
    row to the `README.md` file map and a note in `ART_GUIDE.md` §1.
 5. Verify desktop and 375 px, including iOS Safari behaviour (needs a user gesture; ours is one).
@@ -74,7 +74,7 @@ piece and is trivially exportable.
 
 | Question | Decision | Why |
 |---|---|---|
-| Where in the UI? | A **"Comentários (n)"** button in `.zm-label`. Opens a panel: right-hand drawer on desktop, bottom sheet on 375 px. Closed by default. | The artwork is the hero and the frame must not shrink. Comments are secondary. |
+| Where in the UI? | A **"Comentários (n)"** button in `.zm-label`, beside "Partilhar". Opens a panel: right-hand drawer on desktop, bottom sheet on 375 px, over a light scrim that closes it. Closed by default. | The artwork is the hero and the frame must not shrink. Comments are secondary. |
 | What does a visitor type? | **Nome** (max 40) and **Comentário** (max 280, with a live counter). Visible labels, not placeholders. | Matches the request. No account, no email. |
 | Remember the name? | Yes, in `localStorage` (try/catch, optional). | Second comment is one field. |
 | Validation | On blur and on submit. Inline message under the field, in PT-PT, plain. | "Escreve o teu nome", "Escreve um comentário". |

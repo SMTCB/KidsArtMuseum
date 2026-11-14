@@ -62,8 +62,8 @@ Title patterns that work well:
 
 The wall theme uses the artwork's own colours — this is what makes each frame feel custom-fitted.
 
-- **`bg`** — *one* dominant colour, used as the background of the close-up view. Pick the strongest non-white field in the painting. Avoid pure white (`#ffffff`) and pure black (`#000000`).
-- **`palette`** — 3 to 6 colours **actually present in the painting**, ordered most→least dominant. These render as swatches under the title.
+- **`bg`** — *one* dominant colour, used as the ground of the shared postal ("Enviar como postal"). Pick the strongest non-white field in the painting. Avoid pure white (`#ffffff`) and pure black (`#000000`).
+- **`palette`** — 3 to 6 colours **actually present in the painting**, ordered most→least dominant. These render as swatches under the title on the artwork's page.
 
 Rules:
 
@@ -71,7 +71,7 @@ Rules:
 2. **No greys, no whites in the swatches unless they're a deliberate element** (e.g. the doily in *LUNA*).
 3. **Hex only**, lowercase, 6 digits (`#ec3a8a`, not `#EC3A8AFF`).
 4. **`bg` must appear in `palette`** — they share at least one colour, often the first.
-5. **Contrast check.** If `bg` is dark, the white title text reads fine. If `bg` is very pale (<L 80), pick a slightly more saturated neighbouring colour from the palette so the title doesn't disappear.
+5. **Contrast check.** The postal sets the title in pale text on `bg`. If `bg` is dark, it reads fine. If `bg` is very pale (<L 80), pick a slightly more saturated neighbouring colour from the palette so the title doesn't disappear.
 
 ---
 
@@ -249,6 +249,7 @@ These are global identity choices. Don't tweak them when adding a piece:
 
 - The fonts (`Cormorant Garamond` for titles, `Inter` for body, `JetBrains Mono` for chrome labels, `Caveat` for handwritten bits).
 - The two wall themes (`whitecube`, `wall`) and their colour systems.
+- The artwork's page and the Sala de Experimentação: a light catalogue page, the same plate for every piece ([`docs/design/IDENTITY.md`](docs/design/IDENTITY.md) §2).
 - The frame proportions and shadow recipe in `gallery.css`.
 - The app bar / brand mark (`FMB · ART`).
 - Portuguese as the UI language.

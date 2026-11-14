@@ -1,7 +1,10 @@
 // ============================================================
 // FMB / ART — Sala de Experimentação
-// Full-screen overlay that lets the user apply any of the
+// Full-screen page that lets the visitor apply any of the
 // 33 template / painter effects to the selected artwork.
+// Light catalogue register, like the artwork's page (QUA-15):
+// the plate, a caption, and the effects as an index folded
+// into its four families (one open at a time, plus / minus).
 //
 // Loaded AFTER all template + painter files so that
 // window.ANIMS and window.TEMPLATE_LIBRARY are fully
@@ -19,28 +22,41 @@ const ER_GROUP_LABELS = {
   mestres: "À Maneira dos Mestres"
 };
 
-const ER_GROUP_ACCENTS = {
-  gestos:  "#f08a2a",
-  materia: "#5a78d8",
-  magia:   "#a04acb",
-  mestres: "#f7d54a"
-};
-
 // Order the groups in a fixed, intentional sequence
 const ER_GROUP_ORDER = ["gestos", "materia", "magia", "mestres"];
+
+const erPad = (n) => String(n).padStart(2, "0");
+
+function ErIcon({ d, size = 18 }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>
+  );
+}
 
 function ExperimentationRoom({ art, onClose }) {
   const library = window.TEMPLATE_LIBRARY || [];
 
-  // One flat list in a fixed group order; the group shows as a colour dot.
+  // One flat, numbered list in a fixed group order; the index shows it family by family.
   const effects = ER_GROUP_ORDER.flatMap(g => library.filter(t => t.group === g));
+  const groups = ER_GROUP_ORDER
+    .map(g => ({ id: g, label: ER_GROUP_LABELS[g], items: effects.map((t, i) => ({ t, i })).filter(o => o.t.group === g) }))
+    .filter(gr => gr.items.length);
 
   const [activeId, setActiveId] = erState((effects[0] || {}).id || null);
+  // Which family is unfolded (null = all folded). On a short screen the index starts folded,
+  // so the artwork keeps its room.
+  const [openGroup, setOpenGroup] = erState(() =>
+    window.innerHeight < 720 ? null : (effects[0] || {}).group || null);
   const activeIdx = Math.max(0, effects.findIndex(t => t.id === activeId));
   const activeTpl = effects[activeIdx] || null;
   const Anim      = activeTpl && window.ANIMS && window.ANIMS[activeTpl.anim];
   const step = (d) => {
-    if (effects.length) setActiveId(effects[(activeIdx + d + effects.length) % effects.length].id);
+    if (!effects.length) return;
+    const next = effects[(activeIdx + d + effects.length) % effects.length];
+    setActiveId(next.id);
+    // Follow the effect into its family, unless the visitor folded everything away
+    setOpenGroup(g => (g === null ? null : next.group));
   };
 
   // Compute stage size so the artwork always fills without distortion.
@@ -56,8 +72,11 @@ function ExperimentationRoom({ art, onClose }) {
     if (!wrap) return;
     const ratio = art.w / art.h;
     const compute = () => {
-      const { width, height } = wrap.getBoundingClientRect();
-      if (!width || !height) return;
+      // The wrap's padding is where the plate's passe-partout and shadow are drawn
+      const cs = getComputedStyle(wrap);
+      const width = wrap.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const height = wrap.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      if (!(width > 0) || !(height > 0)) return;
       let w, h;
       if (width / height > ratio) {
         h = height; w = Math.round(h * ratio);
@@ -87,27 +106,28 @@ function ExperimentationRoom({ art, onClose }) {
     };
   }, [onClose, activeIdx]);
 
-  // Keep the active effect visible in the list
+  // Keep the active effect visible in the index
   erEffect(() => {
-    const el = listRef.current && listRef.current.querySelector(".is-active");
+    const el = listRef.current && listRef.current.querySelector(".er-item.is-active");
     if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest", inline: "nearest" });
-  }, [activeId]);
+  }, [activeId, openGroup]);
 
   return (
     <div className="er-overlay" role="dialog" aria-modal="true" aria-label="Sala de Experimentação">
 
       {/* ── Top bar ── */}
       <div className="er-bar">
-        <button className="er-back" onClick={onClose} aria-label="Voltar ao museu">
-          ← Voltar
+        <button className="er-back" onClick={onClose} aria-label={"Voltar a " + art.title}>
+          <ErIcon d="M19 12H5M11 6l-6 6 6 6" />
+          <span>{art.title}</span>
         </button>
-        <span className="er-bar-title">{art.title}</span>
+        <span className="er-bar-kicker">Sala de Experimentação</span>
       </div>
 
       {/* ── Main body ── */}
       <div className="er-body">
 
-        {/* Preview + caption */}
+        {/* Plate + caption */}
         <div className="er-preview-panel">
           <div className="er-stage-wrap" ref={wrapRef}>
             <div
@@ -125,53 +145,63 @@ function ExperimentationRoom({ art, onClose }) {
           </div>
 
           {activeTpl && (
-            <div className="er-preview-label" aria-live="polite">
-              <span
-                className="er-preview-name"
-                style={{ color: ER_GROUP_ACCENTS[activeTpl.group] || "#f4efe6" }}
-              >
-                {activeTpl.name}
-              </span>
+            <div className="er-caption">
+              <div className="er-caption-top">
+                <div className="er-caption-head" aria-live="polite">
+                  <span className="er-kicker">
+                    Efeito {erPad(activeIdx + 1)} de {effects.length} · {ER_GROUP_LABELS[activeTpl.group]}
+                  </span>
+                  <span className="er-preview-name">{activeTpl.name}</span>
+                </div>
+                <span className="er-steps">
+                  <button className="er-step" onClick={() => step(-1)} aria-label="Efeito anterior">
+                    <ErIcon d="M19 12H5M11 6l-6 6 6 6" size={16} />
+                  </button>
+                  <button className="er-step" onClick={() => step(1)} aria-label="Efeito seguinte">
+                    <ErIcon d="M5 12h14M13 6l6 6-6 6" size={16} />
+                  </button>
+                </span>
+              </div>
               <p className="er-preview-concept">{activeTpl.concept}</p>
               <p className="er-preview-how">{activeTpl.interaction}</p>
             </div>
           )}
         </div>
 
-        {/* Effect picker */}
-        <div className="er-picker-panel">
-          <div className="er-picker-head">
-            <button className="er-step" onClick={() => step(-1)} aria-label="Efeito anterior">←</button>
-            <span className="er-picker-count">
-              {String(activeIdx + 1).padStart(2, "0")} / {effects.length}
-            </span>
-            <button className="er-step" onClick={() => step(1)} aria-label="Efeito seguinte">→</button>
-          </div>
-
-          <div className="er-list" ref={listRef} role="listbox" aria-label="Efeitos">
-            {effects.map(tpl => (
-              <button
-                key={tpl.id}
-                role="option"
-                aria-selected={activeId === tpl.id}
-                className={"er-item" + (activeId === tpl.id ? " is-active" : "")}
-                style={{ "--accent": ER_GROUP_ACCENTS[tpl.group] || "#f4efe6" }}
-                onClick={() => setActiveId(tpl.id)}
-                title={ER_GROUP_LABELS[tpl.group]}
-              >
-                <span className="er-item-dot" aria-hidden />
-                <span className="er-item-name">{tpl.name}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="er-legend" aria-hidden>
-            {ER_GROUP_ORDER.filter(g => effects.some(t => t.group === g)).map(g => (
-              <span key={g} className="er-legend-item" style={{ "--accent": ER_GROUP_ACCENTS[g] }}>
-                <span className="er-item-dot" />{ER_GROUP_LABELS[g]}
-              </span>
-            ))}
-          </div>
+        {/* Index of effects, folded into families */}
+        <div className="er-index" ref={listRef} aria-label="Efeitos">
+          {groups.map(gr => {
+            const open = openGroup === gr.id;
+            const holds = !!activeTpl && activeTpl.group === gr.id;
+            return (
+              <section key={gr.id} className={"er-group" + (open ? " is-open" : "") + (holds ? " has-active" : "")}>
+                <button className="er-group-head" aria-expanded={open} aria-controls={"er-group-" + gr.id}
+                  onClick={() => setOpenGroup(open ? null : gr.id)}>
+                  <span className="er-group-name">{gr.label}</span>
+                  <span className="er-group-count">{gr.items.length}</span>
+                  <span className="er-group-toggle" aria-hidden="true">
+                    <ErIcon d={open ? "M6 12h12" : "M6 12h12M12 6v12"} size={16} />
+                  </span>
+                </button>
+                {open && (
+                  <div className="er-group-list" id={"er-group-" + gr.id} role="listbox" aria-label={gr.label}>
+                    {gr.items.map(({ t, i }) => (
+                      <button
+                        key={t.id}
+                        role="option"
+                        aria-selected={activeId === t.id}
+                        className={"er-item" + (activeId === t.id ? " is-active" : "")}
+                        onClick={() => setActiveId(t.id)}
+                      >
+                        <span className="er-item-n">{erPad(i + 1)}</span>
+                        <span className="er-item-name">{t.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </section>
+            );
+          })}
         </div>
       </div>
     </div>
