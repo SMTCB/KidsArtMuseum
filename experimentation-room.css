@@ -80,26 +80,23 @@
   overflow: hidden;
 }
 
-/* The padding is the room for the plate's passe-partout and shadow (see .er-stage) */
+/* The padding is the room for the frame's shadow; the frame is the piece's own (FramedPlate) */
 .er-stage-wrap {
   flex: 1;
   min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 26px 26px 34px;
+  padding: 22px 22px 30px;
 }
 
+/* the photo block inside the frame's mat; the width is the mat's, the height follows the ratio */
 .er-stage {
   position: relative;
+  display: block;
+  width: 100%;
   overflow: hidden;
-  /* width + height set as explicit px by ResizeObserver in JS (portrait/landscape safe) */
-  flex-shrink: 0;
   background: #fff;
-  box-shadow:
-    0 0 0 14px #fff,
-    0 0 0 17px #161616,
-    0 18px 30px 14px rgba(40, 40, 40, 0.14);
 }
 
 /* Make sure tpl-layer and anim-layer fill the stage correctly */
@@ -282,13 +279,7 @@
   .er-body { flex-direction: column; }
   .er-bar-kicker { display: none; }
   .er-preview-panel { padding: 8px 20px 14px; gap: 8px; }
-  .er-stage-wrap { padding: 20px 17px 26px; }
-  .er-stage {
-    box-shadow:
-      0 0 0 11px #fff,
-      0 0 0 14px #161616,
-      0 14px 22px 10px rgba(40, 40, 40, 0.13);
-  }
+  .er-stage-wrap { padding: 16px 16px 22px; }
   .er-caption { gap: 8px; }
   .er-caption-head { gap: 4px; }
   .er-preview-name { font-size: 32px; }
