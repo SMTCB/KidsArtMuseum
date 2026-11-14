@@ -1030,6 +1030,80 @@ function OutonoAnimation({ art }) {
 }
 
 // ============================================================
+// PISCADELA — O Senhor Vermelho winks his yellow eye ("Um olho que pisca")
+// ============================================================
+// The yellow eye, as % of the image; the lid is a clean patch of the same blue paper,
+// cut from the photo (top right), the same size as the eye box. Clipped to an ellipse.
+const PISCADELA_EYE = { l: 23.2, t: 19.7, w: 16.0, h: 13.6 };
+const PISCADELA_LID = { l: 83.3, t: 4.2 };
+
+function PiscadelaAnimation({ art }) {
+  const E = PISCADELA_EYE, S = PISCADELA_LID;
+  return (
+    <div className="anim-layer piscadela-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="pisc-eye" style={{
+        left: E.l + "%", top: E.t + "%", width: E.w + "%", height: E.h + "%"
+      }}>
+        <div className="pisc-lid" style={{
+          backgroundImage: `url(${art.src})`,
+          backgroundSize: `${10000 / E.w}% ${10000 / E.h}%`,
+          backgroundPosition: `${S.l / (100 - E.w) * 100}% ${S.t / (100 - E.h) * 100}%`
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// PENDULO — Forma Azul (pendículo): only the cut-out swings, from the knot of its string
+// ============================================================
+// parts/forma.png is the blue shape cut from the photo; parts/fundo.jpeg is the same box
+// with the cardboard filled in from the corrugation below it, seen only at the edges as
+// the shape swings. Box as % of the image; pivot (the string's hole) as % of the box.
+const PENDULO_PART = { l: 20.58, t: 3.76, w: 53.24, h: 63.42, pivot: "50.5% 9.6%" };
+
+function PenduloAnimation({ art }) {
+  const P = PENDULO_PART;
+  const part = (n) => art.src.replace(/[^/]+$/, "parts/" + n);
+  const box = { left: P.l + "%", top: P.t + "%", width: P.w + "%", height: P.h + "%" };
+  return (
+    <div className="anim-layer pendulo-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <img src={part("fundo.jpeg")} alt="" className="pendulo-fundo" style={box} />
+      <img src={part("forma.png")} alt="" className="pendulo-forma"
+        style={{ ...box, transformOrigin: P.pivot }} />
+    </div>
+  );
+}
+
+// ============================================================
+// LUAR — LUNA: the yellow halo Manuel drew round the moon lights up and fades
+// ============================================================
+// Halo centre as % of the image, radius as % of the image width. The glow is a ring:
+// clear over the moon itself (inner 55%), in the halo's own yellow from the palette.
+const LUAR = { cx: 39.1, cy: 6.0, r: 52.5, colour: 2 };
+
+function LuarAnimation({ art }) {
+  const L = LUAR;
+  const hr = L.r * art.w / art.h; // the same radius as % of the image height
+  const hex = art.palette[L.colour];
+  const rgba = (a) => {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${n >> 16}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+  };
+  return (
+    <div className="anim-layer luar-stage" aria-hidden>
+      <img src={art.src} alt="" className="anim-img" />
+      <div className="luar-glow" style={{
+        left: L.cx - L.r + "%", top: L.cy - hr + "%", width: 2 * L.r + "%", height: 2 * hr + "%",
+        background: `radial-gradient(closest-side, ${rgba(0)} 55%, ${rgba(0.75)} 62%, ${rgba(0.35)} 78%, ${rgba(0)} 100%)`
+      }} />
+    </div>
+  );
+}
+
+// ============================================================
 // Export to window
 // ============================================================
 window.ANIMS = {
@@ -1057,7 +1131,10 @@ window.ANIMS = {
   floresta: FlorestaAnimation,
   crescer: CrescerAnimation,
   passaro: PassaroAnimation,
-  risco: RiscoAnimation
+  risco: RiscoAnimation,
+  piscadela: PiscadelaAnimation,
+  pendulo: PenduloAnimation,
+  luar: LuarAnimation
 };
 
 Object.assign(window, {
@@ -1066,5 +1143,6 @@ Object.assign(window, {
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
-  FlorestaAnimation, CrescerAnimation, PassaroAnimation, RiscoAnimation
+  FlorestaAnimation, CrescerAnimation, PassaroAnimation, RiscoAnimation,
+  PiscadelaAnimation, PenduloAnimation, LuarAnimation
 });

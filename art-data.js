@@ -15,9 +15,9 @@ window.ART = [
     w: 3648, h: 4799,
     bg: "#225f9e",
     palette: ["#b9261c", "#225f9e", "#ccc343", "#f4ede0", "#0d1d33"],
-    anim: "miro",
+    anim: "piscadela",
     dots: [
-      { x: 32, y: 22, label: "Olho amarelo", detail: "Um olho que pisca" },
+      { x: 16, y: 26, label: "Olho amarelo", detail: "Espera: ele pisca-te o olho" },
       { x: 55, y: 22, label: "Olho vermelho", detail: "Outro olho!" },
       { x: 50, y: 88, label: "Os p\u00e9s", detail: "Pronto para correr" }
     ]
@@ -69,10 +69,11 @@ window.ART = [
     w: 3334, h: 3349,
     bg: "#b09778",
     palette: ["#1f8fd4", "#b09778", "#9a8466"],
-    anim: "matisse",
+    anim: "pendulo",
     dots: [
-      { x: 45, y: 35, label: "Recorte", detail: "Tesoura e papel" },
-      { x: 45, y: 5, label: "Fio", detail: "Pendurado no ar" }
+      { x: 45.5, y: 0.8, label: "Fio", detail: "Pendurado no ar" },
+      { x: 10, y: 45, label: "Cartão canelado", detail: "Às riscas, ao alto" },
+      { x: 80, y: 80, label: "Pingos de tinta", detail: "Azul, laranja e cor-de-rosa" }
     ]
   },
   {
@@ -182,7 +183,7 @@ window.ART = [
     w: 777, h: 3608,
     bg: "#82ab8b",
     palette: ["#4f6ed1", "#d75441", "#e6c12a", "#82ab8b", "#cf6673"],
-    anim: "luna",
+    anim: "luar",
     dots: [
       { x: 50, y: 5, label: "A lua", detail: "Pintura salpicada" },
       { x: 50, y: 30, label: "Tiras azuis", detail: "Papel de seda" },
