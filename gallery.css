@@ -2523,8 +2523,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ============================================================
    === piscadela animation === (O Senhor Vermelho)
-   One 7 s loop. A lid cut from the blue paper of the photo comes down over the yellow
-   eye, holds, and goes back up: a slow wink. The red eye stays open.
+   One 3.5 s loop. Lids cut from the blue paper of the photo come down over both eyes,
+   hold a moment, and go back up: a blink of about half a second.
    ============================================================ */
 .pisc-eye {
   position: absolute;
@@ -2537,15 +2537,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transform-origin: 50% 0;
   transform: scaleY(0);
   will-change: transform;
-  animation: piscLid 7s ease-in-out infinite;
+  animation: piscLid 3.5s ease-in-out infinite;
 }
 @keyframes piscLid {
-  0%, 60%   { transform: scaleY(0); }
-  67%, 74%  { transform: scaleY(1); }
-  81%, 100% { transform: scaleY(0); }
+  0%, 80%   { transform: scaleY(0); }
+  85%, 88%  { transform: scaleY(1); }
+  95%, 100% { transform: scaleY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pisc-lid { transform: none; opacity: 0; animation: piscDim 7s ease-in-out infinite; }
+  .pisc-lid { transform: none; opacity: 0; animation: piscDim 3.5s ease-in-out infinite; }
 }
 @keyframes piscDim { 0%, 55%, 90%, 100% { opacity: 0; } 70% { opacity: 0.5; } }
 
@@ -2575,7 +2575,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ============================================================
    === luar animation === (LUNA)
-   One 8 s loop. A ring of the halo's own yellow brightens round the moon and fades;
+   One 5 s loop. A ring of the halo's own yellow brightens round the moon and fades;
    the moon itself is left clear.
    ============================================================ */
 .luar-glow {
@@ -2583,12 +2583,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   pointer-events: none;
   opacity: 0;
   will-change: opacity;
-  animation: luarGlow 8s ease-in-out infinite;
+  animation: luarGlow 5s ease-in-out infinite;
 }
 @keyframes luarGlow {
   0%, 100% { opacity: 0; }
   50%      { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .luar-glow { animation-duration: 12s; }
+  .luar-glow { animation-duration: 9s; }
 }
