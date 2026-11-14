@@ -2,8 +2,8 @@
 // FMB / ART — Sala de Experimentação
 // Full-screen page that lets the visitor apply any of the
 // 33 template / painter effects to the selected artwork.
-// Light catalogue register, like the artwork's page (QUA-15):
-// the plate, a caption, and the effects as an index folded
+// Light catalogue register, like the artwork's page (QUA-15), with the
+// piece in its own wall frame (QUA-16): the plate, a caption, and the effects as an index folded
 // into its four families (one open at a time, plus / minus).
 //
 // Loaded AFTER all template + painter files so that
@@ -65,31 +65,24 @@ function ExperimentationRoom({ art, onClose }) {
   // doesn't trigger proportional width reduction in all browsers).
   const wrapRef = erRef(null);
   const listRef = erRef(null);
-  const [stageSize, setStageSize] = erState(null);
+  const [avail, setAvail] = erState(null);        // room for the framed plate, in px
 
   erEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
-    const ratio = art.w / art.h;
     const compute = () => {
-      // The wrap's padding is where the plate's passe-partout and shadow are drawn
+      // The wrap's padding is the room for the frame's shadow
       const cs = getComputedStyle(wrap);
       const width = wrap.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
       const height = wrap.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
       if (!(width > 0) || !(height > 0)) return;
-      let w, h;
-      if (width / height > ratio) {
-        h = height; w = Math.round(h * ratio);
-      } else {
-        w = width;  h = Math.round(w / ratio);
-      }
-      setStageSize({ width: w, height: h });
+      setAvail({ w: width, h: height });
     };
     compute();
     const ro = new ResizeObserver(compute);
     ro.observe(wrap);
     return () => ro.disconnect();
-  }, [art.w, art.h]);
+  }, []);
 
   // ESC closes the room; arrows step through the effects
   erEffect(() => {
@@ -130,18 +123,15 @@ function ExperimentationRoom({ art, onClose }) {
         {/* Plate + caption */}
         <div className="er-preview-panel">
           <div className="er-stage-wrap" ref={wrapRef}>
-            <div
-              className="er-stage"
-              style={stageSize
-                ? { width: stageSize.width + "px", height: stageSize.height + "px" }
-                : { aspectRatio: `${art.w} / ${art.h}`, width: "100%", maxHeight: "100%" }
-              }
-            >
-              {Anim
-                ? <Anim art={art} key={activeId} />
-                : <img src={art.src} alt={art.title} className="anim-img" />
-              }
-            </div>
+            {/* The piece keeps the frame it wears on the wall (FramedPlate, gallery-core.jsx) */}
+            <window.FramedPlate art={art} ratio={art.w / art.h} avail={avail}>
+              <div className="er-stage" style={{ aspectRatio: `${art.w} / ${art.h}` }}>
+                {Anim
+                  ? <Anim art={art} key={activeId} />
+                  : <img src={art.src} alt={art.title} className="anim-img" />
+                }
+              </div>
+            </window.FramedPlate>
           </div>
 
           {activeTpl && (

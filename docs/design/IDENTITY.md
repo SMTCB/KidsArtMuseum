@@ -86,13 +86,13 @@ dark overlays). Styles are in `gallery.css` ("ZOOM MODAL: the artwork's page") a
 | Element | Treatment |
 |---|---|
 | Ground | Fundo `#FAF8F2`. Cards (audio, form fields, menus) are white with a hairline. |
-| The plate | The photo in a white passe-partout inside a thin black edge, with a soft drop shadow. One plate for every piece: the varied frames belong to the wall. |
+| The plate | The piece hangs in **the frame it wears on the wall**, enlarged: ouro entalhado, carvalho, laca and the rest (`gallery.css`, "Frame looks shared by several pieces"), so the frame you tapped is the frame you see (QUA-16). It is the same CSS, applied through `FramedPlate` in `gallery-core.jsx`, which sizes the whole frame to fit the screen. The photo inside keeps its exact proportions, so the discovery dots stay true. A new piece gets one frame look, and it shows on the wall, the page and the Sala. |
 | Title and label | Title in Cormorant italic 600, metadata in mono, then a short latão rule and the piece's own `palette` as swatches. The swatches are the only colour in the chrome, and they are the artwork's. |
 | Discovery dots | Tinta discs with a paper number; the open one inverts. They repeat under the title as a numbered list, "Para descobrir"; a row opens its dot on the photo. |
 | Buttons | Filled tinta pill for the one next step (play, send, paint). Outlined pill for comments and share. The door to the Sala is a tinta block. No gradient, no emoji. |
 | Moving between works | "Parede" and a `13 / 24` counter with arrows in the top bar; the neighbouring titles at the foot of the page. |
 | Comments and share | A paper drawer (bottom sheet on a phone) over a light scrim, with mono field labels and a latão rule under its title; the share menu is a white card. |
-| The Sala | The same plate, a caption (number, name, what it does, how to touch it) and the 33 effects as an index folded into its four families. One family is open at a time, on a plus / minus button. The families have no colour of their own. |
+| The Sala | The same framed plate, a caption (number, name, what it does, how to touch it) and the 33 effects as an index folded into its four families. One family is open at a time, on a plus / minus button. The families have no colour of their own. |
 
 Layout: one scrolling column on a phone; from 900 px the plate stays on the left while the text
 scrolls beside it.

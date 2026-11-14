@@ -2,7 +2,7 @@
 // All per-piece animations live in art-animations.jsx (loaded before this file)
 // and are looked up via window.ANIMS by art.anim id.
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect, useLayoutEffect, useRef } = React;
 
 // Small versions of the photo for the wall and hallway (QUA-12). Convention, no schema field:
 // assets/art/<id>/photo.jpeg has thumb-480.jpeg and thumb-960.jpeg beside it (npm run thumbs).
@@ -363,6 +363,31 @@ function CommentsPanel({ art, onClose, onCount }) {
   );
 }
 
+// ---------- The piece's own frame, away from the wall ----------
+// The artwork page and the Sala hang the photo in the same frame it wears on the wall (QUA-16):
+// the wrapper carries `gw-piece-<id>`, so the frame looks in gallery.css apply as they are.
+// Their paddings are shares of the frame's width, so the plate is sized by width: it is
+// measured once at any width (its height is a fixed multiple of it), then set to the largest
+// width that fits `avail` ({ w, h } in px). `children` is the photo block, which must fill the
+// mat's width and keep the artwork's ratio; `ratio` only tells the plate when to measure again.
+function FramedPlate({ art, ratio, avail, children, className }) {
+  const ref = useRef(null);
+  const [w, setW] = useState(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || !avail || !(avail.w > 0) || !(avail.h > 0)) return;
+    const w0 = el.offsetWidth, h0 = el.offsetHeight;
+    if (!w0 || !h0) return;
+    setW(Math.max(80, Math.floor(Math.min(avail.w, avail.h / (h0 / w0)))));
+  }, [avail && avail.w, avail && avail.h, art.id, ratio]);
+  return (
+    <div ref={ref} className={"zm-plate gw-piece-" + art.id + (className ? " " + className : "")}
+      style={{ width: (w || 320) + "px" }}>
+      <span className="gw-frame"><span className="gw-mat">{children}</span></span>
+    </div>
+  );
+}
+
 // ---------- Zoom modal: the artwork's page ----------
 // A light catalogue page (QUA-15): the plate, then title, palette, audio, the dots as a list,
 // comments and share, the door to the Sala, and the neighbouring works at the foot.
@@ -377,6 +402,7 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
   const [viewIx, setViewIx] = useState(0);            // which angle of a 3D piece (ADR-0019)
   const pageRef = useRef(null);
   const frameRef = useRef(null);
+  const [avail, setAvail] = useState(null);           // room for the framed plate, in px
   const views = art.views && art.views.length > 1 ? art.views : null;
   const v = views ? views[viewIx] || views[0] : null;
   // The first view is the main photo: it keeps the animation. The others are plain photos.
@@ -387,6 +413,24 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
 
   useEffect(() => { setViewIx(0); }, [art.id]);
   useEffect(() => { setOpenDot(null); }, [art.id, viewIx]);
+
+  // How much room the plate has: the left column beside the text on a wide screen (it stays in
+  // view while the text scrolls), the width of the page on a phone. 40px is left for the shadow.
+  useLayoutEffect(() => {
+    const calc = () => {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      if (vw > 900) {
+        const wide = vw > 1100;
+        const col = Math.min(vw, 1480) - 2 * (wide ? 48 : 32) - (wide ? 380 : 340) - (wide ? 64 : 44);
+        setAvail({ w: col - 40, h: vh - 168 - (views ? 74 : 0) - 40 });
+      } else {
+        setAvail({ w: vw - 48 - 30, h: vh * 0.62 });
+      }
+    };
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, [!!views]);
   // A new piece starts at the top of its page
   useEffect(() => { if (pageRef.current) pageRef.current.scrollTop = 0; }, [art.id]);
 
@@ -459,14 +503,16 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
 
       <div className="zm-page" key={art.id}>
         <div className={"zm-view" + (views ? " has-views" : "")}>
-          <div className={"zm-frame zm-frame-" + (onMain ? art.anim : "plain")} key={viewIx} ref={frameRef}
-            style={{ aspectRatio: `${shown.w} / ${shown.h}`, "--ar": shown.w / shown.h }}>
-            <Anim art={shown} />
-            {showDots && shown.dots.map((d, i) => (
-              <DiscoverDot key={i} dot={d} n={i + 1} open={openDot === i}
-                onToggle={() => setOpenDot(openDot === i ? null : i)} />
-            ))}
-          </div>
+          <FramedPlate art={art} ratio={shown.w / shown.h} avail={avail}>
+            <div className={"zm-frame zm-frame-" + (onMain ? art.anim : "plain")} key={viewIx} ref={frameRef}
+              style={{ aspectRatio: `${shown.w} / ${shown.h}` }}>
+              <Anim art={shown} />
+              {showDots && shown.dots.map((d, i) => (
+                <DiscoverDot key={i} dot={d} n={i + 1} open={openDot === i}
+                  onToggle={() => setOpenDot(openDot === i ? null : i)} />
+              ))}
+            </div>
+          </FramedPlate>
           {views && (
             <div className="zm-views" role="group" aria-label="Ângulos da obra">
               {views.map((vw, i) => (
@@ -971,4 +1017,4 @@ function Hallway({ theme, artist, openId, onOpen, onClose, onStep }) {
   );
 }
 
-Object.assign(window, { Hallway, GalleryWall, WallPiecePin, ZoomModal, WallPiece, RainbowGame, DiscoverDot });
+Object.assign(window, { Hallway, GalleryWall, WallPiecePin, ZoomModal, WallPiece, RainbowGame, DiscoverDot, FramedPlate });

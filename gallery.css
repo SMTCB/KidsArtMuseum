@@ -824,27 +824,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: 30px;
   min-height: calc(var(--zm-vh) - 168px);
 }
+/* The plate is the piece's own wall frame (FramedPlate in gallery-core.jsx): the frame looks
+   above ("Frame looks shared by several pieces") apply through the `gw-piece-<id>` class, and
+   only what differs on a page is set here. The photo block inside is the old .zm-frame. */
+.zm-plate { flex-shrink: 0; max-width: 100%; }
+.zm-plate .gw-frame { aspect-ratio: auto; }
+.zm-plate .gw-frame::after { display: none; }
+/* a dot's popover can reach past the photo, so the mat must not clip it */
+.zm-plate .gw-mat { overflow: visible; }
 .zm-frame {
   position: relative;
-  /* The plate: a white passe-partout inside a thin black edge, drawn as shadow rings so the
-     dots keep measuring from the photo itself. --chrome is their total width.
-     Height is the target; width follows the artwork's ratio (--ar, set inline) and is capped
-     by --fw so a wide piece shrinks to fit the column instead of running off it. */
-  --chrome: 22px;
-  --edge: 4px;
-  --fh: calc(var(--zm-vh) - 168px - 2 * var(--chrome));
-  --fw: calc(min(100vw, 1480px) - 540px - 2 * var(--chrome));
-  height: min(var(--fh), calc(var(--fw) / var(--ar, 1)));
-  margin: var(--chrome);
+  display: block;
+  width: 100%;
   background: #fff;
-  box-shadow:
-    0 0 0 calc(var(--chrome) - var(--edge)) #fff,
-    0 0 0 var(--chrome) #161616,
-    0 26px 44px 14px rgba(40,40,40,0.16);
   scroll-margin-top: 100px;
 }
-/* a 3D piece has a row of chips under the plate: leave them their height */
-.zm-view.has-views .zm-frame { --fh: calc(var(--zm-vh) - 242px - 2 * var(--chrome)); }
+/* looks that show the work whole inside a wide mat keep a hairline round the photo */
+.gw-piece-meiodemim .zm-frame,
+.gw-piece-floresta .zm-frame,
+.gw-piece-autoretratomuna .zm-frame { box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
 
 /* Angles of a 3D piece (ADR-0019): a row of chips under the frame */
 .zm-views { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
@@ -1022,23 +1020,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---- narrower than a spread: one column, the plate first ---- */
 @media (max-width: 1100px) {
   .zm-page { grid-template-columns: minmax(0, 1fr) 340px; column-gap: 44px; padding: 40px 32px 56px; }
-  .zm-frame { --fw: calc(100vw - 448px - 2 * var(--chrome)); }
   .zm-foot-link { padding: 18px 32px 26px; }
 }
 @media (max-width: 900px) {
   .zm-page { grid-template-columns: minmax(0, 1fr); row-gap: 30px; padding: 28px 24px 40px; }
   .zm-view { position: static; min-height: 0; gap: 22px; }
-  .zm-frame,
-  .zm-view.has-views .zm-frame {
-    --chrome: 17px;
-    --edge: 3px;
-    --fh: calc(var(--zm-vh) * 0.62);
-    --fw: calc(100vw - 48px - 2 * var(--chrome));
-    box-shadow:
-      0 0 0 calc(var(--chrome) - var(--edge)) #fff,
-      0 0 0 var(--chrome) #161616,
-      0 16px 26px 12px rgba(40,40,40,0.13);
-  }
   .zm-label { margin: 0; }
   .zm-label-title { font-size: 38px; line-height: 1.05; }
   .zm-foot-link { padding: 16px 24px 22px; }
