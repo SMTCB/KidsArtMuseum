@@ -41,7 +41,7 @@ related: [docs/product/PLAN.md, docs/product/PLATFORM_DEFINITION.md]
 | **S-06** | Sala de Experimentação (Experimentation Room) | 🟢 Live | A gallery of 33 standalone visual effects (one stage, one caption below it, a plain list with prev/next to switch), separate from the main hallway — a sandbox/showcase of animation ideas not yet attached to specific artworks. |
 | **S-07** | Story Mode | 🔵 Future | Sub-view within the Explore Modal: AI-generated "bedtime story" based on the artwork, formatted as readable narrative text. |
 | **S-08** | Coloring Book Mode | 🔵 Future | Sub-view within the Explore Modal: the artwork converted to black-and-white line art with a "Print" action. |
-| **S-09** | Mobile Gallery (responsive) | 🟢 Live | Mobile-specific layout of S-01 — wall themes collapse to a scrollable 2-column grid. Not a separate route, but a distinct responsive state worth designing explicitly. |
+| **S-09** | Mobile Gallery (responsive) | 🟢 Live | Mobile-specific layout of S-01 — wall themes collapse to scrollable justified rows (QUA-14, was a 2-column grid). Not a separate route, but a distinct responsive state worth designing explicitly. |
 | **S-10** | Print View (single artwork) | 🟡 Near-term | Clean, full-bleed layout of one artwork + title card, optimized for A4/A3 home printing. |
 | **S-11** | Comment Section | 🔵 Future | Social layer on the Exhibition View — family members leave comments on a piece. |
 | **S-12** | Export to Instagram / Social Share Card | 🔵 Future | Generates a shareable image/video (watermarked on free tier) of the artwork for social posting. |
