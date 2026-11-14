@@ -37,8 +37,14 @@ function MiroAnimation({ art }) {
 // SUNFLOWERS — Side-by-side compare with Van Gogh's original
 // ============================================================
 const VAN_GOGH_URL = "assets/art/vangogh/reference.jpg";
+// Other pieces that compare themselves with a master: the reference lives beside the
+// photo (assets/art/<id>/reference.jpg, ADR-0016); anything not listed uses the sunflowers.
+const COMPARE_REFS = {
+  autoretratoverde: { src: "assets/art/autoretratoverde/reference.jpg", label: "Van Gogh, 1889" }
+};
 
 function SunflowersAnimation({ art }) {
+  const ref = COMPARE_REFS[art.id] || { src: VAN_GOGH_URL, label: "Van Gogh, 1888" };
   const [pos, setPos] = useS(50); // 0..100, slider position
   const wrapRef = useR(null);
   const dragging = useR(false);
@@ -72,7 +78,7 @@ function SunflowersAnimation({ art }) {
     <div className="anim-layer compare-layer" ref={wrapRef}
       onMouseDown={onDown} onTouchStart={onDown} aria-hidden>
       {/* Right side: Van Gogh original */}
-      <img src={VAN_GOGH_URL} alt="" className="anim-img compare-bottom" />
+      <img src={ref.src} alt="" className="anim-img compare-bottom" />
       {/* Left side: Miguel's painting, clipped */}
       <div className="compare-top" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <img src={art.src} alt="" className="anim-img" />
@@ -84,8 +90,8 @@ function SunflowersAnimation({ art }) {
         </div>
       </div>
       {/* Labels */}
-      <div className="compare-label compare-label-left">Miguel, 6 anos</div>
-      <div className="compare-label compare-label-right">Van Gogh, 1888</div>
+      <div className="compare-label compare-label-left">{art.artist}, {art.age} anos</div>
+      <div className="compare-label compare-label-right">{ref.label}</div>
     </div>
   );
 }

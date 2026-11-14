@@ -707,7 +707,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .gw-piece-sernormal .gw-mat { box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
 
 /* Nogueira com filete dourado — dark walnut with a gilt inner lip */
-.gw-piece-outono .gw-frame {
+.gw-piece-outono .gw-frame,
+.gw-piece-autoretratoverde .gw-frame {
   padding: 8%;
   background: linear-gradient(135deg, #3e2716 0%, #22140a 55%, #3a2414 100%);
   box-shadow:
@@ -716,7 +717,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     inset 0 0 0 1px rgba(255,220,160,0.14),
     inset 0 0 12px rgba(0,0,0,0.5);
 }
-.gw-piece-outono .gw-mat { box-shadow: 0 0 0 2px #c9a24e, 0 0 0 3px #6a4a18; }
+.gw-piece-outono .gw-mat,
+.gw-piece-autoretratoverde .gw-mat { box-shadow: 0 0 0 2px #c9a24e, 0 0 0 3px #6a4a18; }
 
 /* Soft hung-on-wall shadow under each frame */
 .gw-frame::after {
