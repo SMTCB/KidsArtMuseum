@@ -18,7 +18,7 @@ window.ART = [
     anim: "piscadela",
     dots: [
       { x: 16, y: 26, label: "Olho amarelo", detail: "Espera: ele pisca-te o olho" },
-      { x: 55, y: 22, label: "Olho vermelho", detail: "Outro olho!" },
+      { x: 68, y: 24, label: "Olho vermelho", detail: "Também pisca!" },
       { x: 50, y: 88, label: "Os p\u00e9s", detail: "Pronto para correr" }
     ]
   },
@@ -185,8 +185,8 @@ window.ART = [
     palette: ["#4f6ed1", "#d75441", "#e6c12a", "#82ab8b", "#cf6673"],
     anim: "luar",
     dots: [
-      { x: 50, y: 5, label: "A lua", detail: "Pintura salpicada" },
-      { x: 50, y: 30, label: "Tiras azuis", detail: "Papel de seda" },
+      { x: 22, y: 25, label: "A lua", detail: "Lá em cima: vê-a acender" },
+      { x: 40, y: 37, label: "Tiras azuis", detail: "Papel de seda" },
       { x: 50, y: 55, label: "Renda branca", detail: "Doily da cozinha" },
       { x: 50, y: 85, label: "Janela vermelha", detail: "Casa com M" }
     ]

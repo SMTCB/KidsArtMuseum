@@ -1030,27 +1030,32 @@ function OutonoAnimation({ art }) {
 }
 
 // ============================================================
-// PISCADELA — O Senhor Vermelho winks his yellow eye ("Um olho que pisca")
+// PISCADELA — O Senhor Vermelho blinks both eyes ("Um olho que pisca")
 // ============================================================
-// The yellow eye, as % of the image; the lid is a clean patch of the same blue paper,
-// cut from the photo (top right), the same size as the eye box. Clipped to an ellipse.
-const PISCADELA_EYE = { l: 23.2, t: 19.7, w: 16.0, h: 13.6 };
+// Each eye, as % of the image; its lid is a clean patch of the same blue paper, cut from
+// the photo (top right) at the eye's size, and clipped to an ellipse.
+const PISCADELA_EYES = [
+  { name: "amarelo",  l: 23.2, t: 19.7, w: 16.0, h: 13.6 },
+  { name: "vermelho", l: 47.5, t: 20.0, w: 13.0, h: 10.0 }
+];
 const PISCADELA_LID = { l: 83.3, t: 4.2 };
 
 function PiscadelaAnimation({ art }) {
-  const E = PISCADELA_EYE, S = PISCADELA_LID;
+  const S = PISCADELA_LID;
   return (
     <div className="anim-layer piscadela-stage" aria-hidden>
       <img src={art.src} alt="" className="anim-img" />
-      <div className="pisc-eye" style={{
-        left: E.l + "%", top: E.t + "%", width: E.w + "%", height: E.h + "%"
-      }}>
-        <div className="pisc-lid" style={{
-          backgroundImage: `url(${art.src})`,
-          backgroundSize: `${10000 / E.w}% ${10000 / E.h}%`,
-          backgroundPosition: `${S.l / (100 - E.w) * 100}% ${S.t / (100 - E.h) * 100}%`
-        }} />
-      </div>
+      {PISCADELA_EYES.map((E) => (
+        <div key={E.name} className="pisc-eye" style={{
+          left: E.l + "%", top: E.t + "%", width: E.w + "%", height: E.h + "%"
+        }}>
+          <div className="pisc-lid" style={{
+            backgroundImage: `url(${art.src})`,
+            backgroundSize: `${10000 / E.w}% ${10000 / E.h}%`,
+            backgroundPosition: `${S.l / (100 - E.w) * 100}% ${S.t / (100 - E.h) * 100}%`
+          }} />
+        </div>
+      ))}
     </div>
   );
 }
@@ -1081,8 +1086,8 @@ function PenduloAnimation({ art }) {
 // LUAR — LUNA: the yellow halo Manuel drew round the moon lights up and fades
 // ============================================================
 // Halo centre as % of the image, radius as % of the image width. The glow is a ring:
-// clear over the moon itself (inner 55%), in the halo's own yellow from the palette.
-const LUAR = { cx: 39.1, cy: 6.0, r: 52.5, colour: 2 };
+// clear over the moon itself (inner 48%), in the halo's own yellow from the palette.
+const LUAR = { cx: 39.1, cy: 6.0, r: 62, colour: 2 };
 
 function LuarAnimation({ art }) {
   const L = LUAR;
@@ -1097,7 +1102,7 @@ function LuarAnimation({ art }) {
       <img src={art.src} alt="" className="anim-img" />
       <div className="luar-glow" style={{
         left: L.cx - L.r + "%", top: L.cy - hr + "%", width: 2 * L.r + "%", height: 2 * hr + "%",
-        background: `radial-gradient(closest-side, ${rgba(0)} 55%, ${rgba(0.75)} 62%, ${rgba(0.35)} 78%, ${rgba(0)} 100%)`
+        background: `radial-gradient(closest-side, ${rgba(0)} 46%, ${rgba(0.95)} 54%, ${rgba(0.7)} 68%, ${rgba(0.3)} 84%, ${rgba(0)} 100%)`
       }} />
     </div>
   );
