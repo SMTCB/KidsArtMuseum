@@ -40,6 +40,13 @@ module.exports = async function handler(req, res) {
 
   try {
     if (req.method === "GET") {
+      if (req.query.counts) {                                  // public: only how many, per piece
+        const keys = await redis("KEYS", "c:*");
+        const counts = {};
+        await Promise.all(keys.map(async (k) => { const n = await redis("LLEN", k); if (n) counts[k.slice(2)] = n; }));
+        res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
+        return send(200, { counts });
+      }
       if (req.query.all && isAdmin(req)) {
         const keys = await redis("KEYS", "c:*");
         const out = {};

@@ -2,7 +2,7 @@
 title: Audio description and visitor comments (prototype)
 status: canonical
 owner: SMTCB
-last_reviewed: 2026-11-14
+last_reviewed: 2026-11-19
 review_cycle: 30d
 related:
   - docs/decisions/0015-prototype-comments-backend.md
@@ -83,6 +83,7 @@ piece and is trivially exportable.
 | Abuse | Honeypot field, rate limit per hashed IP (5 per hour), URLs rejected, length caps, `COMMENTS_ENABLED` kill switch. | Open write endpoint on a children's site. |
 | Moderation | **Open question, see below.** | Real trade-off. |
 | Language | PT-PT only. No emoji in the UI copy. | ADR-0002, CLAUDE.md. |
+| Which pieces have comments? | A small speech-bubble mark (`CommentMark` in `gallery-core.jsx`), same family and same places as `AudioMark`: left corner of the frame on the Parede de Galeria (the speaker takes the right corner), inline after the title on the plaques. Shown only when the piece has at least one comment. | Visitors can see where the conversation is. The count comes from one public request, `GET /api/comments?counts=1` → `{ counts: { <id>: n } }` (cached 60 s), made once per visit and kept in `window.COMMENT_COUNTS`. The "Comentários (n)" button in the close-up uses the same number, so it is right before the panel opens. Without the server (local, comments off) the request fails quietly and no mark shows. |
 
 ### Panel layout (desktop)
 
@@ -122,7 +123,7 @@ piece and is trivially exportable.
 - `scripts/comments.js` for the owner: `list`, `delete <id>`, `export` (JSON). The admin token
   lives in the owner's environment.
 - Front end: `Comments({ art })` component, `fetch` with a loading skeleton and a clear error
-  state. Count is fetched lazily on open, not for every piece on the wall.
+  state. The per-piece count for the wall comes from the single `?counts=1` call (not one request per piece); the list itself is fetched lazily on open.
 
 ### Plan
 

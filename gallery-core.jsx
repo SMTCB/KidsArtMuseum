@@ -162,6 +162,48 @@ function AudioMark({ art, badge }) {
   );
 }
 
+// ---------- Comment counts (which pieces have comments) ----------
+// One request for the whole museum: /api/comments?counts=1 → { "<art id>": n }. Cached in
+// window.COMMENT_COUNTS. Without the server (local, or comments off) it stays empty and no mark shows.
+window.COMMENT_COUNTS = window.COMMENT_COUNTS || {};
+let commentCountsAsked = false;
+function setCommentCount(id, n) {
+  window.COMMENT_COUNTS[id] = n;
+  window.dispatchEvent(new Event("fmb-comment-counts"));
+}
+function useCommentCount(id) {
+  const [, tick] = useState(0);
+  useEffect(() => {
+    const on = () => tick(x => x + 1);
+    window.addEventListener("fmb-comment-counts", on);
+    if (!commentCountsAsked) {
+      commentCountsAsked = true;
+      fetch("/api/comments?counts=1")
+        .then(r => (r.ok ? r.json() : null))
+        .then(j => {
+          if (j && j.counts) { Object.assign(window.COMMENT_COUNTS, j.counts); window.dispatchEvent(new Event("fmb-comment-counts")); }
+        })
+        .catch(() => {});
+    }
+    return () => window.removeEventListener("fmb-comment-counts", on);
+  }, []);
+  return window.COMMENT_COUNTS[id] || 0;
+}
+
+// Small speech bubble beside a title on the wall: visitors have commented on this piece.
+function CommentMark({ art, badge }) {
+  const n = useCommentCount(art.id);
+  if (!n) return null;
+  const label = n === 1 ? "1 comentário" : n + " comentários";
+  return (
+    <span className={"art-comment-mark" + (badge ? " art-comment-badge" : "")} role="img" aria-label={label} title={label}>
+      <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+        <path d="M4 5h16v11H9l-5 4z"/>
+      </svg>
+    </span>
+  );
+}
+
 function AudioDescription({ art }) {
   const entry = (window.AUDIO || {})[art.id];
   const audioRef = useRef(null);
@@ -399,6 +441,7 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
   const [showRoom, setShowRoom] = useState(false);   // ← Experimentation Room
   const [showComments, setShowComments] = useState(false);
   const [nComments, setNComments] = useState(null);
+  const known = useCommentCount(art.id);
   const [viewIx, setViewIx] = useState(0);            // which angle of a 3D piece (ADR-0019)
   const pageRef = useRef(null);
   const frameRef = useRef(null);
@@ -568,7 +611,7 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
           <div className="zm-actions">
             <button className="zm-btn" onClick={() => setShowComments(v => !v)} aria-expanded={showComments}>
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>
-              Comentários{nComments ? " (" + nComments + ")" : ""}
+              Comentários{(nComments != null ? nComments : known) ? " (" + (nComments != null ? nComments : known) + ")" : ""}
             </button>
             <ShareButton art={art} />
           </div>
@@ -599,7 +642,7 @@ function ZoomModal({ art, onClose, onStep, theme, nav }) {
       )}
 
       {showComments && <div className="zm-scrim" onClick={() => setShowComments(false)} />}
-      {showComments && <CommentsPanel key={"comments-" + art.id} art={art} onClose={() => setShowComments(false)} onCount={setNComments} />}
+      {showComments && <CommentsPanel key={"comments-" + art.id} art={art} onClose={() => setShowComments(false)} onCount={(n) => { setNComments(n); setCommentCount(art.id, n); }} />}
 
       {game && (
         <div className="zm-game" onClick={(e) => e.stopPropagation()}>
@@ -737,7 +780,7 @@ function WallPiece({ art, theme, onOpen, index }) {
         </span>
       </span>
       <span className="wp-plaque">
-        <span className="wp-plaque-title">{art.title}<AudioMark art={art} /></span>
+        <span className="wp-plaque-title">{art.title}<AudioMark art={art} /><CommentMark art={art} /></span>
         <span className="wp-plaque-meta">{art.signature || art.artist} · {art.age} anos</span>
       </span>
     </button>
@@ -767,6 +810,7 @@ function WallPiecePin({ art, layout, onOpen, i }) {
           <img {...thumbProps(art, "(max-width: 700px) 30vw, 16vw")} alt={art.title} className="gw-img" loading="lazy" />
         </span>
         <AudioMark art={art} badge />
+        <CommentMark art={art} badge />
       </span>
       <span className="gw-tag">
         <span className="gw-tag-title">{art.title}</span>

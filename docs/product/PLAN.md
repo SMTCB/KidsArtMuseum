@@ -333,7 +333,7 @@ reuse a retired one.
 | SHR-05 | Link previews and OG cards | M | `blocked` | On SHR-03. Prototype version shipped 2026-10-16: `scripts/build.js` writes `dist/o/<id>.html` with Open Graph tags; unfurl only verifiable after deploy. A shared museum link that unfurls as a framed artwork is the cheapest growth mechanism available. |
 | SHR-06 | Print view — A4/A3, artwork plus title card | M | `blocked` | On DES-05. S-10. Absorbs P1-03. |
 | SHR-07 | Watermarked export and upsell | M | `blocked` | On BIL-02. S-38 — the only monetization surface the redesign actually drew. |
-| SHR-09 | Visitor comments (name + text) on the prototype | M | `done` | Built and live 2026-10-14, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); Set-up in the design doc. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. |
+| SHR-09 | Visitor comments (name + text) on the prototype | M | `done` | Built and live 2026-10-14, accepted [ADR-0015](../decisions/0015-prototype-comments-backend.md); Set-up in the design doc. Design in [AUDIO_AND_COMMENTS](../design/AUDIO_AND_COMMENTS.md). Prototype only; the platform version is SHR-03. Wall mark for pieces with comments added 2026-11-19 (`?counts=1`). |
 | SHR-08 | "Start your own museum" CTA on the visitor view | S | `blocked` | On SHR-03. |
 
 ### BIL — Billing and entitlements

@@ -2600,6 +2600,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   pointer-events: none;
 }
 
+/* Speech-bubble mark: visitors have commented on this piece (same family as the speaker) */
+.art-comment-mark {
+  display: inline-block; margin-left: 0.4em;
+  font-size: 0.8em; line-height: 1; vertical-align: -0.08em;
+  opacity: 0.6;
+}
+.art-comment-mark svg { display: block; }
+.art-comment-badge {
+  position: absolute; left: -7px; bottom: -7px; z-index: 5;
+  width: 24px; height: 24px; margin: 0; font-size: 13px; opacity: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: #f7ecd0; background: rgba(34,28,22,0.86);
+  border: 1.5px solid rgba(255,255,255,0.85); border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+
 /* ---- audio description: a card with a round play button ---- */
 .zm-audio {
   margin-top: 28px;
