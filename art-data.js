@@ -360,9 +360,9 @@ window.ART = [
     palette: ["#6b4a34", "#6daa65", "#3d7544", "#4c874f", "#526046"],
     anim: "outono",
     dots: [
-      { x: 24, y: 22, label: "Folhas verdes", detail: "Pinceladas largas" },
+      { x: 24, y: 22, label: "Folha persistente", detail: "Pinceladas largas" },
       { x: 38, y: 62, label: "O tronco", detail: "Castanho até ao fundo" },
-      { x: 82, y: 55, label: "Árvore pelada", detail: "Já sem uma folha" },
+      { x: 82, y: 55, label: "Folha caduca", detail: "Já sem uma folha" },
       { x: 56, y: 95, label: "A assinatura", detail: "Com a data de hoje" }
     ]
   },

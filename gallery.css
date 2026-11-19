@@ -2638,8 +2638,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .zm-audio-body { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
 .zm-audio-title { font: 600 14px/1.2 "Inter", system-ui, sans-serif; }
-.zm-audio-bar { height: 2px; background: rgba(26,26,26,0.14); overflow: hidden; }
-.zm-audio-bar span { display: block; height: 100%; background: var(--zm-ink); }
+/* draggable position bar: 2px track filled to --pos, big invisible hit area for fingers */
+.zm-audio-seek {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 24px; margin: -10px 0;
+  background: transparent; cursor: pointer; touch-action: none;
+}
+.zm-audio-seek::-webkit-slider-runnable-track {
+  height: 2px; background: linear-gradient(to right, var(--zm-ink) var(--pos), rgba(26,26,26,0.14) var(--pos));
+}
+.zm-audio-seek::-moz-range-track { height: 2px; background: rgba(26,26,26,0.14); }
+.zm-audio-seek::-moz-range-progress { height: 2px; background: var(--zm-ink); }
+.zm-audio-seek::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; margin-top: -6px;
+  border-radius: 50%; background: var(--zm-ink); border: 0;
+}
+.zm-audio-seek::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--zm-ink); border: 0; }
+.zm-audio-seek:focus-visible { outline: 2px solid var(--zm-ink); outline-offset: 6px; }
 .zm-audio-meta {
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
   font: 11px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.08em;

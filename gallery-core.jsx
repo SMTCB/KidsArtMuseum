@@ -244,6 +244,19 @@ function AudioDescription({ art }) {
     a.play().catch(() => setState("error"));
   };
 
+  // Drag the bar to jump; "Recomeçar" goes back to 0:00 and keeps the state (playing or paused).
+  const seekTo = (t) => {
+    const a = ensure();
+    const go = () => { a.currentTime = t; setTime(t); };
+    if (a.readyState >= 1) go();
+    else { a.addEventListener("loadedmetadata", go, { once: true }); a.load(); }
+  };
+  const restart = () => {
+    const a = ensure();
+    seekTo(0);
+    if (state === "idle" || state === "error") { setState("loading"); a.play().catch(() => setState("error")); }
+  };
+
   const busy = state === "playing" || state === "loading";
   const label = busy ? "Pausar" : state === "paused" ? "Continuar" : "Ouvir a descrição";
   return (
@@ -255,15 +268,19 @@ function AudioDescription({ art }) {
       </button>
       <div className="zm-audio-body">
         <div className="zm-audio-title" aria-hidden="true">{label}</div>
-        <div className="zm-audio-bar" aria-hidden="true">
-          <span style={{ width: (dur ? Math.min(100, (time / dur) * 100) : 0) + "%" }} />
-        </div>
+        <input
+          type="range" className="zm-audio-seek" aria-label="Posição do áudio"
+          min="0" max={dur || 1} step="0.1" value={Math.min(time, dur || 1)}
+          style={{ "--pos": (dur ? Math.min(100, (time / dur) * 100) : 0) + "%" }}
+          onChange={(e) => seekTo(parseFloat(e.target.value))}
+        />
         <div className="zm-audio-meta" aria-live="polite">
           <span>
             {state === "error"
               ? "Não foi possível ouvir. Tenta outra vez."
               : fmtTime(time) + " / " + fmtTime(dur)}
           </span>
+          <button className="zm-link" onClick={restart}>Recomeçar</button>
           {entry.text && (
             <button className="zm-link" aria-expanded={showText} onClick={() => setShowText(v => !v)}>
               {showText ? "Esconder texto" : "Ler"}
