@@ -62,6 +62,14 @@ const SPOTS = {
     { l: 25.6, t: 6.2, w: 64.4, h: 46.3 }, { l: 10.7, t: 65, w: 79.8, h: 13 },
     { l: 31.3, t: 52, w: 43.7, h: 40 }, { l: 34.9, t: 88, w: 38.8, h: 11.5 }
   ],
+  // the six hung ornaments (mirror ENFEITES_ORN in art-animations.jsx): w, cut-out ratio, hole px/py, knot bx/by, thread tl
+  enfeitesnatal: [
+    [24, 499 / 560, 43.0, 52.1, 50, 16], [24, 511 / 560, 49.3, 28.6, 36, 38], [24, 464 / 560, 58.4, 19.7, 64, 38],
+    [22, 552 / 560, 47.9, 9.4, 28, 62], [24, 392 / 560, 42.8, 20.6, 50, 62], [22, 551 / 560, 48.6, 12.3, 72, 62]
+  ].map(([w, r, px, py, bx, by]) => {
+    const hh = w * r * byId.enfeitesnatal.w / byId.enfeitesnatal.h;
+    return { l: bx - w * px / 100, t: by + 3 - hh * py / 100, w, h: hh };
+  }),
   portal: [{ l: 34, t: 30, w: 27, h: 54 }],
   clay: [{ l: 3.5, t: 49, w: 28, h: 3 }, { l: 63, t: 46.5, w: 28, h: 5 }],
   mbappe: [{ l: 36 - 4.8, t: 23.2 - 4.8 * byId.mbappe.w / byId.mbappe.h, w: 9.6, h: 9.6 * byId.mbappe.w / byId.mbappe.h }],

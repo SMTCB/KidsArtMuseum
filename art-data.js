@@ -517,6 +517,65 @@ window.ART = [
       { x: 31, y: 58, label: "Rabisco branco", detail: "Com um ponto amarelo" },
       { x: 72, y: 50, label: "Outro branco", detail: "Do outro lado da cara" }
     ]
+  },
+  {
+    id: "enfeitesnatal",
+    title: "Enfeites de Natal",
+    artist: "Muna",
+    age: 5,
+    year: 2026,
+    signature: "Muna",
+    src: "assets/art/enfeitesnatal/photo.jpeg",
+    w: 1873, h: 2000,
+    bg: "#a69b89",
+    palette: ["#a69b89", "#3e7d40", "#104523", "#d87a32", "#aa4d50", "#483629"],
+    medium: "Madeira pintada, joias e fio de juta",
+    anim: "enfeites",
+    dots: [
+      { x: 5, y: 60, label: "Pétala vermelha", detail: "Uma ponta no canto" },
+      { x: 93, y: 22, label: "Um coração", detail: "Riscado no chão" },
+      { x: 91, y: 54, label: "Pétala preta", detail: "Comprida e pontiaguda" },
+      { x: 89, y: 70, label: "O fio de juta", detail: "Para pendurar na árvore" }
+    ],
+    views: [
+      { label: "A árvore" },
+      { label: "Caracol azul", src: "assets/art/enfeitesnatal/views/2.jpeg", w: 1500, h: 2000,
+        dots: [
+          { x: 33, y: 36, label: "O fio de juta", detail: "Passa pelo buraquinho" },
+          { x: 50, y: 55, label: "A espiral", detail: "Verde, amarela e castanha" },
+          { x: 28, y: 66, label: "Pintas vermelhas", detail: "Nas costas do caracol" },
+          { x: 68, y: 70, label: "Três joias", detail: "Cor-de-rosa, na cauda" }
+        ] },
+      { label: "Caracol verde", src: "assets/art/enfeitesnatal/views/3.jpeg", w: 2000, h: 1698,
+        dots: [
+          { x: 76, y: 9, label: "Joia verde", detail: "Um olho a brilhar" },
+          { x: 80, y: 36, label: "O sorriso", detail: "Pintado de vermelho" },
+          { x: 35, y: 45, label: "A espiral", detail: "Desenhada a castanho" },
+          { x: 62, y: 71, label: "Bolinhas azuis", detail: "Umas grandes, outras pequenas" }
+        ] },
+      { label: "Girassol amarelo", src: "assets/art/enfeitesnatal/views/4.jpeg", w: 2000, h: 1955,
+        dots: [
+          { x: 50, y: 52, label: "O miolo", detail: "Quadriculado a preto" },
+          { x: 93, y: 49, label: "O fio de juta", detail: "Preso na pétala amarela" },
+          { x: 51, y: 26, label: "Pétala preta", detail: "A mais escura de todas" },
+          { x: 22, y: 50, label: "Pétala verde-água", detail: "Do lado esquerdo" },
+          { x: 47, y: 84, label: "Pétala azul", detail: "Lá em baixo" }
+        ] },
+      { label: "Caracol das joias", src: "assets/art/enfeitesnatal/views/5.jpeg", w: 1500, h: 2000,
+        dots: [
+          { x: 27, y: 42, label: "Joia azul", detail: "Um olho a brilhar" },
+          { x: 62, y: 57, label: "Uma estrela", detail: "No meio da espiral" },
+          { x: 33, y: 66, label: "Muitas joias", detail: "Cada uma de sua cor" },
+          { x: 82, y: 72, label: "Joias na cauda", detail: "Uma delas é vermelha" }
+        ] },
+      { label: "Borboleta", src: "assets/art/enfeitesnatal/views/6.jpeg", w: 2000, h: 1573,
+        dots: [
+          { x: 52, y: 40, label: "Olhos de brincar", detail: "Mexem quando abanamos" },
+          { x: 55, y: 18, label: "O nó", detail: "O fio de juta atado" },
+          { x: 78, y: 52, label: "Asa cor de laranja", detail: "Com amarelo e preto" },
+          { x: 35, y: 80, label: "Asa roxa e rosa", detail: "Pintada às riscas" }
+        ] }
+    ]
   }
 ];
 
@@ -527,5 +586,5 @@ window.HALLWAY_ORDER = [
   "portal", "casaaranhas",
   "rasgacola", "meiodemim", "maemargarida", "agentesecreto",
   "sernormal", "outono", "floresta", "outonomuna", "passaro",
-  "autoretratomuna", "autoretratoverde"
+  "autoretratomuna", "autoretratoverde", "enfeitesnatal"
 ];

@@ -693,7 +693,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* Laca — glossy coloured lacquer */
-.gw-piece-sernormal .gw-frame {
+.gw-piece-sernormal .gw-frame,
+.gw-piece-enfeitesnatal .gw-frame {
   padding: 4%;
   background:
     linear-gradient(160deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 38%),
@@ -704,7 +705,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     inset 0 0 0 1px rgba(0,0,0,0.22),
     inset 0 2px 0 rgba(255,255,255,0.25);
 }
-.gw-piece-sernormal .gw-mat { box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
+.gw-piece-sernormal .gw-mat,
+.gw-piece-enfeitesnatal .gw-mat { box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
 
 /* Nogueira com filete dourado — dark walnut with a gilt inner lip */
 .gw-piece-outono .gw-frame,
@@ -2195,6 +2197,60 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .crescer-photo { animation: none; }
 }
 @keyframes crescerBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
+
+/* ============================================================
+   === enfeites animation === (Enfeites de Natal)
+   One 20 s loop. Each ornament drops in on its thread (its delay, set inline, shifts its whole
+   cycle), sways about the knot on the tree, and is gone again while the photo covers the stage.
+   ============================================================ */
+.enfeites-tree { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.enfeites-hang {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: enfeitesDrop 20s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+}
+@keyframes enfeitesDrop {
+  0%, 4%    { opacity: 0; transform: translateY(-30%); }
+  10%       { opacity: 1; transform: translateY(2%); }
+  13%, 60%  { opacity: 1; transform: translateY(0); }
+  61%, 100% { opacity: 0; transform: translateY(0); }
+}
+.enfeites-sway {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  animation: enfeitesSway 5s ease-in-out infinite alternate;
+}
+@keyframes enfeitesSway {
+  from { transform: rotate(-3.5deg); }
+  to   { transform: rotate(3.5deg); }
+}
+.enfeites-thread {
+  position: absolute;
+  width: 0;
+  border-left: 1.5px solid #483629;
+  transform: translateX(-50%);
+}
+.enfeites-orn { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.enfeites-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+  animation: enfeitesPhoto 20s ease-in-out infinite;
+}
+@keyframes enfeitesPhoto {
+  0%, 52%   { opacity: 0; }
+  58%, 88%  { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enfeites-hang  { transform: none; animation: enfeitesBreathe 6s ease-in-out infinite; }
+  .enfeites-sway  { animation: none; }
+  .enfeites-photo { animation: none; }
+}
+@keyframes enfeitesBreathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
 
 /* ============================================================
    === passaro animation === (O Pássaro)

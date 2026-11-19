@@ -20,5 +20,10 @@ window.AUDIO = {
   "casaaranhas": {
     src:  "assets/art/casaaranhas/audio.mp3",
     secs: 20
+  },
+  "enfeitesnatal": {
+    src:  "assets/art/enfeitesnatal/audio.mp3",
+    secs: 19,
+    text: "É uma borboleta, um caracol, outro caracol, outro caracol, um girassol e outro girassol e é isso."
   }
 };

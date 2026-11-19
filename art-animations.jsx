@@ -763,6 +763,61 @@ function CrescerAnimation({ art }) {
 }
 
 // ============================================================
+// ENFEITES — Muna's six wooden ornaments hang one by one on a Christmas tree, then the photo returns
+// ============================================================
+// Under everything is a flat field in the photo's concrete colour with a tree drawn in two greens
+// from the palette. Each ornament is a transparent cut-out of its own photo (parts/<name>.png),
+// hung by a jute thread from a point on the tree, so it turns about that point, not about itself.
+// Then the photograph fades in on top, holds, and fades out for the next loop.
+// w: cut-out width as % of the stage; ratio: cut-out height / width; px,py: the hang hole as % of
+// the cut-out; bx,by: where the thread is tied on the tree (% of the stage); tl: thread length
+// (% of stage height). The boxes are re-computed in scripts/check-dots.js: keep both in step.
+const ENFEITES_ORN = [
+  { name: "borboleta",       w: 24, ratio: 499 / 560, px: 43.0, py: 52.1, bx: 50, by: 16, tl: 3, delay: 0 },
+  { name: "caracolazul",     w: 24, ratio: 511 / 560, px: 49.3, py: 28.6, bx: 36, by: 38, tl: 3, delay: 0.8 },
+  { name: "caracolverde",    w: 24, ratio: 464 / 560, px: 58.4, py: 19.7, bx: 64, by: 38, tl: 3, delay: 1.6 },
+  { name: "girassolescuro",  w: 22, ratio: 552 / 560, px: 47.9, py: 9.4,  bx: 28, by: 62, tl: 3, delay: 2.4 },
+  { name: "caracolamarelo",  w: 24, ratio: 392 / 560, px: 42.8, py: 20.6, bx: 50, by: 62, tl: 3, delay: 3.2 },
+  { name: "girassolamarelo", w: 22, ratio: 551 / 560, px: 48.6, py: 12.3, bx: 72, by: 62, tl: 3, delay: 4 }
+];
+
+function EnfeitesAnimation({ art }) {
+  const part = (n) => art.src.replace(/[^/]+$/, "parts/" + n);
+  const k = art.w / art.h; // stage width / stage height
+  return (
+    <div className="anim-layer enfeites-stage" aria-hidden>
+      <svg className="anim-img enfeites-tree" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <rect width="100" height="100" fill={art.palette[0]} />
+        <rect x="45" y="82" width="10" height="14" fill={art.palette[5]} />
+        <polygon points="50,34 2,84 98,84" fill={art.palette[2]} transform="translate(0,6)" />
+        <polygon points="50,18 16,60 84,60" fill={art.palette[1]} transform="translate(0,3)" />
+        <polygon points="50,5 28,34 72,34" fill={art.palette[2]} />
+        <polygon points="50,0 54,6 50,4 46,6" fill={art.palette[3]} />
+      </svg>
+      {ENFEITES_ORN.map((O, i) => {
+        const hh = O.w * O.ratio * k;         // cut-out height, % of the stage height
+        const tlp = (O.tl / hh) * 100;        // thread length, % of the cut-out height
+        return (
+          <div key={O.name} className="enfeites-hang" style={{
+            left: (O.bx - O.w * O.px / 100) + "%", top: (O.by + O.tl - hh * O.py / 100) + "%",
+            width: O.w + "%", height: hh + "%",
+            transformOrigin: O.px + "% " + (O.py - tlp) + "%", animationDelay: O.delay + "s"
+          }}>
+            <div className="enfeites-sway" style={{
+              transformOrigin: O.px + "% " + (O.py - tlp) + "%", animationDelay: (-i * 0.9) + "s"
+            }}>
+              <span className="enfeites-thread" style={{ left: O.px + "%", top: (O.py - tlp) + "%", height: tlp + "%" }} />
+              <img src={part(O.name + ".png")} alt="" className="enfeites-orn" />
+            </div>
+          </div>
+        );
+      })}
+      <img src={art.src} alt="" className="anim-img enfeites-photo" />
+    </div>
+  );
+}
+
+// ============================================================
 // PASSARO — Manuel's paper bird lifts its head to look at the snow, then shakes its tail
 // ============================================================
 // The head is its own piece of paper glued over the body, so it is cut out (parts/cabeca.png)
@@ -1142,6 +1197,7 @@ window.ANIMS = {
   outono: OutonoAnimation,
   floresta: FlorestaAnimation,
   crescer: CrescerAnimation,
+  enfeites: EnfeitesAnimation,
   passaro: PassaroAnimation,
   risco: RiscoAnimation,
   piscadela: PiscadelaAnimation,
@@ -1155,6 +1211,6 @@ Object.assign(window, {
   StoryAnimation, SculptureAnimation, LunaAnimation, RainbowAnimation,
   PortalAnimation, TeiaAnimation, PalitosAnimation, RelogioAnimation,
   RasgaColaAnimation, MeioDeMimAnimation, MaeMargaridaAnimation, AgenteSecretoAnimation, OutonoAnimation,
-  FlorestaAnimation, CrescerAnimation, PassaroAnimation, RiscoAnimation,
+  FlorestaAnimation, CrescerAnimation, EnfeitesAnimation, PassaroAnimation, RiscoAnimation,
   PiscadelaAnimation, PenduloAnimation, LuarAnimation
 });
