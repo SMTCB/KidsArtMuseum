@@ -532,10 +532,9 @@ window.ART = [
     medium: "Madeira pintada, joias e fio de juta",
     anim: "enfeites",
     dots: [
-      { x: 5, y: 60, label: "Pétala vermelha", detail: "Uma ponta no canto" },
-      { x: 93, y: 22, label: "Um coração", detail: "Riscado no chão" },
-      { x: 91, y: 54, label: "Pétala preta", detail: "Comprida e pontiaguda" },
-      { x: 89, y: 70, label: "O fio de juta", detail: "Para pendurar na árvore" }
+      { x: 52, y: 19, label: "A borboleta", detail: "Pendurada lá no alto da árvore" },
+      { x: 36, y: 45, label: "Os caracóis", detail: "Três, cada um com a sua espiral" },
+      { x: 72, y: 73, label: "Os girassóis", detail: "Dois, de pétalas de todas as cores" }
     ],
     views: [
       { label: "A árvore" },
